@@ -1,0 +1,115 @@
+
+
+.adminSidebar__aside{
+    
+    padding-bottom: 4px;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 4px;
+
+    width: 16%;
+    height: 100vh;
+    background-color: #0a0f1ef1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/*AJUSTES CONTAINER DE ARRINA*/
+
+.adminSidebar__container-top{
+   
+
+    display: flex;
+    gap: 5px;
+}
+
+.adminSidebar__container-texto-top{
+
+    width: 150px;
+    overflow: hidden;
+    font-size: 10px;
+    font-family: "Montserrat";
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: first baseline;
+}
+
+
+/*AJUSTES CONTAINER DE la mita*/
+
+.adminSidebar__container-medium{
+    
+    
+    padding-top: 30px;
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.adminSidebar__container-option{
+    
+    padding-left: 7px;
+    text-decoration: none;
+    color: #fff;
+    font-family: 'Montserrat';
+    font-size: 14px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 15px;
+    transition: background-color 0.3s, color 0.3s;
+
+}  
+
+.adminSidebar__container-option:hover{
+    background-color: #e5383529;
+}
+
+.adminSidebar__container-option:hover > *{
+    color: #E53935;;
+}
+
+.adminSidebar__span{
+    
+}
+
+
+.adminSidebar__container-option.active {
+  background-color: #e5383529;
+}
+
+.adminSidebar__container-option.active > * {
+  color: #E53935;
+}
+
+
+/*AJUSTES CONTAINER ABAJO*/
+
+.adminSidebar__container-bottom{
+    
+
+
+    display: flex;
+    align-items: first baseline;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.adminSidebar__container-logout{
+    
+}
+
+.adminSidebar__container-logout > *{
+    color: #e3e3e3;
+    background-color: transparent;
+    border: none;
+}
+
+.adminSidebar__container-logout:hover > *{
+    background-color: rgba(231, 231, 231, 0.649);
+    color: black;
+}

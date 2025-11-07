@@ -1,0 +1,15 @@
+.buttonFacebook__button{
+    background-color: #1877F2; 
+    width: 130px;
+    height: 35px;
+    border: none;
+    border-radius: 9px;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonFacebook__button:hover{
+    cursor: pointer;
+}

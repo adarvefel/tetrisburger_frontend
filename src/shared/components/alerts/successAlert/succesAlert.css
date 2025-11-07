@@ -1,0 +1,31 @@
+.successAlert__container{
+
+    position: fixed;
+    top: 8%;                  /* centro vertical */
+    left: 50%;                 /* centro horizontal */
+    transform: translate(-50%, -50%); /* ajusta el centro exacto */
+
+    z-index: 9999;             /* asegura que esté por encima de todo */
+
+    width: 340px;
+    height: 70px;
+    border: 2px solid #0E442B;
+    background-color: #051B11;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+}
+
+.successAlert__icono{
+    color: #75B798;
+}
+
+.successAlert__mensaje{
+    width: 100%;
+}
+
+.successAlert__p{
+    color: #75B798;
+    text-align: center;
+}

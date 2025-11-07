@@ -1,0 +1,38 @@
+.errorAlert__container {
+
+    position: fixed;           /* flota encima de todo */
+    top: 8%;                  /* centro vertical */
+    left: 50%;                 /* centro horizontal */
+    transform: translate(-50%, -50%); /* ajusta el centro exacto */
+
+    z-index: 9999;             /* asegura que esté por encima de todo */
+
+
+    border: 2px solid #6D1C25;
+    border-radius: 20px;
+    background-color: #2C0B0E;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 20px;
+    gap: 10px;
+    width: 340px;
+    height: 70px;
+
+}
+
+.errorAlert__icono {
+    color: #EA868F;
+
+}
+
+.errorAlert__mensaje {
+    width: 100%;
+
+}
+
+.errorAlert__p {
+    color: #EA868F;
+    text-align: center;
+
+}

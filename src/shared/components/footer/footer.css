@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+.footer__footer{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #262525;
+    gap: 90px;
+    padding: 40px;
+}
+
+.footer__container-columnas{
+    display: flex;
+}
+
+.footer__columna-uno{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.footer__img-icono{
+    width: 100px;
+    height: 80px;
+}
+
+.footer__container-social{
+    display: flex;
+    gap: 20px;
+}
+
+.footer__a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+
+.footer__columna-dos{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+}
+.footer__columna-tres{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+}
+
+.footer__p{
+    color: #FBC02D;
+    font-family: 'Montserrat';
+    font-weight: 800;
+    font-size: 21px;
+}
+
+.footer__link{
+    text-decoration: none;
+    color: #FFFFFF;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.footer__p-copy{
+    text-align: center;
+    font-size: 18px;
+}

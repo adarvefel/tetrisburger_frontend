@@ -1,0 +1,15 @@
+.buttonGmail__button{
+    background-color: #ffffff; 
+    width: 130px;
+    height: 35px;
+    border: none;
+    border-radius: 9px;
+    color: #d51515;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonGmail__button{
+    cursor: pointer;
+}

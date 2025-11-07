@@ -1,0 +1,64 @@
+import { create } from "zustand";
+import { LoginResponseDto } from "../../features/auth/dto/authDto";
+
+
+interface AuthStore {
+    token: string | null;
+    user: LoginResponseDto["user"] | null;
+    isAuthenticated: boolean;
+    isAdmin: boolean;
+    login: (data: LoginResponseDto) => void;
+    logout: () => void;
+    loadFromStorge: () => void
+}
+
+export const useAuthStore = create<AuthStore>((set) => ({
+    token: null,
+    user: null,
+    isAuthenticated: false,
+    isAdmin: false,
+
+    login: (data) => {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        set({
+            token: data.token,
+            user: data.user,
+            isAuthenticated: true,
+            isAdmin: data.user.role === "ADMIN"
+        })
+    },
+
+    logout: () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+
+        set({
+            token: null,
+            user: null,
+            isAuthenticated: false,
+            isAdmin: false,
+        })
+
+        window.location.href = "/";
+    },
+
+    loadFromStorge: () => {
+
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("user");
+
+        if (token && user) {
+            const  parsedUser = JSON.parse(user);
+
+            set({
+                token: token,
+                user: parsedUser,
+                isAuthenticated: true,
+                isAdmin: parsedUser.role === "ADMIN",
+            })
+        }
+
+    }
+}));
