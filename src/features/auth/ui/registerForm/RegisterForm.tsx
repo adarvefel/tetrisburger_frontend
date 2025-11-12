@@ -118,7 +118,7 @@ export default function RegisterForm() {
             <div className="registerForm__links">
                 <input className='registerForm__input' type="checkbox" required />
                 <div className="registerForm__terminos">
-                    <a className='registerForm__a_terminos' href="">Estas con de acuerdo con los terminos y condiciones</a>
+                    <Link className='registerForm__a_terminos' to="/terms">Estas de acuerdo con los terminos y condiciones</Link>
                 </div>
                 <div className="registerForm__yaTieneCuenta">
                     <Link className='registerForm__a_yaTieneCuenta' to="/login" >¿Ya tienes cuenta?</Link>

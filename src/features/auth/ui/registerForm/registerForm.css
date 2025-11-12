@@ -40,11 +40,13 @@
 
 .registerForm__input{
     transform: scale(1.7);
+    margin-right: 10px;
 }
 
 .registerForm__a_terminos{
-    font-size: 9px;
+    font-size: 0.6rem;
     color: black;
+    font-weight: 600;
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     
@@ -61,7 +63,7 @@
 }
 
 .registerForm__a_yaTieneCuenta{
-    font-size: 10px;
+    font-size: 0.6rem;
     font-weight: 600;
     color: black;
     text-decoration: none;
