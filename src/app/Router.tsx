@@ -27,6 +27,7 @@ import UsersCreate from '../pages/admin/users/usersCreatePage/UsersCreatePage'
 import UsersCreatePage from '../pages/admin/users/usersCreatePage/UsersCreatePage'
 import UsersListPage from '../pages/admin/users/usersListPage/UsersListPage'
 import UsersUpdatePage from '../pages/admin/users/usersUpdatePage/UsersUpdatePage'
+import TermsAndConditionsPage from '../pages/auth/termsAndConditionsPage/TermsAndConditionsPage'
 
 
 
@@ -43,6 +44,7 @@ export default function Router() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/reset-password' element={<ResetPasswordPage />} />
+        <Route path='/terms' element={<TermsAndConditionsPage />} />
 
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}
