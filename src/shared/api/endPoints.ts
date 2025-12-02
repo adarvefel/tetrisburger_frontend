@@ -8,6 +8,14 @@ export const endPoints = {
             findById: (id: number) => `/api/admin/users/${id}`,
             update: (id: number) => `/api/admin/users/${id}`,
             delete: (id: number) => `/api/admin/users/${id}`,
+        },
+
+        product:{
+            list: (numberPage: number) => `/api/products?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            create: "/api/products",
+            findById: (id: number) => `/api/products/${id}`,
+            update: (id: number) => `/api/products/${id}`,
+            delete: (id: number) => `/api/products/${id}`,
         }
 
     },

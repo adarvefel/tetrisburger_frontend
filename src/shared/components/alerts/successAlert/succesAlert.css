@@ -28,4 +28,6 @@
 .successAlert__p{
     color: #75B798;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
 }

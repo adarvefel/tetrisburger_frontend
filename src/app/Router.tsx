@@ -28,6 +28,10 @@ import UsersCreatePage from '../pages/admin/users/usersCreatePage/UsersCreatePag
 import UsersListPage from '../pages/admin/users/usersListPage/UsersListPage'
 import UsersUpdatePage from '../pages/admin/users/usersUpdatePage/UsersUpdatePage'
 import TermsAndConditionsPage from '../pages/auth/termsAndConditionsPage/TermsAndConditionsPage'
+import ProductsListPage from '../pages/admin/products/productsListPage/productsListPage'
+import ProductsCreatePage from '../pages/admin/products/productsCreatePage/productsCreatePage'
+import ProductUpdate from '../features/admin/product/ui/productUpdate/productUpdate'
+import ProductsUpdatePage from '../pages/admin/products/productsUpdatePage/productsUpdatePage'
 
 
 
@@ -55,8 +59,9 @@ export default function Router() {
         <Route path='/admin/users-list' element={<UsersListPage />} />
         <Route path='/admin/users-create' element={<UsersCreatePage/>}/>
         <Route path='/admin/users/update/:id' element={<UsersUpdatePage/>} />
-
-
+        <Route path='/admin/product-list' element={<ProductsListPage/>} />
+        <Route path='/admin/product/create' element={<ProductsCreatePage/>}/>
+        <Route path='/admin/product/update/:id' element={<ProductsUpdatePage/>}/>
 
 
           {/*Pruebas de componentres */}

@@ -34,5 +34,7 @@
 .errorAlert__p {
     color: #EA868F;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
 
 }

@@ -1,0 +1,22 @@
+.productsCreate__container-global {
+    
+    display: flex;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.productsCreate__container-global > :first-child {
+    flex: 0 0 260px;
+}
+
+.productsCreate__container-content {
+    flex: 1;
+    padding: 54px 32px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.productsCreate__container-content > div {
+    max-width: 700px;
+    margin: 0 auto;
+}

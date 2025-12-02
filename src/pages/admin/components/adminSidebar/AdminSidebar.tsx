@@ -32,7 +32,7 @@ export default function AdminSidebar() {
         </NavLink>
 
 
-        <NavLink to={"/products-list"}
+        <NavLink to={"/admin/product-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >

@@ -1,0 +1,119 @@
+.productList__container-global {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.productList__container-top {
+    border-radius: 50px ;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.productList__container-search {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productList__icon-search {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bdbdbd;
+  pointer-events: none; 
+}
+
+.productList__input-search {
+  font-family: "Montserrat";
+  font-size: 0.8rem;
+  padding: 4px;
+  padding-left: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #2222221c
+}
+
+.productList__table {
+        width: 100%;
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 0.7rem;
+    border-radius: 15px;
+    color: black;
+    overflow: hidden;
+
+
+    border-collapse: collapse;
+
+}
+
+.productList__thead {
+    background-color: #ededed;
+}
+
+.productList__tr{}
+
+.productList__th{
+    padding: 7px;
+}
+
+.productList__tbody{
+    background-color: #FFFFFF;
+}
+
+.productList__td{
+    padding: 7px;
+}
+
+.productList__container-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin: 0 auto;
+}
+
+.productList__button-delete,
+.productList__button-edit {
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+    color: #000
+}
+
+.productList__button-delete:hover,
+.productList__button-edit:hover {
+    cursor: pointer;
+}
+
+.productList__container-pages {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.productList__button {
+    border: none;
+    background-color: transparent;
+}
+
+.productList__button:hover {
+    cursor: pointer;
+}
+
+.productList__p {
+    font-family: "Montserrat";
+    color: #000;
+    font-size: 0.8rem;
+}
