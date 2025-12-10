@@ -1,0 +1,16 @@
+.adminPage__container-global {
+  display: flex;
+  min-height: 100vh;
+  background-color: #0b1020;
+}
+
+.adminPage__container-global > :first-child {
+  flex: 0 0 260px;
+}
+
+.adminPage__container-content {
+  flex: 1;
+  padding: 24px 32px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}

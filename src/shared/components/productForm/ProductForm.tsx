@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./productForm.css";
-import {
-  CreateProductDto,
-  UpdateProductDto,
-} from "../../../entities/product/dto/productDto";
+import {CreateProductDto, UpdateProductDto,} from "../../../entities/product/dto/productDto";
 import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
 import SuccessAlert from "../alerts/successAlert/SuccessAlert";
 import { useNavigate } from "react-router-dom";
-
+import { useProductCategories } from "../../../features/admin/product/hooks/useProductCategory";
+import { useSuppliers } from "../../../features/admin/product/hooks/useSupplier";
 
 type ProductFormMode = "admin-create" | "admin-update";
 
@@ -38,7 +36,12 @@ export default function ProductForm({
     quantity: initialData?.quantity ?? 0,
     available: initialData?.available ?? false,
     productType: initialData?.productType ?? "",
+    productCategoryId:(initialData as any)?.productCategoryId ?? 1,
+    supplierId:(initialData as any)?.supplierId ?? 1,
   });
+
+  const { items: categories, loading: loadingCategories } = useProductCategories();
+  const { items: suppliers, loading: loadingSuppliers } = useSuppliers();
 
   useEffect(() => {
     if (initialData) {
@@ -50,18 +53,21 @@ export default function ProductForm({
         quantity: initialData.quantity ?? 0,
         available: initialData.available ?? false,
         productType: initialData.productType ?? "",
+        productCategoryId:(initialData as any)?.productCategoryId ?? 1,
+        supplierId:(initialData as any)?.supplierId ?? 1,
       });
     }
   }, [initialData]);
 
   const onInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value, type } = e.target;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "number" ? Number(value) : value,
+      [name]: type === "number" || name === "productCategoryId" ||
+      name === "supplierId"  ? Number(value) : value,
     }));
   };
 
@@ -98,8 +104,8 @@ export default function ProductForm({
         ingredientType: "BASIC",
         burgerIngredient: false,
         imageUrl: "",
-        productCategoryId: 1,
-        supplierId: 1,
+        productCategoryId: formData.productCategoryId,
+        supplierId: formData.supplierId,
       };
       await onSubmit(createData);
       setAlertSuccess("Producto creado con éxito.");
@@ -201,6 +207,42 @@ export default function ProductForm({
               value={formData.quantity}
               onChange={onInputChange}
             />
+          </div>
+        </div>
+
+        <div className="productForm__container-row">
+          <div className="productForm__container-input">
+            <label className="productForm__label">Categoría</label>
+            <select
+              className="productForm__input"
+              name="productCategoryId"
+              value={formData.productCategoryId}
+              onChange={onInputChange}
+              required
+              disabled={loadingCategories}
+            >
+              <option value="">Selecciona una categoría...</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="productForm__container-input">
+            <label className="productForm__label">Proveedor</label>
+            <select
+              className="productForm__input"
+              name="supplierId"
+              value={formData.supplierId}
+              onChange={onInputChange}
+              required
+              disabled={loadingSuppliers}
+            >
+              <option value="">Selecciona un proveedor...</option>
+              {suppliers.map(sup => (
+                <option key={sup.id} value={sup.id}>{sup.name}</option>
+              ))}
+            </select>
           </div>
         </div>
 
