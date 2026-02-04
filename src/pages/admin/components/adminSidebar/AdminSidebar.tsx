@@ -4,7 +4,7 @@ import IconTetris from '../../../../shared/components/iconTetris/IconTetris'
 import { useAuthStore } from '../../../../shared/store/useAuthStore'
 import ButtonLogout from '../../../../shared/components/buttonLogout/ButtonLogout';
 import { NavLink } from 'react-router-dom';
-import { FaUsers, FaBoxOpen, FaHamburger, FaEnvelopeOpenText } from "react-icons/fa"
+import { FaUsers, FaBoxOpen, FaHamburger, FaEnvelopeOpenText, FaTags, FaStore } from "react-icons/fa"
 
 export default function AdminSidebar() {
 
@@ -32,14 +32,29 @@ export default function AdminSidebar() {
         </NavLink>
 
 
-        <NavLink to={"/products-list"}
+        <NavLink to={"/admin/product-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >
           <FaBoxOpen size={21} />
           <span className='adminSidebar__span'>Productos</span>
         </NavLink>
+        
+        <NavLink to={"/admin/category-list"} 
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          }>
+          <FaTags size={21} />
+          <span className='adminSidebar__span'>Categorías</span>
+        </NavLink>
 
+        <NavLink to={"/admin/suppliers-list"} 
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          }>
+          <FaStore size={21} />
+          <span className='adminSidebar__span'>Proveedores</span>
+        </NavLink>
 
         <NavLink to={"/menu-list"}
           className={({ isActive }) =>

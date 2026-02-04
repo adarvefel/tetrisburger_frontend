@@ -28,6 +28,17 @@ import UsersCreatePage from '../pages/admin/users/usersCreatePage/UsersCreatePag
 import UsersListPage from '../pages/admin/users/usersListPage/UsersListPage'
 import UsersUpdatePage from '../pages/admin/users/usersUpdatePage/UsersUpdatePage'
 import TermsAndConditionsPage from '../pages/auth/termsAndConditionsPage/TermsAndConditionsPage'
+import ProductsListPage from '../pages/admin/products/productsListPage/productsListPage'
+import ProductsCreatePage from '../pages/admin/products/productsCreatePage/productsCreatePage'
+import ProductUpdate from '../features/admin/product/ui/productUpdate/productUpdate'
+import ProductsUpdatePage from '../pages/admin/products/productsUpdatePage/productsUpdatePage'
+import ProductCategoriesListPage from '../pages/admin/productCategory/productCategoriesListPage/productCategoriesListPage'
+import SuppliersListPage from '../pages/admin/suppliers/suppliersListPage/suppliersListPage'
+import ProductCategoriesCreatePage from '../pages/admin/productCategory/productCategoriesCreatePage/productCategoriesCreatePage'
+import ProductCategoriesUpdatePage from '../pages/admin/productCategory/productCategoriesUpdatePage/productCategoriesUpdatePage'
+import SupplierCreate from '../features/admin/supplier/ui/suppliersCreate/SupplierCreate'
+import SuppliersCreatePage from '../pages/admin/suppliers/suppliersCreatePage/suppliersCreatePage'
+import SuppliersUpdatePage from '../pages/admin/suppliers/suppliersUpdatePage/suppliersUpdatePage'
 
 
 
@@ -53,11 +64,17 @@ export default function Router() {
 
         {/*RUTAS PA ADMINS*/}
         <Route path='/admin/users-list' element={<UsersListPage />} />
-        <Route path='/admin/users-create' element={<UsersCreatePage/>}/>
+        <Route path='/admin/users-create' element={<UsersCreatePage/>} />
         <Route path='/admin/users/update/:id' element={<UsersUpdatePage/>} />
-
-
-
+        <Route path='/admin/product-list' element={<ProductsListPage/>} />
+        <Route path='/admin/product/create' element={<ProductsCreatePage/>} />
+        <Route path='/admin/product/update/:id' element={<ProductsUpdatePage/>} />
+        <Route path='/admin/category-list' element={<ProductCategoriesListPage />} />
+        <Route path="/admin/category/create" element={<ProductCategoriesCreatePage />} />
+        <Route path="/admin/category/update/:id" element={<ProductCategoriesUpdatePage />} />
+        <Route path='/admin/suppliers-list' element={<SuppliersListPage />} />
+        <Route path='/admin/suppliers/create' element={<SuppliersCreatePage />} />
+        <Route path='/admin/suppliers/update/:id' element={<SuppliersUpdatePage />} />
 
           {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />

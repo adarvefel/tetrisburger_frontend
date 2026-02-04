@@ -8,7 +8,32 @@ export const endPoints = {
             findById: (id: number) => `/api/admin/users/${id}`,
             update: (id: number) => `/api/admin/users/${id}`,
             delete: (id: number) => `/api/admin/users/${id}`,
-        }
+        },
+
+        product:{
+            list: (numberPage: number) => `/api/products?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            create: "/api/products",
+            findById: (id: number) => `/api/products/${id}`,
+            update: (id: number) => `/api/products/${id}`,
+            delete: (id: number) => `/api/products/${id}`,
+        },
+
+        productCategory: {
+            list: (numberPage: number) =>`/api/product-categories?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            create: "/api/product-categories",
+            findById: (id: number) => `/api/product-categories/${id}`,
+            update: (id: number) => `/api/product-categories/${id}`,
+            delete: (id: number) => `/api/product-categories/${id}`,
+        },
+        
+        supplier: {
+            list: (numberPage: number) => `/api/suppliers?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            create: "/api/suppliers",
+            findById: (id: number) => `/api/suppliers/${id}`,
+            update: (id: number) => `/api/suppliers/${id}`,
+            delete: (id: number) => `/api/suppliers/${id}`,
+        },
+
 
     },
 
