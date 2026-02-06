@@ -1,10 +1,12 @@
 .registerPage{
-    background-color: #0A0F1E;;
     width: 100%;
     min-height: 100vh;
+    background-color: #0A0F1E;;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
+    overflow: hidden;
 }
 
 .registerPage__container{
@@ -19,8 +21,8 @@
     flex: 1;
     background-color: rgb(255, 187, 0);
     border-bottom-right-radius: 40px;
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 30px;
+    padding-top: 40px;
 }
 
 .registerPage__imagen{
@@ -40,7 +42,6 @@
     width: 100px;
     height: 100px;
     position: absolute;
-    z-index: 10;
     top: -7%;
     right: -3%;
     transform: rotate(30deg);
@@ -48,8 +49,15 @@
 
 
 
-@media (max-width: 900px) {
+@media (max-width: 768px) {
     .registerPage__imagen{
         display: none;
     }
+
+    .registerPage__contenido{
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 20px;
+    }
+
 }

@@ -39,6 +39,7 @@ import ProductCategoriesUpdatePage from '../pages/admin/productCategory/productC
 import SupplierCreate from '../features/admin/supplier/ui/suppliersCreate/SupplierCreate'
 import SuppliersCreatePage from '../pages/admin/suppliers/suppliersCreatePage/suppliersCreatePage'
 import SuppliersUpdatePage from '../pages/admin/suppliers/suppliersUpdatePage/suppliersUpdatePage'
+import ContactUsPage from '../pages/contactUs/ContactUsPage'
 
 
 
@@ -56,6 +57,7 @@ export default function Router() {
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/terms' element={<TermsAndConditionsPage />} />
+        <Route path='/contact-us' element={<ContactUsPage/>}/>
 
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}

@@ -6,7 +6,7 @@ import UserForm from '../../../../../shared/components/userForm/UserForm';
 export default function UserCreate() {
 
     const {error, loading, handleUserCreate} = useUserCreate();
-
+           
     return (
         <UserForm mode='create' onSubmit={handleUserCreate}/>
     )

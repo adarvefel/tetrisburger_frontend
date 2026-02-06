@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
-
 
 
 .aboutSection__section{
@@ -85,4 +82,20 @@
     font-weight: 800;
     font-size: 1.2rem;
     color: #000000;
+}
+
+@media (max-width: 768px){
+    .aboutSection__h3{
+        font-size: 2.5rem;
+    }
+
+    .aboutSection__p-somos{
+        font-size: 2.5rem;
+    }
+    
+    .aboutSection__p{
+        font-size: 1rem;
+    }
+
+
 }

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 .footer__footer{
     width: 100%;
@@ -73,5 +73,32 @@
 
 .footer__p-copy{
     text-align: center;
-    font-size: 18px;
+    font-size: 1.3rem;
+}
+
+.footer__container-icon {
+    width: 120px;
+    height: 100px;
+}
+
+.footer__container-icon > *{
+    width:100%;
+    height: 100%;
+}
+
+@media (max-width: 768px){
+    .footer__container-columnas{
+        display: flex;
+        flex-direction: column;
+        font-size: 0.8rem;
+        gap: 40px;
+    }
+
+    .footer__p-copy{
+        font-size: 1rem;
+    }
+
+    .footer__footer{
+        gap: 50px;
+    }
 }

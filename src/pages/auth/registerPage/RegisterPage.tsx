@@ -20,9 +20,6 @@ export default function RegisterPage() {
         <div className="registerPage__contenido">
           <RegisterForm/>
         </div>
-
-        
-
       </div>
     </div>
   )

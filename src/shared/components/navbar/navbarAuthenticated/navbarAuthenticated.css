@@ -18,7 +18,6 @@
     gap: 50px;
 }
 
-
 .navbarAuthenticated__ul{
     display: flex;
     align-items: center;
@@ -43,8 +42,6 @@
     align-items: center;
     gap: 20px;
 }
-
-
 
 .navbarAuthenticated__link-car{
     display: flex;
@@ -82,8 +79,6 @@
     font-size: 13px;
 }
 
-
-
 .navbarAuthenticated__button-lenguaje{
     display: flex;
     align-items: center;
@@ -109,4 +104,78 @@
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
     font-size: 17px;
+}
+
+/* HAMBURGER */
+.navbarAuthenticated__container-hamburger{
+    display: none;
+}
+
+.navbarAuthenticated__button-hamburger{
+    background-color: transparent;
+    color: white;
+    border: none;
+}
+
+.navbarAuthenticated__button-hamburger:hover{
+    cursor: pointer;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 768px) {
+    .navbarAuthenticated__container-hamburger{
+        display: flex;
+        margin-left: auto;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        margin-right: 5px;
+    }
+
+    .navbarAuthenticated__container-links{
+        display: none;
+        position: absolute;
+        z-index: 999;
+        top: 70px;
+        left: 0;
+        background-color: #0a0f1ef1;
+        width: 100%;
+        justify-content: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
+    .navbarAuthenticated__ul{
+        flex-direction: column;
+        font-size: 0.9rem;
+        gap: 20px;
+    }
+
+    .navbarAuthenticated__container-links.active{
+        display: flex;
+    }
+
+    .navbarAuthenticated__container-right{
+        font-size: 0.7rem;
+        width: 100%;
+        gap: 5px;
+    }
+
+    .navbarAuthenticated__nav{
+        padding-left: 10px;
+        justify-content: left;
+    }
+
+    .navbarAuthenticated__link-car{
+        font-size: 24px;
+    }
+
+    .navbarAuthenticated__img-colombia{
+        width: 30px;
+        height: 30px;
+    }
+
+    .navbarAuthenticated__p-user{
+        font-size: 12px;
+    }
 }

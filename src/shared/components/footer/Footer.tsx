@@ -5,13 +5,17 @@ import { AiFillTikTok } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
 import "./footer.css"
 import { Link } from 'react-router-dom';
+import IconTetris from '../iconTetris/IconTetris';
 
 export default function Footer() {
     return (
         <footer className='footer__footer'>
             <div className="footer__container-columnas">
                 <div className="footer__columna-uno">
-                    <img className='footer__img-icono' src={iconoOficial} alt="" />
+                    
+                    <div className="footer__container-icon">
+                        <IconTetris/>
+                    </div>
 
                     <div className="footer__container-social">
                         <a className='footer__a' href="https://instagram.com"><RiInstagramFill size={33} /></a>
