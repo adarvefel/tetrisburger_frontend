@@ -1,0 +1,19 @@
+.pqrsCreatePage__container-global{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F8F6F6;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    padding-top: 90px;
+    
+}
+
+.pqrsCreatePage__container-form{
+    
+    width: 40%;
+    margin-bottom: 40px;
+}

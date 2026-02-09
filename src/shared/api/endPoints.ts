@@ -47,6 +47,10 @@ export const endPoints = {
 
     user:{
         profile: "/api/profile",
-        updateProfile : "api/profile"
+        updateProfile : "api/profile",
+        
+        pqrs:{
+            create: "/api/pqrs"
+        }
     }
 }

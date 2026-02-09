@@ -36,7 +36,7 @@ export default function Footer() {
                     <Link className='footer__link' to={"/quienes-somos"}>¿Quienes somos?</Link>
                     <Link className='footer__link' to={"/preguntas-frecuentes"}>Preguntas frecuentes</Link>
                     <Link className='footer__link' to={"/contactanos"}>Contactanos</Link>
-                    <Link className='footer__link' to={"/pqrs"}>PQRS</Link>
+                    <Link className='footer__link' to={"/pqrs-create"}>PQRS</Link>
                 </div>
             </div>
 

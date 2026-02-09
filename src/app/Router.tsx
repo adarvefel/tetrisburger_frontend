@@ -40,6 +40,9 @@ import SupplierCreate from '../features/admin/supplier/ui/suppliersCreate/Suppli
 import SuppliersCreatePage from '../pages/admin/suppliers/suppliersCreatePage/suppliersCreatePage'
 import SuppliersUpdatePage from '../pages/admin/suppliers/suppliersUpdatePage/suppliersUpdatePage'
 import ContactUsPage from '../pages/contactUs/ContactUsPage'
+import PqrsForm from '../shared/components/pqrsForm/PqrsForm'
+import PqrsCreate from '../features/user/pqrs/ui/pqrsCreate/PqrsCreate'
+import PqrsCreatePage from '../pages/user/pqrs/PqrsCreatePage'
 
 
 
@@ -62,6 +65,7 @@ export default function Router() {
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}
         <Route path='/profile' element={<ProfileUserPage />} />
+        <Route path='/pqrs-create' element={<PqrsCreatePage/>} />
 
 
         {/*RUTAS PA ADMINS*/}
@@ -112,6 +116,8 @@ export default function Router() {
        
 
         <Route path='/prueba17' element={<IconTetris />} />
+
+        <Route path='/prueba18' element={<PqrsCreate/>}/>
         
 
 
