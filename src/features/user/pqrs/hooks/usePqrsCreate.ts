@@ -16,7 +16,9 @@ export function usePqrsCreate() {
             return response;
 
         }catch(err: any){
-            setError(err.menssage || "Error al intentar crear un pqrs")
+
+            setError(err.menssage || "Error al intentar crear un pqrs");
+            throw err; 
 
         }finally{
             setLoading(false);

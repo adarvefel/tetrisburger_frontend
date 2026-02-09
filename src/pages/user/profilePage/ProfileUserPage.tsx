@@ -11,18 +11,21 @@ import ButtonLogout from '../../../shared/components/buttonLogout/ButtonLogout';
 
 export default function ProfileUserPage() {
 
-  const { isAdmin} = useAuthStore();
+  const { isAdmin } = useAuthStore();
 
   return (
     <div className="profileUser__container-global">
-        <Navbar/>
-        <UpdateProfile/>
+      <Navbar />
+      <div className="profileUser__container__form">
+        <UpdateProfile />
         <div className="profileUser__container-buttons">
-          <ButtonLogout/>
+          <ButtonLogout />
           {
-            isAdmin ? <Link className='profileUser__link' to={"/admin/users-list"}><GrUserAdmin size={27}/> Dashboard Administrador</Link> : null
+            isAdmin ? <Link className='profileUser__link' to={"/admin/users-list"}><GrUserAdmin size={27} /> Dashboard Administrador</Link> : null
           }
         </div>
+      </div>
+
     </div>
   )
 }

@@ -17,3 +17,21 @@
     width: 40%;
     margin-bottom: 40px;
 }
+
+.pqrsCreatePage__link{
+    
+    font-family: "Montserrat";
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgb(225, 168, 8);
+    margin-left: 0.8rem;
+    display: block;
+    margin-bottom: 1rem;
+    
+}
+
+@media (max-width: 768px) {
+    .pqrsCreatePage__container-form{
+        width: 90%;
+    }
+}

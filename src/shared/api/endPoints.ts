@@ -50,7 +50,9 @@ export const endPoints = {
         updateProfile : "api/profile",
         
         pqrs:{
-            create: "/api/pqrs"
+            create: "/api/pqrs",
+            listMe: (numberPage: number) => `/api/pqrs/me?page=${numberPage}&size=10&sortBy=idPqrs&direction=ASC`,
+
         }
     }
 }
