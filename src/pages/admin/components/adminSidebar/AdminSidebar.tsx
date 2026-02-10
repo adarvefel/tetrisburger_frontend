@@ -65,7 +65,7 @@ export default function AdminSidebar() {
         </NavLink>
 
 
-        <NavLink to={"/pqrs-list"}
+        <NavLink to={"/admin/pqrs-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >

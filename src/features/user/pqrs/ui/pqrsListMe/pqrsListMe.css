@@ -7,7 +7,7 @@
     justify-content: space-between;
     font-family: 'Montserrat', sans-serif;
 
-    overflow: scroll;
+    
 }
 
 .pqrsListMe__container-top {
@@ -81,7 +81,7 @@
     font-size: 0.8rem;
     border-radius: 15px;
     color: black;
-    overflow: hidden;
+    
     border-collapse: collapse;
 }
 
@@ -192,4 +192,10 @@
     .pqrsListMe__table{
         font-size: 0.6rem;
     }
+
+    .pqrsListMe__container-global{
+        overflow: scroll;
+    }
+
+    
 }

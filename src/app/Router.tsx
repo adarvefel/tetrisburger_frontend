@@ -45,6 +45,7 @@ import PqrsMe from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
 import PqrsCreatePage from '../pages/user/pqrs/pqrsCreatePage/PqrsCreatePage'
 import PqrsMePage from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
 import PqrsListMe from '../features/user/pqrs/ui/pqrsListMe/PqrsListMe'
+import PqrsListPage from '../pages/admin/pqrs/pqrsListPage/PqrsListPage'
 
 
 
@@ -77,15 +78,20 @@ export default function Router() {
         <Route path='/admin/users-list' element={<UsersListPage />} />
         <Route path='/admin/users-create' element={<UsersCreatePage/>} />
         <Route path='/admin/users/update/:id' element={<UsersUpdatePage/>} />
+
         <Route path='/admin/product-list' element={<ProductsListPage/>} />
         <Route path='/admin/product/create' element={<ProductsCreatePage/>} />
         <Route path='/admin/product/update/:id' element={<ProductsUpdatePage/>} />
+
         <Route path='/admin/category-list' element={<ProductCategoriesListPage />} />
         <Route path="/admin/category/create" element={<ProductCategoriesCreatePage />} />
         <Route path="/admin/category/update/:id" element={<ProductCategoriesUpdatePage />} />
+
         <Route path='/admin/suppliers-list' element={<SuppliersListPage />} />
         <Route path='/admin/suppliers/create' element={<SuppliersCreatePage />} />
         <Route path='/admin/suppliers/update/:id' element={<SuppliersUpdatePage />} />
+
+        <Route path='/admin/pqrs-list' element={<PqrsListPage/>}/>
 
           {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
