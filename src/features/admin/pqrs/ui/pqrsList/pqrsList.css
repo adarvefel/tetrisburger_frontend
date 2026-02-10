@@ -103,6 +103,7 @@
 
     border-collapse: collapse;
     /* Agrega esto para bordes limpios */
+    
 
 }
 
@@ -125,7 +126,7 @@
 }
 
 .pqrsList__td {
-
+   
     padding: 7px;
 }
 
@@ -201,4 +202,24 @@
 
 .pqrsList__button:disabled {
     cursor: no-drop;
+}
+
+.pqrsList__p-received{
+    background-color: #e74c3c;
+    display: inline;
+    padding: 3px;
+    border-radius: 2px 6px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.pqrsList__p-answered{
+    background-color: #6de73c;
+    display: inline;
+    padding: 3px;
+    border-radius: 2px 6px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }

@@ -29,9 +29,8 @@ export default function PqrsListMe() {
                     <tr className='pqrsListMe__tr'>
                         <th className='pqrsListMe__th'>ID</th>
                         <th className='pqrsListMe__th'>Tipo</th>
-                        <th className='pqrsListMe__th'>Estado</th>
                         <th className='pqrsListMe__th'>Asunto</th>
-                        <th className='pqrsListMe__th'>Respuesta</th>
+                        <th className='pqrsListMe__th'>Estado</th>
                         <th className='pqrsListMe__th'>Acciones</th>
                     </tr>
                 </thead>
@@ -41,9 +40,8 @@ export default function PqrsListMe() {
                             <tr key={pqrsItem.idPqrs} className='pqrsListMe__tr'>
                                 <td className='pqrsListMe__td'>{pqrsItem.idPqrs}</td>
                                 <td className='pqrsListMe__td'>{pqrsItem.type}</td>
-                                <td className='pqrsListMe__td'>{pqrsItem.status}</td>
                                 <td className='pqrsListMe__td'>{pqrsItem.subject}</td>
-                                <td className='pqrsListMe__td'>{pqrsItem.response || "Sin respuesta"}</td>
+                                <td className="pqrsListMe__td"><p className={pqrsItem.status === "RECEIVED" ? "pqrsListMe__p-received" : "pqrsListMe__p-answered"}>{pqrsItem.status}</p></td>
                                 <Link id='pqrsListMe__link' className='pqrsListMe__td' to={`/pqrs/${pqrsItem.idPqrs}`}>Mas acciones</Link>
                             </tr>
                         ))

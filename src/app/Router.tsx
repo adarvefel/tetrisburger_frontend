@@ -46,6 +46,9 @@ import PqrsCreatePage from '../pages/user/pqrs/pqrsCreatePage/PqrsCreatePage'
 import PqrsMePage from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
 import PqrsListMe from '../features/user/pqrs/ui/pqrsListMe/PqrsListMe'
 import PqrsListPage from '../pages/admin/pqrs/pqrsListPage/PqrsListPage'
+import ConfirmDeleteModal from '../shared/components/confirmDeleteModal/ConfirmDeleteModal'
+import PqrsForm from '../shared/components/pqrsForm/PqrsForm'
+import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
 
 
 
@@ -92,6 +95,8 @@ export default function Router() {
         <Route path='/admin/suppliers/update/:id' element={<SuppliersUpdatePage />} />
 
         <Route path='/admin/pqrs-list' element={<PqrsListPage/>}/>
+        <Route path='/admin/pqrs/update/:id' element={<PqrsUpdatePage/>} />
+
 
           {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
@@ -131,6 +136,10 @@ export default function Router() {
         <Route path='/prueba18' element={<PqrsCreate/>}/>
 
         <Route path='/prueba19' element={<PqrsListMe/>}/>
+
+        <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={()=>{}} onConfirm={()=>{}}/>}/>
+
+        <Route path='/prueba21' element={<PqrsForm/>}/>
         
 
 

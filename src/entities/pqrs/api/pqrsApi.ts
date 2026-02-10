@@ -24,3 +24,8 @@ export const listPqrs = async (
     const response = await axiosClient.get(endPoints.admin.pqrs.list(page, type, status, priority));
     return response;
 };
+
+export const deletePqrs = async (id: number) =>{
+    const response = await axiosClient.delete(endPoints.admin.pqrs.delete(id));
+    return response;
+}

@@ -49,7 +49,9 @@ export const endPoints = {
                 if (priority) query.append("priority", priority);
 
                 return `/api/pqrs?${query.toString()}`;
-            }
+            },
+
+            delete: (id: number) => `/api/pqrs/${id}`,
 
             
         }

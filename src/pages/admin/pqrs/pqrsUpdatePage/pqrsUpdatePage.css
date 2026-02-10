@@ -1,0 +1,18 @@
+.pqrsUpdatePage__container-global{
+    width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    background-color: #F6F7F8;
+    align-items: center;
+    justify-content: center;
+    
+
+}
+
+.pqrsUpdatePage__container-content{
+    
+    flex: 1;
+    padding-left: 40px;
+    padding-right: 40px;
+}
