@@ -49,6 +49,7 @@ import PqrsListPage from '../pages/admin/pqrs/pqrsListPage/PqrsListPage'
 import ConfirmDeleteModal from '../shared/components/confirmDeleteModal/ConfirmDeleteModal'
 import PqrsForm from '../shared/components/pqrsForm/PqrsForm'
 import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
+import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePage'
 
 
 
@@ -75,6 +76,7 @@ export default function Router() {
 
         <Route path='/pqrs-create' element={<PqrsCreatePage/>} />
         <Route path='/pqrs-me' element={<PqrsMePage/>}/>
+        <Route path='/pqrs/update/:id' element={<PqrsUpdateMePage/>}/>
 
 
         {/*RUTAS PA ADMINS*/}
@@ -139,7 +141,7 @@ export default function Router() {
 
         <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={()=>{}} onConfirm={()=>{}}/>}/>
 
-        <Route path='/prueba21' element={<PqrsForm/>}/>
+
         
 
 

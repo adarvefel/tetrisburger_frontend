@@ -1,16 +1,64 @@
 import React, { useState } from 'react';
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import "./pqrsListMe.css";
-import { usePqrsListMe } from '../../hooks/usePqrsListMe';
 import { Link } from 'react-router-dom';
 import { GrDocumentText } from "react-icons/gr";
+import { FaEye } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+import { usePqrsListMe } from '../../hooks/usePqrsListMe';
+import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
+import SuccessAlert from '../../../../../shared/components/alerts/successAlert/SuccessAlert';
+import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
+import { deletePqrsMe } from '../../api/pqrsUserApi';
 
-export default function PqrsListMe() {
+export default function pqrsListMe() {
 
-    const { error, loading, numberPage, totalPage, totalElements, pqrs, prevPage, nextPage, handlePqrsListMe } = usePqrsListMe();
+    const { numberPage, totalPage, totalElements, pqrs, prevPage, nextPage, handlePqrsListMe } = usePqrsListMe();
+
+    const [alertSucces, setAlertSucces] = useState<null | string>(null);
+    const onClosedAlertSucces = () => {
+        setAlertSucces(null);
+    }
+
+    // ---------- DELETE STATE ----------
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [pqrsToDelete, setPqrsToDelete] = useState<any>(null);
+
+    const { loading: deleting, remove } = useDeleteEntity(deletePqrsMe);
+
+    const openDeleteModal = (pqrs: any) => {
+        setPqrsToDelete(pqrs);
+        setShowDeleteModal(true);
+    };
+
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false);
+        setPqrsToDelete(null);
+    };
+
+    const confirmDelete = async () => {
+        if (!pqrsToDelete) return;
+
+        await remove(pqrsToDelete.idPqrs);
+        closeDeleteModal();
+        handlePqrsListMe();
+        setAlertSucces("PQRS eliminado con exito.");
+    };
 
     return (
         <div className="pqrsListMe__container-global">
+
+            {/* ---------- DELETE MODAL ---------- */}
+            {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+            {showDeleteModal && pqrsToDelete && (
+                <ConfirmDeleteModal
+                    title="Eliminar PQRS"
+                    description={`Estas a punto de eliminar permanentemente el PQRS con asunto "${pqrsToDelete.subject}". Esta acción es irreversible.`}
+                    loading={deleting}
+                    onConfirm={confirmDelete}
+                    onClose={closeDeleteModal}
+                />
+            )}
 
             <div className="pqrsListMe__container-top">
                 <div className="pqrsListMe__container-card">
@@ -39,10 +87,19 @@ export default function PqrsListMe() {
                         pqrs.map((pqrsItem) => (
                             <tr key={pqrsItem.idPqrs} className='pqrsListMe__tr'>
                                 <td className='pqrsListMe__td'>{pqrsItem.idPqrs}</td>
-                                <td className='pqrsListMe__td'>{pqrsItem.type}</td>
+                                <td className='pqrsListMe__td'>{pqrsItem.type === "PETITION" ? "Peticion" : pqrsItem.type === "COMPLAINT" ? "Queja" : pqrsItem.type === "CLAIM" ? "Reclamo" : pqrsItem.type === "SUGGESTION" ? "Sugerencia" : pqrsItem.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</td>
                                 <td className='pqrsListMe__td'>{pqrsItem.subject}</td>
-                                <td className="pqrsListMe__td"><p className={pqrsItem.status === "RECEIVED" ? "pqrsListMe__p-received" : "pqrsListMe__p-answered"}>{pqrsItem.status}</p></td>
-                                <Link id='pqrsListMe__link' className='pqrsListMe__td' to={`/pqrs/${pqrsItem.idPqrs}`}>Mas acciones</Link>
+                                <td className="pqrsListMe__td"><p className={pqrsItem.status === "RECEIVED" ? "pqrsListMe__p-received" : "pqrsListMe__p-answered"}>{pqrsItem.status === "RECEIVED" ? "Recibido" : "Respondido"}</p></td>
+                                <td className="pqrsListMe__td">
+                                    <div className="pqrsListMe__container-actions">
+                                        <Link className="pqrsListMe__button-edit" to={`/pqrs/update/${pqrsItem.idPqrs}`}>
+                                            <FaEye size={18} />
+                                        </Link>
+                                        <button className="pqrsListMe__button-delete" onClick={() => openDeleteModal(pqrsItem)}>
+                                            <MdDeleteOutline size={18} />
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
                         ))
                     }

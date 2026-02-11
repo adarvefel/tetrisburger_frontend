@@ -1,0 +1,18 @@
+.pqrsUpdateMePage__container-global{
+    width: 100%;
+    min-height: 100vh;
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 100px;
+
+    background-color: #F6F7F8;
+}
+
+.pqrsUpdateMePage__container-content{
+    width: 75%;
+    margin-bottom: 40px;
+}

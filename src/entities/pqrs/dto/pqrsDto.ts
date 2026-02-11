@@ -1,5 +1,7 @@
-export interface CreatePqrsDto{
-    type: string,
-    subject: string,
-    description: string
+
+
+export interface UpdatePqrsAdminRequestDto{
+    status?: string,
+    priority?: string,
+    response?: string
 }

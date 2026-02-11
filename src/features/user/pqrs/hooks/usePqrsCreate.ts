@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { CreatePqrsDto } from "../../../../entities/pqrs/dto/pqrsDto";
-import { createPqrs } from "../../../../entities/pqrs/api/pqrsApi";
+import { CreatePqrsDto } from "../dto/pqrsUserDto";
+import { createPqrs } from "../api/pqrsUserApi";
 
 export function usePqrsCreate() {
 

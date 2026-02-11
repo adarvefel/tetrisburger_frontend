@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import { PqrsFetchListMe } from "../dto/pqrsDto";
-import { listPqrsMe } from "../../../../entities/pqrs/api/pqrsApi";
+import { PqrsFetchListMe } from "../dto/pqrsUserDto";
+import { listPqrsMe } from "../api/pqrsUserApi";
+
 
 export function usePqrsListMe(){
     const [loading, setLoading] = useState(false);

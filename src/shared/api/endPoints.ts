@@ -53,6 +53,10 @@ export const endPoints = {
 
             delete: (id: number) => `/api/pqrs/${id}`,
 
+            findById: (id: number) => `/api/pqrs/${id}`,
+
+            update: (id: number) => `/api/pqrs/admin/${id}`,
+
             
         }
 
@@ -75,6 +79,10 @@ export const endPoints = {
         pqrs: {
             create: "/api/pqrs",
             listMe: (numberPage: number) => `/api/pqrs/me?page=${numberPage}&size=10&sortBy=idPqrs&direction=ASC`,
+            findById: (id: number) => `/api/pqrs/${id}`,
+            update: (id: number) => `/api/pqrs/${id}`,
+            delete: (id: number) => `/api/pqrs/${id}`
+            
 
         }
     }

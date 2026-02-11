@@ -198,6 +198,32 @@
     letter-spacing: 0.5px;
 }
 
+.pqrsListMe__container-actions {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.pqrsListMe__button-delete,
+.pqrsListMe__button-edit {
+    border: none;
+    background-color: transparent;
+    text-decoration: none;
+    color: black;
+}
+
+.pqrsListMe__button-delete:hover {
+    cursor: pointer;
+}
+
+.pqrsListMe__button-edit:hover {
+    cursor: pointer;
+}
+
+
 @media (max-width: 768px) {
     .pqrsListMe__container-card-sub {
         font-size: 1.5rem;

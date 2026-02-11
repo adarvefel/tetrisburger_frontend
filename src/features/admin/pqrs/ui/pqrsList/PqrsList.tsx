@@ -126,9 +126,9 @@ export default function PqrsList() {
           {pqrs.map((item) => (
             <tr className="pqrsList__tr" key={item.idPqrs}>
               <td className="pqrsList__td">{item.idPqrs}</td>
-              <td className="pqrsList__td">{item.type}</td>
+              <td className="pqrsList__td">{item.type === "PETITION" ? "Peticion" : item.type === "COMPLAINT" ? "Queja" : item.type === "CLAIM" ? "Reclamo" : item.type === "SUGGESTION" ? "Sugerencia" : item.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</td>
               <td className="pqrsList__td">{item.subject}</td>
-              <td className="pqrsList__td"><p className={item.status === "RECEIVED" ? "pqrsList__p-received" : "pqrsList__p-answered"}>{item.status}</p></td>
+              <td className="pqrsList__td"><p className={item.status === "RECEIVED" ? "pqrsList__p-received" : "pqrsList__p-answered"}>{item.status === "RECEIVED" ? "Recibido" : "Respondido"}</p></td>
               <td className="pqrsList__td">
                 <div className="pqrsList__container-actions">
                   <Link className="pqrsList__button-edit" to={`/admin/pqrs/update/${item.idPqrs}`}>
