@@ -51,6 +51,7 @@ import PqrsForm from '../shared/components/pqrsForm/PqrsForm'
 import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
 import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePage'
 import ProtectedRoute from "../shared/routes/ProtectedRoute";
+import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
 
 
 
@@ -144,7 +145,7 @@ export default function Router() {
 
         <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={() => { }} onConfirm={() => { }} />} />
 
-
+        <Route path='/prueba21' element={<AdminSidebar/>}/>
 
 
 

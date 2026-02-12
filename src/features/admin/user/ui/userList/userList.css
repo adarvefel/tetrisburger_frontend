@@ -3,7 +3,7 @@
     
     
     width: 100%;
-    height: 600px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -212,4 +212,12 @@
 
 .userList__button:disabled {
     cursor: no-drop;
+}
+
+@media (max-width: 768px){
+    .userList__container-global{
+        overflow: scroll;
+    }
+
+    
 }
