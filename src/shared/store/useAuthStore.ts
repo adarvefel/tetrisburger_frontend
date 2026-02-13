@@ -7,9 +7,11 @@ interface AuthStore {
     user: LoginResponseDto["user"] | null;
     isAuthenticated: boolean;
     isAdmin: boolean;
+    isLoading: boolean;
     login: (data: LoginResponseDto) => void;
     logout: () => void;
     loadFromStorge: () => void
+    
 }
 
 export const useAuthStore = create<AuthStore>((set) => ({
@@ -17,6 +19,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
     user: null,
     isAuthenticated: false,
     isAdmin: false,
+    isLoading: true,
 
     login: (data) => {
         localStorage.setItem("token", data.token);
@@ -26,7 +29,8 @@ export const useAuthStore = create<AuthStore>((set) => ({
             token: data.token,
             user: data.user,
             isAuthenticated: true,
-            isAdmin: data.user.role === "ADMIN"
+            isAdmin: data.user.role === "ADMIN",
+            isLoading: false,
         })
     },
 
@@ -39,6 +43,7 @@ export const useAuthStore = create<AuthStore>((set) => ({
             user: null,
             isAuthenticated: false,
             isAdmin: false,
+            isLoading: false,
         })
 
         window.location.href = "/";
@@ -57,6 +62,12 @@ export const useAuthStore = create<AuthStore>((set) => ({
                 user: parsedUser,
                 isAuthenticated: true,
                 isAdmin: parsedUser.role === "ADMIN",
+                isLoading: false,
+            })
+        }
+        else{
+            set({
+                isLoading: false,
             })
         }
 

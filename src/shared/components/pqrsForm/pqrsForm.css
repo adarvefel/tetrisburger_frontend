@@ -1,0 +1,164 @@
+.pqrsForm__form {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 20px;
+    border-radius: 20px;
+
+
+}
+
+
+
+.pqrsForm__container-top {
+    display: flex;
+    width: 100%;
+    flex: 1;
+    gap: 20px;
+}
+
+.pqrsForm__container-top-left {
+    border: 2px solid #E7DCDC;
+    ;
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    padding: 2rem;
+
+}
+
+.pqrsForm__container-top-right {
+    border: 2px solid #E7DCDC;
+    flex: 1;
+    padding: 0.5rem;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    padding: 2rem;
+}
+
+.pqrsForm__container-tittle {
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+
+}
+
+.pqrsForm__h2 {
+    font-family: "Montserrat";
+    font-size: 1rem;
+    color: black;
+    font-weight: 800;
+}
+
+.pqrsForm__container-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+    margin: 0.2rem;
+
+
+}
+
+
+.pqrsForm__container-fields-one {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.pqrsForm__container-fields-two {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#pqrsForm__container-inputs2 {
+    width: 100%;
+}
+
+.pqrsForm__container-buttom {
+    border: 2px solid #E7DCDC;
+    width: 100%;
+    flex: 2;
+    padding: 0.5rem;
+    border-radius: 20px;
+    background-color: #FFFFFF;
+    padding: 2rem;
+}
+
+.pqrsForm__container-button {
+
+    width: 100%;
+    display: flex;
+    justify-content: end;
+}
+
+
+
+.pqrsForm__button {
+    color: #FFFFFF;
+    background-color: #E53935;
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    padding: 9px;
+    border-radius: 10px;
+    transition: color 0.3s, background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+
+}
+
+.pqrsForm__button:hover {
+    color: #bdbdbd;
+    background-color: #982523;
+    cursor: pointer;
+}
+
+.pqrsForm__label {
+
+    font-family: 'Montserrat';
+    font-size: 0.7rem;
+    color: black;
+    font-weight: 700;
+
+}
+
+.pqrsForm__input,
+.pqrsForm__select {
+
+    height: 2rem;
+    border: 2px solid #E7DCDC;
+    border-radius: 8px;
+    color: black;
+    padding-left: 10px;
+
+}
+
+.pqrsForm__textarea {
+    height: 3rem;
+    border: 2px solid #E7DCDC;
+    border-radius: 8px;
+    color: black;
+    padding-left: 10px;
+}
+
+#pqrsForm__textarea-two {
+    height: 5rem;
+}
+
+@media (max-width: 768px){
+    
+
+    .pqrsForm__container-top{
+        flex-direction: column;
+    }
+}

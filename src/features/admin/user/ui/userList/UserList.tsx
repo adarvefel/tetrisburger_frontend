@@ -15,42 +15,59 @@ import SuccessAlert from '../../../../../shared/components/alerts/successAlert/S
 import ButtonHome from '../../../../../shared/components/buttonHome/ButtonHome';
 import ButtonCasual from '../../../../../shared/components/buttonCasual/ButtonCasual';
 import { FaSearch } from "react-icons/fa";
+import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
+import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
+import { deleteUser } from '../../../../../entities/user/api/userApi';
 
 export default function UserList() {
 
     const { error, loading, numberPage, totalPage, users, prevPage, nextPage, fetchUserList } = useUserList();
-
-    const [showModelDelete, setShowModelDelete] = useState(false);
-    const [userToDelete, setUserToDelete] = useState<UserFectchList>();
-
-    const onCloseModelDelete = () => {
-        setShowModelDelete(false);
-    }
-
-    const onOpenModelDelete = (user: UserFectchList) => {
-        setUserToDelete(user);
-        setShowModelDelete(true);
-    }
 
     const [alertSucces, setAlertSucces] = useState<null | string>(null);
     const onClosedAlertSucces = () => {
         setAlertSucces(null);
     }
 
-    const removeSucces = () => {
-        setAlertSucces("Usuario eliminado con exito.");
+    // ---------- DELETE STATE ----------
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [userToDelete, setUserToDelete] = useState<any>(null);
+
+    const { loading: deleting, remove } = useDeleteEntity(deleteUser);
+
+    const openDeleteModal = (user: any) => {
+        setUserToDelete(user);
+        setShowDeleteModal(true);
+    };
+
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false);
+        setUserToDelete(null);
+    };
+
+    const confirmDelete = async () => {
+        if (!userToDelete) return;
+
+        await remove(userToDelete.idUser);
+        closeDeleteModal();
         fetchUserList();
-    }
+        setAlertSucces("Usuario eliminado con exito.");
+    };
 
 
     return (
         <div className="userList__container-global">
+
+            {/* ---------- DELETE MODAL ---------- */}
             {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
-            {showModelDelete && userToDelete ?
-                <UserDelete onClose={onCloseModelDelete} onDeleted={removeSucces} user={userToDelete} /> : null
-            }
-
-
+            {showDeleteModal && userToDelete && (
+                <ConfirmDeleteModal
+                    title="Eliminar Usuario"
+                    description={`Estas a punto de eliminar permanentemente el Usuario con email "${userToDelete.email}". Esta acción es irreversible.`}
+                    loading={deleting}
+                    onConfirm={confirmDelete}
+                    onClose={closeDeleteModal}
+                />
+            )}
 
             <div className="userList__container-top">
 
@@ -62,8 +79,6 @@ export default function UserList() {
                         placeholder='Buscar por email'
                     />
                 </div>
-
-
 
                 <ButtonCasual linkRedireccion='/admin/users-create' mensagge='+ Nuevo Usuario' />
 
@@ -106,25 +121,13 @@ export default function UserList() {
                                 <td className='userList__td'>
                                     <div className="userList__container-actions">
                                         <Link className="userList__button-edit" to={`/admin/users/update/${user.idUser}`} ><CiEdit size={18} /></Link>
-                                        <button className='userList__button-delete' onClick={() => onOpenModelDelete(user)}> <MdDeleteOutline size={18} /> </button>
+                                        <button className='userList__button-delete' onClick={() => openDeleteModal(user)}> <MdDeleteOutline size={18} /> </button>
                                     </div>
                                 </td>
                             </tr>
 
                         ))
                     }
-
-
-
-
-
-
-
-
-
-
-
-
 
                 </tbody>
             </table>

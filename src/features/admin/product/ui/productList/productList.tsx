@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import { FaArrowRight } from "react-icons/fa";
@@ -14,39 +14,60 @@ import SuccessAlert from "../../../../../shared/components/alerts/successAlert/S
 import ButtonHome from "../../../../../shared/components/buttonHome/ButtonHome";
 import ButtonCasual from "../../../../../shared/components/buttonCasual/ButtonCasual";
 import { FaSearch } from "react-icons/fa";
+import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
+import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
+import { deleteProduct } from "../../../../../entities/product/api/productApi";
 
 export default function ProductList() {
 
     const { error, loading, numberPage, totalPage, products, prevPage, nextPage, fetchProductList } = useProductList();
-
-    const [showModelDelete, setShowModelDelete] = useState(false);
-    const [productToDelete, setProductToDelete] = useState<ProductFetchList>();
-
-    const onCloseModelDelete = () => {
-        setShowModelDelete(false);
-    }
-
-    const onOpenModelDelete = (product: ProductFetchList) => {
-        setProductToDelete(product);
-        setShowModelDelete(true);
-    }
 
     const [alertSucces, setAlertSucces] = useState<null | string>(null);
     const onClosedAlertSucces = () => {
         setAlertSucces(null);
     }
 
-    const removeSucces = () => {
-        setAlertSucces("Producto eliminado con exito.");
+    // ---------- DELETE STATE ----------
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [productToDelete, setproductToDelete] = useState<any>(null);
+
+    const { loading: deleting, remove } = useDeleteEntity(deleteProduct);
+
+    const openDeleteModal = (product: any) => {
+        setproductToDelete(product);
+        setShowDeleteModal(true);
+    };
+
+    const closeDeleteModal = () => {
+        setShowDeleteModal(false);
+        setproductToDelete(null);
+    };
+
+    const confirmDelete = async () => {
+        if (!productToDelete) return;
+
+        await remove(productToDelete.id);
+        closeDeleteModal();
         fetchProductList();
-    }
+        setAlertSucces("product eliminado con exito.");
+    };
+
+
 
     return (
         <div className="productList__container-global">
+
+            {/* ---------- DELETE MODAL ---------- */}
             {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
-            {showModelDelete && productToDelete ?
-                <ProductDelete onClose={onCloseModelDelete} onDeleted={removeSucces} product={productToDelete} /> : null
-            }
+            {showDeleteModal && productToDelete && (
+                <ConfirmDeleteModal
+                    title="Eliminar Producto"
+                    description={`Estas a punto de eliminar permanentemente el producto "${productToDelete.name}". Esta acción es irreversible.`}
+                    loading={deleting}
+                    onConfirm={confirmDelete}
+                    onClose={closeDeleteModal}
+                />
+            )}
 
             <div className="productList__container-top">
 
@@ -88,7 +109,7 @@ export default function ProductList() {
                             <td className="productList__td">
                                 <div className="productList__container-actions">
                                     <Link className="productList__button-edit" to={`/admin/product/update/${product.id}`}><CiEdit size={18} /></Link>
-                                    <button className="productList__button-delete" onClick={() => onOpenModelDelete(product)}><MdDeleteOutline size={18} /></button>
+                                    <button className="productList__button-delete" onClick={() => openDeleteModal(product)}><MdDeleteOutline size={18} /></button>
                                 </div>
                             </td>
                         </tr>

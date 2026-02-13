@@ -40,6 +40,20 @@ import SupplierCreate from '../features/admin/supplier/ui/suppliersCreate/Suppli
 import SuppliersCreatePage from '../pages/admin/suppliers/suppliersCreatePage/suppliersCreatePage'
 import SuppliersUpdatePage from '../pages/admin/suppliers/suppliersUpdatePage/suppliersUpdatePage'
 import ContactUsPage from '../pages/contactUs/ContactUsPage'
+import PqrsCreate from '../features/user/pqrs/ui/pqrsCreate/PqrsCreate'
+import PqrsMe from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
+import PqrsCreatePage from '../pages/user/pqrs/pqrsCreatePage/PqrsCreatePage'
+import PqrsMePage from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
+import PqrsListMe from '../features/user/pqrs/ui/pqrsListMe/PqrsListMe'
+import PqrsListPage from '../pages/admin/pqrs/pqrsListPage/PqrsListPage'
+import ConfirmDeleteModal from '../shared/components/confirmDeleteModal/ConfirmDeleteModal'
+import PqrsForm from '../shared/components/pqrsForm/PqrsForm'
+import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
+import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePage'
+import ProtectedRoute from "../shared/routes/ProtectedRoute";
+import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
+
+
 
 
 
@@ -57,28 +71,40 @@ export default function Router() {
         <Route path='/forgot-password' element={<ForgotPasswordPage />} />
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/terms' element={<TermsAndConditionsPage />} />
-        <Route path='/contact-us' element={<ContactUsPage/>}/>
+        <Route path='/contact-us' element={<ContactUsPage />} />
 
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}
-        <Route path='/profile' element={<ProfileUserPage />} />
+        <Route path="/profile" element={<ProtectedRoute><ProfileUserPage /></ProtectedRoute>} />
+        <Route path="/pqrs-create" element={<ProtectedRoute><PqrsCreatePage /></ProtectedRoute>} />
+        <Route path="/pqrs-me" element={<ProtectedRoute><PqrsMePage /></ProtectedRoute>} />
+        <Route path="/pqrs/update/:id" element={<ProtectedRoute><PqrsUpdateMePage /></ProtectedRoute>} />
+
 
 
         {/*RUTAS PA ADMINS*/}
-        <Route path='/admin/users-list' element={<UsersListPage />} />
-        <Route path='/admin/users-create' element={<UsersCreatePage/>} />
-        <Route path='/admin/users/update/:id' element={<UsersUpdatePage/>} />
-        <Route path='/admin/product-list' element={<ProductsListPage/>} />
-        <Route path='/admin/product/create' element={<ProductsCreatePage/>} />
-        <Route path='/admin/product/update/:id' element={<ProductsUpdatePage/>} />
-        <Route path='/admin/category-list' element={<ProductCategoriesListPage />} />
-        <Route path="/admin/category/create" element={<ProductCategoriesCreatePage />} />
-        <Route path="/admin/category/update/:id" element={<ProductCategoriesUpdatePage />} />
-        <Route path='/admin/suppliers-list' element={<SuppliersListPage />} />
-        <Route path='/admin/suppliers/create' element={<SuppliersCreatePage />} />
-        <Route path='/admin/suppliers/update/:id' element={<SuppliersUpdatePage />} />
+        <Route path="/admin/users-list" element={<ProtectedRoute requireAdmin><UsersListPage /></ProtectedRoute>} />
+        <Route path="/admin/users-create" element={<ProtectedRoute requireAdmin><UsersCreatePage /></ProtectedRoute>} />
+        <Route path="/admin/users/update/:id" element={<ProtectedRoute requireAdmin><UsersUpdatePage /></ProtectedRoute>} />
 
-          {/*Pruebas de componentres */}
+        <Route path="/admin/product-list" element={<ProtectedRoute requireAdmin><ProductsListPage /></ProtectedRoute>} />
+        <Route path="/admin/product/create" element={<ProtectedRoute requireAdmin><ProductsCreatePage /></ProtectedRoute>} />
+        <Route path="/admin/product/update/:id" element={<ProtectedRoute requireAdmin><ProductsUpdatePage /></ProtectedRoute>} />
+
+        <Route path="/admin/category-list" element={<ProtectedRoute requireAdmin><ProductCategoriesListPage /></ProtectedRoute>} />
+        <Route path="/admin/category/create" element={<ProtectedRoute requireAdmin><ProductCategoriesCreatePage /></ProtectedRoute>} />
+        <Route path="/admin/category/update/:id" element={<ProtectedRoute requireAdmin><ProductCategoriesUpdatePage /></ProtectedRoute>} />
+
+        <Route path="/admin/suppliers-list" element={<ProtectedRoute requireAdmin><SuppliersListPage /></ProtectedRoute>} />
+        <Route path="/admin/suppliers/create" element={<ProtectedRoute requireAdmin><SuppliersCreatePage /></ProtectedRoute>} />
+        <Route path="/admin/suppliers/update/:id" element={<ProtectedRoute requireAdmin><SuppliersUpdatePage /></ProtectedRoute>} />
+
+        <Route path="/admin/pqrs-list" element={<ProtectedRoute requireAdmin><PqrsListPage /></ProtectedRoute>} />
+        <Route path="/admin/pqrs/update/:id" element={<ProtectedRoute requireAdmin><PqrsUpdatePage /></ProtectedRoute>} />
+
+
+
+        {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
         <Route path='/prueba3' element={<Navbar />} />
         <Route path='/prueba4' element={<Footer />} />
@@ -100,19 +126,27 @@ export default function Router() {
         <Route path='/prueba11' element={<UserList />} />
         <Route path='/prueba12/:id' element={<UserUpdate />} />
 
-        
+
 
         <Route path='/users-list' element={<UsersListPage />} />
 
 
-        
 
-        
 
-       
+
+
+
 
         <Route path='/prueba17' element={<IconTetris />} />
-        
+
+        <Route path='/prueba18' element={<PqrsCreate />} />
+
+        <Route path='/prueba19' element={<PqrsListMe />} />
+
+        <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={() => { }} onConfirm={() => { }} />} />
+
+        <Route path='/prueba21' element={<AdminSidebar/>}/>
+
 
 
       </Routes>

@@ -10,7 +10,7 @@ export const endPoints = {
             delete: (id: number) => `/api/admin/users/${id}`,
         },
 
-        product:{
+        product: {
             list: (numberPage: number) => `/api/products?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
             create: "/api/products",
             findById: (id: number) => `/api/products/${id}`,
@@ -19,13 +19,13 @@ export const endPoints = {
         },
 
         productCategory: {
-            list: (numberPage: number) =>`/api/product-categories?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            list: (numberPage: number) => `/api/product-categories?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
             create: "/api/product-categories",
             findById: (id: number) => `/api/product-categories/${id}`,
             update: (id: number) => `/api/product-categories/${id}`,
             delete: (id: number) => `/api/product-categories/${id}`,
         },
-        
+
         supplier: {
             list: (numberPage: number) => `/api/suppliers?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
             create: "/api/suppliers",
@@ -33,6 +33,33 @@ export const endPoints = {
             update: (id: number) => `/api/suppliers/${id}`,
             delete: (id: number) => `/api/suppliers/${id}`,
         },
+
+        pqrs: {
+            list: (
+                page: number,
+                type?: string,
+                status?: string,
+                priority?: string) => {
+                const query = new URLSearchParams({
+                    page: page.toString(),
+                });
+
+                if (type) query.append("type", type);
+                if (status) query.append("status", status);
+                if (priority) query.append("priority", priority);
+
+                return `/api/pqrs?${query.toString()}`;
+            },
+
+            delete: (id: number) => `/api/pqrs/${id}`,
+
+            findById: (id: number) => `/api/pqrs/${id}`,
+
+            update: (id: number) => `/api/pqrs/admin/${id}`,
+
+            
+        }
+
 
 
     },
@@ -45,8 +72,18 @@ export const endPoints = {
         resetPassword: "/api/auth/reset-password"
     },
 
-    user:{
+    user: {
         profile: "/api/profile",
-        updateProfile : "api/profile"
+        updateProfile: "api/profile",
+
+        pqrs: {
+            create: "/api/pqrs",
+            listMe: (numberPage: number) => `/api/pqrs/me?page=${numberPage}&size=10&sortBy=idPqrs&direction=ASC`,
+            findById: (id: number) => `/api/pqrs/${id}`,
+            update: (id: number) => `/api/pqrs/${id}`,
+            delete: (id: number) => `/api/pqrs/${id}`
+            
+
+        }
     }
 }

@@ -10,6 +10,9 @@ import { SupplierFetchList } from "../../dto/suppliersAdminDto";
 import SupplierDelete from "../suppliersDelete/SupplierDelete";
 import SuccessAlert from "../../../../../shared/components/alerts/successAlert/SuccessAlert";
 import ButtonCasual from "../../../../../shared/components/buttonCasual/ButtonCasual";
+import { deleteSupplier } from "../../../../../entities/supplier/api/supplierApi";
+import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
+import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 
 export default function SupplierList() {
   const {
@@ -23,38 +26,49 @@ export default function SupplierList() {
     fetchSupplierList,
   } = useSupplierList();
 
-  const [showModalDelete, setShowModalDelete] = useState(false);
-  const [supplierToDelete, setSupplierToDelete] =
-    useState<SupplierFetchList>();
+  const [alertSucces, setAlertSucces] = useState<null | string>(null);
+  const onClosedAlertSucces = () => {
+    setAlertSucces(null);
+  }
 
-  const onCloseModalDelete = () => setShowModalDelete(false);
+  // ---------- DELETE STATE ----------
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [supplierToDelete, setsupplierToDelete] = useState<any>(null);
 
-  const onOpenModalDelete = (supplier: SupplierFetchList) => {
-    setSupplierToDelete(supplier);
-    setShowModalDelete(true);
+  const { loading: deleting, remove } = useDeleteEntity(deleteSupplier);
+
+  const openDeleteModal = (supplier: any) => {
+    setsupplierToDelete(supplier);
+    setShowDeleteModal(true);
   };
 
-  const [alertSuccess, setAlertSuccess] = useState<null | string>(null);
-  const onClosedAlertSuccess = () => setAlertSuccess(null);
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setsupplierToDelete(null);
+  };
 
-  const removeSuccess = () => {
-    setAlertSuccess("Proveedor eliminado con éxito.");
+  const confirmDelete = async () => {
+    if (!supplierToDelete) return;
+
+    await remove(supplierToDelete.id);
+    closeDeleteModal();
     fetchSupplierList();
+    setAlertSucces("supplier eliminado con exito.");
   };
 
   return (
     <div className="productList__container-global">
-      {alertSuccess && (
-        <SuccessAlert mensaje={alertSuccess} onClosed={onClosedAlertSuccess} />
+      {/* ---------- DELETE MODAL ---------- */}
+      {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+      {showDeleteModal && supplierToDelete && (
+        <ConfirmDeleteModal
+          title="Eliminar supplier"
+          description={`Estas a punto de eliminar permanentemente el supplier  "${supplierToDelete.name}". Esta acción es irreversible.`}
+          loading={deleting}
+          onConfirm={confirmDelete}
+          onClose={closeDeleteModal}
+        />
       )}
-
-      {showModalDelete && supplierToDelete && (
-      <SupplierDelete
-        onClose={onCloseModalDelete}
-        onDeleted={removeSuccess}
-        supplier={supplierToDelete}
-      />
-    )}
 
 
       <div className="productList__container-top">
@@ -94,7 +108,7 @@ export default function SupplierList() {
                   </Link>
                   <button
                     className="productList__button-delete"
-                    onClick={() => onOpenModalDelete(supplier)}
+                    onClick={() => openDeleteModal(supplier)}
                   >
                     <MdDeleteOutline size={18} />
                   </button>

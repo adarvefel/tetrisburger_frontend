@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./adminSidebar.css"
 import IconTetris from '../../../../shared/components/iconTetris/IconTetris'
 import { useAuthStore } from '../../../../shared/store/useAuthStore'
 import ButtonLogout from '../../../../shared/components/buttonLogout/ButtonLogout';
 import { NavLink } from 'react-router-dom';
 import { FaUsers, FaBoxOpen, FaHamburger, FaEnvelopeOpenText, FaTags, FaStore } from "react-icons/fa"
+import { IoMenuOutline } from "react-icons/io5";
+import { AiOutlineClose } from "react-icons/ai";
 
 export default function AdminSidebar() {
 
   const { user } = useAuthStore();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <aside className="adminSidebar__aside">
@@ -21,7 +24,7 @@ export default function AdminSidebar() {
         </div>
       </div>
 
-      <div className="adminSidebar__container-medium">
+      <div className={`adminSidebar__container-medium ${menuOpen ? 'active' : ''}`}>
 
         <NavLink to={"/admin/users-list"}
           className={({ isActive }) =>
@@ -39,8 +42,8 @@ export default function AdminSidebar() {
           <FaBoxOpen size={21} />
           <span className='adminSidebar__span'>Productos</span>
         </NavLink>
-        
-        <NavLink to={"/admin/category-list"} 
+
+        <NavLink to={"/admin/category-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           }>
@@ -48,7 +51,7 @@ export default function AdminSidebar() {
           <span className='adminSidebar__span'>Categorías</span>
         </NavLink>
 
-        <NavLink to={"/admin/suppliers-list"} 
+        <NavLink to={"/admin/suppliers-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           }>
@@ -65,7 +68,7 @@ export default function AdminSidebar() {
         </NavLink>
 
 
-        <NavLink to={"/pqrs-list"}
+        <NavLink to={"/admin/pqrs-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >
@@ -85,6 +88,13 @@ export default function AdminSidebar() {
         </div>
 
 
+      </div>
+
+      {/* HAMBURGER MENU */}
+      <div className="adminSidebar__container-hamburger">
+        <button className='adminSidebar__button-hamburger' onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <AiOutlineClose size={33} /> : <IoMenuOutline size={35} />}
+        </button>
       </div>
 
     </aside>
