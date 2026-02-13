@@ -10,6 +10,9 @@ import { ProductCategoryFetchList } from "../../dto/productCategoriesAdminDto";
 import CategoryDelete from "../productCategoryDelete/ProductCategoryDelete";
 import SuccessAlert from "../../../../../shared/components/alerts/successAlert/SuccessAlert";
 import ButtonCasual from "../../../../../shared/components/buttonCasual/ButtonCasual";
+import { deleteProductCategory } from "../../../../../entities/productCategory/api/productCategoryApi";
+import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
+import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 
 export default function CategoryList() {
   const {
@@ -23,36 +26,47 @@ export default function CategoryList() {
     fetchCategoryList,
   } = useProductCategoryList();
 
-  const [showModalDelete, setShowModalDelete] = useState(false);
-  const [categoryToDelete, setCategoryToDelete] =
-    useState<ProductCategoryFetchList>();
+  const [alertSucces, setAlertSucces] = useState<null | string>(null);
+  const onClosedAlertSucces = () => {
+    setAlertSucces(null);
+  }
 
-  const onCloseModalDelete = () => setShowModalDelete(false);
+  // ---------- DELETE STATE ----------
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [productCategoryToDelete, setproductCategoryToDelete] = useState<any>(null);
 
-  const onOpenModalDelete = (category: ProductCategoryFetchList) => {
-    setCategoryToDelete(category);
-    setShowModalDelete(true);
+  const { loading: deleting, remove } = useDeleteEntity(deleteProductCategory);
+
+  const openDeleteModal = (productCategory: any) => {
+    setproductCategoryToDelete(productCategory);
+    setShowDeleteModal(true);
   };
 
-  const [alertSuccess, setAlertSuccess] = useState<null | string>(null);
-  const onClosedAlertSuccess = () => setAlertSuccess(null);
+  const closeDeleteModal = () => {
+    setShowDeleteModal(false);
+    setproductCategoryToDelete(null);
+  };
 
-  const removeSuccess = () => {
-    setAlertSuccess("Categoría eliminada con éxito.");
+  const confirmDelete = async () => {
+    if (!productCategoryToDelete) return;
+
+    await remove(productCategoryToDelete.id);
+    closeDeleteModal();
     fetchCategoryList();
+    setAlertSucces("productCategory eliminado con exito.");
   };
 
   return (
     <div className="productList__container-global">
-      {alertSuccess && (
-        <SuccessAlert mensaje={alertSuccess} onClosed={onClosedAlertSuccess} />
-      )}
-
-      {showModalDelete && categoryToDelete && (
-        <CategoryDelete
-          onClose={onCloseModalDelete}
-          onDeleted={removeSuccess}
-          category={categoryToDelete}
+      {/* ---------- DELETE MODAL ---------- */}
+      {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+      {showDeleteModal && productCategoryToDelete && (
+        <ConfirmDeleteModal
+          title="Eliminar productCategory"
+          description={`Estas a punto de eliminar permanentemente el productCategory  "${productCategoryToDelete.name}". Esta acción es irreversible.`}
+          loading={deleting}
+          onConfirm={confirmDelete}
+          onClose={closeDeleteModal}
         />
       )}
 
@@ -92,7 +106,7 @@ export default function CategoryList() {
                   </Link>
                   <button
                     className="productList__button-delete"
-                    onClick={() => onOpenModalDelete(category)}
+                    onClick={() => openDeleteModal(category)}
                   >
                     <MdDeleteOutline size={18} />
                   </button>

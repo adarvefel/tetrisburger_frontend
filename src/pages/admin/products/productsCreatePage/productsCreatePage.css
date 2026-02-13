@@ -3,11 +3,9 @@
     display: flex;
     min-height: 100vh;
     background-color: #FFFFFF;
+    align-items: center;
 }
 
-.productsCreate__container-global > :first-child {
-    flex: 0 0 260px;
-}
 
 .productsCreate__container-content {
     flex: 1;
@@ -19,4 +17,15 @@
 .productsCreate__container-content > div {
     max-width: 700px;
     margin: 0 auto;
+}
+
+@media (max-width: 768px){
+    .productsCreate__container-content{
+        height: auto;
+        padding: 0;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: 5rem;
+        margin-bottom: 2rem
+    }
 }

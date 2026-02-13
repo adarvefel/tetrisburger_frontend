@@ -62,6 +62,8 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
+  let nagivation = useNavigate();
+
   const [alertError, setAlertError] = useState<string | null>(null);
   const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
 
@@ -109,6 +111,9 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
         const res = await onSubmit(pqrsUpdate);
         if (res.data?.idPqrs) {
           setAlertSuccess("Datos actualizados");
+          setTimeout(() => {
+            nagivation("/admin/pqrs-list");
+          }, 2000);
         }
         else {
           setAlertError("Datos no actualizados, error inesperado.")
@@ -146,6 +151,9 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
       const res = await onSubmit(pqrsUpdate);
       if (res.data?.idPqrs) {
         setAlertSuccess("Datos actualizados");
+        setTimeout(() => {
+          nagivation("/pqrs-me");
+        }, 2000);
       }
       else {
         setAlertError("Datos no actualizados, error inesperado.")

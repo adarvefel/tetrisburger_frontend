@@ -1,17 +1,27 @@
-.usersCreate__container-global{
+.usersCreate__container-global {
 
-    
+
     width: 100%;
     min-height: 100vh;
     display: flex;
     background-color: #F6F7F8;
 }
 
-.usersCreate__container-content{
+.usersCreate__container-content {
     width: 100%;
     display: flex;
+    flex: 1;
     align-items: center;
     align-items: center;
     padding-left: 40px;
     padding-right: 40px;
+}
+
+@media (max-width: 768px) {
+    .usersCreate__container-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+
 }

@@ -23,3 +23,12 @@
     align-items: center;
 
 }
+
+@media (max-width: 768px) {
+    .usersUpdatePage__container-content {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+
+}

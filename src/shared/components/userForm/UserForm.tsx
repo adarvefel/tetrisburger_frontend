@@ -49,7 +49,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     }, [initialData]);
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value});
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
 
@@ -115,7 +115,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
         }
 
         if (mode === "admin-update") {
-            const userUpdate: UpdateUserDto ={
+            const userUpdate: UpdateUserDto = {
                 userName: formData.userName,
                 userImage: formData.userImage,
                 email: formData.email,
@@ -136,6 +136,9 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
             if (response.data.idUser) {
                 setAlertSuccess("Datos actualizados");
+                setTimeout(() => {
+                    navegator("/admin/users-list");
+                }, 2000)
             }
             else {
                 setAlertError("Datos no actualizados, error inesperado.")
@@ -143,7 +146,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
             return
 
-         }
+        }
 
 
 
