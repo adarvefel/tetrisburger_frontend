@@ -5,7 +5,7 @@ import { UpdateProfileRequestDto } from '../../../features/user/profile/dto/prof
 import { ErrorAlert } from '../alerts/errorAlert/ErrorAlert';
 import SuccessAlert from '../alerts/successAlert/SuccessAlert';
 import { useNavigate } from 'react-router-dom';
-import { UpdateUserDto } from '../../../entities/user/dto/userDto';
+import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto } from '../../../entities/user/dto/userDto';
 
 type FormMode = "create" | "user-update" | "admin-update";
 
@@ -148,11 +148,6 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
         }
 
-
-
-        const response = await onSubmit(formData);
-
-
         if (formData.password.length < 8) {
             setAlertError("La password debe tener al menos 8 digitos.");
             return;
@@ -162,6 +157,29 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
             setAlertError("Seleccione un rol.");
             return;
         }
+
+
+        const userToCreate: CreateUserDto = {
+            userName: formData.userName,
+            email: formData.email,
+            password: formData.password,
+            role: formData.role,
+            phone: formData.phone
+        }
+
+        const userCreated: CreateUserWithImageDto = {
+            user: userToCreate,
+            file: imageFile
+        }
+
+
+
+        const response = await onSubmit(userCreated);
+
+
+        
+
+        
 
 
         if (response.data.idUser) {
@@ -184,6 +202,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     //GESTION PA LA PICTURE DEL USER
 
     const [pictureUser, setPictureUser] = useState<string>(imgProfile);
+    const [imageFile, setImageFile] = useState<File | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -195,6 +214,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
         const file = e.target.files?.[0];
 
         if (file) {
+            setImageFile(file)
             const pictureUrl = URL.createObjectURL(file);
             setPictureUser(pictureUrl);
         }

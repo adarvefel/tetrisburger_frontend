@@ -103,7 +103,7 @@ export default function UserList() {
                                 <td className='userList__td'>{user.idUser}</td>
                                 <td className='userList__td'>
                                     <div className="userList__container-img">
-                                        <img className='userList__img' src={pictureProfle} alt="" />
+                                        <img className='userList__img' src={user.userImage ? user.userImage : pictureProfle} alt="" />
                                     </div>
                                 </td>
                                 <td className='userList__td'>{user.userName}</td>
