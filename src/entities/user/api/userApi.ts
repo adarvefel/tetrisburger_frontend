@@ -1,7 +1,7 @@
 //CRUD
 import { axiosClient } from "../../../shared/api/axiosClient"
 import { endPoints } from "../../../shared/api/endPoints"
-import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto } from "../dto/userDto"
+import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto, UpdateUserWithImageDto } from "../dto/userDto"
 
 export const listUsers = async (numberPage: number) =>{
     const response = await axiosClient.get(endPoints.admin.users.list(numberPage));
@@ -30,8 +30,16 @@ export const findUserById = async (id: number) =>{
     const response = await axiosClient.get(endPoints.admin.users.findById(id));
     return response;
 }
-export const updateUser = async (id : number, user: UpdateUserDto) =>{
-    const response = await axiosClient.put(endPoints.admin.users.update(id), user);
+export const updateUser = async (id : number, data: UpdateUserWithImageDto) =>{
+
+    if (data.file) {
+        const formData = new FormData();
+
+        formData.append("userImage", data.file);
+        await axiosClient.put(endPoints.admin.users.updateImage(id), formData);
+    }
+
+    const response = await axiosClient.put(endPoints.admin.users.update(id), data.user);
     return response;
 }
 export const deleteUser = async (id: number) =>{

@@ -5,7 +5,7 @@ import { UpdateProfileRequestDto } from '../../../features/user/profile/dto/prof
 import { ErrorAlert } from '../alerts/errorAlert/ErrorAlert';
 import SuccessAlert from '../alerts/successAlert/SuccessAlert';
 import { useNavigate } from 'react-router-dom';
-import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto } from '../../../entities/user/dto/userDto';
+import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto, UpdateUserWithImageDto } from '../../../entities/user/dto/userDto';
 
 type FormMode = "create" | "user-update" | "admin-update";
 
@@ -117,10 +117,15 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
         if (mode === "admin-update") {
             const userUpdate: UpdateUserDto = {
                 userName: formData.userName,
-                userImage: formData.userImage,
+
                 email: formData.email,
                 role: formData.role,
                 phone: formData.phone,
+            }
+
+            const userUpdated: UpdateUserWithImageDto = {
+                user: userUpdate,
+                file: imageFile
             }
 
             if (formData.password.length >= 8) {
@@ -132,7 +137,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                 return
             }
 
-            const response = await onSubmit(userUpdate);
+            const response = await onSubmit(userUpdated);
 
             if (response.data.idUser) {
                 setAlertSuccess("Datos actualizados");
@@ -177,9 +182,9 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
         const response = await onSubmit(userCreated);
 
 
-        
 
-        
+
+
 
 
         if (response.data.idUser) {
@@ -201,7 +206,9 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
     //GESTION PA LA PICTURE DEL USER
 
-    const [pictureUser, setPictureUser] = useState<string>(imgProfile);
+    const [pictureUser, setPictureUser] = useState<string>(
+        initialData?.userImage || imgProfile
+    );
     const [imageFile, setImageFile] = useState<File | null>(null);
 
     const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -222,11 +229,21 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
     useEffect(() => {
         return () => {
-            if (pictureUser !== imgProfile) {
+            if (pictureUser.startsWith("blob:")) {
                 URL.revokeObjectURL(pictureUser);
             }
         }
     }, [pictureUser]);
+
+
+    useEffect(() => {
+        if (initialData?.userImage) {
+            setPictureUser(initialData.userImage);
+        }
+        else {
+            setPictureUser(imgProfile);
+        }
+    }, [initialData])
 
 
 

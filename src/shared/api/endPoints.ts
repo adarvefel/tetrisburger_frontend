@@ -7,6 +7,7 @@ export const endPoints = {
             create: "/api/admin/users",
             findById: (id: number) => `/api/admin/users/${id}`,
             update: (id: number) => `/api/admin/users/${id}`,
+            updateImage: (id: number) => `/api/admin/users/${id}/image`,
             delete: (id: number) => `/api/admin/users/${id}`,
         },
 

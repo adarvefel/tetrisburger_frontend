@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { updateUser } from "../../../../entities/user/api/userApi";
-import { UpdateUserDto } from "../../../../entities/user/dto/userDto";
+import { UpdateUserDto, UpdateUserWithImageDto } from "../../../../entities/user/dto/userDto";
 
 export function useUserUpdate (){
 
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const handleUserUpdate = async (id: number, data : UpdateUserDto) => {
+    const handleUserUpdate = async (id: number, data : UpdateUserWithImageDto) => {
         try{
             setLoading(true);
             setError(null);
