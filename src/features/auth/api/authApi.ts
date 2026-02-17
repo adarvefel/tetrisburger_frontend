@@ -2,13 +2,13 @@ import { User } from "../../../entities/user/model/types";
 import { axiosClient } from "../../../shared/api/axiosClient";
 import { endPoints } from "../../../shared/api/endPoints";
 
-export const registrarUsuario = async(usuario: User) =>{
-    const response = await axiosClient.post(endPoints.auth.register, usuario)
-    return  response;
+export const registrarUsuario = async(usuario: User, recaptchaToken: string) =>{
+    const response = await axiosClient.post(endPoints.auth.register, {...usuario, recaptchaToken})
+    return response;
 }
 
-export const loginUsuario = async(email: string, password: string) =>{
-    const response = await axiosClient.post(endPoints.auth.login, {email, password})
+export const loginUsuario = async(email: string, password: string, recaptchaToken: string) =>{
+    const response = await axiosClient.post(endPoints.auth.login, {email, password, recaptchaToken})
     return response.data;
 }
 
