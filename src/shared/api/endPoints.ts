@@ -12,7 +12,7 @@ export const endPoints = {
         },
 
         product: {
-            list: (numberPage: number) => `/api/products?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            list: (numberPage: number) => `/api/products/list?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
             create: "/api/products",
             findById: (id: number) => `/api/products/${id}`,
             update: (id: number) => `/api/products/${id}`,

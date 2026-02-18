@@ -46,7 +46,7 @@ export default function ProductList() {
     const confirmDelete = async () => {
         if (!productToDelete) return;
 
-        await remove(productToDelete.id);
+        await remove(productToDelete.idProduct);
         closeDeleteModal();
         fetchProductList();
         setAlertSucces("product eliminado con exito.");
@@ -98,8 +98,8 @@ export default function ProductList() {
                 </thead>
                 <tbody className="productList__tbody">
                     {products.map((product) => (
-                        <tr key={product.id} className="productList__tr">
-                            <td className="productList__td">{product.id}</td>
+                        <tr key={product.idProduct} className="productList__tr">
+                            <td className="productList__td">{product.idProduct}</td>
                             <td className="productList__td">{product.name}</td>
                             <td className="productList__td">{product.description}</td>
                             <td className="productList__td">${product.price}</td>
@@ -108,7 +108,7 @@ export default function ProductList() {
                             <td className="productList__td">{product.productType}</td>
                             <td className="productList__td">
                                 <div className="productList__container-actions">
-                                    <Link className="productList__button-edit" to={`/admin/product/update/${product.id}`}><CiEdit size={18} /></Link>
+                                    <Link className="productList__button-edit" to={`/admin/product/update/${product.idProduct}`}><CiEdit size={18} /></Link>
                                     <button className="productList__button-delete" onClick={() => openDeleteModal(product)}><MdDeleteOutline size={18} /></button>
                                 </div>
                             </td>

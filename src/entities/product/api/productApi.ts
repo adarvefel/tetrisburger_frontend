@@ -1,13 +1,24 @@
 import { axiosClient } from "../../../shared/api/axiosClient";
 import { endPoints } from "../../../shared/api/endPoints";
-import { CreateProductDto, UpdateProductDto } from "../dto/productDto";
+import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto } from "../dto/productDto";
 
 export const listProducts = async (numberPage: number) =>{
     const response = await axiosClient.get(endPoints.admin.product.list(numberPage));
     return response;
 }
-export const createProduct = async (product: CreateProductDto) =>{
-    const response = await axiosClient.post(endPoints.admin.product.create, product);
+export const createProduct = async (data: CreateProductWihtImageDto) =>{
+
+    const formData = new FormData();
+
+    formData.append(
+        "data", new Blob([JSON.stringify(data.product)], { type: "application/json"})
+    );
+
+    if (data.file) {
+        formData.append("productImage", data.file);
+    }
+
+    const response = await axiosClient.post(endPoints.admin.product.create, formData);
     return response;
 }
 export const findProductById = async (id: number) =>{

@@ -12,6 +12,12 @@ export interface CreateProductDto {
   supplierId: number;
 }
 
+export interface CreateProductWihtImageDto {
+  product: CreateProductDto,
+  file?: File | null
+}
+
+
 export interface UpdateProductDto {
   id: number;
   name: string;

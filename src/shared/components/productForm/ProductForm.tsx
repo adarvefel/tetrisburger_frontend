@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./productForm.css";
-import {CreateProductDto, UpdateProductDto,} from "../../../entities/product/dto/productDto";
+import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, } from "../../../entities/product/dto/productDto";
 import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
 import SuccessAlert from "../alerts/successAlert/SuccessAlert";
 import { useNavigate } from "react-router-dom";
 import { useProductCategories } from "../../../features/admin/product/hooks/useProductCategory";
 import { useSuppliers } from "../../../features/admin/product/hooks/useSupplier";
+import photoTest from "../../../assets/bandera-colombia.png"
 
 type ProductFormMode = "admin-create" | "admin-update";
 
@@ -36,8 +37,8 @@ export default function ProductForm({
     quantity: initialData?.quantity ?? 0,
     available: initialData?.available ?? false,
     productType: initialData?.productType ?? "",
-    productCategoryId:(initialData as any)?.productCategoryId ?? 1,
-    supplierId:(initialData as any)?.supplierId ?? 1,
+    productCategoryId: (initialData as any)?.productCategoryId ?? 1,
+    supplierId: (initialData as any)?.supplierId ?? 1,
   });
 
   const { items: categories, loading: loadingCategories } = useProductCategories();
@@ -53,8 +54,8 @@ export default function ProductForm({
         quantity: initialData.quantity ?? 0,
         available: initialData.available ?? false,
         productType: initialData.productType ?? "",
-        productCategoryId:(initialData as any)?.productCategoryId ?? 1,
-        supplierId:(initialData as any)?.supplierId ?? 1,
+        productCategoryId: (initialData as any)?.productCategoryId ?? 1,
+        supplierId: (initialData as any)?.supplierId ?? 1,
       });
     }
   }, [initialData]);
@@ -67,7 +68,7 @@ export default function ProductForm({
     setFormData((prev) => ({
       ...prev,
       [name]: type === "number" || name === "productCategoryId" ||
-      name === "supplierId"  ? Number(value) : value,
+        name === "supplierId" ? Number(value) : value,
     }));
   };
 
@@ -95,24 +96,29 @@ export default function ProductForm({
     try {
       if (mode === "admin-create") {
         const createData: CreateProductDto = {
-        name: formData.name,
-        description: formData.description,
-        price: formData.price,
-        quantity: formData.quantity,
-        availability: formData.available,
-        productType: formData.productType,
-        ingredientType: "BASIC",
-        burgerIngredient: false,
-        imageUrl: "",
-        productCategoryId: formData.productCategoryId,
-        supplierId: formData.supplierId,
-      };
-      await onSubmit(createData);
-      setAlertSuccess("Producto creado con éxito.");
-      setTimeout(()=>{
-        nagivation("/admin/product-list");
-      }, 2000)
-    } else {
+          name: formData.name,
+          description: formData.description,
+          price: formData.price,
+          quantity: formData.quantity,
+          availability: formData.available,
+          productType: formData.productType,
+          ingredientType: "BASIC",
+          burgerIngredient: false,
+          imageUrl: "",
+          productCategoryId: formData.productCategoryId,
+          supplierId: formData.supplierId,
+        };
+
+        const productCreated: CreateProductWihtImageDto = {
+          product: createData
+        }
+
+        await onSubmit(productCreated);
+        setAlertSuccess("Producto creado con éxito.");
+        setTimeout(() => {
+          nagivation("/admin/product-list");
+        }, 2000)
+      } else {
         const updateData: UpdateProductDto = {
           id: formData.id,
           name: formData.name,
@@ -125,13 +131,14 @@ export default function ProductForm({
 
         const response = await onSubmit(updateData);
         setAlertSuccess("Producto actualizado con éxito.");
-        setTimeout(()=>{
-        nagivation("/admin/product-list");
-      }, 2000)
+        setTimeout(() => {
+          nagivation("/admin/product-list");
+        }, 2000)
       }
     } catch (error: any) {
-      setAlertError(error?.response?.data?.message ||error?.message ||"Error al procesar el formulario.");
+      setAlertError(error?.response?.data?.message || error?.message || "Error al procesar el formulario.");
     }
+    
   };
 
   return (
@@ -152,6 +159,23 @@ export default function ProductForm({
             Gestiona los datos básicos del producto en el panel de
             administración.
           </p>
+        </div>
+        <div className="productForm__container-imagen">
+          <div className="productForm__container-img">
+            <img className='productForm__img' src={photoTest} alt="" />
+          </div>
+          <div className="productForm__container-spam">
+            <h3 className='productForm__h3-img'>Imagen del producto</h3>
+            <p className='productForm__p-img' >Sube una imagen nueva</p>
+          </div>
+          <div className="productForm__container-button-top">
+            <button className='productForm__button' type='button'>
+              Upload image
+            </button>
+
+            <input className='productForm__input-file' type="file" accept='image/*'  />
+
+          </div>
         </div>
       </div>
 
@@ -249,13 +273,13 @@ export default function ProductForm({
         <div className="productForm__container-input">
           <label className="productForm__label">Tipo de producto</label>
           <input
-              className="productForm__input"
-              type="text"
-              name="productType"
-              required
-              value={formData.productType}
-              onChange={onInputChange}
-            />
+            className="productForm__input"
+            type="text"
+            name="productType"
+            required
+            value={formData.productType}
+            onChange={onInputChange}
+          />
         </div>
 
         <div className="productForm__container-row">

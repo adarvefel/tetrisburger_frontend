@@ -1,5 +1,5 @@
 export interface ProductFetchList {
-    id: number;
+    idProduct: number;
     name: string;
     description: string;
     quantity: number;
@@ -9,7 +9,7 @@ export interface ProductFetchList {
 }
 
 export interface ProductFindByIdResponse{
-    id : number,
+    idProduct : number,
     name: string,
     description: string,
     quantity: number,
