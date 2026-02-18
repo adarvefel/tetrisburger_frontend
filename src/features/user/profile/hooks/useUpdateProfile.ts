@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { updateProfile } from "../api/profileApi";
-import { UpdateProfileRequestDto } from "../dto/profileDto";
+import { UpdateProfileRequestDto, UpdateProfileWithImageRequestDto } from "../dto/profileDto";
 
 export function useUpdateProfile (){
 
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const handleUpdateProfile = async (data: UpdateProfileRequestDto) => {
+    const handleUpdateProfile = async (data: UpdateProfileWithImageRequestDto) => {
         try{
             setLoading(true);
             setError(null);

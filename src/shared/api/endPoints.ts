@@ -58,7 +58,7 @@ export const endPoints = {
 
             update: (id: number) => `/api/pqrs/admin/${id}`,
 
-            
+
         }
 
 
@@ -74,8 +74,11 @@ export const endPoints = {
     },
 
     user: {
-        profile: "/api/profile",
-        updateProfile: "api/profile",
+        profile: {
+            me: "/api/profile",
+            updateProfile: "/api/profile",
+            updateProfileImage: "/api/profile/image",
+        },
 
         pqrs: {
             create: "/api/pqrs",
@@ -83,7 +86,7 @@ export const endPoints = {
             findById: (id: number) => `/api/pqrs/${id}`,
             update: (id: number) => `/api/pqrs/${id}`,
             delete: (id: number) => `/api/pqrs/${id}`
-            
+
 
         }
     }

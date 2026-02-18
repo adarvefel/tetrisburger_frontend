@@ -1,8 +1,13 @@
 export interface UpdateProfileRequestDto{
     userName?: string;
     password?: string;
-    userImage?: string;
+    
     phone?: string;
+}
+
+export interface UpdateProfileWithImageRequestDto{
+    user: UpdateProfileRequestDto,
+    file?: File | null
 }
 
 export interface GetProfileResponeDto{

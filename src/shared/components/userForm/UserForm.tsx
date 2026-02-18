@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import imgProfile from "./../../../assets/photoPerfilUndefined.webp"
 import "./userForm.css"
-import { UpdateProfileRequestDto } from '../../../features/user/profile/dto/profileDto';
+import { UpdateProfileRequestDto, UpdateProfileWithImageRequestDto } from '../../../features/user/profile/dto/profileDto';
 import { ErrorAlert } from '../alerts/errorAlert/ErrorAlert';
 import SuccessAlert from '../alerts/successAlert/SuccessAlert';
 import { useNavigate } from 'react-router-dom';
@@ -89,10 +89,11 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
             const userUpdate: UpdateProfileRequestDto = {
                 userName: formData.userName,
-                userImage: formData.userImage,
+                
                 phone: formData.phone,
             }
 
+            
             if (formData.password.length >= 8) {
                 userUpdate.password = formData.password
             }
@@ -102,7 +103,12 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                 return
             }
 
-            const response = await onSubmit(userUpdate);
+            const usertToUpdate: UpdateProfileWithImageRequestDto = {
+                user: userUpdate,
+                file: imageFile
+            };
+
+            const response = await onSubmit(usertToUpdate);
 
             if (response.data.idUser) {
                 setAlertSuccess("Datos actualizados");
