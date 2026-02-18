@@ -17,8 +17,8 @@ export const loginGoogle = async (token: string)=>{
     return response.data;
 }
 
-export const forgotPasswordUsuario = async (email: string)=>{
-    const response = await axiosClient.post(endPoints.auth.forgotPassword, {email})
+export const forgotPasswordUsuario = async (email: string, recaptchaToken: string)=>{
+    const response = await axiosClient.post(endPoints.auth.forgotPassword, {email, recaptchaToken})
     return response;
 }
 
