@@ -6,6 +6,7 @@ export interface ProductFetchList {
     price: number;
     availability: boolean;
     productType: string;
+    imageUrl?: string
 }
 
 export interface ProductFindByIdResponse{
@@ -18,6 +19,7 @@ export interface ProductFindByIdResponse{
     productType: string,
     ingredientsType: string,
     burguerIngredients: string,
+    imageUrl?: string
 }
 
 export interface ProductListResponse {

@@ -1,25 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./productForm.css";
-import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, } from "../../../entities/product/dto/productDto";
+import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, UpdateProductWithImageDto, } from "../../../entities/product/dto/productDto";
 import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
 import SuccessAlert from "../alerts/successAlert/SuccessAlert";
 import { useNavigate } from "react-router-dom";
 import { useProductCategories } from "../../../features/admin/product/hooks/useProductCategory";
 import { useSuppliers } from "../../../features/admin/product/hooks/useSupplier";
-import photoTest from "../../../assets/bandera-colombia.png"
+
+import imgProfile from "./../../../assets/productNotFound.png"
 
 type ProductFormMode = "admin-create" | "admin-update";
 
 interface ProductFormProps {
   mode: ProductFormMode;
   initialData?: {
-    id?: number;
+    idProduct?: number;
     name?: string;
     description?: string;
     price?: number;
     quantity?: number;
     available?: boolean;
     productType?: string;
+    imageUrl?: string;
   };
   onSubmit: (data: any) => Promise<any>;
 }
@@ -30,7 +32,7 @@ export default function ProductForm({
   onSubmit,
 }: ProductFormProps) {
   const [formData, setFormData] = useState({
-    id: initialData?.id ?? 0,
+    idProduct: initialData?.idProduct ?? 0,
     name: initialData?.name ?? "",
     description: initialData?.description ?? "",
     price: initialData?.price ?? 0,
@@ -39,6 +41,7 @@ export default function ProductForm({
     productType: initialData?.productType ?? "",
     productCategoryId: (initialData as any)?.productCategoryId ?? 1,
     supplierId: (initialData as any)?.supplierId ?? 1,
+    imageUrl: initialData?.imageUrl || ""
   });
 
   const { items: categories, loading: loadingCategories } = useProductCategories();
@@ -47,7 +50,7 @@ export default function ProductForm({
   useEffect(() => {
     if (initialData) {
       setFormData({
-        id: initialData.id ?? 0,
+        idProduct: initialData.idProduct ?? 0,
         name: initialData.name ?? "",
         description: initialData.description ?? "",
         price: initialData.price ?? 0,
@@ -56,6 +59,7 @@ export default function ProductForm({
         productType: initialData.productType ?? "",
         productCategoryId: (initialData as any)?.productCategoryId ?? 1,
         supplierId: (initialData as any)?.supplierId ?? 1,
+        imageUrl: initialData?.imageUrl || ""
       });
     }
   }, [initialData]);
@@ -110,7 +114,8 @@ export default function ProductForm({
         };
 
         const productCreated: CreateProductWihtImageDto = {
-          product: createData
+          product: createData,
+          file: imageFile
         }
 
         await onSubmit(productCreated);
@@ -120,16 +125,25 @@ export default function ProductForm({
         }, 2000)
       } else {
         const updateData: UpdateProductDto = {
-          id: formData.id,
+          
           name: formData.name,
           description: formData.description,
           price: formData.price,
           quantity: formData.quantity,
           availability: formData.available,
           productType: formData.productType,
+          productCategoryId: formData.productCategoryId,
+          supplierId: formData.supplierId,
         };
 
-        const response = await onSubmit(updateData);
+        const productUpdated : UpdateProductWithImageDto = {
+          product: updateData,
+          file: imageFile,
+        }
+
+        console.log(productUpdated);
+
+        const response = await onSubmit(productUpdated);
         setAlertSuccess("Producto actualizado con éxito.");
         setTimeout(() => {
           nagivation("/admin/product-list");
@@ -140,6 +154,47 @@ export default function ProductForm({
     }
     
   };
+
+  //GESTION PA LA PICTURE DEL USER
+
+    const [pictureProduct, setPictureProduct] = useState<string>(
+        initialData?.imageUrl || imgProfile
+    );
+    const [imageFile, setImageFile] = useState<File | null>(null);
+
+    const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+    const onClickInputFile = () => {
+        fileInputRef.current?.click();
+    }
+
+    const onChangeInputFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+
+        if (file) {
+            setImageFile(file)
+            const pictureUrl = URL.createObjectURL(file);
+            setPictureProduct(pictureUrl);
+        }
+    }
+
+    useEffect(() => {
+        return () => {
+            if (pictureProduct.startsWith("blob:")) {
+                URL.revokeObjectURL(pictureProduct);
+            }
+        }
+    }, [pictureProduct]);
+
+
+    useEffect(() => {
+        if (initialData?.imageUrl) {
+            setPictureProduct(initialData.imageUrl);
+        }
+        else {
+            setPictureProduct(imgProfile);
+        }
+    }, [initialData])
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
@@ -162,18 +217,18 @@ export default function ProductForm({
         </div>
         <div className="productForm__container-imagen">
           <div className="productForm__container-img">
-            <img className='productForm__img' src={photoTest} alt="" />
+            <img className='productForm__img' src={pictureProduct} alt="" />
           </div>
           <div className="productForm__container-spam">
             <h3 className='productForm__h3-img'>Imagen del producto</h3>
             <p className='productForm__p-img' >Sube una imagen nueva</p>
           </div>
           <div className="productForm__container-button-top">
-            <button className='productForm__button' type='button'>
+            <button className='productForm__button' onClick={onClickInputFile} type='button'>
               Upload image
             </button>
 
-            <input className='productForm__input-file' type="file" accept='image/*'  />
+            <input ref={fileInputRef} className='productForm__input-file' type="file" accept='image/*'  onChange={onChangeInputFile} />
 
           </div>
         </div>
@@ -187,7 +242,7 @@ export default function ProductForm({
               className="productForm__input"
               type="text"
               name="id"
-              value={formData.id}
+              value={formData.idProduct}
               disabled
               onChange={onInputChange}
             />

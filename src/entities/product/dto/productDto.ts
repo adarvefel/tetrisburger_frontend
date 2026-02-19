@@ -19,12 +19,19 @@ export interface CreateProductWihtImageDto {
 
 
 export interface UpdateProductDto {
-  id: number;
+  
   name: string;
   description?: string;
   quantity: number;
   price: number;
   availability: boolean;
   productType?: string;
-  imageUrl?: string;
+  productCategoryId: number;
+  supplierId: number;
+
+}
+
+export interface UpdateProductWithImageDto {
+  product: UpdateProductDto,
+  file?: File | null
 }

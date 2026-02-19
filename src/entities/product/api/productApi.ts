@@ -1,6 +1,6 @@
 import { axiosClient } from "../../../shared/api/axiosClient";
 import { endPoints } from "../../../shared/api/endPoints";
-import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto } from "../dto/productDto";
+import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, UpdateProductWithImageDto } from "../dto/productDto";
 
 export const listProducts = async (numberPage: number) =>{
     const response = await axiosClient.get(endPoints.admin.product.list(numberPage));
@@ -25,8 +25,16 @@ export const findProductById = async (id: number) =>{
     const response = await axiosClient.get(endPoints.admin.product.findById(id));
     return response;
 }
-export const updateProduct = async (id: number, product: UpdateProductDto) =>{
-    const response = await axiosClient.put(endPoints.admin.product.update(id), product);
+export const updateProduct = async (id: number, data: UpdateProductWithImageDto) =>{
+
+     if (data.file) {
+        const formData = new FormData();
+
+        formData.append("productImage", data.file);
+        await axiosClient.put(endPoints.admin.product.updateImage(id), formData);
+    }
+
+    const response = await axiosClient.put(endPoints.admin.product.update(id), data.product);
     return response;
 }
 export const deleteProduct = async (id: number) =>{

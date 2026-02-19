@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { updateProduct } from "../../../../entities/product/api/productApi";
-import { UpdateProductDto } from "../../../../entities/product/dto/productDto";
+import { UpdateProductDto, UpdateProductWithImageDto } from "../../../../entities/product/dto/productDto";
 
 export function useProductUpdate (){
 
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
 
-    const handleProductUpdate = async (id: number, data : UpdateProductDto) => {
+    const handleProductUpdate = async (id: number, data : UpdateProductWithImageDto) => {
         try{
             setLoading(true);
             setError(null);

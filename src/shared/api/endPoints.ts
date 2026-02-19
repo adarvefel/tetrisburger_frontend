@@ -16,6 +16,7 @@ export const endPoints = {
             create: "/api/products",
             findById: (id: number) => `/api/products/${id}`,
             update: (id: number) => `/api/products/${id}`,
+            updateImage: (id: number) => `/api/products/image/${id}`,
             delete: (id: number) => `/api/products/${id}`,
         },
 
