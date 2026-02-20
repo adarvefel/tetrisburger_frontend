@@ -19,7 +19,7 @@ interface ProductFormProps {
     description?: string;
     price?: number;
     quantity?: number;
-    available?: boolean;
+    availability?: boolean;
     productType?: string;
     imageUrl?: string;
   };
@@ -37,10 +37,10 @@ export default function ProductForm({
     description: initialData?.description ?? "",
     price: initialData?.price ?? 0,
     quantity: initialData?.quantity ?? 0,
-    available: initialData?.available ?? false,
+    available: initialData?.availability ?? false,
     productType: initialData?.productType ?? "",
-    productCategoryId: (initialData as any)?.productCategoryId ?? 1,
-    supplierId: (initialData as any)?.supplierId ?? 1,
+    productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
+    supplierId: (initialData as any)?.supplierId ?? 0,
     imageUrl: initialData?.imageUrl || ""
   });
 
@@ -55,10 +55,10 @@ export default function ProductForm({
         description: initialData.description ?? "",
         price: initialData.price ?? 0,
         quantity: initialData.quantity ?? 0,
-        available: initialData.available ?? false,
+        available: initialData.availability ?? false,
         productType: initialData.productType ?? "",
-        productCategoryId: (initialData as any)?.productCategoryId ?? 1,
-        supplierId: (initialData as any)?.supplierId ?? 1,
+        productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
+        supplierId: (initialData as any)?.supplierId ?? 0,
         imageUrl: initialData?.imageUrl || ""
       });
     }
@@ -125,7 +125,7 @@ export default function ProductForm({
         }, 2000)
       } else {
         const updateData: UpdateProductDto = {
-          
+
           name: formData.name,
           description: formData.description,
           price: formData.price,
@@ -136,7 +136,7 @@ export default function ProductForm({
           supplierId: formData.supplierId,
         };
 
-        const productUpdated : UpdateProductWithImageDto = {
+        const productUpdated: UpdateProductWithImageDto = {
           product: updateData,
           file: imageFile,
         }
@@ -152,49 +152,49 @@ export default function ProductForm({
     } catch (error: any) {
       setAlertError(error?.response?.data?.message || error?.message || "Error al procesar el formulario.");
     }
-    
+
   };
 
   //GESTION PA LA PICTURE DEL USER
 
-    const [pictureProduct, setPictureProduct] = useState<string>(
-        initialData?.imageUrl || imgProfile
-    );
-    const [imageFile, setImageFile] = useState<File | null>(null);
+  const [pictureProduct, setPictureProduct] = useState<string>(
+    initialData?.imageUrl || imgProfile
+  );
+  const [imageFile, setImageFile] = useState<File | null>(null);
 
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const onClickInputFile = () => {
-        fileInputRef.current?.click();
+  const onClickInputFile = () => {
+    fileInputRef.current?.click();
+  }
+
+  const onChangeInputFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      setImageFile(file)
+      const pictureUrl = URL.createObjectURL(file);
+      setPictureProduct(pictureUrl);
     }
+  }
 
-    const onChangeInputFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-
-        if (file) {
-            setImageFile(file)
-            const pictureUrl = URL.createObjectURL(file);
-            setPictureProduct(pictureUrl);
-        }
+  useEffect(() => {
+    return () => {
+      if (pictureProduct.startsWith("blob:")) {
+        URL.revokeObjectURL(pictureProduct);
+      }
     }
-
-    useEffect(() => {
-        return () => {
-            if (pictureProduct.startsWith("blob:")) {
-                URL.revokeObjectURL(pictureProduct);
-            }
-        }
-    }, [pictureProduct]);
+  }, [pictureProduct]);
 
 
-    useEffect(() => {
-        if (initialData?.imageUrl) {
-            setPictureProduct(initialData.imageUrl);
-        }
-        else {
-            setPictureProduct(imgProfile);
-        }
-    }, [initialData])
+  useEffect(() => {
+    if (initialData?.imageUrl) {
+      setPictureProduct(initialData.imageUrl);
+    }
+    else {
+      setPictureProduct(imgProfile);
+    }
+  }, [initialData])
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
@@ -228,7 +228,7 @@ export default function ProductForm({
               Upload image
             </button>
 
-            <input ref={fileInputRef} className='productForm__input-file' type="file" accept='image/*'  onChange={onChangeInputFile} />
+            <input ref={fileInputRef} className='productForm__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
 
           </div>
         </div>
