@@ -6,6 +6,7 @@ import { ErrorAlert } from '../alerts/errorAlert/ErrorAlert';
 import SuccessAlert from '../alerts/successAlert/SuccessAlert';
 import { useNavigate } from 'react-router-dom';
 import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto, UpdateUserWithImageDto } from '../../../entities/user/dto/userDto';
+import { toast } from 'sonner';
 
 type FormMode = "create" | "user-update" | "admin-update";
 
@@ -53,23 +54,6 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     }
 
 
-
-    // VUelta pa las alertas
-
-    const [showAlertSuccess, showSetAlertSuccess] = useState(false);
-    const [showAlertError, showSetAlertError] = useState(false);
-
-    const [alertError, setAlertError] = useState<string | null>(null);
-    const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
-
-    const onCloseAlertSucces = () => {
-        setAlertSuccess(null);
-    }
-
-    const onCloseAlertError = () => {
-        setAlertError(null);
-    }
-
     const navegator = useNavigate();
 
 
@@ -79,7 +63,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
 
         if (formData.phone.length >= 1 && formData.phone.length < 10) {
-            setAlertError("El numero telefonico debe tener minimo 10 digitos.");
+            toast.error("El numero telefonico debe tener minimo 10 digitos.");
             return
         }
 
@@ -99,7 +83,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
             }
 
             if (formData.password.length >= 1 && formData.password.length < 8) {
-                setAlertError("La contraseña debe tener al menos 8 digitos.")
+                toast.error("La contraseña debe tener al menos 8 digitos.")
                 return
             }
 
@@ -111,10 +95,10 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
             const response = await onSubmit(usertToUpdate);
 
             if (response.data.idUser) {
-                setAlertSuccess("Datos actualizados");
+                toast.success("Datos actualizados");
             }
             else {
-                setAlertError("Datos no actualizados, error inesperado.")
+                toast.error("Datos no actualizados, error inesperado.")
             }
 
             return
@@ -139,20 +123,20 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
             }
 
             if (formData.password.length >= 1 && formData.password.length < 8) {
-                setAlertError("La contraseña debe tener al menos 8 digitos.")
+                toast.error("La contraseña debe tener al menos 8 digitos.")
                 return
             }
 
             const response = await onSubmit(userUpdated);
 
             if (response.data.idUser) {
-                setAlertSuccess("Datos actualizados");
+                toast.success("Datos actualizados");
                 setTimeout(() => {
                     navegator("/admin/users-list");
                 }, 2000)
             }
             else {
-                setAlertError("Datos no actualizados, error inesperado.")
+                toast.error("Datos no actualizados, error inesperado.")
             }
 
             return
@@ -160,12 +144,12 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
         }
 
         if (formData.password.length < 8) {
-            setAlertError("La password debe tener al menos 8 digitos.");
+            toast.error("La password debe tener al menos 8 digitos.");
             return;
         }
 
         if (formData.role !== "ADMIN" && formData.role !== "CLIENT" && formData.role !== "EMPLOYEE") {
-            setAlertError("Seleccione un rol.");
+            toast.error("Seleccione un rol.");
             return;
         }
 
@@ -183,32 +167,22 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
             file: imageFile
         }
 
-
-
         const response = await onSubmit(userCreated);
 
 
-
-
-
-
-
         if (response.data.idUser) {
-            setAlertSuccess("Usuario Agregado correctamente");
+            toast.success("Usuario Agregado correctamente");
             setTimeout(() => {
                 navegator("/admin/users-list");
             }, 2000)
         } else {
-            setAlertError("Error al intenatar agragar este usuario.");
+            toast.error("Error al intenatar agragar este usuario.");
         }
-
 
         return
 
 
     }
-
-
 
     //GESTION PA LA PICTURE DEL USER
 
@@ -256,8 +230,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     return (
         <form className='userForm__form' action="" onSubmit={handleSubmit}>
 
-            {alertError ? <ErrorAlert mensaje={alertError} onClosed={onCloseAlertError} /> : null}
-            {alertSuccess ? <SuccessAlert mensaje={alertSuccess} onClosed={onCloseAlertSucces} /> : null}
+            
 
             <div className="userForm__container-top">
 

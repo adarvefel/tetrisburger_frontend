@@ -6,6 +6,7 @@ import {
 } from "../../../entities/supplier/dto/supplierDto";
 import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
 import SuccessAlert from "../alerts/successAlert/SuccessAlert";
+import { toast } from "sonner";
 
 type SupplierFormMode = "admin-create" | "admin-update";
 
@@ -46,10 +47,7 @@ export default function SupplierForm({
     }
   }, [initialData]);
 
-  const [alertError, setAlertError] = useState<string | null>(null);
-  const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
-  const onCloseAlertError = () => setAlertError(null);
-  const onCloseAlertSuccess = () => setAlertSuccess(null);
+  
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -62,7 +60,7 @@ export default function SupplierForm({
     e.preventDefault();
 
     if (formData.name.trim() === "" || formData.email.trim() === "") {
-      setAlertError("Nombre y email son obligatorios.");
+      toast.error("Nombre y email son obligatorios.");
       return;
     }
 
@@ -76,7 +74,7 @@ export default function SupplierForm({
         };
 
         await onSubmit(createData);
-        setAlertSuccess("Proveedor creado con éxito.");
+        toast.success("Proveedor creado con éxito.");
         setFormData({
           id: 0,
           name: "",
@@ -94,10 +92,10 @@ export default function SupplierForm({
         };
 
         await onSubmit(updateData);
-        setAlertSuccess("Proveedor actualizado con éxito.");
+        toast.success("Proveedor actualizado con éxito.");
       }
     } catch (error: any) {
-      setAlertError(
+      toast.error(
         error?.response?.data?.message ||
           error?.message ||
           "Error al procesar el formulario."
@@ -107,12 +105,6 @@ export default function SupplierForm({
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
-      {alertError && (
-        <ErrorAlert mensaje={alertError} onClosed={onCloseAlertError} />
-      )}
-      {alertSuccess && (
-        <SuccessAlert mensaje={alertSuccess} onClosed={onCloseAlertSuccess} />
-      )}
 
       <div className="productForm__container-top">
         <div className="productForm__container-text">

@@ -18,15 +18,13 @@ import { FaSearch } from "react-icons/fa";
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { deleteUser } from '../../../../../entities/user/api/userApi';
+import { toast } from 'sonner';
 
 export default function UserList() {
 
     const { error, loading, numberPage, totalPage, users, prevPage, nextPage, fetchUserList } = useUserList();
 
-    const [alertSucces, setAlertSucces] = useState<null | string>(null);
-    const onClosedAlertSucces = () => {
-        setAlertSucces(null);
-    }
+    
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -50,7 +48,7 @@ export default function UserList() {
         await remove(userToDelete.idUser);
         closeDeleteModal();
         fetchUserList();
-        setAlertSucces("Usuario eliminado con exito.");
+        toast.success("Usuario eliminado con exito.");
     };
 
 
@@ -58,7 +56,7 @@ export default function UserList() {
         <div className="userList__container-global">
 
             {/* ---------- DELETE MODAL ---------- */}
-            {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+            
             {showDeleteModal && userToDelete && (
                 <ConfirmDeleteModal
                     title="Eliminar Usuario"

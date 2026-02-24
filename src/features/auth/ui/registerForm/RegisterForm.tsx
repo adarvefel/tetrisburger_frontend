@@ -7,8 +7,7 @@ import InputForm from '../../../../shared/components/formAuth/inputForm/InputFor
 import ButtonGmail from '../../../../shared/components/formAuth/buttonSocial/buttonGmail/ButtonGmail';
 import ButtonSubmit from '../../../../shared/components/formAuth/buttonSubmit/ButtonSubmit';
 import { Link, useNavigate } from 'react-router-dom';
-import { ErrorAlert } from '../../../../shared/components/alerts/errorAlert/ErrorAlert';
-import SuccessAlert from '../../../../shared/components/alerts/successAlert/SuccessAlert';
+import { toast } from 'sonner';
 
 export default function RegisterForm() {
 
@@ -23,53 +22,31 @@ export default function RegisterForm() {
         role: "CLIENT"
     });
 
-    const [alertaError, setAlertaError] = useState<string | null>(null);
-    const [alertaSuccess, setAlertaSuccess] = useState<string | null>(null);
-
-
-    const onClosedAlertError = () => {
-        setAlertaError(null);
-    }
-
-    const onClosedAlertSucces = () => {
-        setAlertaSuccess(null);
-    }
-
-
-
     const [confirmarPassword, setConfirmarPassword] = useState("");
 
     const { userName, email, password } = form;
-
-
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     }
 
-
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-
-
         if (password !== confirmarPassword) {
-            setAlertaError("Las contraseñas no coinciden");
+            toast.error("Las contraseñas no coinciden");
             return;
         }
-
 
         if (password.length < 8) {
-            setAlertaError("La contrasña debe tener al menos 8 digitos");
+            toast.error("La contrasña debe tener al menos 8 digitos");
             return;
         }
-
-
 
         const respuesta = await register(form);
 
         if (respuesta?.status === 201) {
-            setAlertaSuccess("Usuario registrado exitosamente.");
+            toast.success("Usuario registrado exitosamente.");
             setTimeout(() => {
                 setForm({
                     userName: "",
@@ -80,23 +57,13 @@ export default function RegisterForm() {
                 navegador("/login");
             }, 2000);
 
-            
-
         }
-
-
         return;
-
-
-
     }
-
-
 
     return (
         <form className='registerForm__form' onSubmit={onSubmit} action="">
-            {alertaError && <ErrorAlert onClosed={onClosedAlertError} mensaje={alertaError} />}
-            {alertaSuccess && <SuccessAlert onClosed={onClosedAlertSucces} mensaje={alertaSuccess} />}
+            
 
             <div className='registerForm__titulo'>
                 <TituloForm textTitulo='REGISTRO' />

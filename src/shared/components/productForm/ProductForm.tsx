@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./productForm.css";
 import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, UpdateProductWithImageDto, } from "../../../entities/product/dto/productDto";
-import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
-import SuccessAlert from "../alerts/successAlert/SuccessAlert";
 import { useNavigate } from "react-router-dom";
 import { useProductCategories } from "../../../features/admin/product/hooks/useProductCategory";
 import { useSuppliers } from "../../../features/admin/product/hooks/useSupplier";
 
 import imgProfile from "./../../../assets/productNotFound.png"
+import { toast } from "sonner";
 
 type ProductFormMode = "admin-create" | "admin-update";
 
@@ -78,22 +77,18 @@ export default function ProductForm({
 
   let nagivation = useNavigate();
 
-  const [alertError, setAlertError] = useState<string | null>(null);
-  const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
-
-  const onCloseAlertError = () => setAlertError(null);
-  const onCloseAlertSuccess = () => setAlertSuccess(null);
+  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (formData.name.trim() === "" || formData.description.trim() === "") {
-      setAlertError("Por favor complete todos los campos obligatorios.");
+      toast.error("Por favor complete todos los campos obligatorios.");
       return;
     }
 
     if (formData.price < 0 || formData.quantity < 0) {
-      setAlertError("Precio y cantidad no pueden ser negativos.");
+      toast.error("Precio y cantidad no pueden ser negativos.");
       return;
     }
 
@@ -119,7 +114,7 @@ export default function ProductForm({
         }
 
         await onSubmit(productCreated);
-        setAlertSuccess("Producto creado con éxito.");
+        toast.success("Producto creado con éxito.");
         setTimeout(() => {
           nagivation("/admin/product-list");
         }, 2000)
@@ -144,13 +139,13 @@ export default function ProductForm({
         console.log(productUpdated);
 
         const response = await onSubmit(productUpdated);
-        setAlertSuccess("Producto actualizado con éxito.");
+        toast.success("Producto actualizado con éxito.");
         setTimeout(() => {
           nagivation("/admin/product-list");
         }, 2000)
       }
     } catch (error: any) {
-      setAlertError(error?.response?.data?.message || error?.message || "Error al procesar el formulario.");
+      toast.error(error?.response?.data?.message || error?.message || "Error al procesar el formulario.");
     }
 
   };
@@ -198,12 +193,7 @@ export default function ProductForm({
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
-      {alertError && (
-        <ErrorAlert mensaje={alertError} onClosed={onCloseAlertError} />
-      )}
-      {alertSuccess && (
-        <SuccessAlert mensaje={alertSuccess} onClosed={onCloseAlertSuccess} />
-      )}
+      
 
       <div className="productForm__container-top">
         <div className="productForm__container-text">

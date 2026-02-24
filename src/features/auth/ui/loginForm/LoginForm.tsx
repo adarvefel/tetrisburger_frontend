@@ -8,9 +8,7 @@ import InputForm from '../../../../shared/components/formAuth/inputForm/InputFor
 import ButtonGmail from '../../../../shared/components/formAuth/buttonSocial/buttonGmail/ButtonGmail'
 import ButtonSubmit from '../../../../shared/components/formAuth/buttonSubmit/ButtonSubmit'
 import { Link, useNavigate } from 'react-router-dom'
-import { ErrorAlert } from '../../../../shared/components/alerts/errorAlert/ErrorAlert'
-import SuccessAlert from '../../../../shared/components/alerts/successAlert/SuccessAlert'
-import { useAlerts } from '../../../../shared/hooks/useAlerts'
+import { toast } from 'sonner'
 
 export default function LoginForm() {
 
@@ -18,7 +16,6 @@ export default function LoginForm() {
 
     const navegator = useNavigate();
 
-    const { alertSuccess, setAlertSuccess, onClosedAlertSuccess } = useAlerts();
 
     const [form, setForm] = useState({
         email: "",
@@ -38,7 +35,8 @@ export default function LoginForm() {
 
         if (respuesta?.token) {
 
-            setAlertSuccess("Login exitoso.");
+
+            toast.success("Login exitoso.")
 
             setTimeout(() => {
                 setForm({
@@ -58,14 +56,9 @@ export default function LoginForm() {
     return (
         <form onSubmit={onSubmit} className='loginForm__form' action="">
 
-
-
-            {alertSuccess && <SuccessAlert onClosed={onClosedAlertSuccess} mensaje={alertSuccess} />}
-
             <div className="loginForm__titulo">
                 <TituloForm textTitulo='LOGIN' />
             </div>
-
 
             <div className="loginForm__inputs">
                 <InputForm name='email' required type='email' onChange={onInputChange} value={email} placeholder='CORREO' />

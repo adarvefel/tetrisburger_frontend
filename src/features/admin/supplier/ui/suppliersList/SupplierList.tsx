@@ -13,6 +13,7 @@ import ButtonCasual from "../../../../../shared/components/buttonCasual/ButtonCa
 import { deleteSupplier } from "../../../../../entities/supplier/api/supplierApi";
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
+import { toast } from "sonner";
 
 export default function SupplierList() {
   const {
@@ -26,10 +27,7 @@ export default function SupplierList() {
     fetchSupplierList,
   } = useSupplierList();
 
-  const [alertSucces, setAlertSucces] = useState<null | string>(null);
-  const onClosedAlertSucces = () => {
-    setAlertSucces(null);
-  }
+  
 
   // ---------- DELETE STATE ----------
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -53,13 +51,13 @@ export default function SupplierList() {
     await remove(supplierToDelete.id);
     closeDeleteModal();
     fetchSupplierList();
-    setAlertSucces("supplier eliminado con exito.");
+    toast.success("supplier eliminado con exito.");
   };
 
   return (
     <div className="productList__container-global">
       {/* ---------- DELETE MODAL ---------- */}
-      {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+      
       {showDeleteModal && supplierToDelete && (
         <ConfirmDeleteModal
           title="Eliminar supplier"

@@ -17,15 +17,13 @@ import { FaSearch } from "react-icons/fa";
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 import { deleteProduct } from "../../../../../entities/product/api/productApi";
+import { toast } from "sonner";
 
 export default function ProductList() {
 
     const { error, loading, numberPage, totalPage, products, prevPage, nextPage, fetchProductList } = useProductList();
 
-    const [alertSucces, setAlertSucces] = useState<null | string>(null);
-    const onClosedAlertSucces = () => {
-        setAlertSucces(null);
-    }
+    
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -49,7 +47,7 @@ export default function ProductList() {
         await remove(productToDelete.idProduct);
         closeDeleteModal();
         fetchProductList();
-        setAlertSucces("product eliminado con exito.");
+        toast.success("product eliminado con exito.");
     };
 
 
@@ -58,7 +56,7 @@ export default function ProductList() {
         <div className="productList__container-global">
 
             {/* ---------- DELETE MODAL ---------- */}
-            {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+            
             {showDeleteModal && productToDelete && (
                 <ConfirmDeleteModal
                     title="Eliminar Producto"
