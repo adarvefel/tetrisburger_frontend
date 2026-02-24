@@ -25,7 +25,7 @@ export function useLogin(){
             return response;
 
         }catch(err: any){
-            setError(err.message || "Error al loguearte");
+            setError(err.response?.data?.message || "Error al loguearte");
 
         }finally{
             setLoading(false);

@@ -54,13 +54,13 @@ export default function RegisterForm() {
 
 
         if (password !== confirmarPassword) {
-            setAlertaError("Las password no coinciden");
+            setAlertaError("Las contraseñas no coinciden");
             return;
         }
 
 
         if (password.length < 8) {
-            setAlertaError("Las password debe tener al menos 8 digitos");
+            setAlertaError("La contrasña debe tener al menos 8 digitos");
             return;
         }
 
@@ -80,15 +80,9 @@ export default function RegisterForm() {
                 navegador("/login");
             }, 2000);
 
-            return;
+            
 
-        }else{
-            setAlertaError("Error inesperado, por favor intentelo mas tarde.");
         }
-
-
-
-
 
 
         return;
@@ -112,7 +106,7 @@ export default function RegisterForm() {
                 <InputForm name='userName' placeholder='NOMBRE USUARIO' required onChange={onInputChange} value={userName} />
                 <InputForm name='email' type='email' placeholder='CORREO' required onChange={onInputChange} value={email} />
                 <InputForm name='password' type='password' placeholder='CONTRASEÑA' required onChange={onInputChange} value={password} />
-                <InputForm name='confirmarPassword' type='password' placeholder='CONFIRMAR PASSWORD' required onChange={(e) => setConfirmarPassword(e.target.value)} value={confirmarPassword} />
+                <InputForm name='confirmarPassword' type='password' placeholder='CONFIRMAR CONTRASEÑA' required onChange={(e) => setConfirmarPassword(e.target.value)} value={confirmarPassword} />
             </div>
 
             <div className="registerForm__links">

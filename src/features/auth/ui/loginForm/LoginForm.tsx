@@ -18,7 +18,7 @@ export default function LoginForm() {
 
     const navegator = useNavigate();
 
-    const {alertError, setAlertError, alertSuccess, setAlertSuccess, onClosedAlertError, onClosedAlertSuccess} = useAlerts();
+    const { alertSuccess, setAlertSuccess, onClosedAlertSuccess } = useAlerts();
 
     const [form, setForm] = useState({
         email: "",
@@ -34,35 +34,24 @@ export default function LoginForm() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-
-
         const respuesta = await handleLogin(email, password);
 
         if (respuesta?.token) {
 
-            setAlertSuccess("Login exitoso.")
+            setAlertSuccess("Login exitoso.");
+
+            setTimeout(() => {
+                setForm({
+                    email: "",
+                    password: ""
+                });
+
+                navegator("/");
+            }, 2000);
 
         }
-        else {
-
-            setAlertError("Credenciales invalidas");
-            return;
-
-        }
-
-
-        setTimeout(() => {
-            setForm({
-                email: "",
-                password: ""
-            });
-
-            navegator("/");
-        }, 2000);
 
         return;
-
-
     }
 
 
@@ -70,7 +59,7 @@ export default function LoginForm() {
         <form onSubmit={onSubmit} className='loginForm__form' action="">
 
 
-            {alertError && <ErrorAlert onClosed={onClosedAlertError} mensaje={alertError} />}
+
             {alertSuccess && <SuccessAlert onClosed={onClosedAlertSuccess} mensaje={alertSuccess} />}
 
             <div className="loginForm__titulo">

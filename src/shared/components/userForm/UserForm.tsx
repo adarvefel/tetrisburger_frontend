@@ -273,7 +273,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
                 <div className="userForm__container-button-top">
                     <button className='userForm__button' onClick={onClickInputFile} type='button'>
-                        Upload image
+                        Subir imagen
                     </button>
 
                     <input ref={fileInputRef} className='userForm__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
@@ -286,12 +286,12 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                 <div className="userForm__container-row">
 
                     <div className="userForm__container-input">
-                        <label className='userForm__label' htmlFor="">User ID</label>
+                        <label className='userForm__label' htmlFor="">ID Usuario</label>
                         <input name='idUser' className='userForm__input' type="text" disabled value={formData.idUser} onChange={onInputChange} />
                     </div>
 
                     <div className="userForm__container-input">
-                        <label className='userForm__label' htmlFor="">Full Name</label>
+                        <label className='userForm__label' htmlFor="">Nombre</label>
                         <input name='userName' className='userForm__input' required type="text" value={formData.userName} onChange={onInputChange} />
                     </div>
 
@@ -300,12 +300,12 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                 <div className="userForm__container-row">
 
                     <div className="userForm__container-input">
-                        <label className='userForm__label' htmlFor="">Email Address</label>
+                        <label className='userForm__label' htmlFor="">Correo</label>
                         <input name='email' className='userForm__input' disabled={mode === "user-update"} required type="email" value={formData.email} onChange={onInputChange} />
                     </div>
 
                     <div className="userForm__container-input">
-                        <label className='userForm__label' htmlFor="">Phone Number</label>
+                        <label className='userForm__label' htmlFor="">Numero telefonico</label>
                         <input name='phone' className='userForm__input' type="text" value={formData.phone} onChange={onInputChange} />
                     </div>
 
@@ -314,12 +314,12 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                 <div className="userForm__container-row">
 
                     <div className="userForm__container-input">
-                        <label className='userForm__label' htmlFor="">Password</label>
+                        <label className='userForm__label' htmlFor="">Contraseña</label>
                         <input name='password' className='userForm__input' required={mode === "create"} type="password" value={formData.password} onChange={onInputChange} placeholder='Deja en blanco para dejar la contraseña actual.' />
                     </div>
 
                     <div className="userForm__container-input">
-                        <label className='userForm__label' htmlFor="">Role</label>
+                        <label className='userForm__label' htmlFor="">Rol</label>
                         <select name='role' className='userForm__select' value={formData.role} onChange={onInputChange} disabled={mode === "user-update"}>
                             <option className='userForm__option' value="">Seleccione un rol</option>
                             <option className='userForm__option' value="ADMIN">Administrador</option>

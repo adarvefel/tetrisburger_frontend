@@ -23,7 +23,7 @@ axiosClient.interceptors.request.use(
 axiosClient.interceptors.response.use(
     (response)=> response,
     (error) =>{
-        if (error.response && error.status === 401) {
+        if (error.response && error.status === 403331) {
             useAuthStore.getState().logout();
             window.location.href = "/login";
         }
