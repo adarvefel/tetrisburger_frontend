@@ -60,7 +60,7 @@ export default function SupplierList() {
       
       {showDeleteModal && supplierToDelete && (
         <ConfirmDeleteModal
-          title="Eliminar supplier"
+          title="Eliminar Proveedor"
           description={`Estas a punto de eliminar permanentemente el supplier  "${supplierToDelete.name}". Esta acción es irreversible.`}
           loading={deleting}
           onConfirm={confirmDelete}

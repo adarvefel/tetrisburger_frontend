@@ -59,7 +59,7 @@ export default function CategoryList() {
       
       {showDeleteModal && productCategoryToDelete && (
         <ConfirmDeleteModal
-          title="Eliminar productCategory"
+          title="Eliminar Categoria de Producto"
           description={`Estas a punto de eliminar permanentemente el productCategory  "${productCategoryToDelete.name}". Esta acción es irreversible.`}
           loading={deleting}
           onConfirm={confirmDelete}

@@ -31,7 +31,7 @@ export default function CategoryForm({
     id: initialData?.id ?? 0,
     name: initialData?.name ?? "",
     description: initialData?.description ?? "",
-    available: initialData?.available ?? true,
+    available: initialData?.available ?? false,
   });
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function CategoryForm({
         id: initialData.id ?? 0,
         name: initialData.name ?? "",
         description: initialData.description ?? "",
-        available: initialData.available ?? true,
+        available: initialData.available ?? false,
       });
     }
   }, [initialData]);
@@ -76,12 +76,7 @@ export default function CategoryForm({
         await onSubmit(createData);
         toast.success("Categoría creada con éxito.");
 
-        setFormData({
-          id: 0,
-          name: "",
-          description: "",
-          available: true,
-        });
+        
       } else {
         const updateData: UpdateProductCategoryDto = {
           id: formData.id,

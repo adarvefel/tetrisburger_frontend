@@ -75,13 +75,7 @@ export default function SupplierForm({
 
         await onSubmit(createData);
         toast.success("Proveedor creado con éxito.");
-        setFormData({
-          id: 0,
-          name: "",
-          phone: "",
-          email: "",
-          address: "",
-        });
+        
       } else {
         const updateData: UpdateSupplierDto = {
           id: formData.id,
@@ -163,7 +157,7 @@ export default function SupplierForm({
 
         <div className="productForm__container-row">
           <div className="productForm__container-input">
-            <label className="productForm__label">Email</label>
+            <label className="productForm__label">Correo</label>
             <input
               className="productForm__input"
               type="email"

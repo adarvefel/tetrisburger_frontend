@@ -145,7 +145,7 @@ export default function ProductForm({
         }, 2000)
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || error?.message || "Error al procesar el formulario.");
+      toast.error(error?.response?.data?.message ||  "Error al procesar el formulario.");
     }
 
   };
@@ -215,7 +215,7 @@ export default function ProductForm({
           </div>
           <div className="productForm__container-button-top">
             <button className='productForm__button' onClick={onClickInputFile} type='button'>
-              Upload image
+              Subir imagen
             </button>
 
             <input ref={fileInputRef} className='productForm__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
