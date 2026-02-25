@@ -34,8 +34,8 @@ export default function ProductForm({
     idProduct: initialData?.idProduct ?? 0,
     name: initialData?.name ?? "",
     description: initialData?.description ?? "",
-    price: initialData?.price ?? 0,
-    quantity: initialData?.quantity ?? 0,
+    price: initialData?.price ?? "",
+    quantity: initialData?.quantity ?? "",
     available: initialData?.availability ?? false,
     productType: initialData?.productType ?? "",
     productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
@@ -52,8 +52,8 @@ export default function ProductForm({
         idProduct: initialData.idProduct ?? 0,
         name: initialData.name ?? "",
         description: initialData.description ?? "",
-        price: initialData.price ?? 0,
-        quantity: initialData.quantity ?? 0,
+        price: initialData?.price ?? "",
+        quantity: initialData?.quantity ?? "",
         available: initialData.availability ?? false,
         productType: initialData.productType ?? "",
         productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
@@ -70,14 +70,16 @@ export default function ProductForm({
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "number" || name === "productCategoryId" ||
-        name === "supplierId" ? Number(value) : value,
+      [name]:
+        type === "number" && value !== ""
+          ? Number(value)
+          : value,
     }));
   };
 
   let nagivation = useNavigate();
-
   
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -87,7 +89,7 @@ export default function ProductForm({
       return;
     }
 
-    if (formData.price < 0 || formData.quantity < 0) {
+    if ((formData.price as number) < 0 || (formData.quantity as number) < 0) {
       toast.error("Precio y cantidad no pueden ser negativos.");
       return;
     }
@@ -97,8 +99,8 @@ export default function ProductForm({
         const createData: CreateProductDto = {
           name: formData.name,
           description: formData.description,
-          price: formData.price,
-          quantity: formData.quantity,
+          price: Number(formData.price),
+          quantity: Number(formData.quantity),
           availability: formData.available,
           productType: formData.productType,
           ingredientType: "BASIC",
@@ -123,8 +125,8 @@ export default function ProductForm({
 
           name: formData.name,
           description: formData.description,
-          price: formData.price,
-          quantity: formData.quantity,
+          price: Number(formData.price),
+          quantity: Number(formData.quantity),
           availability: formData.available,
           productType: formData.productType,
           productCategoryId: formData.productCategoryId,
@@ -136,7 +138,7 @@ export default function ProductForm({
           file: imageFile,
         }
 
-        console.log(productUpdated);
+        
 
         const response = await onSubmit(productUpdated);
         toast.success("Producto actualizado con éxito.");
@@ -145,7 +147,7 @@ export default function ProductForm({
         }, 2000)
       }
     } catch (error: any) {
-      toast.error(error?.response?.data?.message ||  "Error al procesar el formulario.");
+      toast.error(error?.response?.data?.message || "Error al procesar el formulario.");
     }
 
   };
@@ -193,7 +195,7 @@ export default function ProductForm({
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
-      
+
 
       <div className="productForm__container-top">
         <div className="productForm__container-text">
@@ -258,6 +260,7 @@ export default function ProductForm({
               className="productForm__input"
               type="number"
               name="price"
+              placeholder="Ingrese el precio..."
               min={0}
               required
               value={formData.price}
@@ -272,6 +275,7 @@ export default function ProductForm({
               type="number"
               name="quantity"
               min={0}
+              placeholder="Ingrese la cantidad en stock..."
               required
               value={formData.quantity}
               onChange={onInputChange}
@@ -317,14 +321,12 @@ export default function ProductForm({
 
         <div className="productForm__container-input">
           <label className="productForm__label">Tipo de producto</label>
-          <input
-            className="productForm__input"
-            type="text"
-            name="productType"
-            required
-            value={formData.productType}
-            onChange={onInputChange}
-          />
+          <select className="productForm__input" name="productType" required value={formData.productType} onChange={onInputChange}>
+            <option className="productForm__option" value="">Seleccione el tipo de producto...</option>
+            <option className="productForm__option" value="INGREDIENT">Ingrediente</option>
+            <option className="productForm__option" value="BEVERAGE">Bebida</option>
+            <option className="productForm__option" value="SIDE">Adicion</option>
+          </select>
         </div>
 
         <div className="productForm__container-row">

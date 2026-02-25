@@ -9,6 +9,7 @@ export const endPoints = {
             update: (id: number) => `/api/admin/users/${id}`,
             updateImage: (id: number) => `/api/admin/users/${id}/image`,
             delete: (id: number) => `/api/admin/users/${id}`,
+            searchByEmail: (email: string) => `/api/admin/users/by-email?email=${email}`,
         },
 
         product: {
@@ -18,6 +19,7 @@ export const endPoints = {
             update: (id: number) => `/api/products/${id}`,
             updateImage: (id: number) => `/api/products/image/${id}`,
             delete: (id: number) => `/api/products/${id}`,
+            searchByName: (name: string, numberPage: number) => `api/products/search?q=${name}&page=${numberPage}&size=10`,
         },
 
         productCategory: {

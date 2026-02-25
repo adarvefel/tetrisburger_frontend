@@ -41,3 +41,8 @@ export const deleteProduct = async (id: number) =>{
     const response = await axiosClient.delete(endPoints.admin.product.delete(id));
     return response;
 }
+
+export const searchByName = async (name: string, numberPage: number) =>{
+    const response = await axiosClient.get(endPoints.admin.product.searchByName(name, numberPage));
+    return response;
+}

@@ -22,9 +22,15 @@ import { toast } from 'sonner';
 
 export default function UserList() {
 
-    const { error, loading, numberPage, totalPage, users, prevPage, nextPage, fetchUserList } = useUserList();
+    const { error, loading, numberPage, totalPage, setEmail, email, users, prevPage, nextPage, fetchUserList } = useUserList();
 
-    
+    //Search by EMail
+
+
+    const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setEmail(e.target.value);
+    }
+
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -72,9 +78,12 @@ export default function UserList() {
                 <div className="userList__container-search">
                     <FaSearch className="userList__icon-search" size={13} />
                     <input
+                        name='email'
                         className='userList__input-search'
                         type="search"
                         placeholder='Buscar por email'
+                        onChange={onInputChange}
+                        value={email}
                     />
                 </div>
 

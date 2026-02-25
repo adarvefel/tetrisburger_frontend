@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProductFetchList, ProductListResponse } from "../dto/productsAdminDto";
-import { listProducts } from "../../../../entities/product/api/productApi";
+import { listProducts, searchByName } from "../../../../entities/product/api/productApi";
 
 export function useProductList() {
   const [loading, setLoading] = useState(false);
@@ -9,10 +9,12 @@ export function useProductList() {
   const [numberPage, setNumberPage] = useState(0);
   const [totalPage, setTotalPage] = useState(0);
 
+  const [name, setName] = useState("");
+
   const nextPage = () => {
     if (numberPage < totalPage - 1) {
       setNumberPage((prev) => prev + 1);
-      console.log(numberPage);
+     
     }
     return;
   };
@@ -20,7 +22,7 @@ export function useProductList() {
   const prevPage = () => {
     if (numberPage > 0) {
       setNumberPage((prev) => prev - 1);
-      console.log(numberPage);
+  
     }
     return;
   };
@@ -30,12 +32,19 @@ export function useProductList() {
       setLoading(true);
       setError(null);
 
-      const response = await listProducts(numberPage);
-      const data = response.data as ProductListResponse;
+      let response;
 
-      setProducts(data.items ?? []);
-      setTotalPage(data.totalPages ?? 0);
-      return response;
+      if (name.trim() !== "") {
+
+        response = await searchByName(name, numberPage);
+        setProducts(response.data.items);
+        setTotalPage(response.data.totalPages);
+      } else {
+
+        response = await listProducts(numberPage);
+        setProducts(response.data.items);
+        setTotalPage(response.data.totalPages);
+      }
     } catch (err: any) {
       setError(err.message || "Error al traer los productos");
     } finally {
@@ -45,7 +54,7 @@ export function useProductList() {
 
   useEffect(() => {
     fetchProductList();
-  }, [numberPage]);
+  }, [numberPage, name]);
 
-  return { loading, error, products, numberPage, totalPage, nextPage, prevPage, fetchProductList };
+  return { loading, error, products, numberPage, totalPage, setName, name, nextPage, prevPage, fetchProductList };
 }

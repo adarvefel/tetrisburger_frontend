@@ -47,3 +47,7 @@ export const deleteUser = async (id: number) =>{
     return response;
 }
 
+export const searchByEmail = async (email: string) =>{
+    const response = await axiosClient.get(endPoints.admin.users.searchByEmail(email));
+    return response;
+}

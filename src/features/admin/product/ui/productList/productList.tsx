@@ -21,9 +21,15 @@ import { toast } from "sonner";
 
 export default function ProductList() {
 
-    const { error, loading, numberPage, totalPage, products, prevPage, nextPage, fetchProductList } = useProductList();
+    const { error, loading, numberPage, totalPage, setName, name, products, prevPage, nextPage, fetchProductList } = useProductList();
 
-    
+
+    //Search by Name
+
+
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
+    }
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -56,7 +62,7 @@ export default function ProductList() {
         <div className="productList__container-global">
 
             {/* ---------- DELETE MODAL ---------- */}
-            
+
             {showDeleteModal && productToDelete && (
                 <ConfirmDeleteModal
                     title="Eliminar Producto"
@@ -72,9 +78,12 @@ export default function ProductList() {
                 <div className="productList__container-search">
                     <FaSearch className="productList__icon-search" size={13} />
                     <input
+                        name="name"
                         className='productList__input-search'
                         type="search"
                         placeholder="Buscar producto..."
+                        onChange={onInputChange}
+                        value={name}
                     />
                 </div>
 
@@ -103,7 +112,7 @@ export default function ProductList() {
                             <td className="productList__td">${product.price}</td>
                             <td className="productList__td">{product.quantity}</td>
                             <td className="productList__td">{product.availability ? "Disponible" : "No Disponible"}</td>
-                            <td className="productList__td">{product.productType}</td>
+                            <td className="productList__td">{product.productType === "INGREDIENT" ? "Ingrediente" : product.productType === "BEVERAGE" ? "Bebida" : "Adicion"}</td>
                             <td className="productList__td">
                                 <div className="productList__container-actions">
                                     <Link className="productList__button-edit" to={`/admin/product/update/${product.idProduct}`}><CiEdit size={18} /></Link>
