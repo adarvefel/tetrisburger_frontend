@@ -38,9 +38,9 @@ export function useUserList(){
 
             if (email.trim() !== "") {
                 
-                response = await searchByEmail(email);
-                setUsers(response.data);
-                setTotalPage(1); 
+                response = await searchByEmail(email, numberPage);
+                setUsers(response.data.content);
+                setTotalPage(response.data.totalPages);
             } else {
                 
                 response = await listUsers(numberPage);
@@ -54,7 +54,6 @@ export function useUserList(){
             setLoading(false);
         }
     }
-
 
     useEffect(() => {
         fetchUserList();

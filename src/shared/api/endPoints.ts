@@ -9,7 +9,7 @@ export const endPoints = {
             update: (id: number) => `/api/admin/users/${id}`,
             updateImage: (id: number) => `/api/admin/users/${id}/image`,
             delete: (id: number) => `/api/admin/users/${id}`,
-            searchByEmail: (email: string) => `/api/admin/users/by-email?email=${email}`,
+            searchByEmail: (email: string, numberPage: number) => `/api/admin/users/by-email?email=${email}&page=${numberPage}&size=10`,
         },
 
         product: {
