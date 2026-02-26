@@ -56,6 +56,13 @@ export default function LoginForm() {
     return (
         <form onSubmit={onSubmit} className='loginForm__form' action="">
 
+<<<<<<< Updated upstream
+=======
+
+            
+            {alertSuccess && <SuccessAlert onClosed={onClosedAlertSuccess} mensaje={alertSuccess} />}
+
+>>>>>>> Stashed changes
             <div className="loginForm__titulo">
                 <TituloForm textTitulo='LOGIN' />
             </div>
