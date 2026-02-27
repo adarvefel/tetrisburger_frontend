@@ -21,7 +21,7 @@ export default function ProductDelete(props: Props) {
         e.preventDefault();
 
         try{
-            const response = await removeProduct(product.id);
+            const response = await removeProduct(product.idProduct);
             if (response !== undefined) {
                 onDeleted();
                 onClose();

@@ -18,15 +18,19 @@ import { FaSearch } from "react-icons/fa";
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { deleteUser } from '../../../../../entities/user/api/userApi';
+import { toast } from 'sonner';
 
 export default function UserList() {
 
-    const { error, loading, numberPage, totalPage, users, prevPage, nextPage, fetchUserList } = useUserList();
+    const { error, loading, numberPage, totalPage, setEmail, email, users, prevPage, nextPage, fetchUserList } = useUserList();
 
-    const [alertSucces, setAlertSucces] = useState<null | string>(null);
-    const onClosedAlertSucces = () => {
-        setAlertSucces(null);
+    //Search by EMail
+
+
+    const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setEmail(e.target.value);
     }
+
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -50,7 +54,7 @@ export default function UserList() {
         await remove(userToDelete.idUser);
         closeDeleteModal();
         fetchUserList();
-        setAlertSucces("Usuario eliminado con exito.");
+        toast.success("Usuario eliminado con exito.");
     };
 
 
@@ -58,7 +62,7 @@ export default function UserList() {
         <div className="userList__container-global">
 
             {/* ---------- DELETE MODAL ---------- */}
-            {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+            
             {showDeleteModal && userToDelete && (
                 <ConfirmDeleteModal
                     title="Eliminar Usuario"
@@ -74,9 +78,12 @@ export default function UserList() {
                 <div className="userList__container-search">
                     <FaSearch className="userList__icon-search" size={13} />
                     <input
+                        name='email'
                         className='userList__input-search'
                         type="search"
                         placeholder='Buscar por email'
+                        onChange={onInputChange}
+                        value={email}
                     />
                 </div>
 
@@ -103,7 +110,7 @@ export default function UserList() {
                                 <td className='userList__td'>{user.idUser}</td>
                                 <td className='userList__td'>
                                     <div className="userList__container-img">
-                                        <img className='userList__img' src={pictureProfle} alt="" />
+                                        <img className='userList__img' src={user.userImage ? user.userImage : pictureProfle} alt="" />
                                     </div>
                                 </td>
                                 <td className='userList__td'>{user.userName}</td>

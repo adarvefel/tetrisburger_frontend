@@ -13,6 +13,7 @@ import ButtonCasual from "../../../../../shared/components/buttonCasual/ButtonCa
 import { deleteProductCategory } from "../../../../../entities/productCategory/api/productCategoryApi";
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
+import { toast } from "sonner";
 
 export default function CategoryList() {
   const {
@@ -26,10 +27,6 @@ export default function CategoryList() {
     fetchCategoryList,
   } = useProductCategoryList();
 
-  const [alertSucces, setAlertSucces] = useState<null | string>(null);
-  const onClosedAlertSucces = () => {
-    setAlertSucces(null);
-  }
 
   // ---------- DELETE STATE ----------
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -53,16 +50,16 @@ export default function CategoryList() {
     await remove(productCategoryToDelete.id);
     closeDeleteModal();
     fetchCategoryList();
-    setAlertSucces("productCategory eliminado con exito.");
+    toast.success("productCategory eliminado con exito.");
   };
 
   return (
     <div className="productList__container-global">
       {/* ---------- DELETE MODAL ---------- */}
-      {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+      
       {showDeleteModal && productCategoryToDelete && (
         <ConfirmDeleteModal
-          title="Eliminar productCategory"
+          title="Eliminar Categoria de Producto"
           description={`Estas a punto de eliminar permanentemente el productCategory  "${productCategoryToDelete.name}". Esta acción es irreversible.`}
           loading={deleting}
           onConfirm={confirmDelete}

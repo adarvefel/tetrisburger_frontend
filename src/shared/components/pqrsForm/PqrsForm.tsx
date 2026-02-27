@@ -6,8 +6,7 @@ import { IoDocumentTextSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
 import { UpdatePqrsUserRequestDto } from '../../../features/user/pqrs/dto/pqrsUserDto';
 import { UpdatePqrsAdminRequestDto } from '../../../entities/pqrs/dto/pqrsDto';
-import { ErrorAlert } from '../alerts/errorAlert/ErrorAlert';
-import SuccessAlert from '../alerts/successAlert/SuccessAlert';
+import { toast } from 'sonner';
 
 type FormMode = "user-update" | "admin-update";
 
@@ -64,22 +63,12 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
 
   let nagivation = useNavigate();
 
-  const [alertError, setAlertError] = useState<string | null>(null);
-  const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
-
-  const onCloseAlertSucces = () => {
-    setAlertSuccess(null);
-  }
-
-  const onCloseAlertError = () => {
-    setAlertError(null);
-  }
+ 
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setAlertError(null);
-    setAlertSuccess(null);
+    
 
     if (mode === "admin-update") {
 
@@ -87,16 +76,16 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
       //Validaciones
 
       if (!formData.status) {
-        setAlertError("Debes seleccionar un estado.");
+        toast.error("Debes seleccionar un estado.");
         return;
       }
 
       if (!formData.priority) {
-        setAlertError("Debes seleccionar una prioridad.");
+        toast.error("Debes seleccionar una prioridad.");
         return;
       }
       if (!formData.response.trim()) {
-        setAlertError("La respuesta no puede estar vacía.");
+        toast.error("La respuesta no puede estar vacía.");
         return;
       }
 
@@ -110,17 +99,17 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
       try {
         const res = await onSubmit(pqrsUpdate);
         if (res.data?.idPqrs) {
-          setAlertSuccess("Datos actualizados");
+          toast.success("Datos actualizados");
           setTimeout(() => {
             nagivation("/admin/pqrs-list");
           }, 2000);
         }
         else {
-          setAlertError("Datos no actualizados, error inesperado.")
+          toast.error("Datos no actualizados, error inesperado.")
         }
 
       } catch (error) {
-        setAlertError("Error inesperado al actualizar la PQRS.");
+        toast.error("Error inesperado al actualizar la PQRS.");
       }
 
       return
@@ -129,15 +118,15 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
     //Validaciones
 
     if (!formData.type) {
-      setAlertError("Debes seleccionar el tipo de solicitud.");
+      toast.error("Debes seleccionar el tipo de solicitud.");
       return;
     }
     if (!formData.subject.trim()) {
-      setAlertError("El asunto no puede estar vacío.");
+      toast.error("El asunto no puede estar vacío.");
       return;
     }
     if (!formData.description.trim()) {
-      setAlertError("La descripción no puede estar vacía.");
+      toast.error("La descripción no puede estar vacía.");
       return;
     }
 
@@ -150,17 +139,17 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
     try {
       const res = await onSubmit(pqrsUpdate);
       if (res.data?.idPqrs) {
-        setAlertSuccess("Datos actualizados");
+        toast.success("Datos actualizados");
         setTimeout(() => {
           nagivation("/pqrs-me");
         }, 2000);
       }
       else {
-        setAlertError("Datos no actualizados, error inesperado.")
+        toast.error("Datos no actualizados, error inesperado.")
       }
 
     } catch (error) {
-      setAlertError("Error inesperado al actualizar la PQRS.");
+      toast.error("Error inesperado al actualizar la PQRS.");
     }
 
 
@@ -172,9 +161,6 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
 
   return (
     <form onSubmit={handleSubmit} className='pqrsForm__form'>
-
-      {alertError ? <ErrorAlert mensaje={alertError} onClosed={onCloseAlertError} /> : null}
-      {alertSuccess ? <SuccessAlert mensaje={alertSuccess} onClosed={onCloseAlertSucces} /> : null}
 
       <div className="pqrsForm__container-top">
 

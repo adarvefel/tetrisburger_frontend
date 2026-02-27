@@ -1,15 +1,16 @@
 export interface ProductFetchList {
-    id: number;
+    idProduct: number;
     name: string;
     description: string;
     quantity: number;
     price: number;
     availability: boolean;
     productType: string;
+    imageUrl?: string
 }
 
 export interface ProductFindByIdResponse{
-    id : number,
+    idProduct : number,
     name: string,
     description: string,
     quantity: number,
@@ -18,6 +19,7 @@ export interface ProductFindByIdResponse{
     productType: string,
     ingredientsType: string,
     burguerIngredients: string,
+    imageUrl?: string
 }
 
 export interface ProductListResponse {

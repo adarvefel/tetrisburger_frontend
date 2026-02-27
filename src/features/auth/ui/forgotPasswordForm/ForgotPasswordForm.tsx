@@ -6,18 +6,13 @@ import ButtonSubmit from '../../../../shared/components/formAuth/buttonSubmit/Bu
 import { useForgotPassword } from '../../hooks/useForgotPassword'
 import CorreoEnviado from '../../../../shared/components/formAuth/correoEnviado/CorreoEnviado'
 import { ErrorAlert } from '../../../../shared/components/alerts/errorAlert/ErrorAlert'
+import { toast } from 'sonner'
 
 export default function ForgotPasswordForm() {
 
     const { loading, error, forgotPassword } = useForgotPassword()
 
     const [correoEnviado, setCorreoEnviado] = useState(false);
-
-    const [alertaError, setAlertaError] = useState<string | null>(null);
-
-    const onCloseAlertError = () =>{
-        setAlertaError(null);
-    }
 
     const [form, setForm] = useState({
         email: ""
@@ -39,8 +34,7 @@ export default function ForgotPasswordForm() {
         }
         else{
            
-            setAlertaError("Correo invalido.");
-      
+            toast.error("Correo invalido.");
 
         }
 
@@ -53,7 +47,7 @@ export default function ForgotPasswordForm() {
     return (
         <form onSubmit={onSubmit} className='forgotPasswordForm__form' action="">
 
-            {alertaError && <ErrorAlert onClosed={onCloseAlertError} mensaje={alertaError}/>}
+           
 
             <div className="forgotPasswordForm__titulo">
                 <TituloForm textTitulo='¿Olvido la contraseña?' />

@@ -7,15 +7,19 @@ export const endPoints = {
             create: "/api/admin/users",
             findById: (id: number) => `/api/admin/users/${id}`,
             update: (id: number) => `/api/admin/users/${id}`,
+            updateImage: (id: number) => `/api/admin/users/${id}/image`,
             delete: (id: number) => `/api/admin/users/${id}`,
+            searchByEmail: (email: string, numberPage: number) => `/api/admin/users/by-email?email=${email}&page=${numberPage}&size=10`,
         },
 
         product: {
-            list: (numberPage: number) => `/api/products?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            list: (numberPage: number) => `/api/products/list?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
             create: "/api/products",
             findById: (id: number) => `/api/products/${id}`,
             update: (id: number) => `/api/products/${id}`,
+            updateImage: (id: number) => `/api/products/image/${id}`,
             delete: (id: number) => `/api/products/${id}`,
+            searchByName: (name: string, numberPage: number) => `api/products/search?q=${name}&page=${numberPage}&size=10`,
         },
 
         productCategory: {
@@ -57,7 +61,7 @@ export const endPoints = {
 
             update: (id: number) => `/api/pqrs/admin/${id}`,
 
-            
+
         }
 
 
@@ -73,8 +77,11 @@ export const endPoints = {
     },
 
     user: {
-        profile: "/api/profile",
-        updateProfile: "api/profile",
+        profile: {
+            me: "/api/profile",
+            updateProfile: "/api/profile",
+            updateProfileImage: "/api/profile/image",
+        },
 
         pqrs: {
             create: "/api/pqrs",
@@ -82,7 +89,7 @@ export const endPoints = {
             findById: (id: number) => `/api/pqrs/${id}`,
             update: (id: number) => `/api/pqrs/${id}`,
             delete: (id: number) => `/api/pqrs/${id}`
-            
+
 
         }
     }

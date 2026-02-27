@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { createProduct } from "../../../../entities/product/api/productApi";
-import { CreateProductDto } from "../../../../entities/product/dto/productDto";
+import { CreateProductDto, CreateProductWihtImageDto } from "../../../../entities/product/dto/productDto";
 
 export function useProductCreate() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
 
-  const handleProductCreate = async (data: CreateProductDto) => {
+  const handleProductCreate = async (data: CreateProductWihtImageDto) => {
     try {
       setLoading(true);
       setError(null);

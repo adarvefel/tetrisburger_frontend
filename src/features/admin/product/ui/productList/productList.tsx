@@ -17,14 +17,18 @@ import { FaSearch } from "react-icons/fa";
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 import { deleteProduct } from "../../../../../entities/product/api/productApi";
+import { toast } from "sonner";
 
 export default function ProductList() {
 
-    const { error, loading, numberPage, totalPage, products, prevPage, nextPage, fetchProductList } = useProductList();
+    const { error, loading, numberPage, totalPage, setName, name, products, prevPage, nextPage, fetchProductList } = useProductList();
 
-    const [alertSucces, setAlertSucces] = useState<null | string>(null);
-    const onClosedAlertSucces = () => {
-        setAlertSucces(null);
+
+    //Search by Name
+
+
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value);
     }
 
     // ---------- DELETE STATE ----------
@@ -46,10 +50,10 @@ export default function ProductList() {
     const confirmDelete = async () => {
         if (!productToDelete) return;
 
-        await remove(productToDelete.id);
+        await remove(productToDelete.idProduct);
         closeDeleteModal();
         fetchProductList();
-        setAlertSucces("product eliminado con exito.");
+        toast.success("product eliminado con exito.");
     };
 
 
@@ -58,7 +62,7 @@ export default function ProductList() {
         <div className="productList__container-global">
 
             {/* ---------- DELETE MODAL ---------- */}
-            {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
+
             {showDeleteModal && productToDelete && (
                 <ConfirmDeleteModal
                     title="Eliminar Producto"
@@ -74,9 +78,12 @@ export default function ProductList() {
                 <div className="productList__container-search">
                     <FaSearch className="productList__icon-search" size={13} />
                     <input
+                        name="name"
                         className='productList__input-search'
                         type="search"
                         placeholder="Buscar producto..."
+                        onChange={onInputChange}
+                        value={name}
                     />
                 </div>
 
@@ -98,17 +105,17 @@ export default function ProductList() {
                 </thead>
                 <tbody className="productList__tbody">
                     {products.map((product) => (
-                        <tr key={product.id} className="productList__tr">
-                            <td className="productList__td">{product.id}</td>
+                        <tr key={product.idProduct} className="productList__tr">
+                            <td className="productList__td">{product.idProduct}</td>
                             <td className="productList__td">{product.name}</td>
                             <td className="productList__td">{product.description}</td>
                             <td className="productList__td">${product.price}</td>
                             <td className="productList__td">{product.quantity}</td>
                             <td className="productList__td">{product.availability ? "Disponible" : "No Disponible"}</td>
-                            <td className="productList__td">{product.productType}</td>
+                            <td className="productList__td">{product.productType === "INGREDIENT" ? "Ingrediente" : product.productType === "BEVERAGE" ? "Bebida" : "Adicion"}</td>
                             <td className="productList__td">
                                 <div className="productList__container-actions">
-                                    <Link className="productList__button-edit" to={`/admin/product/update/${product.id}`}><CiEdit size={18} /></Link>
+                                    <Link className="productList__button-edit" to={`/admin/product/update/${product.idProduct}`}><CiEdit size={18} /></Link>
                                     <button className="productList__button-delete" onClick={() => openDeleteModal(product)}><MdDeleteOutline size={18} /></button>
                                 </div>
                             </td>

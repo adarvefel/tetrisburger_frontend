@@ -3,6 +3,7 @@ import { loginGoogle } from "../api/authApi";
 import { LoginResponseDto } from "../dto/authDto";
 import { useAuthStore } from "../../../shared/store/useAuthStore";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 
 
@@ -22,6 +23,7 @@ export function useGoogleLogin() {
             const response: LoginResponseDto = await loginGoogle(token);
             login(response);
 
+            toast.success("Login exitoso.");
             setTimeout(() => {
                 navegetor("/");
             }, 2000);

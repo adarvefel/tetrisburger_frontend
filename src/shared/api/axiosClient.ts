@@ -1,15 +1,14 @@
 import axios from "axios";
 import { useAuthStore } from "../store/useAuthStore";
+import { toast } from "sonner";
 
 export const axiosClient = axios.create({
     baseURL: "http://localhost:8080",
-    headers:{
-        "Content-Type": "application/json"
-    }
+
 })
 
 axiosClient.interceptors.request.use(
-    (config)=>{
+    (config) => {
         const token = useAuthStore.getState().token;
 
         if (token) {
@@ -17,18 +16,24 @@ axiosClient.interceptors.request.use(
         }
         return config;
 
-        
+
     },
     (error) => Promise.reject(error)
 )
 
 axiosClient.interceptors.response.use(
-    (response)=> response,
-    (error) =>{
-        if (error.response && error.status === 401) {
+    (response) => response,
+    (error) => {
+        const status = error.response?.status;
+        const message = error.response?.data?.message;
+        const messageError = error.response?.data?.error;
+
+        if (status === 401 && messageError === "Token expirado") {
             useAuthStore.getState().logout();
             window.location.href = "/login";
+            
         }
+
         return Promise.reject(error);
     }
-)
+);

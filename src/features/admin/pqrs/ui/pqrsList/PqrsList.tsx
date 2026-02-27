@@ -12,6 +12,7 @@ import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteMo
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import { deletePqrs } from "../../../../../entities/pqrs/api/pqrsApi";
 import SuccessAlert from "../../../../../shared/components/alerts/successAlert/SuccessAlert";
+import { toast } from "sonner";
 
 export default function PqrsList() {
 
@@ -27,11 +28,6 @@ export default function PqrsList() {
     setPriority,
     handlePqrsList
   } = usePqrsList();
-
-  const [alertSucces, setAlertSucces] = useState<null | string>(null);
-  const onClosedAlertSucces = () => {
-    setAlertSucces(null);
-  }
 
   // ---------- DELETE STATE ----------
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -55,14 +51,13 @@ export default function PqrsList() {
     await remove(pqrsToDelete.idPqrs);
     closeDeleteModal();
     handlePqrsList();
-    setAlertSucces("PQRS eliminado con exito.");
+    toast.success("PQRS eliminado con exito.");
   };
 
   return (
     <div className="pqrsList__container-global">
 
       {/* ---------- DELETE MODAL ---------- */}
-      {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces}/> : null} 
       {showDeleteModal && pqrsToDelete && (
         <ConfirmDeleteModal
           title="Eliminar PQRS"

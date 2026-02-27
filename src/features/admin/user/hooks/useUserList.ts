@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserFectchList } from "../dto/usersAdminDto";
-import { listUsers } from "../../../../entities/user/api/userApi";
+import { listUsers, searchByEmail } from "../../../../entities/user/api/userApi";
 
 export function useUserList(){
     const [loading, setLoading] = useState(false);
@@ -9,6 +9,8 @@ export function useUserList(){
 
     const [numberPage, setNumberPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
+
+    const [email, setEmail] = useState("");
 
     const nextPage = ()=>{
         if (numberPage < totalPage - 1) {
@@ -21,7 +23,7 @@ export function useUserList(){
     const prevPage = ()=>{
         if (numberPage > 0) {
             setNumberPage(prev => prev - 1);
-            console.log(numberPage);
+            
         }
         return;
     }
@@ -31,10 +33,20 @@ export function useUserList(){
         try{
             setLoading(true);
             setError(null);
-            const response = await listUsers(numberPage);
-            setUsers(response.data.users);
-            setTotalPage(response.data.totalPages);
-            return response;
+
+            let response;
+
+            if (email.trim() !== "") {
+                
+                response = await searchByEmail(email, numberPage);
+                setUsers(response.data.content);
+                setTotalPage(response.data.totalPages);
+            } else {
+                
+                response = await listUsers(numberPage);
+                setUsers(response.data.users);
+                setTotalPage(response.data.totalPages);
+            }
 
         }catch(err: any){
             setError(err.message || "Error al traer los usuarios");
@@ -43,10 +55,9 @@ export function useUserList(){
         }
     }
 
-
-    useEffect(()=>{
+    useEffect(() => {
         fetchUserList();
-    },[numberPage])
+    }, [numberPage, email]);
 
-    return {loading, error, users, numberPage, totalPage, nextPage, prevPage, fetchUserList};
+    return {loading, error, users, numberPage, totalPage, setEmail, email, nextPage, prevPage, fetchUserList};
 }

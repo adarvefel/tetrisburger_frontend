@@ -6,6 +6,7 @@ import {
 } from "../../../entities/productCategory/dto/productCategoryDto";
 import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
 import SuccessAlert from "../alerts/successAlert/SuccessAlert";
+import { toast } from "sonner";
 
 type CategoryFormMode = "admin-create" | "admin-update";
 
@@ -30,7 +31,7 @@ export default function CategoryForm({
     id: initialData?.id ?? 0,
     name: initialData?.name ?? "",
     description: initialData?.description ?? "",
-    available: initialData?.available ?? true,
+    available: initialData?.available ?? false,
   });
 
   useEffect(() => {
@@ -39,15 +40,12 @@ export default function CategoryForm({
         id: initialData.id ?? 0,
         name: initialData.name ?? "",
         description: initialData.description ?? "",
-        available: initialData.available ?? true,
+        available: initialData.available ?? false,
       });
     }
   }, [initialData]);
 
-  const [alertError, setAlertError] = useState<string | null>(null);
-  const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
-  const onCloseAlertError = () => setAlertError(null);
-  const onCloseAlertSuccess = () => setAlertSuccess(null);
+  
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -63,7 +61,7 @@ export default function CategoryForm({
     e.preventDefault();
 
     if (formData.name.trim() === "") {
-      setAlertError("El nombre es obligatorio.");
+      toast.error("El nombre es obligatorio.");
       return;
     }
 
@@ -76,14 +74,9 @@ export default function CategoryForm({
         };
 
         await onSubmit(createData);
-        setAlertSuccess("Categoría creada con éxito.");
+        toast.success("Categoría creada con éxito.");
 
-        setFormData({
-          id: 0,
-          name: "",
-          description: "",
-          available: true,
-        });
+        
       } else {
         const updateData: UpdateProductCategoryDto = {
           id: formData.id,
@@ -93,10 +86,10 @@ export default function CategoryForm({
         };
 
         await onSubmit(updateData);
-        setAlertSuccess("Categoría actualizada con éxito.");
+        toast.success("Categoría actualizada con éxito.");
       }
     } catch (error: any) {
-      setAlertError(
+      toast.error(
         error?.response?.data?.message ||
           error?.message ||
           "Error al procesar el formulario."
@@ -106,12 +99,7 @@ export default function CategoryForm({
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
-      {alertError && (
-        <ErrorAlert mensaje={alertError} onClosed={onCloseAlertError} />
-      )}
-      {alertSuccess && (
-        <SuccessAlert mensaje={alertSuccess} onClosed={onCloseAlertSuccess} />
-      )}
+      
 
       <div className="productForm__container-top">
         <div className="productForm__container-text">

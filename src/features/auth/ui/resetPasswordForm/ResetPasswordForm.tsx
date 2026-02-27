@@ -7,6 +7,7 @@ import { useResetPassword } from '../../hooks/useResetPassword'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 import { ErrorAlert } from '../../../../shared/components/alerts/errorAlert/ErrorAlert'
 import SuccessAlert from '../../../../shared/components/alerts/successAlert/SuccessAlert'
+import { toast } from 'sonner'
 
 export default function ResetPasswordForm() {
 
@@ -17,35 +18,22 @@ export default function ResetPasswordForm() {
 
     const navegador = useNavigate();
 
-    const [alertaError, setAlertaError] = useState<string | null>(null);
-    const [alertaSuccess, setAlertaSuccess] = useState<string | null>(null);
-
-    const onCloseAlertError = () => {
-        setAlertaError(null);
-    }
-
-    const onCloseAlertSuccess = () => {
-        setAlertaSuccess(null);
-    }
-
     const [nuevaPassword, setNuevaPassword] = useState("");
     const [confirmarPassword, setConfirmarPassword] = useState("");
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-
-
         if (nuevaPassword != confirmarPassword) {
 
-            setAlertaError("Las contraseñas no coinciden.");
+            toast.error("Las contraseñas no coinciden.");
 
             return;
         }
 
         if (nuevaPassword.length < 8) {
 
-            setAlertaError("La contraseña debe tener al menos 8 digitos.");
+            toast.error("La contraseña debe tener al menos 8 digitos.");
 
             return;
         }
@@ -54,13 +42,11 @@ export default function ResetPasswordForm() {
 
         if (respuesta?.status === 200) {
 
-            setAlertaSuccess("La contraseña se cambio con exito.")
-
-
+            toast.success("La contraseña se cambio con exito.")
         }
         else {
 
-            setAlertaError("El link expiro.");
+            toast.error("El link expiro.");
 
 
             return;
@@ -81,8 +67,7 @@ export default function ResetPasswordForm() {
     return (
         <form onSubmit={onSubmit} className='resetPasswordForm__form' action="">
 
-            {alertaError && <ErrorAlert onClosed={onCloseAlertError} mensaje={alertaError} />}
-            {alertaSuccess && <SuccessAlert onClosed={onCloseAlertSuccess} mensaje={alertaSuccess} />}
+            
 
             <div className="resetPasswordForm__titulo"><TituloForm textTitulo='Cambia tu contraseña' /></div>
 

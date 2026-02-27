@@ -8,9 +8,7 @@ import InputForm from '../../../../shared/components/formAuth/inputForm/InputFor
 import ButtonGmail from '../../../../shared/components/formAuth/buttonSocial/buttonGmail/ButtonGmail'
 import ButtonSubmit from '../../../../shared/components/formAuth/buttonSubmit/ButtonSubmit'
 import { Link, useNavigate } from 'react-router-dom'
-import { ErrorAlert } from '../../../../shared/components/alerts/errorAlert/ErrorAlert'
-import SuccessAlert from '../../../../shared/components/alerts/successAlert/SuccessAlert'
-import { useAlerts } from '../../../../shared/hooks/useAlerts'
+import { toast } from 'sonner'
 
 export default function LoginForm() {
 
@@ -18,7 +16,6 @@ export default function LoginForm() {
 
     const navegator = useNavigate();
 
-    const {alertError, setAlertError, alertSuccess, setAlertSuccess, onClosedAlertError, onClosedAlertSuccess} = useAlerts();
 
     const [form, setForm] = useState({
         email: "",
@@ -34,49 +31,34 @@ export default function LoginForm() {
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-
-
         const respuesta = await handleLogin(email, password);
 
         if (respuesta?.token) {
 
-            setAlertSuccess("Login exitoso.")
+
+            toast.success("Login exitoso.")
+
+            setTimeout(() => {
+                setForm({
+                    email: "",
+                    password: ""
+                });
+
+                navegator("/");
+            }, 2000);
 
         }
-        else {
-
-            setAlertError("Credenciales invalidas");
-            return;
-
-        }
-
-
-        setTimeout(() => {
-            setForm({
-                email: "",
-                password: ""
-            });
-
-            navegator("/");
-        }, 2000);
 
         return;
-
-
     }
 
 
     return (
         <form onSubmit={onSubmit} className='loginForm__form' action="">
 
-
-            {alertError && <ErrorAlert onClosed={onClosedAlertError} mensaje={alertError} />}
-            {alertSuccess && <SuccessAlert onClosed={onClosedAlertSuccess} mensaje={alertSuccess} />}
-
             <div className="loginForm__titulo">
                 <TituloForm textTitulo='LOGIN' />
             </div>
-
 
             <div className="loginForm__inputs">
                 <InputForm name='email' required type='email' onChange={onInputChange} value={email} placeholder='CORREO' />

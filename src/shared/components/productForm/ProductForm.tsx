@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./productForm.css";
-import {CreateProductDto, UpdateProductDto,} from "../../../entities/product/dto/productDto";
-import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
-import SuccessAlert from "../alerts/successAlert/SuccessAlert";
+import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, UpdateProductWithImageDto, } from "../../../entities/product/dto/productDto";
 import { useNavigate } from "react-router-dom";
 import { useProductCategories } from "../../../features/admin/product/hooks/useProductCategory";
 import { useSuppliers } from "../../../features/admin/product/hooks/useSupplier";
+
+import imgProfile from "./../../../assets/productNotFound.png"
+import { toast } from "sonner";
 
 type ProductFormMode = "admin-create" | "admin-update";
 
 interface ProductFormProps {
   mode: ProductFormMode;
   initialData?: {
-    id?: number;
+    idProduct?: number;
     name?: string;
     description?: string;
     price?: number;
     quantity?: number;
-    available?: boolean;
+    availability?: boolean;
     productType?: string;
+    imageUrl?: string;
   };
   onSubmit: (data: any) => Promise<any>;
 }
@@ -29,15 +31,16 @@ export default function ProductForm({
   onSubmit,
 }: ProductFormProps) {
   const [formData, setFormData] = useState({
-    id: initialData?.id ?? 0,
+    idProduct: initialData?.idProduct ?? 0,
     name: initialData?.name ?? "",
     description: initialData?.description ?? "",
-    price: initialData?.price ?? 0,
-    quantity: initialData?.quantity ?? 0,
-    available: initialData?.available ?? false,
+    price: initialData?.price ?? "",
+    quantity: initialData?.quantity ?? "",
+    available: initialData?.availability ?? false,
     productType: initialData?.productType ?? "",
-    productCategoryId:(initialData as any)?.productCategoryId ?? 1,
-    supplierId:(initialData as any)?.supplierId ?? 1,
+    productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
+    supplierId: (initialData as any)?.supplierId ?? 0,
+    imageUrl: initialData?.imageUrl || ""
   });
 
   const { items: categories, loading: loadingCategories } = useProductCategories();
@@ -46,15 +49,16 @@ export default function ProductForm({
   useEffect(() => {
     if (initialData) {
       setFormData({
-        id: initialData.id ?? 0,
+        idProduct: initialData.idProduct ?? 0,
         name: initialData.name ?? "",
         description: initialData.description ?? "",
-        price: initialData.price ?? 0,
-        quantity: initialData.quantity ?? 0,
-        available: initialData.available ?? false,
+        price: initialData?.price ?? "",
+        quantity: initialData?.quantity ?? "",
+        available: initialData.availability ?? false,
         productType: initialData.productType ?? "",
-        productCategoryId:(initialData as any)?.productCategoryId ?? 1,
-        supplierId:(initialData as any)?.supplierId ?? 1,
+        productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
+        supplierId: (initialData as any)?.supplierId ?? 0,
+        imageUrl: initialData?.imageUrl || ""
       });
     }
   }, [initialData]);
@@ -66,82 +70,132 @@ export default function ProductForm({
 
     setFormData((prev) => ({
       ...prev,
-      [name]: type === "number" || name === "productCategoryId" ||
-      name === "supplierId"  ? Number(value) : value,
+      [name]:
+        type === "number" && value !== ""
+          ? Number(value)
+          : value,
     }));
   };
 
   let nagivation = useNavigate();
+  
 
-  const [alertError, setAlertError] = useState<string | null>(null);
-  const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
-
-  const onCloseAlertError = () => setAlertError(null);
-  const onCloseAlertSuccess = () => setAlertSuccess(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (formData.name.trim() === "" || formData.description.trim() === "") {
-      setAlertError("Por favor complete todos los campos obligatorios.");
+      toast.error("Por favor complete todos los campos obligatorios.");
       return;
     }
 
-    if (formData.price < 0 || formData.quantity < 0) {
-      setAlertError("Precio y cantidad no pueden ser negativos.");
+    if ((formData.price as number) < 0 || (formData.quantity as number) < 0) {
+      toast.error("Precio y cantidad no pueden ser negativos.");
       return;
     }
 
     try {
       if (mode === "admin-create") {
         const createData: CreateProductDto = {
-        name: formData.name,
-        description: formData.description,
-        price: formData.price,
-        quantity: formData.quantity,
-        availability: formData.available,
-        productType: formData.productType,
-        ingredientType: "BASIC",
-        burgerIngredient: false,
-        imageUrl: "",
-        productCategoryId: formData.productCategoryId,
-        supplierId: formData.supplierId,
-      };
-      await onSubmit(createData);
-      setAlertSuccess("Producto creado con éxito.");
-      setTimeout(()=>{
-        nagivation("/admin/product-list");
-      }, 2000)
-    } else {
-        const updateData: UpdateProductDto = {
-          id: formData.id,
           name: formData.name,
           description: formData.description,
-          price: formData.price,
-          quantity: formData.quantity,
+          price: Number(formData.price),
+          quantity: Number(formData.quantity),
           availability: formData.available,
           productType: formData.productType,
+          ingredientType: "BASIC",
+          burgerIngredient: false,
+          imageUrl: "",
+          productCategoryId: formData.productCategoryId,
+          supplierId: formData.supplierId,
         };
 
-        const response = await onSubmit(updateData);
-        setAlertSuccess("Producto actualizado con éxito.");
-        setTimeout(()=>{
-        nagivation("/admin/product-list");
-      }, 2000)
+        const productCreated: CreateProductWihtImageDto = {
+          product: createData,
+          file: imageFile
+        }
+
+        await onSubmit(productCreated);
+        toast.success("Producto creado con éxito.");
+        setTimeout(() => {
+          nagivation("/admin/product-list");
+        }, 2000)
+      } else {
+        const updateData: UpdateProductDto = {
+
+          name: formData.name,
+          description: formData.description,
+          price: Number(formData.price),
+          quantity: Number(formData.quantity),
+          availability: formData.available,
+          productType: formData.productType,
+          productCategoryId: formData.productCategoryId,
+          supplierId: formData.supplierId,
+        };
+
+        const productUpdated: UpdateProductWithImageDto = {
+          product: updateData,
+          file: imageFile,
+        }
+
+        
+
+        const response = await onSubmit(productUpdated);
+        toast.success("Producto actualizado con éxito.");
+        setTimeout(() => {
+          nagivation("/admin/product-list");
+        }, 2000)
       }
     } catch (error: any) {
-      setAlertError(error?.response?.data?.message ||error?.message ||"Error al procesar el formulario.");
+      toast.error(error?.response?.data?.message || "Error al procesar el formulario.");
     }
+
   };
+
+  //GESTION PA LA PICTURE DEL USER
+
+  const [pictureProduct, setPictureProduct] = useState<string>(
+    initialData?.imageUrl || imgProfile
+  );
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const onClickInputFile = () => {
+    fileInputRef.current?.click();
+  }
+
+  const onChangeInputFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+      setImageFile(file)
+      const pictureUrl = URL.createObjectURL(file);
+      setPictureProduct(pictureUrl);
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (pictureProduct.startsWith("blob:")) {
+        URL.revokeObjectURL(pictureProduct);
+      }
+    }
+  }, [pictureProduct]);
+
+
+  useEffect(() => {
+    if (initialData?.imageUrl) {
+      setPictureProduct(initialData.imageUrl);
+    }
+    else {
+      setPictureProduct(imgProfile);
+    }
+  }, [initialData])
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
-      {alertError && (
-        <ErrorAlert mensaje={alertError} onClosed={onCloseAlertError} />
-      )}
-      {alertSuccess && (
-        <SuccessAlert mensaje={alertSuccess} onClosed={onCloseAlertSuccess} />
-      )}
+
 
       <div className="productForm__container-top">
         <div className="productForm__container-text">
@@ -153,6 +207,23 @@ export default function ProductForm({
             administración.
           </p>
         </div>
+        <div className="productForm__container-imagen">
+          <div className="productForm__container-img">
+            <img className='productForm__img' src={pictureProduct} alt="" />
+          </div>
+          <div className="productForm__container-spam">
+            <h3 className='productForm__h3-img'>Imagen del producto</h3>
+            <p className='productForm__p-img' >Sube una imagen nueva</p>
+          </div>
+          <div className="productForm__container-button-top">
+            <button className='productForm__button' onClick={onClickInputFile} type='button'>
+              Subir imagen
+            </button>
+
+            <input ref={fileInputRef} className='productForm__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
+
+          </div>
+        </div>
       </div>
 
       <div className="productForm__container-medium">
@@ -163,7 +234,7 @@ export default function ProductForm({
               className="productForm__input"
               type="text"
               name="id"
-              value={formData.id}
+              value={formData.idProduct}
               disabled
               onChange={onInputChange}
             />
@@ -189,6 +260,7 @@ export default function ProductForm({
               className="productForm__input"
               type="number"
               name="price"
+              placeholder="Ingrese el precio..."
               min={0}
               required
               value={formData.price}
@@ -203,6 +275,7 @@ export default function ProductForm({
               type="number"
               name="quantity"
               min={0}
+              placeholder="Ingrese la cantidad en stock..."
               required
               value={formData.quantity}
               onChange={onInputChange}
@@ -248,14 +321,12 @@ export default function ProductForm({
 
         <div className="productForm__container-input">
           <label className="productForm__label">Tipo de producto</label>
-          <input
-              className="productForm__input"
-              type="text"
-              name="productType"
-              required
-              value={formData.productType}
-              onChange={onInputChange}
-            />
+          <select className="productForm__input" name="productType" required value={formData.productType} onChange={onInputChange}>
+            <option className="productForm__option" value="">Seleccione el tipo de producto...</option>
+            <option className="productForm__option" value="INGREDIENT">Ingrediente</option>
+            <option className="productForm__option" value="BEVERAGE">Bebida</option>
+            <option className="productForm__option" value="SIDE">Adicion</option>
+          </select>
         </div>
 
         <div className="productForm__container-row">
