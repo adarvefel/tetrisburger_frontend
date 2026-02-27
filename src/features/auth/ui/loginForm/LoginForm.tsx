@@ -62,7 +62,7 @@ export default function LoginForm() {
 
             <div className="loginForm__inputs">
                 <InputForm name='email' required type='email' onChange={onInputChange} value={email} placeholder='CORREO' />
-                <InputForm name='password' required type='password' onChange={onInputChange} value={password} placeholder='PASSWORD' />
+                <InputForm name='password' required type='password' onChange={onInputChange} value={password} placeholder='CONTRASEÑA' />
             </div>
 
             <div className="loginForm__links">

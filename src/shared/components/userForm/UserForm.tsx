@@ -135,9 +135,6 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                     navegator("/admin/users-list");
                 }, 2000)
             }
-            else {
-                toast.error("Datos no actualizados, error inesperado.")
-            }
 
             return
 
