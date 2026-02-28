@@ -1,7 +1,7 @@
 import "./supplierUpdate.css";
 import { useEffect } from "react";
 import { useParams, useNavigate, data } from "react-router-dom";
-import SupplierForm from "../../../../../shared/components/supplierForm/SupplierForm";
+import SupplierForm from "../../../../../shared/components/formsCruds/supplierForm/SupplierForm";
 import { useSupplierFindById } from "../../hooks/useSupplierFindById";
 import { useSupplierUpdate } from "../../hooks/useSupplierUpdate";
 import { UpdateSupplierDto } from "../../../../../entities/supplier/dto/supplierDto";

@@ -1,7 +1,7 @@
 import "./productCategoryUpdate.css";
 import { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import CategoryForm from "../../../../../shared/components/categoryForm/CategoryForm";
+import CategoryForm from "../../../../../shared/components/formsCruds/categoryForm/CategoryForm";
 import { useCategoryFindById } from "../../hooks/useProductCategoryFindById";
 import { useCategoryUpdate } from "../../hooks/useProductCategoryUpdate";
 import { UpdateProductCategoryDto } from "../../../../../entities/productCategory/dto/productCategoryDto";

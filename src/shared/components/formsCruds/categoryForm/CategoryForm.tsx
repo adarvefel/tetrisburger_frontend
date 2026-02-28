@@ -3,7 +3,7 @@ import "./categoryForm.css";
 import {
   CreateProductCategoryDto,
   UpdateProductCategoryDto,
-} from "../../../entities/productCategory/dto/productCategoryDto";
+} from "../../../../entities/productCategory/dto/productCategoryDto";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 

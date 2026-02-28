@@ -1,6 +1,6 @@
 import "./productUpdate.css";
 import { useParams } from "react-router-dom";
-import ProductForm from "../../../../../shared/components/productForm/ProductForm";
+import ProductForm from "../../../../../shared/components/formsCruds/productForm/ProductForm";
 import { useProductFindById } from "../../hooks/useProductFindById";
 import { useProductUpdate } from "../../hooks/useProductUpdate";
 import { useEffect } from "react";

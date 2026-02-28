@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./productForm.css";
-import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, UpdateProductWithImageDto, } from "../../../entities/product/dto/productDto";
+import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, UpdateProductWithImageDto, } from "../../../../entities/product/dto/productDto";
 import { useNavigate } from "react-router-dom";
-import { useProductCategories } from "../../../features/admin/product/hooks/useProductCategory";
-import { useSuppliers } from "../../../features/admin/product/hooks/useSupplier";
+import { useProductCategories } from "../../../../features/admin/product/hooks/useProductCategory";
+import { useSuppliers } from "../../../../features/admin/product/hooks/useSupplier";
 
-import imgProfile from "./../../../assets/productNotFound.png"
+import imgProfile from "../../../../assets/productNotFound.png"
 import { toast } from "sonner";
 
 type ProductFormMode = "admin-create" | "admin-update";

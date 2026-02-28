@@ -2,7 +2,7 @@ import React from 'react'
 import "./updateProfile.css"
 import { useGetProfile } from '../hooks/useGetProfile'
 import { useUpdateProfile } from '../hooks/useUpdateProfile';
-import UserForm from '../../../../shared/components/userForm/UserForm';
+import UserForm from '../../../../shared/components/formsCruds/userForm/UserForm';
 
 export default function UpdateProfile() {
 

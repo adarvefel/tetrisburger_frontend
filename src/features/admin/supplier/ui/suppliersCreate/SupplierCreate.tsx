@@ -1,5 +1,5 @@
 import "./supplierCreate.css";
-import SupplierForm from "../../../../../shared/components/supplierForm/SupplierForm";
+import SupplierForm from "../../../../../shared/components/formsCruds/supplierForm/SupplierForm";
 import { useSupplierCreate } from "../../hooks/useSupplierCreate";
 import { CreateSupplierDto } from "../../../../../entities/supplier/dto/supplierDto";
 import { useNavigate } from "react-router-dom";

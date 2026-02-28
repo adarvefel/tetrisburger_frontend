@@ -1,7 +1,7 @@
 
 import "./userUpdate.css"
 import { useParams } from 'react-router-dom'
-import UserForm from '../../../../../shared/components/userForm/UserForm'
+import UserForm from '../../../../../shared/components/formsCruds/userForm/UserForm'
 import { useUserFindById } from "../../hooks/useUserFindById"
 import { useUserUpdate } from "../../hooks/useUserUpdate";
 import { useEffect } from "react";

@@ -1,4 +1,4 @@
-import CategoryForm from "../../../../../shared/components/categoryForm/CategoryForm";
+import CategoryForm from "../../../../../shared/components/formsCruds/categoryForm/CategoryForm";
 import { useCategoryCreate } from "../../hooks/useProductCategoryCreate";
 import { CreateProductCategoryDto } from "../../../../../entities/productCategory/dto/productCategoryDto";
 import { useNavigate } from "react-router-dom";
