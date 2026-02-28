@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createSupplier } from "../../../../entities/supplier/api/supplierApi";
 import { CreateSupplierDto } from "../../../../entities/supplier/dto/supplierDto";
+import { toast } from "sonner";
 
 export function useSupplierCreate() {
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,7 @@ export function useSupplierCreate() {
         err?.message ||
         "Error al intentar crear el proveedor";
       setError(msg);
+      toast.error(msg);
       throw err;
     } finally {
       setLoading(false);

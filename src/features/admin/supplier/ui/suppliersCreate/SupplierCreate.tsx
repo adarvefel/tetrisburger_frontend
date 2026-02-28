@@ -6,14 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function SupplierCreate() {
   const { handleSupplierCreate } = useSupplierCreate();
-  const navigate = useNavigate();
 
-  const handleSubmit = async (data: CreateSupplierDto) => {
-    await handleSupplierCreate(data);
-    setTimeout(() => {
-      navigate("/admin/suppliers-list");
-    }, 3000);
-  };
-
-  return <SupplierForm mode="admin-create" onSubmit={handleSubmit} />;
+  return <SupplierForm mode="admin-create" onSubmit={(data)=>handleSupplierCreate(data)} />;
 }

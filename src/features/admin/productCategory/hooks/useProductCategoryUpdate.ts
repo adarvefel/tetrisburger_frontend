@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateProductCategory } from "../../../../entities/productCategory/api/productCategoryApi";
 import { UpdateProductCategoryDto } from "../../../../entities/productCategory/dto/productCategoryDto";
+import { toast } from "sonner";
 
 export function useCategoryUpdate() {
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,7 @@ export function useCategoryUpdate() {
         err?.message ||
         "Error al intentar actualizar la categoría";
       setError(msg);
+      toast.error(msg);
       throw err;
     } finally {
       setLoading(false);

@@ -19,3 +19,14 @@
     padding-left: 40px;
     padding-right: 40px;
 }
+
+
+@media (max-width: 768px){
+    .supplierCreatePage__container-content{
+        height: auto;
+        padding: 0;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: 4rem;
+    }
+}
