@@ -4,9 +4,9 @@ import SupplierUpdate from "../../../../features/admin/supplier/ui/suppliersUpda
 
 export default function SuppliersUpdatePage() {
   return (
-    <div className="productsCreate__container-global">
+    <div className="supplierUpdatePage__container-global">
       <AdminSidebar />
-      <div className="productsCreate__container-content">
+      <div className="supplierUpdatePage__container-content">
         <SupplierUpdate />
       </div>
     </div>

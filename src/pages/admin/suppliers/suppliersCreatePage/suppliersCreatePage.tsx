@@ -4,9 +4,9 @@ import SupplierCreate from "../../../../features/admin/supplier/ui/suppliersCrea
 
 export default function SuppliersCreatePage() {
   return (
-    <div className="productsCreate__container-global">
+    <div className="supplierCreatePage__container-global">
       <AdminSidebar />
-      <div className="productsCreate__container-content">
+      <div className="supplierCreatePage__container-content">
         <SupplierCreate />
       </div>
     </div>

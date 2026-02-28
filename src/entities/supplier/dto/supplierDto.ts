@@ -22,7 +22,6 @@ export interface CreateSupplierDto {
 }
 
 export interface UpdateSupplierDto {
-  id: number;
   name: string;
   phone: string;
   email: string;
