@@ -7,21 +7,13 @@ import { useSuppliers } from "../../../../features/admin/product/hooks/useSuppli
 
 import imgProfile from "../../../../assets/productNotFound.png"
 import { toast } from "sonner";
+import { ProductFindByIdResponse } from "../../../../features/admin/product/dto/productsAdminDto";
 
 type ProductFormMode = "admin-create" | "admin-update";
 
 interface ProductFormProps {
   mode: ProductFormMode;
-  initialData?: {
-    idProduct?: number;
-    name?: string;
-    description?: string;
-    price?: number;
-    quantity?: number;
-    availability?: boolean;
-    productType?: string;
-    imageUrl?: string;
-  };
+  initialData?: ProductFindByIdResponse,
   onSubmit: (data: any) => Promise<any>;
 }
 
@@ -38,8 +30,9 @@ export default function ProductForm({
     quantity: initialData?.quantity ?? "",
     available: initialData?.availability ?? false,
     productType: initialData?.productType ?? "",
-    productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
-    supplierId: (initialData as any)?.supplierId ?? 0,
+    isBurgerIngredient: initialData?.isBurgerIngredient ?? false,
+    productCategoryId: initialData?.productCategory?.id ?? 0,
+    supplierId: initialData?.supplierId ?? 0,
     imageUrl: initialData?.imageUrl || ""
   });
 
@@ -56,6 +49,7 @@ export default function ProductForm({
         quantity: initialData?.quantity ?? "",
         available: initialData.availability ?? false,
         productType: initialData.productType ?? "",
+        isBurgerIngredient: initialData?.isBurgerIngredient ?? false,
         productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
         supplierId: (initialData as any)?.supplierId ?? 0,
         imageUrl: initialData?.imageUrl || ""
@@ -78,7 +72,7 @@ export default function ProductForm({
   };
 
   let nagivation = useNavigate();
-  
+
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -103,9 +97,7 @@ export default function ProductForm({
           quantity: Number(formData.quantity),
           availability: formData.available,
           productType: formData.productType,
-          ingredientType: "BASIC",
-          burgerIngredient: false,
-          imageUrl: "",
+          isBurgerIngredient: formData.isBurgerIngredient,
           productCategoryId: formData.productCategoryId,
           supplierId: formData.supplierId,
         };
@@ -129,6 +121,7 @@ export default function ProductForm({
           quantity: Number(formData.quantity),
           availability: formData.available,
           productType: formData.productType,
+          isBurgerIngredient: formData.isBurgerIngredient,
           productCategoryId: formData.productCategoryId,
           supplierId: formData.supplierId,
         };
@@ -138,7 +131,7 @@ export default function ProductForm({
           file: imageFile,
         }
 
-        
+
 
         const response = await onSubmit(productUpdated);
         toast.success("Producto actualizado con éxito.");
@@ -348,6 +341,27 @@ export default function ProductForm({
               <span className="productForm__checkbox-text">
                 Marcar como disponible
               </span>
+            </div>
+          </div>
+
+          <div id="productoForm__container-input-2" className="productForm__container-input">
+            <label className="productForm__label">Ingrediente de hamburguesa</label>
+            <div className="productForm__container-checkbox">
+              <span className="productForm__checkbox-text">
+                Marcar como ingrediente de hamburguesa
+              </span>
+              <input
+                className="productForm__checkbox"
+                type="checkbox"
+                name="isBurgerIngredient"
+                checked={formData.isBurgerIngredient}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    isBurgerIngredient: e.target.checked,
+                  }))
+                }
+              />
             </div>
           </div>
         </div>
