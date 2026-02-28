@@ -3,7 +3,7 @@ import "./supplierForm.css";
 import {
   CreateSupplierDto,
   UpdateSupplierDto,
-} from "../../../entities/supplier/dto/supplierDto";
+} from "../../../../entities/supplier/dto/supplierDto";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 
