@@ -11,6 +11,7 @@
 
 
 .productUpdatePage__container-content {
+    flex: 1;
     padding-top: 1rem;
     padding-bottom: 1rem;
     width: 100%;

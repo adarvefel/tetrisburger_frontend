@@ -119,7 +119,6 @@ export default function CategoryForm({
       </div>
 
       <div className="productForm__container-medium">
-        {mode === "admin-update" && (
           <div className="productForm__container-row">
             <div className="productForm__container-input">
               <label className="productForm__label">ID categoría</label>
@@ -133,7 +132,6 @@ export default function CategoryForm({
               />
             </div>
           </div>
-        )}
 
         <div className="productForm__container-row">
           <div className="productForm__container-input productForm__container-input--full">

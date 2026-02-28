@@ -1,4 +1,4 @@
-.productsCreate__container-global {
+.productsCreate__container-global{
 
     width: 100%;
     min-height: 100vh;
@@ -6,17 +6,20 @@
     display: flex;
     background-color: #F6F7F8;
     justify-content: center;
-
 }
 
 
 .productsCreate__container-content {
+    flex: 1;
+    width: 100%;
     padding-top: 1rem;
     padding-bottom: 1rem;
     width: 100%;
     height: auto;
     padding-left: 40px;
     padding-right: 40px;
+    
+    
 }
 
 
