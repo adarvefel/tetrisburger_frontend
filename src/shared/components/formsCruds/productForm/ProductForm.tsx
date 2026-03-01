@@ -32,7 +32,7 @@ export default function ProductForm({
     productType: initialData?.productType ?? "",
     isBurgerIngredient: initialData?.isBurgerIngredient ?? false,
     productCategoryId: initialData?.productCategory?.id ?? 0,
-    supplierId: initialData?.supplierId ?? 0,
+    supplierId: initialData?.supplier?.id ?? 0,
     imageUrl: initialData?.imageUrl || ""
   });
 
@@ -50,8 +50,8 @@ export default function ProductForm({
         available: initialData.availability ?? false,
         productType: initialData.productType ?? "",
         isBurgerIngredient: initialData?.isBurgerIngredient ?? false,
-        productCategoryId: (initialData as any)?.productCategory?.id ?? 0,
-        supplierId: (initialData as any)?.supplierId ?? 0,
+        productCategoryId: initialData?.productCategory?.id ?? 0,
+        supplierId: initialData?.supplier?.id ?? 0,
         imageUrl: initialData?.imageUrl || ""
       });
     }
@@ -318,7 +318,7 @@ export default function ProductForm({
             <option className="productForm__option" value="">Seleccione el tipo de producto...</option>
             <option className="productForm__option" value="INGREDIENT">Ingrediente</option>
             <option className="productForm__option" value="BEVERAGE">Bebida</option>
-            <option className="productForm__option" value="SIDE">Adicion</option>
+            <option className="productForm__option" value="SIDE">Acompañamiento</option>
           </select>
         </div>
 

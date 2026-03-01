@@ -24,7 +24,14 @@ export interface ProductFindByIdResponse{
         description: string,
         available: boolean
     },
-    supplierId: number
+    supplier: {
+        id: number,
+        name: string,
+        phone: string,
+        email: string,
+        address: string
+
+    }
     imageUrl?: string
 }
 

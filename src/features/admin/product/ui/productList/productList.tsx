@@ -110,7 +110,7 @@ export default function ProductList() {
                             </Td>
 
                             <Td>{product.name}</Td>
-                            <Td>{product.productType === "SIDE" ? "Adicion" : product.productType === "INGREDIENT" ? "Ingrediente" : "Bebida"}</Td>
+                            <Td>{product.productType === "SIDE" ? "Acompañamiento" : product.productType === "INGREDIENT" ? "Ingrediente" : "Bebida"}</Td>
                             <Td>{`$${product.price}`}</Td>
                             <Td>{product.quantity}</Td>
                             
