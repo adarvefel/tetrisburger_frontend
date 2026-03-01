@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { FaUsers, FaBoxOpen, FaHamburger, FaEnvelopeOpenText, FaTags, FaStore } from "react-icons/fa"
 import { IoMenuOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
+import { CiSettings } from "react-icons/ci";
 
 export default function AdminSidebar() {
 
@@ -78,6 +79,21 @@ export default function AdminSidebar() {
 
 
 
+
+
+
+
+
+
+        <div className="adminSidebar__container-settings">
+          <NavLink to={"/admin/sttings"}
+            className={({ isActive }) =>
+              `adminSidebar__container-option ${isActive ? "active" : ""}`
+            } >
+            <CiSettings size={19} />
+            <span className='adminSidebar__span'>Configuraciones</span>
+          </NavLink>
+        </div>
 
       </div>
 
