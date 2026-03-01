@@ -1,19 +1,14 @@
-import React, { useState } from "react";
-import { MdDeleteOutline } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
-
+import { useState } from "react";
 import "./productCategoryList.css";
-import { Link } from "react-router-dom";
+import "./../../../../../shared/components/componetsCrud/table/tableComponents.css";
 import { useProductCategoryList } from "../../hooks/useProductCategoryList";
-import { ProductCategoryFetchList } from "../../dto/productCategoriesAdminDto";
-import CategoryDelete from "../productCategoryDelete/ProductCategoryDelete";
-import SuccessAlert from "../../../../../shared/components/alerts/successAlert/SuccessAlert";
 import ButtonCasual from "../../../../../shared/components/buttonCasual/ButtonCasual";
 import { deleteProductCategory } from "../../../../../entities/productCategory/api/productCategoryApi";
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 import { toast } from "sonner";
+import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+
 
 export default function CategoryList() {
   const {
@@ -56,7 +51,7 @@ export default function CategoryList() {
   return (
     <div className="productList__container-global">
       {/* ---------- DELETE MODAL ---------- */}
-      
+
       {showDeleteModal && productCategoryToDelete && (
         <ConfirmDeleteModal
           title="Eliminar Categoria de Producto"
@@ -74,65 +69,43 @@ export default function CategoryList() {
         />
       </div>
 
-      <table className="productList__table">
-        <thead className="productList__thead">
-          <tr className="productList__tr">
-            <th className="productList__th">ID</th>
-            <th className="productList__th">Nombre</th>
-            <th className="productList__th">Descripción</th>
-            <th className="productList__th">Disponible</th>
-            <th className="productList__th">Acciones</th>
+      <TableLayout>
+
+        <TableHead>
+          <tr>
+            <Th>ID</Th>
+            <Th>NOMBRE</Th>
+            <Th>DESCRIPCION</Th>
+            <Th>DISPONIBILIDAD</Th>
+            <Th>ACCIONES</Th>
           </tr>
-        </thead>
-        <tbody className="productList__tbody">
-          {categories.map(category => (
-            <tr key={category.id} className="productList__tr">
-              <td className="productList__td">{category.id}</td>
-              <td className="productList__td">{category.name}</td>
-              <td className="productList__td">{category.description}</td>
-              <td className="productList__td">
-                {category.available ? "Activa" : "Inactiva"}
-              </td>
-              <td className="productList__td">
-                <div className="productList__container-actions">
-                  <Link
-                    className="productList__button-edit"
-                    to={`/admin/category/update/${category.id}`}
-                  >
-                    <CiEdit size={18} />
-                  </Link>
-                  <button
-                    className="productList__button-delete"
-                    onClick={() => openDeleteModal(category)}
-                  >
-                    <MdDeleteOutline size={18} />
-                  </button>
-                </div>
-              </td>
+        </TableHead>
+
+        <TableBody>
+          {categories.map((category) => (
+            <tr key={category.id}>
+
+              <Td>{category.id}</Td>
+              <Td>{category.name}</Td>
+              <Td>{category.description}</Td>
+              <Td><span className={`tableComponents__span-${category.available ? "green" : "red"}`}> {category.available ? "Disponible" : "No disponible"} </span> </Td>
+              
+              
+
+              <Td>
+                <TableActions
+                  linkEdit={`/admin/category/update/${category.id}`}
+                  onDelete={() => openDeleteModal(category)}
+                />
+              </Td>
+
             </tr>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
 
-      <div className="productList__container-pages">
-        <button
-          className="productList__button"
-          onClick={prevPage}
-          disabled={numberPage === 0}
-        >
-          <FaArrowLeft size={18} />
-        </button>
-        <p className="userList__p">
-          Pagina {numberPage + 1} de: {totalPage}
-        </p>
-        <button
-          className="productList__button"
-          onClick={nextPage}
-          disabled={numberPage + 1 === totalPage}
-        >
-          <FaArrowRight size={18} />
-        </button>
-      </div>
+      </TableLayout>
+
+      <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
     </div>
   );
 }

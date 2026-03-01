@@ -1,20 +1,10 @@
 .pqrsList__container-global {
-
-
-
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-
-
-
 }
-
-
-
 
 .pqrsList__container-top {
     width: 100%;
@@ -82,146 +72,6 @@
 .pqrsList__filter:focus {
     outline: none;
     border-color: rgb(255, 187, 0);
-}
-
-
-
-
-
-
-.pqrsList__table {
-
-
-    width: 100%;
-    font-family: 'Montserrat';
-    text-align: center;
-    font-size: 0.7rem;
-    border-radius: 15px;
-    color: black;
-    overflow: hidden;
-
-
-    border-collapse: collapse;
-    /* Agrega esto para bordes limpios */
-
-
-}
-
-.pqrsList__thead {
-
-    background-color: #ededed;
-}
-
-.pqrsList__tr {}
-
-.pqrsList__th {
-
-
-
-    padding: 7px;
-}
-
-.pqrsList__tbody {
-    background-color: #fff;
-}
-
-.pqrsList__td {
-
-    padding: 7px;
-}
-
-
-
-.pqrsList__container-img {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    overflow: hidden;
-    margin: 0 auto;
-
-
-}
-
-.pqrsList__img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.pqrsList__container-actions {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto;
-    gap: 20px;
-}
-
-.pqrsList__button-delete,
-.pqrsList__button-edit {
-    border: none;
-    background-color: transparent;
-    text-decoration: none;
-    color: black;
-}
-
-.pqrsList__button-delete:hover {
-    cursor: pointer;
-}
-
-.pqrsList__button-edit:hover {
-    cursor: pointer;
-}
-
-
-
-
-.pqrsList__container-pages {
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-}
-
-
-.pqrsList__button {
-    background-color: transparent;
-    border: none;
-}
-
-.pqrsList__button:hover {
-    cursor: pointer;
-}
-
-.pqrsList__p {
-    font-family: 'Montserrat';
-    color: black;
-    font-size: 0.8rem;
-}
-
-.pqrsList__button:disabled {
-    cursor: no-drop;
-}
-
-.pqrsList__p-received {
-    background-color: #e74c3c;
-    display: inline;
-    padding: 3px;
-    border-radius: 2px 6px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.pqrsList__p-answered {
-    background-color: #6de73c;
-    display: inline;
-    padding: 3px;
-    border-radius: 2px 6px;
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
 }
 
 @media (max-width: 768px) {

@@ -113,6 +113,8 @@
 
 
 
+
+
 /*COLORES PARA SPAN*/
 
 .tableComponents__span-red {
@@ -140,6 +142,16 @@
 .tableComponents__span-orange {
     background-color: #f39c12;
  
+    display: inline;
+    padding: 3px;
+    border-radius: 2px 6px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.tableComponents__span-green {
+    background-color: #6de73c;
     display: inline;
     padding: 3px;
     border-radius: 2px 6px;
