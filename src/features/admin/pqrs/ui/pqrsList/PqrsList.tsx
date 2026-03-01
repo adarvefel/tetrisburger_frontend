@@ -1,9 +1,5 @@
 import { useState } from "react";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { GrDocumentText } from "react-icons/gr";
-import { MdDeleteOutline } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import "./pqrsList.css";
 import "./../../../../../shared/components/componetsCrud/table/tableComponents.css";
 import { usePqrsList } from "../../hooks/usePqrsList";
