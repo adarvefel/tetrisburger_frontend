@@ -16,44 +16,39 @@ import ExtraGallerySection from '../pages/homePage/components/extraGallerySectio
 import UserCard from '../entities/user/ui/UserCard'
 import UserList from '../features/admin/user/ui/userList/UserList'
 import UserUpdate from '../features/admin/user/ui/userUpdate/UserUpdate'
-import NavbarAuthenticated from '../shared/components/navbar/navbarAuthenticated/NavbarAuthenticated'
-import UserForm from '../shared/components/userForm/UserForm'
-import { createUser } from '../entities/user/api/userApi'
 import ProfileUserPage from '../pages/user/profilePage/ProfileUserPage'
 import IconTetris from '../shared/components/iconTetris/IconTetris'
-import UsersListPage2 from '../pages/admin/users/usersListPage/UsersListPage'
-import ButtonCasual from '../shared/components/buttonCasual/ButtonCasual'
-import UsersCreate from '../pages/admin/users/usersCreatePage/UsersCreatePage'
 import UsersCreatePage from '../pages/admin/users/usersCreatePage/UsersCreatePage'
 import UsersListPage from '../pages/admin/users/usersListPage/UsersListPage'
 import UsersUpdatePage from '../pages/admin/users/usersUpdatePage/UsersUpdatePage'
 import TermsAndConditionsPage from '../pages/auth/termsAndConditionsPage/TermsAndConditionsPage'
 import ProductsListPage from '../pages/admin/products/productsListPage/productsListPage'
 import ProductsCreatePage from '../pages/admin/products/productsCreatePage/productsCreatePage'
-import ProductUpdate from '../features/admin/product/ui/productUpdate/productUpdate'
 import ProductsUpdatePage from '../pages/admin/products/productsUpdatePage/productsUpdatePage'
 import ProductCategoriesListPage from '../pages/admin/productCategory/productCategoriesListPage/productCategoriesListPage'
 import SuppliersListPage from '../pages/admin/suppliers/suppliersListPage/suppliersListPage'
 import ProductCategoriesCreatePage from '../pages/admin/productCategory/productCategoriesCreatePage/productCategoriesCreatePage'
 import ProductCategoriesUpdatePage from '../pages/admin/productCategory/productCategoriesUpdatePage/productCategoriesUpdatePage'
-import SupplierCreate from '../features/admin/supplier/ui/suppliersCreate/SupplierCreate'
 import SuppliersCreatePage from '../pages/admin/suppliers/suppliersCreatePage/suppliersCreatePage'
 import SuppliersUpdatePage from '../pages/admin/suppliers/suppliersUpdatePage/suppliersUpdatePage'
 import ContactUsPage from '../pages/contactUs/ContactUsPage'
 import PqrsCreate from '../features/user/pqrs/ui/pqrsCreate/PqrsCreate'
-import PqrsMe from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
 import PqrsCreatePage from '../pages/user/pqrs/pqrsCreatePage/PqrsCreatePage'
 import PqrsMePage from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
 import PqrsListMe from '../features/user/pqrs/ui/pqrsListMe/PqrsListMe'
 import PqrsListPage from '../pages/admin/pqrs/pqrsListPage/PqrsListPage'
 import ConfirmDeleteModal from '../shared/components/confirmDeleteModal/ConfirmDeleteModal'
-import PqrsForm from '../shared/components/pqrsForm/PqrsForm'
 import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
 import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePage'
 import ProtectedRoute from "../shared/routes/ProtectedRoute";
 import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
 import BurgerCustomForm from '../shared/components/burgerCustomForm/ui/BurgerCustomForm'
 import ListIngredients from '../shared/components/burgerCustomForm/ingredients/ListIngredients'
+import TestTable from '../shared/components/componetsCrud/table/TestTable'
+import InputCrud from '../shared/components/componetsCrud/fields/inputCrud/InputCrud'
+import SelectCrud from '../shared/components/componetsCrud/fields/selectCrud/SelectCrud'
+import TextareaCrud from '../shared/components/componetsCrud/fields/textareaCrud/TextareaCrud'
+import TestFields from '../shared/components/componetsCrud/fields/TestFields'
 
 
 
@@ -151,7 +146,14 @@ export default function Router() {
 
         <Route path='/prueba22' element={<BurgerCustomForm/>}/>
 
-        <Route path='/ingredients-list' element={<ListIngredients/>}/>
+        <Route path='/prueba23' element={<TestTable/>}/>
+
+        <Route path='/prueba23' element={<TestTable/>}/>
+
+
+        <Route path='/prueba24' element={<TestFields/>}/>
+
+        
 
 
 

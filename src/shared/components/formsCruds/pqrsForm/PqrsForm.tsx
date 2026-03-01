@@ -4,8 +4,8 @@ import { FaCircleExclamation } from "react-icons/fa6";
 import { FaClipboardUser } from "react-icons/fa6";
 import { IoDocumentTextSharp } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
-import { UpdatePqrsUserRequestDto } from '../../../features/user/pqrs/dto/pqrsUserDto';
-import { UpdatePqrsAdminRequestDto } from '../../../entities/pqrs/dto/pqrsDto';
+import { UpdatePqrsUserRequestDto } from '../../../../features/user/pqrs/dto/pqrsUserDto';
+import { UpdatePqrsAdminRequestDto } from '../../../../entities/pqrs/dto/pqrsDto';
 import { toast } from 'sonner';
 
 type FormMode = "user-update" | "admin-update";

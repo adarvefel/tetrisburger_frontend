@@ -3,10 +3,9 @@ import "./supplierForm.css";
 import {
   CreateSupplierDto,
   UpdateSupplierDto,
-} from "../../../entities/supplier/dto/supplierDto";
-import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
-import SuccessAlert from "../alerts/successAlert/SuccessAlert";
+} from "../../../../entities/supplier/dto/supplierDto";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 type SupplierFormMode = "admin-create" | "admin-update";
 
@@ -28,33 +27,32 @@ export default function SupplierForm({
   onSubmit,
 }: SupplierFormProps) {
   const [formData, setFormData] = useState({
-    id: initialData?.id ?? 0,
-    name: initialData?.name ?? "",
-    phone: initialData?.phone ?? "",
-    email: initialData?.email ?? "",
-    address: initialData?.address ?? "",
+    id: initialData?.id || 0,
+    name: initialData?.name || "",
+    phone: initialData?.phone || "",
+    email: initialData?.email || "",
+    address: initialData?.address || "",
   });
 
   useEffect(() => {
     if (initialData) {
       setFormData({
-        id: initialData.id ?? 0,
-        name: initialData.name ?? "",
-        phone: initialData.phone ?? "",
-        email: initialData.email ?? "",
-        address: initialData.address ?? "",
+        id: initialData.id || 0,
+        name: initialData.name || "",
+        phone: initialData.phone || "",
+        email: initialData.email || "",
+        address: initialData.address || "",
       });
     }
   }, [initialData]);
 
-  
 
-  const onInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-  };
+
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  const nagivation = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -64,38 +62,44 @@ export default function SupplierForm({
       return;
     }
 
-    try {
-      if (mode === "admin-create") {
-        const createData: CreateSupplierDto = {
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          address: formData.address,
-        };
+    if (mode === "admin-create") {
+      const createData: CreateSupplierDto = {
+        name: formData.name,
+        phone: formData.phone,
+        email: formData.email,
+        address: formData.address,
+      };
 
-        await onSubmit(createData);
+
+      const res = await onSubmit(createData);
+      if (res.data?.id) {
         toast.success("Proveedor creado con éxito.");
-        
-      } else {
-        const updateData: UpdateSupplierDto = {
-          id: formData.id,
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          address: formData.address,
-        };
-
-        await onSubmit(updateData);
-        toast.success("Proveedor actualizado con éxito.");
+        setTimeout(() => {
+          nagivation("/admin/suppliers-list");
+        }, 2000);
       }
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message ||
-          error?.message ||
-          "Error al procesar el formulario."
-      );
+
+      return;
+
+    };
+
+    const updateData: UpdateSupplierDto = {
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      address: formData.address,
     }
-  };
+
+
+    const res = await onSubmit(updateData);
+    if (res.data?.id) {
+      toast.success("Proveedor actualizado   con éxito.");
+      setTimeout(() => {
+        nagivation("/admin/suppliers-list");
+      }, 2000);
+    }
+
+  }
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
@@ -114,7 +118,7 @@ export default function SupplierForm({
       </div>
 
       <div className="productForm__container-medium">
-        {mode === "admin-update" && (
+        
           <div className="productForm__container-row">
             <div className="productForm__container-input">
               <label className="productForm__label">ID proveedor</label>
@@ -124,11 +128,11 @@ export default function SupplierForm({
                 name="id"
                 disabled
                 value={formData.id}
-                onChange={() => {}}
+                onChange={() => { }}
               />
             </div>
           </div>
-        )}
+       
 
         <div className="productForm__container-row">
           <div className="productForm__container-input">
@@ -193,4 +197,3 @@ export default function SupplierForm({
     </form>
   );
 }
-

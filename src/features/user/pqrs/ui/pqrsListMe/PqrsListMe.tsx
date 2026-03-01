@@ -7,18 +7,15 @@ import { FaEye } from "react-icons/fa";
 import { MdDeleteOutline } from "react-icons/md";
 import { usePqrsListMe } from '../../hooks/usePqrsListMe';
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
-import SuccessAlert from '../../../../../shared/components/alerts/successAlert/SuccessAlert';
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
 import { deletePqrsMe } from '../../api/pqrsUserApi';
+import { toast } from 'sonner';
 
 export default function pqrsListMe() {
 
     const { numberPage, totalPage, totalElements, pqrs, prevPage, nextPage, handlePqrsListMe } = usePqrsListMe();
 
-    const [alertSucces, setAlertSucces] = useState<null | string>(null);
-    const onClosedAlertSucces = () => {
-        setAlertSucces(null);
-    }
+    
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -42,14 +39,13 @@ export default function pqrsListMe() {
         await remove(pqrsToDelete.idPqrs);
         closeDeleteModal();
         handlePqrsListMe();
-        setAlertSucces("PQRS eliminado con exito.");
+        toast.success("PQRS eliminado con exito.");
     };
 
     return (
         <div className="pqrsListMe__container-global">
 
             {/* ---------- DELETE MODAL ---------- */}
-            {alertSucces ? <SuccessAlert mensaje={alertSucces} onClosed={onClosedAlertSucces} /> : null}
             {showDeleteModal && pqrsToDelete && (
                 <ConfirmDeleteModal
                     title="Eliminar PQRS"

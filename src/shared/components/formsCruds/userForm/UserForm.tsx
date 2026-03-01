@@ -1,11 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-import imgProfile from "./../../../assets/photoPerfilUndefined.webp"
+import imgProfile from "../../../../assets/photoPerfilUndefined.webp"
 import "./userForm.css"
-import { UpdateProfileRequestDto, UpdateProfileWithImageRequestDto } from '../../../features/user/profile/dto/profileDto';
-import { ErrorAlert } from '../alerts/errorAlert/ErrorAlert';
-import SuccessAlert from '../alerts/successAlert/SuccessAlert';
+import { UpdateProfileRequestDto, UpdateProfileWithImageRequestDto } from '../../../../features/user/profile/dto/profileDto';
 import { useNavigate } from 'react-router-dom';
-import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto, UpdateUserWithImageDto } from '../../../entities/user/dto/userDto';
+import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto, UpdateUserWithImageDto } from '../../../../entities/user/dto/userDto';
 import { toast } from 'sonner';
 
 type FormMode = "create" | "user-update" | "admin-update";

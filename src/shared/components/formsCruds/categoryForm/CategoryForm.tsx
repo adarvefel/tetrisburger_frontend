@@ -3,10 +3,9 @@ import "./categoryForm.css";
 import {
   CreateProductCategoryDto,
   UpdateProductCategoryDto,
-} from "../../../entities/productCategory/dto/productCategoryDto";
-import { ErrorAlert } from "../alerts/errorAlert/ErrorAlert";
-import SuccessAlert from "../alerts/successAlert/SuccessAlert";
+} from "../../../../entities/productCategory/dto/productCategoryDto";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 type CategoryFormMode = "admin-create" | "admin-update";
 
@@ -45,7 +44,7 @@ export default function CategoryForm({
     }
   }, [initialData]);
 
-  
+
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -57,6 +56,8 @@ export default function CategoryForm({
     }));
   };
 
+  const navegator = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -65,41 +66,46 @@ export default function CategoryForm({
       return;
     }
 
-    try {
-      if (mode === "admin-create") {
-        const createData: CreateProductCategoryDto = {
-          name: formData.name,
-          description: formData.description,
-          available: formData.available,
-        };
 
-        await onSubmit(createData);
+    if (mode === "admin-create") {
+      const createData: CreateProductCategoryDto = {
+        name: formData.name,
+        description: formData.description,
+        available: formData.available,
+      };
+
+      const response = await onSubmit(createData);
+
+      if (response.data.id) {
         toast.success("Categoría creada con éxito.");
-
-        
-      } else {
-        const updateData: UpdateProductCategoryDto = {
-          id: formData.id,
-          name: formData.name,
-          description: formData.description,
-          available: formData.available,
-        };
-
-        await onSubmit(updateData);
-        toast.success("Categoría actualizada con éxito.");
+        setTimeout(() => {
+          navegator("/admin/category-list");
+        }, 2000)
       }
-    } catch (error: any) {
-      toast.error(
-        error?.response?.data?.message ||
-          error?.message ||
-          "Error al procesar el formulario."
-      );
+
+      return
     }
-  };
+
+    const updateData: UpdateProductCategoryDto = {
+      name: formData.name,
+      description: formData.description,
+      available: formData.available,
+    };
+
+    const response = await onSubmit(updateData);
+
+    if (response.data.id) {
+      toast.success("Categoría actualizada con éxito.");
+      setTimeout(() => {
+        navegator("/admin/category-list");
+      }, 2000)
+    }
+
+  }
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
-      
+
 
       <div className="productForm__container-top">
         <div className="productForm__container-text">
@@ -113,7 +119,6 @@ export default function CategoryForm({
       </div>
 
       <div className="productForm__container-medium">
-        {mode === "admin-update" && (
           <div className="productForm__container-row">
             <div className="productForm__container-input">
               <label className="productForm__label">ID categoría</label>
@@ -123,11 +128,10 @@ export default function CategoryForm({
                 name="id"
                 disabled
                 value={formData.id}
-                onChange={() => {}}
+                onChange={() => { }}
               />
             </div>
           </div>
-        )}
 
         <div className="productForm__container-row">
           <div className="productForm__container-input productForm__container-input--full">

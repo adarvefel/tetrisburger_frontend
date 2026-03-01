@@ -1,10 +1,14 @@
 .productForm__form {
+
+  width: 100%;
+  height: 100%;
+
   border: 4px solid #E7DCDC;
   gap: 20px;
   border-radius: 20px;
   padding: 20px 32px;
-  max-width: 1600px;
-  margin: auto;
+  
+  
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
@@ -177,6 +181,7 @@
   display: flex;
   justify-content: end;
   border-top: 2px solid rgb(222, 222, 222);
+  margin-top: auto;
 }
 
 .productForm__container-button-buttom {
@@ -201,6 +206,10 @@
   background-color: rgb(225, 168, 8);
 }
 
+#productoForm__container-input-2{
+  align-items: end;
+}
+
 @media (max-width: 768px) {
   .productForm__container-row {
     flex-direction: column;
@@ -208,9 +217,9 @@
   }
 
   .productForm__p {
-    
+
     font-size: 0.8rem;
-   
+
   }
 
 

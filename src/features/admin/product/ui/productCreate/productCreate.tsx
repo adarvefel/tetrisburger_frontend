@@ -1,7 +1,7 @@
 import React from "react";
 import "./productCreate.css";
 import { useProductCreate } from "../../hooks/useProductCreate";
-import ProductForm from "../../../../../shared/components/productForm/ProductForm";
+import ProductForm from "../../../../../shared/components/formsCruds/productForm/ProductForm";
 import { CreateProductDto } from "../../../../../entities/product/dto/productDto";
 
 export default function ProductCreate() {
@@ -11,9 +11,7 @@ export default function ProductCreate() {
     <div>
       <ProductForm
         mode="admin-create"
-        onSubmit={async (data: CreateProductDto) => {
-          await handleProductCreate(data);
-        }}
+        onSubmit={(data) =>  handleProductCreate(data)}
       />
     </div>
   );

@@ -1,26 +1,16 @@
-import React, { useState } from 'react'
-import pictureProfle from "./../../../../../assets/photoPerfilUndefined.webp"
-import "./userList.css"
-import "./../../../../../shared/components/componetsCrud/table/tableComponents.css";
-import { useUserList } from '../../hooks/useUserList';
-import ButtonCasual from '../../../../../shared/components/buttonCasual/ButtonCasual';
-import { FaSearch } from "react-icons/fa";
-import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
-import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
-import { deleteUser } from '../../../../../entities/user/api/userApi';
-import { toast } from 'sonner';
-import {TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+import { useUserList } from "../../../../features/admin/user/hooks/useUserList";
+import {TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./TableComponents";
+import pictureProfle from "./../../../../assets/photoPerfilUndefined.webp"
+import { toast } from "sonner";
+import { useState } from "react";
+import { useDeleteEntity } from "../../../hooks/useDeleteEntity";
+import { deleteUser } from "../../../../entities/user/api/userApi";
+import ConfirmDeleteModal from "../../confirmDeleteModal/ConfirmDeleteModal";
 
-export default function UserList() {
+
+export default function TestTable() {
 
     const { error, loading, numberPage, totalPage, setEmail, email, users, prevPage, nextPage, fetchUserList } = useUserList();
-
-    //Search by EMail
-
-
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setEmail(e.target.value);
-    }
 
 
     // ---------- DELETE STATE ----------
@@ -48,10 +38,8 @@ export default function UserList() {
         toast.success("Usuario eliminado con exito.");
     };
 
-
     return (
-        <div className="userList__container-global">
-
+        <div style={{ padding: "40px" }}>
             {/* ---------- DELETE MODAL ---------- */}
 
             {showDeleteModal && userToDelete && (
@@ -63,25 +51,6 @@ export default function UserList() {
                     onClose={closeDeleteModal}
                 />
             )}
-
-            <div className="userList__container-top">
-
-                <div className="userList__container-search">
-                    <FaSearch className="userList__icon-search" size={13} />
-                    <input
-                        name='email'
-                        className='userList__input-search'
-                        type="search"
-                        placeholder='Buscar por email'
-                        onChange={onInputChange}
-                        value={email}
-                    />
-                </div>
-
-                <ButtonCasual linkRedireccion='/admin/users-create' mensagge='+ Nuevo Usuario' />
-
-            </div>
-
             <TableLayout>
 
                 <TableHead>
@@ -110,7 +79,7 @@ export default function UserList() {
                             <Td>{user.userName}</Td>
                             <Td>{user.email}</Td>
 
-                            <Td><span className={`tableComponents__span-${user.role === "ADMIN" ? "red" : user.role === "EMPLOYEE" ? "orange" : "blue"}`}> {user.role === "ADMIN" ? "Administrador" : user.role === "EMPLOYEE" ? "Empleado" : "Cliente"} </span> </Td>
+                            <Td><span className={`tableComponents__span-${user.role === "ADMIN" ? "red" : user.role === "EMPLOYEE" ? "orange" : "blue"}`}> {user.role} </span> </Td>
 
                             <Td>
                                 <TableActions
@@ -126,7 +95,6 @@ export default function UserList() {
             </TableLayout>
 
             <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
-
         </div>
-    )
+    );
 }

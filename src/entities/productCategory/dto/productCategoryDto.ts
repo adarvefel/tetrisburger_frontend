@@ -20,7 +20,7 @@ export interface CreateProductCategoryDto {
 }
 
 export interface UpdateProductCategoryDto {
-  id: number;
+  
   name: string;
   description?: string;
   available: boolean;

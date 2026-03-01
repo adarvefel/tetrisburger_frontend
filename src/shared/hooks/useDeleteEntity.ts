@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "sonner";
 
 export function useDeleteEntity<TId = number>(
   deleteFn: (id: TId) => Promise<any>
@@ -12,7 +13,9 @@ export function useDeleteEntity<TId = number>(
       setError(null);
       return await deleteFn(id);
     } catch (err: any) {
-      setError(err.message || "Error al eliminar");
+      setError(err.response?.data?.message || "Error al eliminar");
+      const msg = err.response?.data?.message || "Errror inesperado al eliminar."
+      toast.error(msg);
       throw err;
     } finally {
       setLoading(false);
