@@ -54,6 +54,7 @@ import Tittle from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
 import TittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
 import { FaCircleExclamation } from "react-icons/fa6";
 import SubTittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
+import ImageCrud from '../shared/components/componetsCrud/fields/imageCrud/ImageCrud'
 
 
 
@@ -160,8 +161,10 @@ export default function Router() {
 
         <Route path='/prueba25' element={<ButtonSubmitCrud label='Actualizar' />} />
 
-        <Route path='/prueba26' element={<SubTittleCrud title='Actualizar datos de don pene' icon={<FaCircleExclamation  size={23} color='red'/>} />} />
+        <Route path='/prueba26' element={<SubTittleCrud title='Actualizar datos de don pene' icon={<FaCircleExclamation size={23} color='red' />} />} />
 
+
+          <Route path='/prueba27' element={<ImageCrud/>}/>
 
       </Routes>
     </BrowserRouter>

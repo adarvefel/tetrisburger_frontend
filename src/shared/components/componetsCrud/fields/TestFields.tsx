@@ -6,6 +6,9 @@ import CheckboxCrud from "./../fields/checkboxCrud/CheckboxCrud"
 import ButtonSubmitCrud from "../buttonSubmit/ButtonSubmitCrud"
 import SubTittleCrud from "../subTittle/SubTittleCrud"
 import { FaCircleExclamation } from "react-icons/fa6";
+import TittleCrud from "../tittle/TittleCrud"
+import ImageCrud from "../fields/imageCrud/ImageCrud"
+import imgProfile from "../../../../assets/photoPerfilUndefined.webp"
 
 const tipoOptions = [
   { value: "PETITION", label: "Peticion" },
@@ -22,6 +25,7 @@ interface TestFormData {
   tipo: string
   comentario: string
   available: boolean
+  imageFile: File | null
 }
 
 const initialFormData: TestFormData = {
@@ -30,6 +34,7 @@ const initialFormData: TestFormData = {
   tipo: "",
   comentario: "",
   available: false,
+  imageFile: null,
 }
 
 export default function TestFields() {
@@ -45,20 +50,30 @@ export default function TestFields() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.checked }))
   }
 
+  const handleImageChange = (file: File) => {
+    setFormData((prev) => ({ ...prev, imageFile: file }))
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     console.log("Form data:", formData)
   }
 
   return (
-    <form onSubmit={handleSubmit} style={
-      {
-        display: "flex", flexDirection: "column", gap: "16px", padding: "1rem", maxWidth: "500px",
-        border: "2px solid #E7DCDC", background: "#fff", borderRadius: "20px"
-      }
-    }>
+    <form onSubmit={handleSubmit} style={{
+      display: "flex", flexDirection: "column", gap: "16px", padding: "1rem", maxWidth: "500px",
+      border: "2px solid #E7DCDC", background: "#fff", borderRadius: "20px"
+    }}>
 
-      <SubTittleCrud title="Crear PQRS" icon={<FaCircleExclamation size={22} color="red" />} />
+      <TittleCrud tittle="Creacion de pqrs" description="Puedes crear un pqrs personalizado" />
+
+      <SubTittleCrud title="Informacion general" icon={<FaCircleExclamation size={22} color="red" />} />
+
+      <ImageCrud
+        title="Imagen del PQRS"
+        defaultImage={imgProfile}
+        onImageChange={handleImageChange}
+      />
 
       <InputCrud
         label="ID PQRS"
@@ -105,7 +120,7 @@ export default function TestFields() {
       />
 
       <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
-        <div style={{}}>
+        <div >
           <ButtonSubmitCrud label="Actualizar datos" />
         </div>
       </div>

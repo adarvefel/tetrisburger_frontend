@@ -5,6 +5,7 @@
     text-decoration: none;
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+    font-size: 0.8rem;
     padding: 9px;
     border-radius: 10px;
     transition: color 0.3s, background-color 0.3s;

@@ -11,7 +11,7 @@
 
 .checkboxCrud__label {
   font-family: "Montserrat";
-  font-size: 13px;
+  font-size: 0.7rem;
   color: black;
   font-weight: 700;
 }
@@ -30,6 +30,6 @@
 
 .checkboxCrud__checkbox-text {
   font-family: "Montserrat";
-  font-size: 13px;
+  font-size: 0.8rem;
   color: black;
 }
