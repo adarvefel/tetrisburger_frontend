@@ -3,6 +3,9 @@ import InputCrud from "./../fields/inputCrud/InputCrud"
 import SelectCrud from "./../fields/selectCrud/SelectCrud"
 import TextareaCrud from "./../fields/textareaCrud/TextareaCrud"
 import CheckboxCrud from "./../fields/checkboxCrud/CheckboxCrud"
+import ButtonSubmitCrud from "../buttonSubmit/ButtonSubmitCrud"
+import SubTittleCrud from "../subTittle/SubTittleCrud"
+import { FaCircleExclamation } from "react-icons/fa6";
 
 const tipoOptions = [
   { value: "PETITION", label: "Peticion" },
@@ -48,8 +51,14 @@ export default function TestFields() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px", padding: "24px", maxWidth: "500px" }}>
-      <h2>Test de Componentes</h2>
+    <form onSubmit={handleSubmit} style={
+      {
+        display: "flex", flexDirection: "column", gap: "16px", padding: "1rem", maxWidth: "500px",
+        border: "2px solid #E7DCDC", background: "#fff", borderRadius: "20px"
+      }
+    }>
+
+      <SubTittleCrud title="Crear PQRS" icon={<FaCircleExclamation size={22} color="red" />} />
 
       <InputCrud
         label="ID PQRS"
@@ -95,7 +104,11 @@ export default function TestFields() {
         onChange={handleCheckbox}
       />
 
-      <button type="submit">Enviar</button>
+      <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+        <div style={{}}>
+          <ButtonSubmitCrud label="Actualizar datos" />
+        </div>
+      </div>
     </form>
   )
 }

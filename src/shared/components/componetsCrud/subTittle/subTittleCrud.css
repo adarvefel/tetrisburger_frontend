@@ -1,0 +1,9 @@
+.tittleCrud__h2 {
+    font-family: "Montserrat";
+    font-size: 1rem;
+    color: black;
+    font-weight: 800;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}

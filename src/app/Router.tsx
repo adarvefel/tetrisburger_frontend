@@ -49,6 +49,11 @@ import InputCrud from '../shared/components/componetsCrud/fields/inputCrud/Input
 import SelectCrud from '../shared/components/componetsCrud/fields/selectCrud/SelectCrud'
 import TextareaCrud from '../shared/components/componetsCrud/fields/textareaCrud/TextareaCrud'
 import TestFields from '../shared/components/componetsCrud/fields/TestFields'
+import ButtonSubmitCrud from '../shared/components/componetsCrud/buttonSubmit/ButtonSubmitCrud'
+import Tittle from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
+import TittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
+import { FaCircleExclamation } from "react-icons/fa6";
+import SubTittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
 
 
 
@@ -142,19 +147,20 @@ export default function Router() {
 
         <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={() => { }} onConfirm={() => { }} />} />
 
-        <Route path='/prueba21' element={<AdminSidebar/>}/>
+        <Route path='/prueba21' element={<AdminSidebar />} />
 
-        <Route path='/prueba22' element={<BurgerCustomForm/>}/>
+        <Route path='/prueba22' element={<BurgerCustomForm />} />
 
-        <Route path='/prueba23' element={<TestTable/>}/>
+        <Route path='/prueba23' element={<TestTable />} />
 
-        <Route path='/prueba23' element={<TestTable/>}/>
+        <Route path='/prueba23' element={<TestTable />} />
 
 
-        <Route path='/prueba24' element={<TestFields/>}/>
+        <Route path='/prueba24' element={<TestFields />} />
 
-        
+        <Route path='/prueba25' element={<ButtonSubmitCrud label='Actualizar' />} />
 
+        <Route path='/prueba26' element={<SubTittleCrud title='Actualizar datos de don pene' icon={<FaCircleExclamation  size={23} color='red'/>} />} />
 
 
       </Routes>
