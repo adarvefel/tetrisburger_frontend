@@ -45,6 +45,10 @@ import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
 import BurgerCustomForm from '../shared/components/burgerCustomForm/ui/BurgerCustomForm'
 import ListIngredients from '../shared/components/burgerCustomForm/ingredients/ListIngredients'
 import TestTable from '../shared/components/componetsCrud/table/TestTable'
+import InputCrud from '../shared/components/componetsCrud/fields/inputCrud/InputCrud'
+import SelectCrud from '../shared/components/componetsCrud/fields/selectCrud/SelectCrud'
+import TextareaCrud from '../shared/components/componetsCrud/fields/textareaCrud/TextareaCrud'
+import TestFields from '../shared/components/componetsCrud/fields/TestFields'
 
 
 
@@ -143,6 +147,14 @@ export default function Router() {
         <Route path='/prueba22' element={<BurgerCustomForm/>}/>
 
         <Route path='/prueba23' element={<TestTable/>}/>
+
+        <Route path='/prueba23' element={<TestTable/>}/>
+
+
+        <Route path='/prueba24' element={<TestFields/>}/>
+
+        
+
 
 
       </Routes>
