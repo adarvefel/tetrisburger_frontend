@@ -1,10 +1,15 @@
 .ingredientsModel__container-global{
     width: 100%;
     min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
     background-color: rgba(0, 0, 0, 0.624);
     display: flex;
     align-items: center;
     justify-content: center;
+
 }
 
 .ingredientsModel__container{
@@ -56,8 +61,8 @@
 }
 
 .ingredientsModel__container-img{
-    width: 4rem;
-    height: 4rem;
+    width: 3rem;
+    height: 3rem;
 
     
 }

@@ -20,6 +20,21 @@ export const endPoints = {
             updateImage: (id: number) => `/api/products/image/${id}`,
             delete: (id: number) => `/api/products/${id}`,
             searchByName: (name: string, numberPage: number) => `api/products/search?q=${name}&page=${numberPage}&size=10`,
+
+            listPrueba: (page: number, productCategoryId?: number) => {
+                const query = new URLSearchParams({
+                    page: page.toString(),
+                    size: "5",
+                    sortBy: "id",
+                    direction: "ASC",
+                });
+
+                if (productCategoryId) {
+                    query.append("productCategoryId", productCategoryId.toString());
+                }
+
+                return `/api/products/list?${query.toString()}`;
+            },
         },
 
         productCategory: {

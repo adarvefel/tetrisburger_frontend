@@ -170,7 +170,7 @@ export default function Router() {
         <Route path='/prueba27' element={<CreateBurger />} />
 
 
-        <Route path='/prueba29' element={<IngredientsModel />} />
+    
 
 
         <Route path='/prueba30' element={<InputSearch />} />

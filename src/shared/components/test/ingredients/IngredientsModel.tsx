@@ -9,34 +9,40 @@ import Line from '../../componetsCrud/fields/line/Line';
 import photoNotFound from "./../../../../assets/productNotFound.png"
 import { TablePagination } from '../../componetsCrud/table/TableComponents';
 import { useIngredientsModel } from './useIngredientsModel';
+import { useProductCategories } from '../../../../features/admin/product/hooks/useProductCategory';
 
-export default function IngredientsModel() {
+interface Props{
+    onClose: ()=>void
+}
 
-    const tipoOptions = [
-        { value: "PETITION", label: "Peticion" },
-        { value: "COMPLAINT", label: "Queja" },
-        { value: "CLAIM", label: "Reclamo" },
-        { value: "SUGGESTION", label: "Sugerencia" },
-        { value: "REPORT", label: "Denuncia" },
-        { value: "CONGRATULATIONS", label: "Felicitaciones" },
-    ]
+export default function IngredientsModel({onClose}: Props) {
 
-    const { loading, error, ingredients, nextPage, numberPage, prevPage, totalPage, handleUseListIngredients } = useIngredientsModel();
 
-   
+
+    const { loading, error, ingredients, nextPage, numberPage, prevPage, totalPage, handleUseListIngredients, productCategoryId, setProductCategoryId, setName, name } = useIngredientsModel();
+    const { items: categories, loading: loadingCategories } = useProductCategories();
+
+    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const value = e.target.value
+        setProductCategoryId(value === "" ? undefined : Number(value))
+    }
+
+    const onInputChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setName(e.target.value)
+    }
 
     return (
         <div className="ingredientsModel__container-global">
             <div className="ingredientsModel__container">
                 <div className="ingredientsModel__container-tittle">
                     <SubTittleCrud icon={<GiForkKnifeSpoon size={22} color="red" />} title='Selecciona ingredientes' />
-                    <button className='ingredientsModel__button-close' type='button'><IoMdClose size={22} color='black' /></button>
+                    <button className='ingredientsModel__button-close' type='button' onClick={onClose}><IoMdClose size={22} color='black' /></button>
                 </div>
                 <Line />
 
                 <div className="ingredientsModel__container-filter">
-                    <InputSearch placeholder='Busque el ingrediente...' />
-                    <div><SelectCrud label="Filtrar por categoria" name="category" placeholder="Seleccione una categoria..." options={tipoOptions} /></div>
+                    <InputSearch placeholder='Busque el ingrediente...' name='name' onChange={onInputChangeName} value={name} />
+                    <div><SelectCrud label="Filtrar por categoria" name="productCategoryId" placeholder="Todas las categorias" options={categories.map((cat) => ({ value: String(cat.id), label: cat.name }))} onChange={handleCategoryChange} value={productCategoryId ?? undefined} /></div>
                 </div>
 
                 <Line />
@@ -67,7 +73,7 @@ export default function IngredientsModel() {
 
                 <Line />
 
-                <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage}/>
+                <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 
             </div>
         </div>

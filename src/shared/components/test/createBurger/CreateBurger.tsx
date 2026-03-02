@@ -19,6 +19,7 @@ import { HiMiniMinusCircle } from "react-icons/hi2";
 import { FiPlus } from "react-icons/fi";
 import { FiMinus } from "react-icons/fi";
 import { toast } from 'sonner';
+import IngredientsModel from '../ingredients/IngredientsModel';
 
 export default function CreateBurger() {
 
@@ -28,11 +29,11 @@ export default function CreateBurger() {
 
     const [quantity, setQuantity] = useState(1);
 
-    const plusQuiantity = () =>{
+    const plusQuiantity = () => {
         setQuantity((prev) => prev + 1);
     }
 
-    const minusQuiantity = () =>{
+    const minusQuiantity = () => {
         setQuantity((prev) => {
             if (prev === 1) {
                 toast.error("Cantidad minima: 1");
@@ -43,8 +44,23 @@ export default function CreateBurger() {
         });
     }
 
+
+    //GEstion pal model
+
+    const [modelIngredients, setModelIngredients] = useState(false);
+
+    const openModel = () => {
+        setModelIngredients(true);
+    }
+
+    const closeModel = () => {
+        setModelIngredients(false);
+    }
+
     return (
         <form className='createBurger__form'>
+
+            {modelIngredients ? <IngredientsModel onClose={closeModel}/> : null}
 
             <div className="createBurger__container-image">
                 <SubTittleCrud icon={<FaImage size={22} color='red' />} title='Imagen' />
@@ -76,7 +92,7 @@ export default function CreateBurger() {
             <div className="createBurger__container-ingredients">
                 <div className="createBurger__container-tittle">
                     <SubTittleCrud icon={<PiHamburgerFill size={22} color='red' />} title='Ingredientes' />
-                    <button className='createBurger__button-add'> <IoIosAddCircleOutline size={17} color='red' />Añadir ingrediente</button>
+                    <button className='createBurger__button-add' type='button' onClick={openModel}> <IoIosAddCircleOutline size={17} color='red' />Añadir ingrediente</button>
                 </div>
                 <Line />
                 <div className="createBurger__container-list">
@@ -88,7 +104,7 @@ export default function CreateBurger() {
                         <div className="createBurger__container-quantity">
                             <button className='createBurger__button' type='button'><FiMinus size={17} color='black' onClick={minusQuiantity} /></button>
                             <span className='createBurger__span'>Cant: <strong>{quantity}</strong>x</span>
-                            <button className='createBurger__button'  type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
+                            <button className='createBurger__button' type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
                         </div>
                         <span className='createBurger__span'>Opcional <input type='checkbox' /></span>
                         <PiTrash size={17} color='black' />
@@ -102,7 +118,7 @@ export default function CreateBurger() {
                         <div className="createBurger__container-quantity">
                             <button className='createBurger__button' type='button'><FiMinus size={17} color='black' onClick={minusQuiantity} /></button>
                             <span className='createBurger__span'>Cant: <strong>{quantity}</strong>x</span>
-                            <button className='createBurger__button'  type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
+                            <button className='createBurger__button' type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
                         </div>
                         <span className='createBurger__span'>Opcional <input type='checkbox' /></span>
                         <PiTrash size={17} color='black' />
@@ -116,7 +132,7 @@ export default function CreateBurger() {
                         <div className="createBurger__container-quantity">
                             <button className='createBurger__button' type='button'><FiMinus size={17} color='black' onClick={minusQuiantity} /></button>
                             <span className='createBurger__span'>Cant: <strong>{quantity}</strong>x</span>
-                            <button className='createBurger__button'  type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
+                            <button className='createBurger__button' type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
                         </div>
                         <span className='createBurger__span'>Opcional <input type='checkbox' /></span>
                         <PiTrash size={17} color='black' />
@@ -130,7 +146,7 @@ export default function CreateBurger() {
                         <div className="createBurger__container-quantity">
                             <button className='createBurger__button' type='button'><FiMinus size={17} color='black' onClick={minusQuiantity} /></button>
                             <span className='createBurger__span'>Cant: <strong>{quantity}</strong>x</span>
-                            <button className='createBurger__button'  type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
+                            <button className='createBurger__button' type='button'><FiPlus size={15} color='black' onClick={plusQuiantity} /></button>
                         </div>
                         <span className='createBurger__span'>Opcional <input type='checkbox' /></span>
                         <PiTrash size={17} color='black' />
