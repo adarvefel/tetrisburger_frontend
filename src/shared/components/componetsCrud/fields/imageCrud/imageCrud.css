@@ -1,17 +1,10 @@
 .imageCrud__container {
-
-    
-
     display: flex;
     justify-content: space-between;
-    
-    border-bottom: 2px solid rgb(222, 222, 222);
+
 }
 
 .imageCrud__container-imagen {
-
-
-
     display: flex;
     align-items: center;
     justify-content: center;
@@ -19,7 +12,6 @@
 }
 
 .imageCrud__container-img {
-
     width: 4.5rem;
     height: 4.5rem;
     border-radius: 5rem;
