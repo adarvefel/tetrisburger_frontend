@@ -56,6 +56,8 @@ import { FaCircleExclamation } from "react-icons/fa6";
 import SubTittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
 import ImageCrud from '../shared/components/componetsCrud/fields/imageCrud/ImageCrud'
 import CreateBurger from '../shared/components/test/createBurger/CreateBurger'
+import IngredientsModel from '../shared/components/test/ingredients/IngredientsModel'
+import InputSearch from '../shared/components/componetsCrud/fields/inputSearch/InputSearch'
 
 
 
@@ -166,6 +168,12 @@ export default function Router() {
 
 
         <Route path='/prueba27' element={<CreateBurger />} />
+
+
+        <Route path='/prueba29' element={<IngredientsModel />} />
+
+
+        <Route path='/prueba30' element={<InputSearch />} />
 
       </Routes>
     </BrowserRouter>

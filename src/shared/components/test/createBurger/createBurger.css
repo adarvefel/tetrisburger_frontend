@@ -89,16 +89,18 @@
     overflow: auto;
 }
 
-.createBurger__card-ingredient{
+.createBurger__card-ingredient {
     background-color: #f9f9f9;
     border-radius: 0.3rem;
     color: black;
     font-family: "Montserrat";
     font-size: 0.8rem;
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: space-between;
+    grid-template-columns: 1fr 2fr 2fr 2fr 1.5rem;
     padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .createBurger__span{
