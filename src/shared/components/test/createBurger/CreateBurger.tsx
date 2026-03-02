@@ -214,7 +214,11 @@ export default function CreateBurger() {
                 </div>
             </div>
 
-            <ButtonSubmitCrud />
+            <div className='createBruger__container-buttom'>
+                <div className="createBurger__container-button">
+                    <ButtonSubmitCrud label='Crear hamburguesa'/>
+                </div>
+            </div>
 
         </form>
     )
