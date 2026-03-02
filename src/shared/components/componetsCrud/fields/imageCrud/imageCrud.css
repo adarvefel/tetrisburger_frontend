@@ -14,7 +14,7 @@
 .imageCrud__container-img {
     width: 4.5rem;
     height: 4.5rem;
-    border-radius: 5rem;
+    border-radius: 0.2rem;
     overflow: hidden;
 }
 

@@ -77,6 +77,10 @@ export const endPoints = {
             update: (id: number) => `/api/pqrs/admin/${id}`,
 
 
+        },
+
+        burgers:{
+            create: "/api/admin/burgers/menu"
         }
 
 

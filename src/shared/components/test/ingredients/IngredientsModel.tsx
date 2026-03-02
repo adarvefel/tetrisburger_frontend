@@ -10,12 +10,14 @@ import photoNotFound from "./../../../../assets/productNotFound.png"
 import { TablePagination } from '../../componetsCrud/table/TableComponents';
 import { useIngredientsModel } from './useIngredientsModel';
 import { useProductCategories } from '../../../../features/admin/product/hooks/useProductCategory';
+import { IngredientsResponseDTO } from '../dto';
 
 interface Props{
     onClose: ()=>void
+    onAddIngredient: (data: IngredientsResponseDTO) => void
 }
 
-export default function IngredientsModel({onClose}: Props) {
+export default function IngredientsModel({onClose, onAddIngredient}: Props) {
 
 
 
@@ -51,7 +53,7 @@ export default function IngredientsModel({onClose}: Props) {
 
                     {
                         ingredients.map((ingredient) => (
-                            <div className="ingredientsModel__card-ingredient">
+                            <div key={ingredient.idProduct} className="ingredientsModel__card-ingredient">
 
                                 <div className="ingredientsModel__container-img">
                                     <img className='ingredientsModel__img' src={ingredient.imageUrl ?? photoNotFound} />
@@ -64,7 +66,7 @@ export default function IngredientsModel({onClose}: Props) {
 
                                 <span className='igredientsModel__span'>{ingredient.availability ? "Disponible" : "No disponible"}</span>
 
-                                <button className='ingredientsModel_button-add'>Agregar</button>
+                                <button className='ingredientsModel_button-add' type='button' onClick={()=>onAddIngredient(ingredient)}>Agregar</button>
 
                             </div>
                         ))}

@@ -103,6 +103,17 @@
     box-sizing: border-box;
 }
 
+.createBurger__container-img{
+    width: 2rem;
+    height: 2rem;
+}
+
+.createBurger__img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .createBurger__span{
     display: flex;
     align-items: center;

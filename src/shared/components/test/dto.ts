@@ -21,6 +21,37 @@ export interface IngredientsResponseDTO {
     email: string;
     address: string;
   };
-  
+
   imageUrl: string;
+}
+
+export interface IngredientsRequestDTO2 {
+  imageUrl: string;
+  name: string,
+
+  idProduct: number,
+  quantity: number,
+  isOptional: boolean
+}
+
+export interface IngredientsRequestDTO3 {
+  idProduct: number,
+  quantity: number,
+  isOptional: boolean
+}
+
+
+export interface CreateBurgerByAdminDTO {
+  name: string,
+  description: string,
+  ingredients: IngredientsRequestDTO3[],
+  finalPrice: number,
+  isFavorite: boolean
+  availability: boolean
+}
+
+
+export interface CreateBurgerWithImageDTO{
+  burger: CreateBurgerByAdminDTO,
+  file?: File | null
 }
