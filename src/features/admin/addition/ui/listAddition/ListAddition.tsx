@@ -7,20 +7,26 @@ import { TableActions, TableBody, TableHead, TableLayout, TablePagination, Td, T
 import photoNotFound from "../../../../../assets/productNotFound.png"
 import { toast } from 'sonner';
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
+import { deleteAddition } from '../../../../../entities/addition/api/additionApi';
+import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
 
 export default function ListAddition() {
 
   const { loading, error, additions, numberPage, totalPage, setName, name, nextPage, prevPage, handleListAdditions } = useListAddition();
 
 
+  const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value);
+  };
+
   // ---------- DELETE STATE ----------
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<any>(null);
 
-  const { loading: deleting, remove } = useDeleteEntity(    );
+  const { loading: deleting, remove } = useDeleteEntity(deleteAddition);
 
   const openDeleteModal = (item: any) => {
-    itemToDelete(item);
+    setItemToDelete(item);
     setShowDeleteModal(true);
   };
 
@@ -41,9 +47,24 @@ export default function ListAddition() {
   return (
     <div className="listAddition__container-global">
 
-      <div className="additionList__container-top">
+      {/* ---------- DELETE MODAL ---------- */}
 
-        <InputSearch />
+      {showDeleteModal && itemToDelete && (
+        <ConfirmDeleteModal
+          title="Eliminar Adicion"
+          description={`Estas a punto de eliminar permanentemente la Adicion con nombre "${itemToDelete.name}". Esta acción es irreversible.`}
+          loading={deleting}
+          onConfirm={confirmDelete}
+          onClose={closeDeleteModal}
+        />
+      )}
+
+
+      <div className="listAddition__container-top">
+
+        <div className="listAddition__container-input-search">
+          <InputSearch placeholder='Buscar por nombre ...' name='name' onChange={onInputChange} value={name} />
+        </div>
 
         <ButtonCasual linkRedireccion='/admin/addition-create' mensagge='+ Nueva adicion' />
 
@@ -63,7 +84,7 @@ export default function ListAddition() {
         </TableHead>
 
         <TableBody>
-          {additions.map((addition) => (
+          {additions?.map((addition) => (
             <tr key={addition.idAddition}>
 
               <Td>{addition.idAddition}</Td>
@@ -75,7 +96,7 @@ export default function ListAddition() {
               </Td>
 
               <Td>{addition.name}</Td>
-              <Td>{addition.price}</Td>
+              <Td>${addition.price}</Td>
 
               <Td><span className={`tableComponents__span-${addition.available ? "green" : "red"}`}> {addition.available ? "DIsponible" : "No disponible"} </span> </Td>
 

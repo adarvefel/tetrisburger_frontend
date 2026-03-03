@@ -14,6 +14,7 @@ import ButtonSubmitCrud from '../../componetsCrud/buttonSubmit/ButtonSubmitCrud'
 import { useNavigate } from 'react-router-dom'
 import { CreateAdditionRequest, CreateAdditionRequestWithImage } from '../../../../entities/addition/dto/additionDto'
 import { toast } from 'sonner'
+import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud'
 
 
 type FormMode = "admin-create" | "admin-update";
@@ -133,7 +134,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
 
         <TextareaCrud label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} />
 
-        <InputCrud label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} />
+        <InputNumberCrud label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} />
 
         <CheckboxCrud label='Disponibilidad' checkboxLabel='Marcar disponibilidad' name='available' onChange={onInputChange} checked={formData.available} />
       </div>

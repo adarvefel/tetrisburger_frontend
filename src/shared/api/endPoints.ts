@@ -82,6 +82,10 @@ export const endPoints = {
         addition: {
             create: "/api/admin/additions",
             list: (numberPage: number) => `/api/admin/additions?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            delete: (id: number) => `/api/admin/additions/${id}`,
+            searchByName: (name: string, numberPage: number) => `/api/admin/additions/search?name=${name}&page=${numberPage}&size=10`,
+
+
         },
 
         burgers: {

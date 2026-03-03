@@ -11,6 +11,8 @@
     background-color: #FFFFFF;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+   
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 10px;

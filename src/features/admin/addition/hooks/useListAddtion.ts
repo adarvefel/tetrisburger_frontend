@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { listUsers, searchByEmail } from "../../../../entities/user/api/userApi";
 import { AddtionResponse } from "../../../../entities/addition/dto/additionDto";
 import { toast } from "sonner";
-import { listAdditions } from "../../../../entities/addition/api/additionApi";
+import { listAdditions, searchByName } from "../../../../entities/addition/api/additionApi";
 
 export function useListAddition(){
     const [loading, setLoading] = useState(false);
@@ -17,7 +16,7 @@ export function useListAddition(){
     const nextPage = ()=>{
         if (numberPage < totalPage - 1) {
             setNumberPage(prev => prev +1);
-            console.log(numberPage);
+    
         }
         return;
     }
@@ -40,13 +39,13 @@ export function useListAddition(){
 
             if (name.trim() !== "") {
                 
-                response = await searchByEmail(name, numberPage);
+                response = await searchByName(name, numberPage);
                 setAdditions(response.data.content);
                 setTotalPage(response.data.totalPages);
             } else {
                 
                 response = await listAdditions(numberPage);
-                setAdditions(response.data.users);
+                setAdditions(response.data.content);
                 setTotalPage(response.data.totalPages);
             }
 

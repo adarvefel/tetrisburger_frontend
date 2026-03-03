@@ -21,3 +21,13 @@ export const listAdditions = async (numberPage: number) =>{
     const response = await axiosClient.get(endPoints.admin.addition.list(numberPage));
     return response;
 }
+
+export const deleteAddition = async (id: number) =>{
+    const response = await axiosClient.delete(endPoints.admin.addition.delete(id));
+    return response;
+}
+
+export const searchByName = async (name: string, numberPage: number) =>{
+    const response = await axiosClient.get(endPoints.admin.addition.searchByName(name, numberPage));
+    return response;
+}
