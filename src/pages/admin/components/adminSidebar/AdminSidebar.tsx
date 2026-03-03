@@ -8,6 +8,7 @@ import { FaUsers, FaBoxOpen, FaHamburger, FaEnvelopeOpenText, FaTags, FaStore } 
 import { IoMenuOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiSettings } from "react-icons/ci";
+import { IoFastFood } from "react-icons/io5";
 
 export default function AdminSidebar() {
 
@@ -75,6 +76,14 @@ export default function AdminSidebar() {
           } >
           <FaEnvelopeOpenText size={19} />
           <span className='adminSidebar__span'>PQRS</span>
+        </NavLink>
+
+        <NavLink to={"/admin/addition-list"}
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <IoFastFood  size={19} />
+          <span className='adminSidebar__span'>ADICIONES</span>
         </NavLink>
 
 

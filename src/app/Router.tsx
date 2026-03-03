@@ -43,20 +43,20 @@ import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePa
 import ProtectedRoute from "../shared/routes/ProtectedRoute";
 import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
 import TestTable from '../shared/components/componetsCrud/table/TestTable'
-import InputCrud from '../shared/components/componetsCrud/fields/inputCrud/InputCrud'
-import SelectCrud from '../shared/components/componetsCrud/fields/selectCrud/SelectCrud'
-import TextareaCrud from '../shared/components/componetsCrud/fields/textareaCrud/TextareaCrud'
 import TestFields from '../shared/components/componetsCrud/fields/TestFields'
 import ButtonSubmitCrud from '../shared/components/componetsCrud/buttonSubmit/ButtonSubmitCrud'
-import Tittle from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
-import TittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
+
 import { FaCircleExclamation } from "react-icons/fa6";
 import SubTittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
-import ImageCrud from '../shared/components/componetsCrud/fields/imageCrud/ImageCrud'
+
 import CreateBurger from '../shared/components/test/createBurger/CreateBurger'
-import IngredientsModel from '../shared/components/test/ingredients/IngredientsModel'
+
 import InputSearch from '../shared/components/componetsCrud/fields/inputSearch/InputSearch'
 import BurgerCustomForm from '../shared/components/formsCruds/burgerCustomForm/BurgerCustomForm'
+
+import AdditionForm from '../shared/components/formsCruds/additionForm/AdditionForm'
+import CreateAdditionPage from '../pages/admin/additions/createAdditionPage/CreateAdditionPage'
+import ListAdditionPage from '../pages/admin/additions/listAdditionPage/ListAdditionPage'
 
 
 
@@ -106,6 +106,9 @@ export default function Router() {
 
         <Route path="/admin/pqrs-list" element={<ProtectedRoute requireAdmin><PqrsListPage /></ProtectedRoute>} />
         <Route path="/admin/pqrs/update/:id" element={<ProtectedRoute requireAdmin><PqrsUpdatePage /></ProtectedRoute>} />
+
+        <Route path="/admin/addition-create" element={<ProtectedRoute requireAdmin><CreateAdditionPage /></ProtectedRoute>} />
+        <Route path="/admin/addition-list" element={<ProtectedRoute requireAdmin><ListAdditionPage /></ProtectedRoute>} />
 
 
 
@@ -167,6 +170,8 @@ export default function Router() {
 
         <Route path='/prueba27' element={<CreateBurger />} />
         <Route path='/prueba28' element={<BurgerCustomForm />} />
+
+    
 
 
     
