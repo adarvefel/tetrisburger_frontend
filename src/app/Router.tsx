@@ -42,8 +42,6 @@ import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
 import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePage'
 import ProtectedRoute from "../shared/routes/ProtectedRoute";
 import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
-import BurgerCustomForm from '../shared/components/burgerCustomForm/ui/BurgerCustomForm'
-import ListIngredients from '../shared/components/burgerCustomForm/ingredients/ListIngredients'
 import TestTable from '../shared/components/componetsCrud/table/TestTable'
 import InputCrud from '../shared/components/componetsCrud/fields/inputCrud/InputCrud'
 import SelectCrud from '../shared/components/componetsCrud/fields/selectCrud/SelectCrud'
@@ -58,6 +56,7 @@ import ImageCrud from '../shared/components/componetsCrud/fields/imageCrud/Image
 import CreateBurger from '../shared/components/test/createBurger/CreateBurger'
 import IngredientsModel from '../shared/components/test/ingredients/IngredientsModel'
 import InputSearch from '../shared/components/componetsCrud/fields/inputSearch/InputSearch'
+import BurgerCustomForm from '../shared/components/formsCruds/burgerCustomForm/BurgerCustomForm'
 
 
 
@@ -153,7 +152,6 @@ export default function Router() {
 
         <Route path='/prueba21' element={<AdminSidebar />} />
 
-        <Route path='/prueba22' element={<BurgerCustomForm />} />
 
         <Route path='/prueba23' element={<TestTable />} />
 
@@ -168,6 +166,7 @@ export default function Router() {
 
 
         <Route path='/prueba27' element={<CreateBurger />} />
+        <Route path='/prueba28' element={<BurgerCustomForm />} />
 
 
     
