@@ -22,6 +22,7 @@ import photoNotFound from "../../../../assets/productNotFound.png"
 import { CreateBurgerByAdminDTO } from '../../../../entities/burger/dto/burgerDto';
 import { toast } from 'sonner';
 import useCreateBurger from '../../../../features/admin/burger/hooks/useCreateBurger';
+import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud';
 
 export default function BurgerCustomForm() {
 
@@ -45,9 +46,9 @@ export default function BurgerCustomForm() {
         name: "",
         description: "",
         finalPrice: 0,
+        isFeatured: false,
+        availability: false,
         ingredients: [],
-        isFavorite: false,
-        availability: false
     })
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -102,14 +103,14 @@ export default function BurgerCustomForm() {
 
                 <TextareaCrud label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} onChange={onInputChange} value={form.description} />
 
-                <InputCrud label='Precio final ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} />
+               <InputNumberCrud  label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} />
             </div>
 
             <div className="burgerCustomForm__container-actions">
                 <SubTittleCrud icon={<FaCheckDouble size={22} color='red' />} title='Acciones' />
                 <Line />
                 <div className="burgerCustomForm__container-checks">
-                    <CheckboxCrud label='Destacada' name='isFavorite' checkboxLabel='Marcar como favorita' onChange={onInputChange} checked={form.isFavorite} />
+                    <CheckboxCrud label='Destacada' name='isFeatured' checkboxLabel='Marcar como favorita' onChange={onInputChange} checked={form.isFeatured} />
                     <CheckboxCrud label='Disponible' name='availability' checkboxLabel='Marcar como disponible' onChange={onInputChange} checked={form.availability} />
                 </div>
             </div>

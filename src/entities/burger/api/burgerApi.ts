@@ -24,3 +24,9 @@ export const listIngredientsBurger = async (
     const response = await axiosClient.get(endPoints.admin.product.listPrueba(page, productCategoryId));
     return response;
   };
+
+
+  export const lisBurgers = async (numberPage: number) =>{
+    const response = await axiosClient.get(endPoints.admin.burgers.list(numberPage));
+    return response;
+  }

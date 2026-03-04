@@ -89,7 +89,8 @@ export const endPoints = {
         },
 
         burgers: {
-            create: "/api/admin/burgers/menu"
+            create: "/api/admin/burgers/menu",
+            list: (numberPage: number) => `/api/admin/burgers/menu?page=${numberPage}&size=10&sortBy=idBurger&direction=ASC`,
         }
 
 

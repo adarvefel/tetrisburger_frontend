@@ -44,14 +44,19 @@ export interface IngredientsRequestDTO {
 export interface CreateBurgerByAdminDTO {
   name: string,
   description: string,
-  ingredients: IngredientsRequestDTO[],
   finalPrice: number,
-  isFavorite: boolean
-  availability: boolean
+  
+  isFeatured: boolean,
+  availability: boolean,
+  ingredients: IngredientsRequestDTO[],
 }
 
 
 export interface CreateBurgerWithImageDTO{
   burger: CreateBurgerByAdminDTO,
   file?: File | null
+}
+
+export interface BurgerResponseDTO{
+  
 }
