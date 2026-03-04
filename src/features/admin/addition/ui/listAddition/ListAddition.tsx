@@ -102,7 +102,7 @@ export default function ListAddition() {
 
               <Td>
                 <TableActions
-                  linkEdit={`/admin/additions/update/${addition.idAddition}`}
+                  linkEdit={`/admin/addition/update/${addition.idAddition}`}
                   onDelete={() => openDeleteModal(addition)}
                 />
               </Td>

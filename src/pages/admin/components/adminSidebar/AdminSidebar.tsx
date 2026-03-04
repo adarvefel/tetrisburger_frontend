@@ -70,6 +70,15 @@ export default function AdminSidebar() {
         </NavLink>
 
 
+        <NavLink to={"/admin/addition-list"}
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <IoFastFood  size={19} />
+          <span className='adminSidebar__span'>ADICIONES</span>
+        </NavLink>
+
+
         <NavLink to={"/admin/pqrs-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
@@ -78,13 +87,7 @@ export default function AdminSidebar() {
           <span className='adminSidebar__span'>PQRS</span>
         </NavLink>
 
-        <NavLink to={"/admin/addition-list"}
-          className={({ isActive }) =>
-            `adminSidebar__container-option ${isActive ? "active" : ""}`
-          } >
-          <IoFastFood  size={19} />
-          <span className='adminSidebar__span'>ADICIONES</span>
-        </NavLink>
+        
 
 
 

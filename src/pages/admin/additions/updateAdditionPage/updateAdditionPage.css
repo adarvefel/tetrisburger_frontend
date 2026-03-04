@@ -1,4 +1,4 @@
-.createAddtionPage__container-global {
+.updateAdditionPage__container-global {
 
 
     width: 100%;
@@ -7,7 +7,7 @@
     background-color: #F6F7F8;
 }
 
-.createAddtionPage__container-content {
+.updateAdditionPage__container-content {
     padding-bottom: 1rem;
     padding-top: 1rem;
     width: 100%;
@@ -20,7 +20,8 @@
 }
 
 @media (max-width: 768px) {
-    .createAddtionPage__container-content {
+    .updateAdditionPage__container-content {
+        padding-top: 3rem;
         padding-left: 1rem;
         padding-right: 1rem;
     }

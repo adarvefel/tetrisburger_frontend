@@ -57,6 +57,7 @@ import BurgerCustomForm from '../shared/components/formsCruds/burgerCustomForm/B
 import AdditionForm from '../shared/components/formsCruds/additionForm/AdditionForm'
 import CreateAdditionPage from '../pages/admin/additions/createAdditionPage/CreateAdditionPage'
 import ListAdditionPage from '../pages/admin/additions/listAdditionPage/ListAdditionPage'
+import UpdateAdditionPage from '../pages/admin/additions/updateAdditionPage/UpdateAdditionPage'
 
 
 
@@ -109,7 +110,7 @@ export default function Router() {
 
         <Route path="/admin/addition-create" element={<ProtectedRoute requireAdmin><CreateAdditionPage /></ProtectedRoute>} />
         <Route path="/admin/addition-list" element={<ProtectedRoute requireAdmin><ListAdditionPage /></ProtectedRoute>} />
-
+        <Route path="/admin/addition/update/:id" element={<ProtectedRoute requireAdmin><UpdateAdditionPage /></ProtectedRoute>} />
 
 
         {/*Pruebas de componentres */}

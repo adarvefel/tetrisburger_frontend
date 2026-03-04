@@ -1,8 +1,7 @@
 import React from 'react'
-import "./updateAdditionPage.css"
 import CreateAddition from '../../../../features/admin/addition/ui/createAddition/CreateAddition'
 import AdminSidebar from '../../components/adminSidebar/AdminSidebar'
-import "./updateAdditionPage.css"
+import "./CreateAdditionPage.css"
 
 export default function CreateAdditionPage() {
   return (

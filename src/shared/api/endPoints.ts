@@ -84,7 +84,9 @@ export const endPoints = {
             list: (numberPage: number) => `/api/admin/additions?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
             delete: (id: number) => `/api/admin/additions/${id}`,
             searchByName: (name: string, numberPage: number) => `/api/admin/additions/search?name=${name}&page=${numberPage}&size=10`,
-
+            findById: (id: number) => `/api/admin/additions/${id}`,
+            update: (id: number) => `/api/admin/additions/${id}`,
+            updateImage: (id: number) => `/api/admin/additions/image/${id}`,
 
         },
 

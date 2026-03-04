@@ -12,7 +12,7 @@ import TittleCrud from '../../componetsCrud/tittle/TittleCrud'
 import CheckboxCrud from '../../componetsCrud/fields/checkboxCrud/CheckboxCrud'
 import ButtonSubmitCrud from '../../componetsCrud/buttonSubmit/ButtonSubmitCrud'
 import { useNavigate } from 'react-router-dom'
-import { CreateAdditionRequest, CreateAdditionRequestWithImage } from '../../../../entities/addition/dto/additionDto'
+import { CreateAdditionRequest, CreateAdditionRequestWithImage, UpdateAdditionRequestDTO, UpdateAdditionRequestWithImageDTO } from '../../../../entities/addition/dto/additionDto'
 import { toast } from 'sonner'
 import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud'
 
@@ -105,6 +105,28 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
         return
       }
       return
+    } else {
+      const additionToUpdated: UpdateAdditionRequestDTO = {
+        name: formData.name,
+        description: formData.description,
+        price: Number(formData.price),
+        available: formData.available
+      }
+
+      const additionUpdated: UpdateAdditionRequestWithImageDTO = {
+        addition: additionToUpdated,
+        file: imageFile
+      }
+
+      const response = await onSubmit(additionUpdated);
+      if (response.status === 200) {
+        toast.success("Adicion actualizada con éxito.");
+        setTimeout(() => {
+          nagivation("/admin/addition-list");
+        }, 2000)
+        return
+      }
+      return
     }
   }
 
@@ -112,7 +134,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
     <form className='additionForm__form' onSubmit={handleSubmit}>
 
       <TittleCrud
-        tittle="Crear nueva adición"
+        tittle={mode === "admin-create" ?  "Crear nueva adición" : "Actualizar adicion"}
         description="Agrega un complemento adicional que los clientes podrán incluir en sus hamburguesas, como extras, toppings o acompañamientos."
       />
 
@@ -132,16 +154,16 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
 
         <InputCrud id='addition-form-name' label='Nombre de la adicion' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={formData.name} />
 
-        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} />
+        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' rows={3} placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} />
 
-        <InputNumberCrud  id='addition-form-price' label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} />
+        <InputNumberCrud id='addition-form-price' label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} />
 
         <CheckboxCrud id='addition-form-available' label='Disponibilidad' checkboxLabel='Marcar disponibilidad' name='available' onChange={onInputChange} checked={formData.available} />
       </div>
 
       <div className='additionForm__container-buttom'>
         <div className="additionForm__container-button">
-          <ButtonSubmitCrud id='addition-form-submit' label='Crear adicion' />
+          <ButtonSubmitCrud id='addition-form-submit' label={mode === "admin-create" ? "Crear adicion" : "Actualizar adicion"} />
         </div>
       </div>
     </form>

@@ -18,3 +18,15 @@ export interface AddtionResponse {
   available: boolean;
   imageUrl?: string
 }
+
+export interface UpdateAdditionRequestDTO{
+    name: string,
+    description: string,
+    price: number,
+    available: boolean
+}
+
+export interface UpdateAdditionRequestWithImageDTO{
+    addition : UpdateAdditionRequestDTO,
+    file: File | null
+}
