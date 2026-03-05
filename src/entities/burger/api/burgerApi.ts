@@ -23,10 +23,15 @@ export const listIngredientsBurger = async (
     productCategoryId?: number) => {
     const response = await axiosClient.get(endPoints.admin.burgers.listIngredients(page, productCategoryId));
     return response;
-  };
+};
 
 
-  export const lisBurgers = async (numberPage: number) =>{
+export const listBurgers = async (numberPage: number) => {
     const response = await axiosClient.get(endPoints.admin.burgers.list(numberPage));
     return response;
-  }
+}
+
+export const deleteBurger = async (id: number) =>{
+    const response = await axiosClient.delete(endPoints.admin.burgers.delete(id));
+    return response;
+}
