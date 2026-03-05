@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { BurgerResponseDTO } from "../../../../entities/burger/dto/burgerDto";
-import { listBurgers } from "../../../../entities/burger/api/burgerApi";
+import { listBurgers, searchByName } from "../../../../entities/burger/api/burgerApi";
 import { toast } from "sonner";
 
 export function useListBurger() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<null | string>(null);
     const [burgers, setBurgers] = useState<BurgerResponseDTO[]>([]);
+    const [name, setName] = useState("");
 
     const [numberPage, setNumberPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
@@ -34,9 +35,17 @@ export function useListBurger() {
 
             let response;
 
-            response = await listBurgers(numberPage);
-            setBurgers(response.data.content);
-            setTotalPage(response.data.totalPages);
+            if (name.trim() !== "") {
+                response = await searchByName(name, numberPage);
+                setBurgers(response.data.content);
+                setTotalPage(response.data.totalPages);
+            } else {
+                response = await listBurgers(numberPage);
+                setBurgers(response.data.content);
+                setTotalPage(response.data.totalPages);
+            }
+
+
 
 
         } catch (err: any) {
@@ -52,5 +61,5 @@ export function useListBurger() {
         handleListBurgers();
     }, [numberPage, name]);
 
-    return { loading, error, burgers, numberPage, totalPage, nextPage, prevPage, handleListBurgers };
+    return { loading, error, burgers, numberPage, totalPage, nextPage, prevPage, handleListBurgers, setName, name };
 }

@@ -13,7 +13,12 @@ import { deleteBurger } from '../../../../../entities/burger/api/burgerApi';
 
 export default function ListBurger() {
 
-    const { loading, error, burgers, numberPage, totalPage, nextPage, prevPage, handleListBurgers } = useListBurger();
+    const { loading, error, burgers, numberPage, totalPage, nextPage, prevPage, handleListBurgers, name, setName } = useListBurger();
+
+
+    const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+        setName(e.target.value);
+    }
 
 
     // ---------- DELETE STATE ----------
@@ -60,7 +65,7 @@ export default function ListBurger() {
             <div className="listBurger__container-top">
 
                 <div className="listBurger__container-input-search">
-                    <InputSearch placeholder='Buscar por nombre ...' name='name' />
+                    <InputSearch placeholder='Buscar por nombre ...' name='name' onChange={onInputChange} value={name}/>
                 </div>
 
                 <ButtonCasual linkRedireccion='/admin/burger-create' mensagge='+ Nueva Hamburguesa' />

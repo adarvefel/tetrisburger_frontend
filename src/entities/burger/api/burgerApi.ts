@@ -35,3 +35,8 @@ export const deleteBurger = async (id: number) =>{
     const response = await axiosClient.delete(endPoints.admin.burgers.delete(id));
     return response;
 }
+
+export const searchByName = async (name: string, numberPage: number) =>{
+    const response = await axiosClient.get(endPoints.admin.burgers.searchByName(name, numberPage));
+    return response;
+}
