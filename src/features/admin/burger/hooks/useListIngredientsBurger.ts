@@ -33,18 +33,11 @@ export function useListIngredientsBurger() {
             setLoading(true);
             setError(null);
 
-            if (name.trim() !== "") {
-                const response = await searchByName(name, numberPage);
-                setIngredients(response.data.items);
-                setTotalPage(response.data.totalPages);
-                return response;
-            } else {
-                const response = await listIngredientsBurger(numberPage, productCategoryId);
+            const response = await listIngredientsBurger(numberPage, productCategoryId);
+            setIngredients(response.data.items);
+            setTotalPage(response.data.totalPages);
+            return response;
 
-                setIngredients(response.data.items);
-                setTotalPage(response.data.totalPages);
-                return response;
-            }
 
         } catch (err: any) {
             setError(err.message || "Error al traer los productos");

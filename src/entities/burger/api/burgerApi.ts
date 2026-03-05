@@ -21,7 +21,7 @@ export const createBurger = async (data: CreateBurgerWithImageDTO) => {
 export const listIngredientsBurger = async (
     page: number,
     productCategoryId?: number) => {
-    const response = await axiosClient.get(endPoints.admin.product.listPrueba(page, productCategoryId));
+    const response = await axiosClient.get(endPoints.admin.burgers.listIngredients(page, productCategoryId));
     return response;
   };
 

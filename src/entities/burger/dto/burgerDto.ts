@@ -1,28 +1,11 @@
 export interface IngredientsResponseDTO {
   idProduct: number;
   name: string;
-  description: string;
-  quantity: number;
-  price: number;
-  availability: boolean;
-  productType: string;
-
-  productCategory: {
-    id: number;
-    name: string;
-    description: string;
-    available: boolean;
-  };
-
-  supplier: {
-    id: number;
-    name: string;
-    phone: string;
-    email: string;
-    address: string;
-  };
-
-  imageUrl: string;
+  price: number,
+  imageUrl: string,
+  availability: boolean,
+  quantity: number
+  
 }
 
 export interface IngredientsRequestUI {
@@ -57,6 +40,30 @@ export interface CreateBurgerWithImageDTO{
   file?: File | null
 }
 
+export interface BurgerIngredientsResponseDTO{
+  idBurgerIngredient: number,
+  idProduct: number,
+  productName: string,
+  priceAtTime: number,
+  quantity: number,
+  subtotal: number,
+  isOptional: boolean,
+  imageUrl: string
+}
+
 export interface BurgerResponseDTO{
-  
+  idBurger: number,
+  name: string,
+  description: string,
+  basePrice: number,
+  finalPrice: number,
+  margin: number,
+  marginPercentage: number,
+  sellingAtLoss: boolean,
+  isOnMenu: boolean,
+  isFeatured: boolean,
+  availability: boolean,
+  imageUrl: string,
+  timesOrdered: number,
+  ingredients: BurgerIngredientsResponseDTO[]
 }

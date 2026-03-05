@@ -61,12 +61,12 @@ export default function AdminSidebar() {
           <span className='adminSidebar__span'>Proveedores</span>
         </NavLink>
 
-        <NavLink to={"/menu-list"}
+        <NavLink to={"/admin/burger-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >
           <FaHamburger size={19} />
-          <span className='adminSidebar__span'>Menu</span>
+          <span className='adminSidebar__span'>Hamburguesas</span>
         </NavLink>
 
 

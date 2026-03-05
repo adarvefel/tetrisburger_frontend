@@ -58,6 +58,9 @@ import AdditionForm from '../shared/components/formsCruds/additionForm/AdditionF
 import CreateAdditionPage from '../pages/admin/additions/createAdditionPage/CreateAdditionPage'
 import ListAdditionPage from '../pages/admin/additions/listAdditionPage/ListAdditionPage'
 import UpdateAdditionPage from '../pages/admin/additions/updateAdditionPage/UpdateAdditionPage'
+import CreateBurgerPage from '../pages/admin/burgers/createBurgerPage/CreateBurgerPage'
+import ListBurgerPage from '../pages/admin/burgers/listBurgerPage/ListBurgerPage'
+import UpdateBurgerPage from '../pages/admin/burgers/updateBurgerPage/UpdateBurgerPage'
 
 
 
@@ -112,6 +115,9 @@ export default function Router() {
         <Route path="/admin/addition-list" element={<ProtectedRoute requireAdmin><ListAdditionPage /></ProtectedRoute>} />
         <Route path="/admin/addition/update/:id" element={<ProtectedRoute requireAdmin><UpdateAdditionPage /></ProtectedRoute>} />
 
+        <Route path="/admin/burger-create" element={<ProtectedRoute requireAdmin><CreateBurgerPage /></ProtectedRoute>} />
+        <Route path="/admin/burger-list" element={<ProtectedRoute requireAdmin><ListBurgerPage /></ProtectedRoute>} />
+        <Route path="/admin/burger/update/:id" element={<ProtectedRoute requireAdmin><UpdateBurgerPage /></ProtectedRoute>} />
 
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
