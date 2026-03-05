@@ -61,6 +61,7 @@ import UpdateAdditionPage from '../pages/admin/additions/updateAdditionPage/Upda
 import CreateBurgerPage from '../pages/admin/burgers/createBurgerPage/CreateBurgerPage'
 import ListBurgerPage from '../pages/admin/burgers/listBurgerPage/ListBurgerPage'
 import UpdateBurgerPage from '../pages/admin/burgers/updateBurgerPage/UpdateBurgerPage'
+import InputNumberCrud from '../shared/components/componetsCrud/fields/inputNumberCrud/InputNumberCrud'
 
 
 
@@ -180,7 +181,7 @@ export default function Router() {
 
     
 
-
+          <Route path='/prueba29' element={<InputNumberCrud />} />
     
 
 

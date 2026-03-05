@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./burgerCustomForm.css"
 import { useBurgerCustomForm } from './useBurgerCustomForm';
 import ButtonSubmitCrud from '../../componetsCrud/buttonSubmit/ButtonSubmitCrud';
@@ -19,18 +19,28 @@ import { PiTrash } from "react-icons/pi";
 import { FiPlus } from "react-icons/fi"
 import { FaCircleExclamation } from "react-icons/fa6";
 import photoNotFound from "../../../../assets/productNotFound.png"
-import { CreateBurgerByAdminDTO } from '../../../../entities/burger/dto/burgerDto';
+import { BurgerResponseDTO, CreateBurgerByAdminDTO } from '../../../../entities/burger/dto/burgerDto';
 import { toast } from 'sonner';
 import useCreateBurger from '../../../../features/admin/burger/hooks/useCreateBurger';
 import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud';
 
-export default function BurgerCustomForm() {
+
+type FormMode = "admin-create" | "admin-update";
+
+interface BurgerFormProps {
+    mode: FormMode;
+    initialData?: BurgerResponseDTO
+    onSubmit: (data: any) => Promise<any>
+}
+
+export default function BurgerCustomForm({ mode, initialData, onSubmit }: BurgerFormProps) {
 
     const {
         modelIngredients,
         openModel,
         closeModel,
         ingredientsList,
+        setIngredientsList,
         addIngredient,
         removeIngredient,
         plusQuantity,
@@ -38,45 +48,91 @@ export default function BurgerCustomForm() {
         changeIsOptional
     } = useBurgerCustomForm();
 
-    const {handleCreateBurger} = useCreateBurger();
+    const { handleCreateBurger } = useCreateBurger();
 
     const [image, setImage] = useState<File | null>(null);
 
-    const [form, setForm] = useState<CreateBurgerByAdminDTO>({
-        name: "",
-        description: "",
-        finalPrice: 0,
-        isFeatured: false,
-        availability: false,
-        ingredients: [],
-    })
+    const [form, setForm] = useState({
+        idBurger: initialData?.idBurger ?? 0,
+        name: initialData?.name ?? "",
+        description: initialData?.description ?? "",
+        basePrice: initialData?.basePrice ?? 0,
+        finalPrice: initialData?.finalPrice ?? "",
+        margin: initialData?.margin ?? 0,
+        marginPercentage: initialData?.marginPercentage ?? 0,
+        sellingAtLoss: initialData?.sellingAtLoss ?? false,
+        isOnMenu: initialData?.isOnMenu ?? false,
+        isFeatured: initialData?.isFeatured ?? false,
+        availability: initialData?.availability ?? false,
+        imageUrl: initialData?.imageUrl ?? null,
+        timesOrdered: initialData?.timesOrdered ?? 0,
+        ingredients: initialData?.ingredients ?? [],
+    });
+
+
+    useEffect(() => {
+        if (initialData) {
+            setForm({
+                idBurger: initialData?.idBurger ?? 0,
+                name: initialData?.name ?? "",
+                description: initialData?.description ?? "",
+                basePrice: initialData?.basePrice ?? 0,
+                finalPrice: initialData?.finalPrice ?? "",
+                margin: initialData?.margin ?? 0,
+                marginPercentage: initialData?.marginPercentage ?? 0,
+                sellingAtLoss: initialData?.sellingAtLoss ?? false,
+                isOnMenu: initialData?.isOnMenu ?? false,
+                isFeatured: initialData?.isFeatured ?? false,
+                availability: initialData?.availability ?? false,
+                imageUrl: initialData?.imageUrl ?? "",
+                timesOrdered: initialData?.timesOrdered ?? 0,
+                ingredients: initialData?.ingredients ?? [],
+            });
+
+            setIngredientsList(initialData.ingredients ?? []);
+            
+        }
+    }, [initialData]);
+
+
+
+
+
+
+
+
+
+
+
+
 
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
 
-        setForm({
-            ...form,
-            [name]: type === "checkbox" ? checked : type === "number" ? Number(value) : value
-        });
+        setForm(prev => ({
+            ...prev,
+            [name]: type === "checkbox" ? checked : value
+        }));
 
     }
 
 
-    const onSubmit = async(e:React.FormEvent<HTMLFormElement>) =>{
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const body: CreateBurgerByAdminDTO = {
-            ...form, ingredients: ingredientsList.map(({idProduct, quantity, isOptional})=>({
+            ...form,
+            finalPrice: Number(form.finalPrice),
+            ingredients: ingredientsList.map(({ idProduct, quantity, isOptional }) => ({
                 idProduct, quantity, isOptional
             }))
         }
 
-        const response = await handleCreateBurger({burger: body, file: image});
+        const response = await handleCreateBurger({ burger: body, file: image });
 
         if (response?.status === 201) {
             toast.success("Burger creada con exito");
-            console.log(response);
             return
         }
     }
@@ -84,14 +140,14 @@ export default function BurgerCustomForm() {
 
 
     return (
-        <form className='burgerCustomForm__form' onSubmit={onSubmit}>
+        <form className='burgerCustomForm__form' onSubmit={handleSubmit}>
 
             {modelIngredients ? <ListIngredientsBurger onClose={closeModel} onAddIngredient={addIngredient} /> : null}
 
             <div className="burgerCustomForm__container-image">
                 <SubTittleCrud icon={<FaImage size={22} color='red' />} title='Imagen' />
                 <Line />
-                <ImageCrud defaultImage={burgerNotFound} onImageChange={(file) => setImage(file)} title='Imagen de la hamburguesa' />
+                <ImageCrud defaultImage={form.imageUrl ?? photoNotFound} onImageChange={(file) => setImage(file)} title='Imagen de la hamburguesa' />
             </div>
 
             <div className="burgerCustomForm__container-data">
@@ -103,7 +159,7 @@ export default function BurgerCustomForm() {
 
                 <TextareaCrud label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} onChange={onInputChange} value={form.description} />
 
-               <InputNumberCrud  label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} />
+                <InputNumberCrud label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} />
             </div>
 
             <div className="burgerCustomForm__container-actions">
@@ -130,7 +186,7 @@ export default function BurgerCustomForm() {
                                 <div className="burgerCustomForm__container-img">
                                     <img className='burgerCustomForm__img' src={ingredient.imageUrl ?? photoNotFound} alt="" />
                                 </div>
-                                <span className='burgerCustomForm__span'>{ingredient.name}</span>
+                                <span className='burgerCustomForm__span'>{ingredient.productName}</span>
                                 <div className="burgerCustomForm__container-quantity">
                                     <button className='burgerCustomForm__button' type='button' onClick={() => minusQuantity(ingredient.idProduct)}><FiMinus size={17} color='black' /></button>
                                     <span className='burgerCustomForm__span'>Cant: <strong>{ingredient.quantity}</strong>x</span>

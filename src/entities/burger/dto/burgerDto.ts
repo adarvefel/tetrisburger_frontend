@@ -41,12 +41,12 @@ export interface CreateBurgerWithImageDTO{
 }
 
 export interface BurgerIngredientsResponseDTO{
-  idBurgerIngredient: number,
+  idBurgerIngredient?: number,
   idProduct: number,
   productName: string,
   priceAtTime: number,
   quantity: number,
-  subtotal: number,
+  subtotal?: number,
   isOptional: boolean,
   imageUrl: string
 }

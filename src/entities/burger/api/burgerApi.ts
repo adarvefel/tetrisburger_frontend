@@ -40,3 +40,8 @@ export const searchByName = async (name: string, numberPage: number) =>{
     const response = await axiosClient.get(endPoints.admin.burgers.searchByName(name, numberPage));
     return response;
 }
+
+export const findByIdBurger = async (id: number) =>{
+    const response = await axiosClient.get(endPoints.admin.burgers.findById(id));
+    return response;
+}

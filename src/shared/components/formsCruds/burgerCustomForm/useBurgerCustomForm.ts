@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { IngredientsRequestUI, IngredientsResponseDTO } from "../../../../entities/burger/dto/burgerDto";
+import { BurgerIngredientsResponseDTO, IngredientsRequestUI, IngredientsResponseDTO } from "../../../../entities/burger/dto/burgerDto";
 import { toast } from "sonner";
 
 export function useBurgerCustomForm() {
@@ -20,7 +20,7 @@ export function useBurgerCustomForm() {
 
     //lista de ingredients etc...
 
-    const [ingredientsList, setIngredientsList] = useState<IngredientsRequestUI[]>([]);
+    const [ingredientsList, setIngredientsList] = useState<BurgerIngredientsResponseDTO[]>([]);
 
     const addIngredient = (newIngredient: IngredientsResponseDTO) => {
         const alreadyExists = ingredientsList.some(ing => ing.idProduct === newIngredient.idProduct);
@@ -33,11 +33,13 @@ export function useBurgerCustomForm() {
         setIngredientsList(prev => [
             ...prev,
             {
-                imageUrl: newIngredient.imageUrl,
-                name: newIngredient.name,
+
                 idProduct: newIngredient.idProduct,
+                productName: newIngredient.name,
+                priceAtTime: newIngredient.price,
                 quantity: 1,
                 isOptional: false,
+                imageUrl: newIngredient.imageUrl,
 
             }
         ]);
@@ -83,6 +85,7 @@ export function useBurgerCustomForm() {
 
         // Lista de ingredientes
         ingredientsList,
+        setIngredientsList,
         addIngredient,
         removeIngredient,
         plusQuantity,
