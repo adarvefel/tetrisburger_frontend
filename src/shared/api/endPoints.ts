@@ -97,7 +97,9 @@ export const endPoints = {
             list: (numberPage: number) => `/api/admin/burgers/menu?page=${numberPage}&size=10&sortBy=idBurger&direction=ASC`,
             delete: (id: number) => `/api/admin/burgers/menu/${id}`,
             searchByName: (name: string, numberPage: number) => `/api/admin/burgers/menu/search?name=${name}&page=${numberPage}&size=10`,
-            findById: (id: number) => `/api/admin/burgers/${id}`
+            findById: (id: number) => `/api/admin/burgers/${id}`,
+            update: (id: number) => `/api/admin/burgers/menu/${id}`,
+            updateImage: (id: number) => `/api/admin/burgers/menu/${id}/image`
             
         }
 
