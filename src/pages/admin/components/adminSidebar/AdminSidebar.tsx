@@ -75,7 +75,7 @@ export default function AdminSidebar() {
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >
           <IoFastFood  size={19} />
-          <span className='adminSidebar__span'>ADICIONES</span>
+          <span className='adminSidebar__span'>Adiciones</span>
         </NavLink>
 
 
