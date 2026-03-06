@@ -19,10 +19,11 @@ import { PiTrash } from "react-icons/pi";
 import { FiPlus } from "react-icons/fi"
 import { FaCircleExclamation } from "react-icons/fa6";
 import photoNotFound from "../../../../assets/productNotFound.png"
-import { BurgerResponseDTO, CreateBurgerByAdminDTO } from '../../../../entities/burger/dto/burgerDto';
+import { BurgerResponseDTO, BurgerUpdateRequestDTO, CreateBurgerByAdminDTO } from '../../../../entities/burger/dto/burgerDto';
 import { toast } from 'sonner';
 import useCreateBurger from '../../../../features/admin/burger/hooks/useCreateBurger';
 import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud';
+import { useNavigate } from 'react-router-dom';
 
 
 type FormMode = "admin-create" | "admin-update";
@@ -47,8 +48,6 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
         minusQuantity,
         changeIsOptional
     } = useBurgerCustomForm();
-
-    const { handleCreateBurger } = useCreateBurger();
 
     const [image, setImage] = useState<File | null>(null);
 
@@ -96,7 +95,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
 
 
 
-
+    let nagivation = useNavigate();
 
     const [analytics, setAnalytics] = useState({
         basePrice: 0,
@@ -162,20 +161,47 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const body: CreateBurgerByAdminDTO = {
-            ...form,
-            finalPrice: Number(form.finalPrice),
-            ingredients: ingredientsList.map(({ idProduct, quantity, isOptional }) => ({
-                idProduct, quantity, isOptional
-            }))
+        if (mode === "admin-create") {
+            const body: CreateBurgerByAdminDTO = {
+                ...form,
+                finalPrice: Number(form.finalPrice),
+                ingredients: ingredientsList.map(({ idProduct, quantity, isOptional }) => ({
+                    idProduct, quantity, isOptional
+                }))
+            }
+
+            const response = await onSubmit({ burger: body, file: image });
+
+            if (response?.status === 201) {
+                toast.success("Burger creada con exito");
+                setTimeout(() => {
+                    nagivation("/admin/burger-list");
+                }, 2000)
+                return
+            }
         }
 
-        const response = await handleCreateBurger({ burger: body, file: image });
+        else if (mode === "admin-update") {
+            const body: BurgerUpdateRequestDTO = {
+                ...form,
+                finalPrice: Number(form.finalPrice),
+                ingredients: ingredientsList.map(({ idProduct, quantity, isOptional }) => ({
+                    idProduct, quantity, isOptional
+                }))
+            }
 
-        if (response?.status === 201) {
-            toast.success("Burger creada con exito");
-            return
+            const response = await onSubmit({ burger: body, file: image });
+
+            if (response?.status === 200) {
+                toast.success("Burger actualizada con exito");
+                setTimeout(() => {
+                    nagivation("/admin/burger-list");
+                }, 2000)
+                return
+            }
         }
+
+
     }
 
 
@@ -197,7 +223,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
 
                     <Line />
 
-                    <InputCrud id='burger-form-id' label='ID hambuguresa' name='id' value={form.idBurger} disabled/>
+                    <InputCrud id='burger-form-id' label='ID hambuguresa' name='id' value={form.idBurger} disabled />
 
                     <InputCrud id='burger-form-name' label='Nombre de la hamburguesa' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={form.name} />
 

@@ -1,5 +1,5 @@
 import { endPoints } from "../../../shared/api/endPoints";
-import { CreateBurgerWithImageDTO } from "../dto/burgerDto";
+import { BurgerUpdateRequestWithImageDTO, CreateBurgerWithImageDTO } from "../dto/burgerDto";
 import { axiosClient } from "../../../shared/api/axiosClient";
 
 export const createBurger = async (data: CreateBurgerWithImageDTO) => {
@@ -31,17 +31,29 @@ export const listBurgers = async (numberPage: number) => {
     return response;
 }
 
-export const deleteBurger = async (id: number) =>{
+export const deleteBurger = async (id: number) => {
     const response = await axiosClient.delete(endPoints.admin.burgers.delete(id));
     return response;
 }
 
-export const searchByName = async (name: string, numberPage: number) =>{
+export const searchByName = async (name: string, numberPage: number) => {
     const response = await axiosClient.get(endPoints.admin.burgers.searchByName(name, numberPage));
     return response;
 }
 
-export const findByIdBurger = async (id: number) =>{
+export const findByIdBurger = async (id: number) => {
     const response = await axiosClient.get(endPoints.admin.burgers.findById(id));
+    return response;
+}
+
+export const updateBurger = async (id: number, data: BurgerUpdateRequestWithImageDTO) => {
+    if (data.file) {
+        const formData = new FormData();
+
+        formData.append("burgerImage", data.file);
+        await axiosClient.patch(endPoints.admin.burgers.updateImage(id), formData);
+    }
+
+    const response = await axiosClient.put(endPoints.admin.burgers.update(id), data.burger);
     return response;
 }

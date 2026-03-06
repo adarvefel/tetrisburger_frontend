@@ -67,3 +67,18 @@ export interface BurgerResponseDTO{
   timesOrdered: number,
   ingredients: BurgerIngredientsResponseDTO[]
 }
+
+export interface BurgerUpdateRequestDTO{
+  name: string,
+  description: string,
+  finalPrice: number,
+  
+  isFeatured: boolean,
+  availability: boolean,
+  ingredients: IngredientsRequestDTO[],
+}
+
+export interface BurgerUpdateRequestWithImageDTO{
+  burger: BurgerUpdateRequestDTO,
+  file?: File | null
+}
