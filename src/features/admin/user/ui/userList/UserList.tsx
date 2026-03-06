@@ -89,7 +89,7 @@ export default function UserList() {
                         <Th>ID</Th>
                         <Th>FOTO</Th>
                         <Th>NOMBRE</Th>
-                        <Th>EMAIL</Th>
+                        <Th>CORREO</Th>
                         <Th>ROL</Th>
                         <Th>ACCIONES</Th>
                     </tr>

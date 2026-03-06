@@ -7,6 +7,8 @@ import { NavLink } from 'react-router-dom';
 import { FaUsers, FaBoxOpen, FaHamburger, FaEnvelopeOpenText, FaTags, FaStore } from "react-icons/fa"
 import { IoMenuOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
+import { CiSettings } from "react-icons/ci";
+import { IoFastFood } from "react-icons/io5";
 
 export default function AdminSidebar() {
 
@@ -59,12 +61,21 @@ export default function AdminSidebar() {
           <span className='adminSidebar__span'>Proveedores</span>
         </NavLink>
 
-        <NavLink to={"/menu-list"}
+        <NavLink to={"/admin/burger-list"}
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >
           <FaHamburger size={19} />
-          <span className='adminSidebar__span'>Menu</span>
+          <span className='adminSidebar__span'>Hamburguesas</span>
+        </NavLink>
+
+
+        <NavLink to={"/admin/addition-list"}
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <IoFastFood  size={19} />
+          <span className='adminSidebar__span'>Adiciones</span>
         </NavLink>
 
 
@@ -76,8 +87,25 @@ export default function AdminSidebar() {
           <span className='adminSidebar__span'>PQRS</span>
         </NavLink>
 
+        
 
 
+
+
+
+
+
+
+
+        <div className="adminSidebar__container-settings">
+          <NavLink to={"/admin/sttings"}
+            className={({ isActive }) =>
+              `adminSidebar__container-option ${isActive ? "active" : ""}`
+            } >
+            <CiSettings size={19} />
+            <span className='adminSidebar__span'>Configuraciones</span>
+          </NavLink>
+        </div>
 
       </div>
 

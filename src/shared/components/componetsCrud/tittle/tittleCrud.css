@@ -1,0 +1,21 @@
+.tittleCrud__container-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.tittleCrud__h1 {
+  font-family: "Montserrat";
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: black;
+  margin: 0;
+}
+
+.tittleCrud__p {
+  color: black;
+  font-family: "Montserrat";
+  font-size: 0.9rem;
+  margin: 0;
+}

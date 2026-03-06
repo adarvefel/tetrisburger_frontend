@@ -27,7 +27,7 @@ export default function NavbarNotAuthenticated() {
                     <ul className='navbarNotAuthenticated__ul'>
                         <li className='navbarNotAuthenticated__li'><Link className='navbarNotAuthenticated__link' to={"/"}>INICIO</Link></li>
                         <li className='navbarNotAuthenticated__li'><Link className='navbarNotAuthenticated__link' to={"/menu"}>MENU</Link></li>
-                        <li className='navbarNotAuthenticated__li'><Link className='navbarNotAuthenticated__link' to={"/promociones"}>PROMOCIONES</Link></li>
+                        
                         <li className='navbarNotAuthenticated__li'><Link className='navbarNotAuthenticated__link' to={"/contact-us"}>CONTACTANOS</Link></li>
                     </ul>
                 </div>

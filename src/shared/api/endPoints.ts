@@ -20,6 +20,21 @@ export const endPoints = {
             updateImage: (id: number) => `/api/products/image/${id}`,
             delete: (id: number) => `/api/products/${id}`,
             searchByName: (name: string, numberPage: number) => `api/products/search?q=${name}&page=${numberPage}&size=10`,
+
+            listPrueba: (page: number, productCategoryId?: number) => {
+                const query = new URLSearchParams({
+                    page: page.toString(),
+                    size: "5",
+                    sortBy: "id",
+                    direction: "ASC",
+                });
+
+                if (productCategoryId) {
+                    query.append("productCategoryId", productCategoryId.toString());
+                }
+
+                return `/api/products/list?${query.toString()}`;
+            },
         },
 
         productCategory: {
@@ -62,6 +77,28 @@ export const endPoints = {
             update: (id: number) => `/api/pqrs/admin/${id}`,
 
 
+        },
+
+        addition: {
+            create: "/api/admin/additions",
+            list: (numberPage: number) => `/api/admin/additions?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            delete: (id: number) => `/api/admin/additions/${id}`,
+            searchByName: (name: string, numberPage: number) => `/api/admin/additions/search?name=${name}&page=${numberPage}&size=10`,
+            findById: (id: number) => `/api/admin/additions/${id}`,
+            update: (id: number) => `/api/admin/additions/${id}`,
+            updateImage: (id: number) => `/api/admin/additions/image/${id}`,
+
+        },
+
+        burgers: {
+            create: "/api/admin/burgers/menu",
+            listIngredients: (page: number, categoryId?: number) =>
+                `/api/admin/burgers/ingredients?page=${page}&size=5${categoryId ? `&categoryId=${categoryId}` : ""}`,
+            list: (numberPage: number) => `/api/admin/burgers/menu?page=${numberPage}&size=10&sortBy=idBurger&direction=ASC`,
+            delete: (id: number) => `/api/admin/burgers/menu/${id}`,
+            searchByName: (name: string, numberPage: number) => `/api/admin/burgers/menu/search?name=${name}&page=${numberPage}&size=10`,
+            findById: (id: number) => `/api/admin/burgers/${id}`
+            
         }
 
 

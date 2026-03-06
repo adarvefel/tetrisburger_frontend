@@ -42,13 +42,26 @@ import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
 import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePage'
 import ProtectedRoute from "../shared/routes/ProtectedRoute";
 import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
-import BurgerCustomForm from '../shared/components/burgerCustomForm/ui/BurgerCustomForm'
-import ListIngredients from '../shared/components/burgerCustomForm/ingredients/ListIngredients'
 import TestTable from '../shared/components/componetsCrud/table/TestTable'
-import InputCrud from '../shared/components/componetsCrud/fields/inputCrud/InputCrud'
-import SelectCrud from '../shared/components/componetsCrud/fields/selectCrud/SelectCrud'
-import TextareaCrud from '../shared/components/componetsCrud/fields/textareaCrud/TextareaCrud'
 import TestFields from '../shared/components/componetsCrud/fields/TestFields'
+import ButtonSubmitCrud from '../shared/components/componetsCrud/buttonSubmit/ButtonSubmitCrud'
+
+import { FaCircleExclamation } from "react-icons/fa6";
+import SubTittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
+
+import CreateBurger from '../shared/components/test/createBurger/CreateBurger'
+
+import InputSearch from '../shared/components/componetsCrud/fields/inputSearch/InputSearch'
+import BurgerCustomForm from '../shared/components/formsCruds/burgerCustomForm/BurgerCustomForm'
+
+import AdditionForm from '../shared/components/formsCruds/additionForm/AdditionForm'
+import CreateAdditionPage from '../pages/admin/additions/createAdditionPage/CreateAdditionPage'
+import ListAdditionPage from '../pages/admin/additions/listAdditionPage/ListAdditionPage'
+import UpdateAdditionPage from '../pages/admin/additions/updateAdditionPage/UpdateAdditionPage'
+import CreateBurgerPage from '../pages/admin/burgers/createBurgerPage/CreateBurgerPage'
+import ListBurgerPage from '../pages/admin/burgers/listBurgerPage/ListBurgerPage'
+import UpdateBurgerPage from '../pages/admin/burgers/updateBurgerPage/UpdateBurgerPage'
+import InputNumberCrud from '../shared/components/componetsCrud/fields/inputNumberCrud/InputNumberCrud'
 
 
 
@@ -99,7 +112,13 @@ export default function Router() {
         <Route path="/admin/pqrs-list" element={<ProtectedRoute requireAdmin><PqrsListPage /></ProtectedRoute>} />
         <Route path="/admin/pqrs/update/:id" element={<ProtectedRoute requireAdmin><PqrsUpdatePage /></ProtectedRoute>} />
 
+        <Route path="/admin/addition-create" element={<ProtectedRoute requireAdmin><CreateAdditionPage /></ProtectedRoute>} />
+        <Route path="/admin/addition-list" element={<ProtectedRoute requireAdmin><ListAdditionPage /></ProtectedRoute>} />
+        <Route path="/admin/addition/update/:id" element={<ProtectedRoute requireAdmin><UpdateAdditionPage /></ProtectedRoute>} />
 
+        <Route path="/admin/burger-create" element={<ProtectedRoute requireAdmin><CreateBurgerPage /></ProtectedRoute>} />
+        <Route path="/admin/burger-list" element={<ProtectedRoute requireAdmin><ListBurgerPage /></ProtectedRoute>} />
+        <Route path="/admin/burger/update/:id" element={<ProtectedRoute requireAdmin><UpdateBurgerPage /></ProtectedRoute>} />
 
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
@@ -142,20 +161,31 @@ export default function Router() {
 
         <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={() => { }} onConfirm={() => { }} />} />
 
-        <Route path='/prueba21' element={<AdminSidebar/>}/>
-
-        <Route path='/prueba22' element={<BurgerCustomForm/>}/>
-
-        <Route path='/prueba23' element={<TestTable/>}/>
-
-        <Route path='/prueba23' element={<TestTable/>}/>
+        <Route path='/prueba21' element={<AdminSidebar />} />
 
 
-        <Route path='/prueba24' element={<TestFields/>}/>
+        <Route path='/prueba23' element={<TestTable />} />
 
-        
+        <Route path='/prueba23' element={<TestTable />} />
 
 
+        <Route path='/prueba24' element={<TestFields />} />
+
+        <Route path='/prueba25' element={<ButtonSubmitCrud label='Actualizar' />} />
+
+        <Route path='/prueba26' element={<SubTittleCrud title='Actualizar datos de don pene' icon={<FaCircleExclamation size={23} color='red' />} />} />
+
+
+        <Route path='/prueba27' element={<CreateBurger />} />
+        <Route path='/prueba28' element={<BurgerCustomForm />} />
+
+    
+
+          <Route path='/prueba29' element={<InputNumberCrud />} />
+    
+
+
+        <Route path='/prueba30' element={<InputSearch />} />
 
       </Routes>
     </BrowserRouter>
