@@ -27,7 +27,7 @@ interface AdditionFormProps {
     description?: string
     price?: number;
     available?: boolean;
-    imageUrl?: string;
+    imageUrl?: string | null;
   }
   onSubmit: (data: any) => Promise<any>
 }
@@ -40,7 +40,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
     description: initialData?.description || "",
     price: initialData?.price || "",
     available: initialData?.available || false,
-    imageUrl: initialData?.imageUrl || "",
+    imageUrl: initialData?.imageUrl || null,
   });
 
   useEffect(() => {
@@ -51,7 +51,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
         description: initialData?.description || "",
         price: initialData?.price || "",
         available: initialData?.available || false,
-        imageUrl: initialData?.imageUrl || "",
+        imageUrl: initialData?.imageUrl || null,
       });
     }
   }, [initialData]);
@@ -141,7 +141,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
       <div className="additionForm__container-image">
         <SubTittleCrud icon={<FaImage size={22} color='red' />} title='Imagen' />
         <Line />
-        <ImageCrud defaultImage={photoNotFound} onImageChange={(file) => setImageFile(file)} title='Imagen de la adicion' />
+        <ImageCrud defaultImage={formData.imageUrl ?? photoNotFound} onImageChange={(file) => setImageFile(file)} title='Imagen de la adicion' />
       </div>
 
       <div className="additionForm__container-data">
