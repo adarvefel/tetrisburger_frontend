@@ -94,20 +94,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
     }, [initialData]);
 
 
-    const formIsEqual =
-        (initialData?.name ?? "") === form.name &&
-        (initialData?.description ?? "") === form.description &&
-        (initialData?.basePrice ?? 0) === Number(form.basePrice) &&
-        (initialData?.finalPrice ?? 0) === Number(form.finalPrice) &&
-        (initialData?.margin ?? 0) === form.margin &&
-        (initialData?.marginPercentage ?? 0) === form.marginPercentage &&
-        (initialData?.sellingAtLoss ?? false) === form.sellingAtLoss &&
-        (initialData?.isOnMenu ?? false) === form.isOnMenu &&
-        (initialData?.isFeatured ?? false) === form.isFeatured &&
-        (initialData?.availability ?? false) === form.availability &&
-        (initialData?.imageUrl ?? null) === (form.imageUrl ?? null) &&
-        JSON.stringify(initialData?.ingredients ?? []) === JSON.stringify(ingredientsList);
-
+    
 
 
 
@@ -219,6 +206,25 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
 
 
     }
+
+
+    const formIsEqual =
+        (initialData?.name ?? "") === form.name &&
+        (initialData?.description ?? "") === form.description &&
+        (initialData?.basePrice ?? 0) === Number(form.basePrice) &&
+        (initialData?.finalPrice ?? 0) === Number(form.finalPrice) &&
+        (initialData?.margin ?? 0) === form.margin &&
+        (initialData?.marginPercentage ?? 0) === form.marginPercentage &&
+        (initialData?.sellingAtLoss ?? false) === form.sellingAtLoss &&
+        (initialData?.isOnMenu ?? false) === form.isOnMenu &&
+        (initialData?.isFeatured ?? false) === form.isFeatured &&
+        (initialData?.availability ?? false) === form.availability &&
+        (initialData?.imageUrl ?? null) === (form.imageUrl ?? null) &&
+        image === null &&
+        JSON.stringify(initialData?.ingredients ?? []) === JSON.stringify(ingredientsList);
+
+
+
 
 
 

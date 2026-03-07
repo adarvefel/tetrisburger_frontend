@@ -56,12 +56,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
     }
   }, [initialData]);
 
-  const formIsEqual =
-    initialData?.name === formData.name &&
-    initialData?.description === formData.description &&
-    initialData?.price === Number(formData.price) &&
-    initialData?.available === formData.available &&
-    (initialData?.imageUrl ?? null) === (formData.imageUrl ?? null);
+  
 
 
   const onInputChange = (
@@ -136,6 +131,14 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
       return
     }
   }
+
+  const formIsEqual =
+  (initialData?.name ?? "") === formData.name &&
+  (initialData?.description ?? "") === formData.description &&
+  (initialData?.price ?? 0) === Number(formData.price) &&
+  (initialData?.available ?? false) === formData.available &&
+  (initialData?.imageUrl ?? null) === (formData.imageUrl ?? null) &&
+  imageFile === null;
 
   return (
     <form className='additionForm__form' onSubmit={handleSubmit}>

@@ -6,6 +6,7 @@ import {
 } from "../../../../entities/supplier/dto/supplierDto";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import ButtonSubmitCrud from "../../componetsCrud/buttonSubmit/ButtonSubmitCrud";
 
 type SupplierFormMode = "admin-create" | "admin-update";
 
@@ -46,6 +47,11 @@ export default function SupplierForm({
     }
   }, [initialData]);
 
+  const formIsEqual =
+    (initialData?.name ?? "") === formData.name &&
+    (initialData?.phone ?? "") === formData.phone &&
+    (initialData?.email ?? "") === formData.email &&
+    (initialData?.address ?? "") === formData.address;
 
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -118,21 +124,21 @@ export default function SupplierForm({
       </div>
 
       <div className="productForm__container-medium">
-        
-          <div className="productForm__container-row">
-            <div className="productForm__container-input">
-              <label className="productForm__label">ID proveedor</label>
-              <input
-                className="productForm__input"
-                type="text"
-                name="id"
-                disabled
-                value={formData.id}
-                onChange={() => { }}
-              />
-            </div>
+
+        <div className="productForm__container-row">
+          <div className="productForm__container-input">
+            <label className="productForm__label">ID proveedor</label>
+            <input
+              className="productForm__input"
+              type="text"
+              name="id"
+              disabled
+              value={formData.id}
+              onChange={() => { }}
+            />
           </div>
-       
+        </div>
+
 
         <div className="productForm__container-row">
           <div className="productForm__container-input">
@@ -187,11 +193,7 @@ export default function SupplierForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-          <button className="productForm__button-submit" type="submit">
-            {mode === "admin-create"
-              ? "Crear proveedor"
-              : "Guardar cambios"}
-          </button>
+          <ButtonSubmitCrud id="supplier-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear proveedor" : "Guardar cambios"} />
         </div>
       </div>
     </form>

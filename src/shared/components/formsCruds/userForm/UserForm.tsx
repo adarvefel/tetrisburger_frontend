@@ -5,6 +5,7 @@ import { UpdateProfileRequestDto, UpdateProfileWithImageRequestDto } from '../..
 import { useNavigate } from 'react-router-dom';
 import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto, UpdateUserWithImageDto } from '../../../../entities/user/dto/userDto';
 import { toast } from 'sonner';
+import ButtonSubmitCrud from '../../componetsCrud/buttonSubmit/ButtonSubmitCrud';
 
 type FormMode = "create" | "user-update" | "admin-update";
 
@@ -71,11 +72,11 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
             const userUpdate: UpdateProfileRequestDto = {
                 userName: formData.userName,
-                
+
                 phone: formData.phone,
             }
 
-            
+
             if (formData.password.length >= 8) {
                 userUpdate.password = formData.password
             }
@@ -221,11 +222,21 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     }, [initialData])
 
 
+    const formIsEqual =
+        (initialData?.userName ?? "") === formData.userName &&
+        (initialData?.email ?? "") === formData.email &&
+        (initialData?.phone ?? "") === formData.phone &&
+        (initialData?.role ?? "") === formData.role &&
+        (initialData?.userImage ?? "") === (formData.userImage ?? "") &&
+        imageFile === null &&
+        formData.password === "";
+
+
 
     return (
         <form className='userForm__form' action="" onSubmit={handleSubmit}>
 
-            
+
 
             <div className="userForm__container-top">
 
@@ -303,13 +314,14 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
             <div className="userForm__container-buttom">
 
                 <div className="userForm__container-button-buttom">
-                    <button className='userForm__button-submit'>{
+
+                    <ButtonSubmitCrud id='user-form-submit' disabled={formIsEqual} label={
 
                         mode === "user-update" ? "Actualizar perfil" :
                             mode === "admin-update" ? "Guardas cambios" :
                                 "Crear usuario"
 
-                    }</button>
+                    }/>
                 </div>
 
             </div>

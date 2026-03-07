@@ -8,6 +8,7 @@ import { useSuppliers } from "../../../../features/admin/product/hooks/useSuppli
 import imgProfile from "../../../../assets/productNotFound.png"
 import { toast } from "sonner";
 import { ProductFindByIdResponse } from "../../../../features/admin/product/dto/productsAdminDto";
+import ButtonSubmitCrud from "../../componetsCrud/buttonSubmit/ButtonSubmitCrud";
 
 type ProductFormMode = "admin-create" | "admin-update";
 
@@ -56,6 +57,9 @@ export default function ProductForm({
       });
     }
   }, [initialData]);
+
+
+  
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -185,6 +189,20 @@ export default function ProductForm({
       setPictureProduct(imgProfile);
     }
   }, [initialData])
+
+
+  const formIsEqual =
+  (initialData?.name ?? "") === formData.name &&
+  (initialData?.description ?? "") === formData.description &&
+  (initialData?.price ?? 0) === Number(formData.price) &&
+  (initialData?.quantity ?? 0) === Number(formData.quantity) &&
+  (initialData?.availability ?? false) === formData.available &&
+  (initialData?.productType ?? "") === formData.productType &&
+  (initialData?.isBurgerIngredient ?? false) === formData.isBurgerIngredient &&
+  (initialData?.productCategory?.id ?? 0) === formData.productCategoryId &&
+  (initialData?.supplier?.id ?? 0) === formData.supplierId &&
+  (initialData?.imageUrl ?? "") === (formData.imageUrl ?? "") &&
+  imageFile === null;
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
@@ -382,9 +400,7 @@ export default function ProductForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-          <button className="productForm__button-submit" type="submit">
-            {mode === "admin-create" ? "Crear producto" : "Guardar cambios"}
-          </button>
+            <ButtonSubmitCrud id="product-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear producto" : "Guardar cambios"}/>
         </div>
       </div>
     </form>
