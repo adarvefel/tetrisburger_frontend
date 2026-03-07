@@ -306,9 +306,9 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
                     <span className='burgerCustomForm__span-2'>Precio Base: <strong>${formatPrice(analytics.basePrice)}</strong></span>
                     <span className='burgerCustomForm__span-2'>Precio Final: <strong>${formatPrice(Number(form.finalPrice))}</strong></span>
                     <Line />
-                    <span className='burgerCustomForm__span-2'>Margin: <strong>${formatPrice(analytics.margin)}</strong></span>
-                    <span className='burgerCustomForm__span-2'>% Margin: <strong>{analytics.marginPercentage.toFixed(2)}%</strong></span>
-                    <span className='burgerCustomForm__span-2'>Perdida: <strong>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
+                    <span className='burgerCustomForm__span-2'>Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>${formatPrice(analytics.margin)}</strong></span>
+                    <span className='burgerCustomForm__span-2'>% Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ?"red" : "green"}`}>{analytics.marginPercentage.toFixed(2)}%</strong></span>
+                    <span className='burgerCustomForm__span-2'>Perdida: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
                     <Line />
                     <span className='burgerCustomForm__span-2'>Veces ordena: <strong>{form.timesOrdered}</strong></span>
                 </div>

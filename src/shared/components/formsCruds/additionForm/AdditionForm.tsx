@@ -160,13 +160,13 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
 
         <Line />
 
-        <InputCrud id='addition-form-id' label='ID adicion' name='idAddition' onChange={onInputChange} value={formData.idAddition} disabled />
+        <InputCrud id='addition-form-id' label='ID adicion' name='idAddition' onChange={onInputChange} value={formData.idAddition} disabled/>
 
-        <InputCrud id='addition-form-name' label='Nombre de la adicion' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={formData.name} />
+        <InputCrud id='addition-form-name' label='Nombre de la adicion' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={formData.name} required/>
 
-        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' rows={3} placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} />
+        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' rows={3} placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} required/>
 
-        <InputNumberCrud id='addition-form-price' label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} />
+        <InputNumberCrud id='addition-form-price' label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} required />
 
         <CheckboxCrud id='addition-form-available' label='Disponibilidad' checkboxLabel='Marcar disponibilidad' name='available' onChange={onInputChange} checked={formData.available} />
       </div>

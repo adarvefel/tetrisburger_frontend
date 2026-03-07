@@ -172,3 +172,11 @@
     font-size: 0.7rem;
 
 }
+
+.burgerCustomForm__strong-green{
+    color: green;
+}
+
+.burgerCustomForm__strong-red{
+    color: red;
+}

@@ -31,7 +31,6 @@ export default function ProductForm({
     quantity: initialData?.quantity ?? "",
     available: initialData?.availability ?? false,
     productType: initialData?.productType ?? "",
-    isBurgerIngredient: initialData?.isBurgerIngredient ?? false,
     productCategoryId: initialData?.productCategory?.id ?? 0,
     supplierId: initialData?.supplier?.id ?? 0,
     imageUrl: initialData?.imageUrl || ""
@@ -50,7 +49,6 @@ export default function ProductForm({
         quantity: initialData?.quantity ?? "",
         available: initialData.availability ?? false,
         productType: initialData.productType ?? "",
-        isBurgerIngredient: initialData?.isBurgerIngredient ?? false,
         productCategoryId: initialData?.productCategory?.id ?? 0,
         supplierId: initialData?.supplier?.id ?? 0,
         imageUrl: initialData?.imageUrl || ""
@@ -101,7 +99,6 @@ export default function ProductForm({
           quantity: Number(formData.quantity),
           availability: formData.available,
           productType: formData.productType,
-          isBurgerIngredient: formData.isBurgerIngredient,
           productCategoryId: formData.productCategoryId,
           supplierId: formData.supplierId,
         };
@@ -125,7 +122,6 @@ export default function ProductForm({
           quantity: Number(formData.quantity),
           availability: formData.available,
           productType: formData.productType,
-          isBurgerIngredient: formData.isBurgerIngredient,
           productCategoryId: formData.productCategoryId,
           supplierId: formData.supplierId,
         };
@@ -219,7 +215,6 @@ export default function ProductForm({
     (initialData?.quantity ?? 0) === Number(formData.quantity) &&
     (initialData?.availability ?? false) === formData.available &&
     (initialData?.productType ?? "") === formData.productType &&
-    (initialData?.isBurgerIngredient ?? false) === formData.isBurgerIngredient &&
     (initialData?.productCategory?.id ?? 0) === formData.productCategoryId &&
     (initialData?.supplier?.id ?? 0) === formData.supplierId &&
     (initialData?.imageUrl ?? "") === (formData.imageUrl ?? "") &&
@@ -380,27 +375,6 @@ export default function ProductForm({
               <span className="productForm__checkbox-text">
                 Marcar como disponible
               </span>
-            </div>
-          </div>
-
-          <div id="productoForm__container-input-2" className="productForm__container-input">
-            <label className="productForm__label">Ingrediente de hamburguesa</label>
-            <div className="productForm__container-checkbox">
-              <span className="productForm__checkbox-text">
-                Marcar como ingrediente de hamburguesa
-              </span>
-              <input
-                className="productForm__checkbox"
-                type="checkbox"
-                name="isBurgerIngredient"
-                checked={formData.isBurgerIngredient}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    isBurgerIngredient: e.target.checked,
-                  }))
-                }
-              />
             </div>
           </div>
         </div>
