@@ -59,7 +59,7 @@ export default function ProductForm({
   }, [initialData]);
 
 
-  
+
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -149,7 +149,15 @@ export default function ProductForm({
 
   };
 
-  //GESTION PA LA PICTURE DEL USER
+  //GESTION PA LA PICTURE DEL PRODUCT
+
+  const MAX_SIZE = 5 * 1024 * 1024 // 5MB
+
+  const ALLOWED_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ]
 
   const [pictureProduct, setPictureProduct] = useState<string>(
     initialData?.imageUrl || imgProfile
@@ -166,6 +174,19 @@ export default function ProductForm({
     const file = e.target.files?.[0];
 
     if (file) {
+
+      // Validar tipo
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        toast.error("Solo se permiten imágenes JPG, PNG o WEBP")
+        e.target.value = ""
+        return
+      }
+
+      if (file.size > MAX_SIZE) {
+        toast.error("La imagen no puede pesar más de 5MB")
+        e.target.value = ""
+        return
+      }
       setImageFile(file)
       const pictureUrl = URL.createObjectURL(file);
       setPictureProduct(pictureUrl);
@@ -192,17 +213,17 @@ export default function ProductForm({
 
 
   const formIsEqual =
-  (initialData?.name ?? "") === formData.name &&
-  (initialData?.description ?? "") === formData.description &&
-  (initialData?.price ?? 0) === Number(formData.price) &&
-  (initialData?.quantity ?? 0) === Number(formData.quantity) &&
-  (initialData?.availability ?? false) === formData.available &&
-  (initialData?.productType ?? "") === formData.productType &&
-  (initialData?.isBurgerIngredient ?? false) === formData.isBurgerIngredient &&
-  (initialData?.productCategory?.id ?? 0) === formData.productCategoryId &&
-  (initialData?.supplier?.id ?? 0) === formData.supplierId &&
-  (initialData?.imageUrl ?? "") === (formData.imageUrl ?? "") &&
-  imageFile === null;
+    (initialData?.name ?? "") === formData.name &&
+    (initialData?.description ?? "") === formData.description &&
+    (initialData?.price ?? 0) === Number(formData.price) &&
+    (initialData?.quantity ?? 0) === Number(formData.quantity) &&
+    (initialData?.availability ?? false) === formData.available &&
+    (initialData?.productType ?? "") === formData.productType &&
+    (initialData?.isBurgerIngredient ?? false) === formData.isBurgerIngredient &&
+    (initialData?.productCategory?.id ?? 0) === formData.productCategoryId &&
+    (initialData?.supplier?.id ?? 0) === formData.supplierId &&
+    (initialData?.imageUrl ?? "") === (formData.imageUrl ?? "") &&
+    imageFile === null;
 
   return (
     <form className="productForm__form" onSubmit={handleSubmit}>
@@ -231,7 +252,7 @@ export default function ProductForm({
               Subir imagen
             </button>
 
-            <input ref={fileInputRef} className='productForm__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
+            <input ref={fileInputRef} className='productForm__input-file' type="file" accept="image/png, image/jpeg, image/webp" onChange={onChangeInputFile} />
 
           </div>
         </div>
@@ -400,7 +421,7 @@ export default function ProductForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-            <ButtonSubmitCrud id="product-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear producto" : "Guardar cambios"}/>
+          <ButtonSubmitCrud id="product-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear producto" : "Guardar cambios"} />
         </div>
       </div>
     </form>

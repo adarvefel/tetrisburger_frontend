@@ -181,6 +181,13 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     }
 
     //GESTION PA LA PICTURE DEL USER
+    const MAX_SIZE = 5 * 1024 * 1024 // 5MB
+
+    const ALLOWED_TYPES = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ]
 
     const [pictureUser, setPictureUser] = useState<string>(
         initialData?.userImage || imgProfile
@@ -197,6 +204,19 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
         const file = e.target.files?.[0];
 
         if (file) {
+            // Validar tipo
+            if (!ALLOWED_TYPES.includes(file.type)) {
+                toast.error("Solo se permiten imágenes JPG, PNG o WEBP")
+                e.target.value = ""
+                return
+            }
+
+            if (file.size > MAX_SIZE) {
+                toast.error("La imagen no puede pesar más de 5MB")
+                e.target.value = ""
+                return
+            }
+
             setImageFile(file)
             const pictureUrl = URL.createObjectURL(file);
             setPictureUser(pictureUrl);
@@ -255,7 +275,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                         Subir imagen
                     </button>
 
-                    <input ref={fileInputRef} className='userForm__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
+                    <input ref={fileInputRef} className='userForm__input-file' type="file" accept="image/png, image/jpeg, image/webp" onChange={onChangeInputFile} />
 
                 </div>
             </div>
@@ -321,7 +341,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                             mode === "admin-update" ? "Guardas cambios" :
                                 "Crear usuario"
 
-                    }/>
+                    } />
                 </div>
 
             </div>
