@@ -38,13 +38,11 @@
 /*AJUSTES CONTAINER DE la mita*/
 
 .adminSidebar__container-medium {
-
-
-    padding-top: 30px;
+    padding-top: 0.3rem;
     flex: 5;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.4rem;
 }
 
 .adminSidebar__container-option {

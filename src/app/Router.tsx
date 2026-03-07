@@ -62,6 +62,12 @@ import CreateBurgerPage from '../pages/admin/burgers/createBurgerPage/CreateBurg
 import ListBurgerPage from '../pages/admin/burgers/listBurgerPage/ListBurgerPage'
 import UpdateBurgerPage from '../pages/admin/burgers/updateBurgerPage/UpdateBurgerPage'
 import InputNumberCrud from '../shared/components/componetsCrud/fields/inputNumberCrud/InputNumberCrud'
+import CreateMenuCategoryPage from '../pages/admin/menuCategory/createMenuCategoryPage/CreateMenuCategoryPage'
+import ListMenuCategoryPage from '../pages/admin/menuCategory/listMenuCategoryPage/ListMenuCategoryPage'
+import UpdateMenuCategoryPage from '../pages/admin/menuCategory/updateMenuCategoryPage/UpdateMenuCategoryPage'
+import UpdateMenuPage from '../pages/admin/menu/updateMenuPage/UpdateMenuPage'
+import ListMenuPage from '../pages/admin/menu/listMenuPage/ListMenuPage'
+import CreateMenuPage from '../pages/admin/menu/createMenuPage/CreateMenuPage'
 
 
 
@@ -120,6 +126,14 @@ export default function Router() {
         <Route path="/admin/burger-list" element={<ProtectedRoute requireAdmin><ListBurgerPage /></ProtectedRoute>} />
         <Route path="/admin/burger/update/:id" element={<ProtectedRoute requireAdmin><UpdateBurgerPage /></ProtectedRoute>} />
 
+        <Route path="/admin/category-menu-create" element={<ProtectedRoute requireAdmin><CreateMenuCategoryPage /></ProtectedRoute>} />
+        <Route path="/admin/category-menu-list" element={<ProtectedRoute requireAdmin><ListMenuCategoryPage /></ProtectedRoute>} />
+        <Route path="/admin/category-menu/update/:id" element={<ProtectedRoute requireAdmin><UpdateMenuCategoryPage /></ProtectedRoute>} />
+
+        <Route path="/admin/menu-create" element={<ProtectedRoute requireAdmin><CreateMenuPage /></ProtectedRoute>} />
+        <Route path="/admin/menu-list" element={<ProtectedRoute requireAdmin><ListMenuPage /></ProtectedRoute>} />
+        <Route path="/admin/menu/update/:id" element={<ProtectedRoute requireAdmin><UpdateMenuPage /></ProtectedRoute>} />
+
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
         <Route path='/prueba3' element={<Navbar />} />
@@ -177,12 +191,12 @@ export default function Router() {
 
 
         <Route path='/prueba27' element={<CreateBurger />} />
-        <Route path='/prueba28' element={<BurgerCustomForm />} />
 
-    
 
-          <Route path='/prueba29' element={<InputNumberCrud />} />
-    
+
+
+        <Route path='/prueba29' element={<InputNumberCrud />} />
+
 
 
         <Route path='/prueba30' element={<InputSearch />} />

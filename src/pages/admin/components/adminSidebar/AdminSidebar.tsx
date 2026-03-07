@@ -9,6 +9,8 @@ import { IoMenuOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
 import { CiSettings } from "react-icons/ci";
 import { IoFastFood } from "react-icons/io5";
+import { BiSolidCategory } from "react-icons/bi";
+import { MdMenuBook } from "react-icons/md";
 
 export default function AdminSidebar() {
 
@@ -50,7 +52,7 @@ export default function AdminSidebar() {
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           }>
           <FaTags size={21} />
-          <span className='adminSidebar__span'>Categorías</span>
+          <span className='adminSidebar__span'>Categorías Productos</span>
         </NavLink>
 
         <NavLink to={"/admin/suppliers-list"}
@@ -74,10 +76,26 @@ export default function AdminSidebar() {
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >
-          <IoFastFood  size={19} />
+          <IoFastFood size={19} />
           <span className='adminSidebar__span'>Adiciones</span>
         </NavLink>
 
+        <NavLink to={"/admin/category-menu-list"}
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <BiSolidCategory size={19} />
+          <span className='adminSidebar__span'>Categorias Menu</span>
+        </NavLink>
+
+
+        <NavLink to={"/admin/menu-list"}
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <MdMenuBook  size={19} />
+          <span className='adminSidebar__span'>Menu</span>
+        </NavLink>
 
         <NavLink to={"/admin/pqrs-list"}
           className={({ isActive }) =>
@@ -87,7 +105,7 @@ export default function AdminSidebar() {
           <span className='adminSidebar__span'>PQRS</span>
         </NavLink>
 
-        
+
 
 
 
