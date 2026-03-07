@@ -56,6 +56,13 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
     }
   }, [initialData]);
 
+  const formIsEqual =
+    initialData?.name === formData.name &&
+    initialData?.description === formData.description &&
+    initialData?.price === Number(formData.price) &&
+    initialData?.available === formData.available &&
+    (initialData?.imageUrl ?? null) === (formData.imageUrl ?? null);
+
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -134,7 +141,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
     <form className='additionForm__form' onSubmit={handleSubmit}>
 
       <TittleCrud
-        tittle={mode === "admin-create" ?  "Crear nueva adición" : "Actualizar adicion"}
+        tittle={mode === "admin-create" ? "Crear nueva adición" : "Actualizar adicion"}
         description="Agrega un complemento adicional que los clientes podrán incluir en sus hamburguesas, como extras, toppings o acompañamientos."
       />
 
@@ -161,11 +168,9 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
         <CheckboxCrud id='addition-form-available' label='Disponibilidad' checkboxLabel='Marcar disponibilidad' name='available' onChange={onInputChange} checked={formData.available} />
       </div>
 
-      <div className='additionForm__container-buttom'>
-        <div className="additionForm__container-button">
-          <ButtonSubmitCrud id='addition-form-submit' label={mode === "admin-create" ? "Crear adicion" : "Actualizar adicion"} />
-        </div>
-      </div>
+
+      <ButtonSubmitCrud id='addition-form-submit' disabled={formIsEqual} label={mode === "admin-create" ? "Crear adicion" : "Actualizar adicion"} />
+
     </form>
   )
 }

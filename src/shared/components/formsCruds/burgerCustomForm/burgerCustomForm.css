@@ -143,11 +143,6 @@
     cursor: pointer;
 }
 
-.burgerCustomForm__container-buttom {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-}
 
 
 .burgerCustomForm__container-secound {

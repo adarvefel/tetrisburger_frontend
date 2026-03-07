@@ -8,8 +8,12 @@ interface ButtonSubmitProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function ButtonSubmitCrud({ label = "Enviar", ...rest }: ButtonSubmitProps) {
   return (
-    <button type="submit" className="buttonSubmitCrud__button" {...rest}>
-      <FaSave size={20}/> {label}
-    </button>
+
+    <div className="buttonSubmitCrud__container-button">
+      <button type="submit" className="buttonSubmitCrud__button" {...rest}>
+        <FaSave size={20} /> {label}
+      </button>
+    </div>
+
   )
 }

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { UpdatePqrsUserRequestDto } from '../../../../features/user/pqrs/dto/pqrsUserDto';
 import { UpdatePqrsAdminRequestDto } from '../../../../entities/pqrs/dto/pqrsDto';
 import { toast } from 'sonner';
+import ButtonSubmitCrud from '../../componetsCrud/buttonSubmit/ButtonSubmitCrud';
 
 type FormMode = "user-update" | "admin-update";
 
@@ -57,6 +58,15 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
     }
   }, [initialData]);
 
+  const formIsEqual =
+    (initialData?.type ?? "") === formData.type &&
+    (initialData?.status ?? "") === formData.status &&
+    (initialData?.priority ?? "") === formData.priority &&
+    (initialData?.subject ?? "") === formData.subject &&
+    (initialData?.description ?? "") === formData.description &&
+    (initialData?.response ?? "") === formData.response
+
+    
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
@@ -271,10 +281,7 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
 
       </div>
 
-      <div className="pqrsForm__container-button">
-        <button className='pqrsForm__button'>Actualizar PQRS</button>
-      </div>
-
+      <ButtonSubmitCrud id='pqrs-form-submit' label='Actualizar PQRS' disabled={formIsEqual}/>
 
     </form>
   )

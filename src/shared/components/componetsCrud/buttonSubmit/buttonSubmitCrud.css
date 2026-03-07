@@ -1,5 +1,11 @@
-.buttonSubmitCrud__button {
+.buttonSubmitCrud__container-button{
     width: 100%;
+    display: flex;
+    justify-content: end;
+
+}
+
+.buttonSubmitCrud__button {   
     color: #FFFFFF;
     background-color: #E53935;
     text-decoration: none;
@@ -21,4 +27,17 @@
     color: #bdbdbd;
     background-color: #982523;
     cursor: pointer;
+}
+
+.buttonSubmitCrud__button:disabled {
+    background-color: #d6d6d6;
+    color: #8a8a8a;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.buttonSubmitCrud__button:disabled:hover {
+    background-color: #d6d6d6;
+    color: #8a8a8a;
+    cursor: not-allowed;
 }
