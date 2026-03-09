@@ -71,6 +71,7 @@ import CreateMenuPage from '../pages/admin/menu/createMenuPage/CreateMenuPage'
 import CategoryMenuForm from '../shared/components/formsCruds/categoryMenuForm/CategoryMenuForm'
 import MenuForm from '../shared/components/formsCruds/menuForm/MenuForm'
 import ListConfigurationsPage from '../pages/admin/configurations/listConfigurationsPage/ListConfigurationsPage'
+import LoadingSpinner from '../shared/components/loadings/loadingSpinner/LoadingSpinner'
 
 
 
@@ -206,7 +207,7 @@ export default function Router() {
 
         <Route path='/prueba30' element={<InputSearch />} />
 
-        <Route path='/prueba31' element={<></>}/>
+        <Route path='/prueba31' element={<LoadingSpinner />}/>
 
       </Routes>
     </BrowserRouter>

@@ -10,6 +10,7 @@ import { deleteProduct } from "../../../../../entities/product/api/productApi";
 import { toast } from "sonner";
 import imageProductoNotFound from "./../../../../../assets/productNotFound.png"
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function ProductList() {
 
@@ -47,6 +48,10 @@ export default function ProductList() {
         fetchProductList();
         toast.success("Producto eliminado con exito.");
     };
+
+    if (loading) {
+        return <LoadingSpinner />
+    }
 
 
 
@@ -113,7 +118,7 @@ export default function ProductList() {
                             <Td>{product.productType === "SIDE" ? "Acompañamiento" : product.productType === "INGREDIENT" ? "Ingrediente" : "Bebida"}</Td>
                             <Td>{`$${product.price}`}</Td>
                             <Td>{product.quantity}</Td>
-                            
+
 
                             <Td><span className={`tableComponents__span-${product.availability ? "green" : "red"}`}> {product.availability ? "Disponible" : "No disponible"} </span> </Td>
 

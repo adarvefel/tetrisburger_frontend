@@ -1,0 +1,29 @@
+.loadingSpinner{
+    width: 100%;
+    height: 100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+    
+}
+
+.loadingSpinner__spinner{
+    width:40px;
+    height:40px;
+    border:4px solid #eee;
+    border-top:4px solid #ff6600;
+    border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+
+.loadingSpinner__p{
+    font-family: "Montserrat";
+    color: black;
+}
+
+@keyframes spin{
+    0%{transform:rotate(0deg)}
+    100%{transform:rotate(360deg)}
+}

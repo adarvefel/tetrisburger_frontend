@@ -9,6 +9,7 @@ import photoBurgerNotFound from "../../../../../assets/burgerNotFound.png"
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { toast } from 'sonner';
 import { deleteBurger } from '../../../../../entities/burger/api/burgerApi';
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 
 export default function ListBurger() {
@@ -16,7 +17,7 @@ export default function ListBurger() {
     const { loading, error, burgers, numberPage, totalPage, nextPage, prevPage, handleListBurgers, name, setName } = useListBurger();
 
 
-    const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
     }
 
@@ -46,6 +47,10 @@ export default function ListBurger() {
         toast.success("Adicion eliminado con exito.");
     };
 
+    if (loading) {
+        return <LoadingSpinner />
+    }
+
     return (
         <div className="listBurger__container-global">
 
@@ -65,7 +70,7 @@ export default function ListBurger() {
             <div className="listBurger__container-top">
 
                 <div className="listBurger__container-input-search">
-                    <InputSearch placeholder='Buscar por nombre ...' name='name' onChange={onInputChange} value={name}/>
+                    <InputSearch placeholder='Buscar por nombre ...' name='name' onChange={onInputChange} value={name} />
                 </div>
 
                 <ButtonCasual linkRedireccion='/admin/burger-create' mensagge='+ Nueva Hamburguesa' />

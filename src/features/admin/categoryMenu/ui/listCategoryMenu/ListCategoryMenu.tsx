@@ -7,10 +7,11 @@ import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { deleteCategoryMenu } from '../../../../../entities/categoryMenu/api/categoryMenuApi';
 import ButtonCasual from '../../../../../shared/components/buttonCasual/ButtonCasual';
 import { useListCategoryMenu } from '../../hooks/useListCategoryMenu';
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 export default function ListCategoryMenu() {
 
-    const {loading, error, categorysMenu, numberPage, totalPage, nextPage, prevPage, handleListCategoryMenu} = useListCategoryMenu();
+    const { loading, error, categorysMenu, numberPage, totalPage, nextPage, prevPage, handleListCategoryMenu } = useListCategoryMenu();
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -36,6 +37,10 @@ export default function ListCategoryMenu() {
         handleListCategoryMenu();
         toast.success("Categoria menu eliminado con exito.");
     };
+
+    if (loading) {
+        return <LoadingSpinner />
+    }
 
     return (
         <div className="listCategoryMenu__container-global">
@@ -79,7 +84,7 @@ export default function ListCategoryMenu() {
                             <Td>{categoryMenu.menuCategoryName}</Td>
                             <Td>{categoryMenu.description}</Td>
 
-                            
+
                             <Td>
                                 <TableActions
                                     linkEdit={`/admin/category-menu/update/${categoryMenu.idMenuCategory}`}

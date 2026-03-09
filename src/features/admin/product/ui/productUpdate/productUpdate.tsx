@@ -4,6 +4,7 @@ import ProductForm from "../../../../../shared/components/formsCruds/productForm
 import { useProductFindById } from "../../hooks/useProductFindById";
 import { useProductUpdate } from "../../hooks/useProductUpdate";
 import { useEffect } from "react";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function ProductUpdate() {
 
@@ -17,6 +18,10 @@ export default function ProductUpdate() {
             handleProductFindById(Number(id));
         }
     }, [id]);
+
+    if (findLoading) {
+        return <LoadingSpinner />
+    }
 
     return (
 

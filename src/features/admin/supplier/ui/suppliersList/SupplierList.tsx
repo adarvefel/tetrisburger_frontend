@@ -8,6 +8,7 @@ import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 import { toast } from "sonner";
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function SupplierList() {
   const {
@@ -47,6 +48,10 @@ export default function SupplierList() {
     fetchSupplierList();
     toast.success("supplier eliminado con exito.");
   };
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <div className="productList__container-global">
@@ -93,7 +98,7 @@ export default function SupplierList() {
               <Td>{supplier.email}</Td>
               <Td>{supplier.phone}</Td>
               <Td>{supplier.address}</Td>
-             
+
               <Td>
                 <TableActions
                   linkEdit={`/admin/suppliers/update/${supplier.id}`}

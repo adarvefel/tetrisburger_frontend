@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { deleteAddition } from '../../../../../entities/addition/api/additionApi';
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 export default function ListAddition() {
 
@@ -43,6 +44,10 @@ export default function ListAddition() {
     handleListAdditions();
     toast.success("Adicion eliminado con exito.");
   };
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <div className="listAddition__container-global">

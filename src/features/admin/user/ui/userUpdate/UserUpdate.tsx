@@ -5,6 +5,7 @@ import UserForm from '../../../../../shared/components/formsCruds/userForm/UserF
 import { useUserFindById } from "../../hooks/useUserFindById"
 import { useUserUpdate } from "../../hooks/useUserUpdate";
 import { useEffect } from "react";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function UserUpdate() {
 
@@ -18,6 +19,10 @@ export default function UserUpdate() {
             handleUserFindById(Number(id));
         }
     }, [id])
+
+    if (findLoading) {
+        return <LoadingSpinner/>
+    }
 
 
     return (

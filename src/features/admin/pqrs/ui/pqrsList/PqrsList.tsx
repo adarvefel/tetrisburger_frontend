@@ -8,10 +8,12 @@ import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import { deletePqrs } from "../../../../../entities/pqrs/api/pqrsApi";
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
 import { toast } from "sonner";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function PqrsList() {
 
   const {
+    loading,
     pqrs,
     numberPage,
     totalPage,
@@ -48,6 +50,10 @@ export default function PqrsList() {
     handlePqrsList();
     toast.success("PQRS eliminado con exito.");
   };
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <div className="pqrsList__container-global">

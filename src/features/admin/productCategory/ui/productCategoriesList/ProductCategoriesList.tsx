@@ -8,6 +8,7 @@ import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 import { toast } from "sonner";
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 
 export default function CategoryList() {
@@ -47,6 +48,10 @@ export default function CategoryList() {
     fetchCategoryList();
     toast.success("productCategory eliminado con exito.");
   };
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <div className="productList__container-global">
@@ -89,8 +94,8 @@ export default function CategoryList() {
               <Td>{category.name}</Td>
               <Td>{category.description}</Td>
               <Td><span className={`tableComponents__span-${category.available ? "green" : "red"}`}> {category.available ? "Disponible" : "No disponible"} </span> </Td>
-              
-              
+
+
 
               <Td>
                 <TableActions
