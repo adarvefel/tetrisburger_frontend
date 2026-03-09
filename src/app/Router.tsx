@@ -69,6 +69,7 @@ import UpdateMenuPage from '../pages/admin/menu/updateMenuPage/UpdateMenuPage'
 import ListMenuPage from '../pages/admin/menu/listMenuPage/ListMenuPage'
 import CreateMenuPage from '../pages/admin/menu/createMenuPage/CreateMenuPage'
 import CategoryMenuForm from '../shared/components/formsCruds/categoryMenuForm/CategoryMenuForm'
+import MenuForm from '../shared/components/formsCruds/menuForm/MenuForm'
 
 
 
@@ -194,7 +195,7 @@ export default function Router() {
         <Route path='/prueba27' element={<CreateBurger />} />
 
 
-        <Route path='/prueba28' element={<CategoryMenuForm />} />
+        <Route path='/prueba28' element={<MenuForm />} />
 
         <Route path='/prueba29' element={<InputNumberCrud />} />
 

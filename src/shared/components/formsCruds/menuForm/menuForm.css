@@ -1,0 +1,177 @@
+.menuForm__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex: 3;
+
+}
+
+
+
+
+
+.menuForm__container-image {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.6rem;
+    border: 2px solid #E7DCDC;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menuForm__container-data {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.6rem;
+    border: 2px solid #E7DCDC;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menuForm__container-actions {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.6rem;
+    border: 2px solid #E7DCDC;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+}
+
+.menuForm__container-checks {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menuForm__container-ingredients {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.6rem;
+    border: 2px solid #E7DCDC;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.menuForm__container-tittle {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menuForm__button-add {
+    border: none;
+    font-size: 0.7rem;
+    color: red;
+    background-color: transparent;
+    font-family: "Montserrat";
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.menuForm__button-add:hover {
+
+    cursor: pointer;
+}
+
+.menuForm__container-list {
+
+    height: 17rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: auto;
+}
+
+.menuForm__card-ingredient {
+    background-color: #f9f9f9;
+    border-radius: 0.3rem;
+    color: black;
+    font-family: "Montserrat";
+    font-size: 0.8rem;
+    display: grid;
+    align-items: center;
+    grid-template-columns: 1fr 2fr 2fr 2fr 1.5rem;
+    padding: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.menuForm__container-img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.menuForm__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menuForm__span {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.7rem;
+}
+
+.menuForm__container-quantity {
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.menuForm__button {
+    border: none;
+    background-color: transparent;
+}
+
+.menuForm__button:hover {
+    cursor: pointer;
+}
+
+
+
+.menuForm__container-secound {
+    flex: 1;
+}
+
+.menuForm__container-analitic {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.6rem;
+    border: 2px solid #E7DCDC;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    
+    
+    position: sticky;
+    top: 1rem;
+}
+
+
+.menuForm__span-2{
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    font-family: "Montserrat";
+    font-size: 0.7rem;
+
+}
+
+.menuForm__strong-green{
+    color: green;
+}
+
+.menuForm__strong-red{
+    color: red;
+}
