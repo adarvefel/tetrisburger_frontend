@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ButtonSubmitCrud from '../../componetsCrud/buttonSubmit/ButtonSubmitCrud';
 import Line from '../../componetsCrud/fields/line/Line';
 import SubTittleCrud from '../../componetsCrud/subTittle/SubTittleCrud';
@@ -24,8 +24,18 @@ import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNum
 import { useMenuForm } from './useMenuForm';
 import ListIngredientsBurger from '../../../../features/admin/burger/ui/listIngredientsBurger/ListIngredientsBurger';
 import AsyncSearchSelect from '../../componetsCrud/fields/asyncSearchSelect/AsyncSearchSelect';
+import { MenuResponseDTO } from '../../../../entities/menu/dto/menuDto';
 
-export default function MenuForm() {
+type FormMode = "admin-create" | "admin-update";
+
+interface MenuFormProps {
+    mode: FormMode;
+    initialData?: MenuResponseDTO
+    onSubmit: (data: any) => Promise<any>
+}
+
+
+export default function MenuForm({ mode, initialData, onSubmit }: MenuFormProps) {
 
     const {
         modelIngredients,
@@ -40,10 +50,43 @@ export default function MenuForm() {
         loadBurgers
     } = useMenuForm();
 
+    const [image, setImage] = useState<File | null>(null);
+
 
     const handleBurgerChange = (option: any) => {
         console.log(option.value); // idBurger
     }
+
+    const [form, setForm] = useState({
+        idMenu: initialData?.idMenu ?? 0,
+        name: initialData?.name ?? "",
+        description: initialData?.description ?? "",
+        regularPrice: initialData?.regularPrice ?? 0,
+        comboPrice: initialData?.comboPrice ?? 0,
+        isAvailable: initialData?.isAvailable ?? true,
+        imageUrl: initialData?.imageUrl ?? null,
+        idMenuCategory: initialData?.idMenuCategory ?? 0,
+        items: initialData?.items ?? []
+    });
+
+    useEffect(() => {
+        if (initialData) {
+            setForm({
+                idMenu: initialData?.idMenu ?? 0,
+                name: initialData?.name ?? "",
+                description: initialData?.description ?? "",
+                regularPrice: initialData?.regularPrice ?? 0,
+                comboPrice: initialData?.comboPrice ?? 0,
+                isAvailable: initialData?.isAvailable ?? true,
+                imageUrl: initialData?.imageUrl ?? null,
+                idMenuCategory: initialData?.idMenuCategory ?? 0,
+                items: initialData?.items ?? []
+            });
+
+            setIngredientsList(initialData.items ?? []);
+
+        }
+    }, [initialData]);
 
 
 

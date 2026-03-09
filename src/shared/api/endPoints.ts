@@ -109,6 +109,10 @@ export const endPoints = {
             findById: (id: number) => `/api/menu-category/${id}`,
             delete: (id: number) => `/api/menu-category/${id}`,
             list: (numberPage: number) => `/api/menu-categories?page=${numberPage}&size=10`,
+        },
+
+        menu: {
+            create: "/api/menu",
         }
 
 
