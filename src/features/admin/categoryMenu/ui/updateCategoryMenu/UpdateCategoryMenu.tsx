@@ -8,7 +8,7 @@ import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpi
 
 export default function UpdateCategoryMenu() {
 
-  const { handleUpdateCategoryMenu } = useUpdateCategoryMenu();
+  const {loading: updateLoading, handleUpdateCategoryMenu } = useUpdateCategoryMenu();
   const { loading: findLoading, handleFindByIdCategoryMenu, categoryMenu } = useFindByIdCategoryMenu();
 
   const { id } = useParams<{ id: string }>()
@@ -22,6 +22,6 @@ export default function UpdateCategoryMenu() {
   }
 
   return (
-    <CategoryMenuForm mode='admin-update' initialData={categoryMenu} onSubmit={(data) => handleUpdateCategoryMenu(Number(id), data)} />
+    <CategoryMenuForm mode='admin-update' initialData={categoryMenu} onSubmit={(data) => handleUpdateCategoryMenu(Number(id), data)} loading={updateLoading} />
   )
 }

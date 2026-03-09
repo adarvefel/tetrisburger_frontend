@@ -25,9 +25,10 @@ interface PqrsFormProps {
     assignedTo?: number;
   }
   onSubmit: (data: any) => Promise<any>
+  loading?: boolean
 }
 
-export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps) {
+export default function PqrsForm({ mode, initialData, onSubmit, loading = false }: PqrsFormProps) {
 
 
   const [formData, setFormData] = useState({
@@ -281,7 +282,7 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
 
       </div>
 
-      <ButtonSubmitCrud id='pqrs-form-submit' label='Actualizar PQRS' disabled={formIsEqual}/>
+      <ButtonSubmitCrud id='pqrs-form-submit' label='Actualizar PQRS' disabled={formIsEqual} loading={loading}/>
 
     </form>
   )

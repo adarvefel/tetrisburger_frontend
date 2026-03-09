@@ -33,6 +33,7 @@ export default function PqrsUpdate() {
             mode="admin-update"
             initialData={pqrs}
             onSubmit={(data) => handlePqrsUpdate(Number(id), data)}
+            loading={updateLoading}
         />
 
     )

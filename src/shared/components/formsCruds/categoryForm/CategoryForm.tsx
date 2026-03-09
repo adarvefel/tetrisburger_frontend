@@ -19,12 +19,14 @@ interface CategoryFormProps {
     available?: boolean;
   };
   onSubmit: (data: any) => Promise<any>;
+  loading?: boolean
 }
 
 export default function CategoryForm({
   mode,
   initialData,
   onSubmit,
+  loading = false
 }: CategoryFormProps) {
 
   const [formData, setFormData] = useState({
@@ -191,7 +193,7 @@ export default function CategoryForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-          <ButtonSubmitCrud id="category-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear categoría" : "Guardar cambios"}/>
+          <ButtonSubmitCrud id="category-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear categoría" : "Guardar cambios"} loading={loading}/>
         </div>
       </div>
     </form>

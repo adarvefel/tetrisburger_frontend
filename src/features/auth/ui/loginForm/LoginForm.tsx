@@ -86,7 +86,7 @@ export default function LoginForm() {
 
             <div className="loginForm__buttonSubmit">
                 {error && <p className='loginForm__p'>{error}</p>}
-                <ButtonSubmit disabled={loading} textButton={loading ? "CARGANDO..." : "INICIAR SESION"} />
+                <ButtonSubmit disabled={loading} textButton={"INICIAR SESION"} loading={loading}/>
             </div>
 
 

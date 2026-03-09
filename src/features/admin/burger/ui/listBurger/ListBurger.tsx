@@ -47,9 +47,7 @@ export default function ListBurger() {
         toast.success("Adicion eliminado con exito.");
     };
 
-    if (loading) {
-        return <LoadingSpinner />
-    }
+
 
     return (
         <div className="listBurger__container-global">
@@ -77,48 +75,51 @@ export default function ListBurger() {
 
             </div>
 
-            <TableLayout>
+            {loading ? <LoadingSpinner /> : (
+                <TableLayout>
 
-                <TableHead>
-                    <tr>
-                        <Th>ID</Th>
-                        <Th>FOTO</Th>
-                        <Th>NOMBRE</Th>
-                        <Th>PRECIO FINAL</Th>
-                        <Th>DISPONIBILIDAD</Th>
-                        <Th>ACCIONES</Th>
-                    </tr>
-                </TableHead>
-
-                <TableBody>
-                    {burgers?.map((burger) => (
-                        <tr key={burger.idBurger}>
-
-                            <Td>{burger.idBurger}</Td>
-
-                            <Td>
-                                <div className="tableComponents__container-img">
-                                    <img className="tableComponents__img" src={burger.imageUrl ? burger.imageUrl : photoBurgerNotFound} alt="" />
-                                </div>
-                            </Td>
-
-                            <Td>{burger.name}</Td>
-                            <Td>${burger.finalPrice}</Td>
-
-                            <Td><span className={`tableComponents__span-${burger.availability ? "green" : "red"}`}> {burger.availability ? "DIsponible" : "No disponible"} </span> </Td>
-
-                            <Td>
-                                <TableActions
-                                    linkEdit={`/admin/burger/update/${burger.idBurger}`}
-                                    onDelete={() => openDeleteModal(burger)}
-                                />
-                            </Td>
-
+                    <TableHead>
+                        <tr>
+                            <Th>ID</Th>
+                            <Th>FOTO</Th>
+                            <Th>NOMBRE</Th>
+                            <Th>PRECIO FINAL</Th>
+                            <Th>DISPONIBILIDAD</Th>
+                            <Th>ACCIONES</Th>
                         </tr>
-                    ))}
-                </TableBody>
+                    </TableHead>
 
-            </TableLayout>
+                    <TableBody>
+                        {burgers?.map((burger) => (
+                            <tr key={burger.idBurger}>
+
+                                <Td>{burger.idBurger}</Td>
+
+                                <Td>
+                                    <div className="tableComponents__container-img">
+                                        <img className="tableComponents__img" src={burger.imageUrl ? burger.imageUrl : photoBurgerNotFound} alt="" />
+                                    </div>
+                                </Td>
+
+                                <Td>{burger.name}</Td>
+                                <Td>${burger.finalPrice}</Td>
+
+                                <Td><span className={`tableComponents__span-${burger.availability ? "green" : "red"}`}> {burger.availability ? "DIsponible" : "No disponible"} </span> </Td>
+
+                                <Td>
+                                    <TableActions
+                                        linkEdit={`/admin/burger/update/${burger.idBurger}`}
+                                        onDelete={() => openDeleteModal(burger)}
+                                    />
+                                </Td>
+
+                            </tr>
+                        ))}
+                    </TableBody>
+                </TableLayout>
+            )}
+
+
 
             <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 

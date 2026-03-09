@@ -10,7 +10,7 @@ export default function UpdateAddition() {
 
   const {loading: findLoading, addition, handleFindByIdAddition } = useFindByIdAddition();
 
-  const { handleUpdateAddition } = useUpdateAddition();
+  const {loading: updateLoading, handleUpdateAddition } = useUpdateAddition();
 
   const { id } = useParams<{ id: string }>();
 
@@ -25,6 +25,6 @@ export default function UpdateAddition() {
   }
 
   return (
-    <AdditionForm mode='admin-update' initialData={addition} onSubmit={(data) => handleUpdateAddition(Number(id), data)} />
+    <AdditionForm mode='admin-update' initialData={addition} onSubmit={(data) => handleUpdateAddition(Number(id), data)} loading={updateLoading}/>
   )
 }

@@ -12,6 +12,7 @@ import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import photoNotFound from "../../../../../assets/productNotFound.png"
 import { useListProducts } from '../../../menu/hooks/useListProducts'
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner'
 
 type FormMode = "menu" | "burger";
 interface Props {
@@ -40,7 +41,7 @@ export default function ListIngredientsBurger({ mode = "burger", onClose, onAddI
     setName,
     name
   } = data;
-  
+
   const { items: categories, loading: loadingCategories } = useProductCategories();
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -68,29 +69,31 @@ export default function ListIngredientsBurger({ mode = "burger", onClose, onAddI
 
         <Line />
 
-        <div className="listIngredientsBurger__container-list">
+        {loading ? <LoadingSpinner /> : (
+          <div className="listIngredientsBurger__container-list">
 
-          {
-            ingredients.map((ingredient) => (
-              <div key={ingredient.idProduct} className="listIngredientsBurger__card-ingredient">
+            {
+              ingredients.map((ingredient) => (
+                <div key={ingredient.idProduct} className="listIngredientsBurger__card-ingredient">
 
-                <div className="listIngredientsBurger__container-img">
-                  <img className='listIngredientsBurger__img' src={ingredient.imageUrl ?? photoNotFound} />
+                  <div className="listIngredientsBurger__container-img">
+                    <img className='listIngredientsBurger__img' src={ingredient.imageUrl ?? photoNotFound} />
+                  </div>
+
+                  <span className='listIngredientsBurger__span'>{ingredient.name}</span>
+
+                  <span className='listIngredientsBurger__span'>${ingredient.price} / unit</span>
+
+
+                  <span className='listIngredientsBurger__span'>{ingredient.availability ? "Disponible" : "No disponible"}</span>
+
+                  <button className='listIngredientsBurger__button-add' type='button' onClick={() => onAddIngredient(ingredient)}>Agregar</button>
+
                 </div>
+              ))}
 
-                <span className='listIngredientsBurger__span'>{ingredient.name}</span>
-
-                <span className='listIngredientsBurger__span'>${ingredient.price} / unit</span>
-
-
-                <span className='listIngredientsBurger__span'>{ingredient.availability ? "Disponible" : "No disponible"}</span>
-
-                <button className='listIngredientsBurger__button-add' type='button' onClick={() => onAddIngredient(ingredient)}>Agregar</button>
-
-              </div>
-            ))}
-
-        </div>
+          </div>
+        )}
 
         <Line />
 

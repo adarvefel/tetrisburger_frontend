@@ -49,9 +49,6 @@ export default function UserList() {
         toast.success("Usuario eliminado con exito.");
     };
 
-    if (loading) {
-        return <LoadingSpinner />
-    }
 
     return (
         <div className="userList__container-global">
@@ -86,6 +83,7 @@ export default function UserList() {
 
             </div>
 
+            {loading ? <LoadingSpinner /> : (
             <TableLayout>
 
                 <TableHead>
@@ -128,6 +126,9 @@ export default function UserList() {
                 </TableBody>
 
             </TableLayout>
+            )}
+
+
 
             <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 

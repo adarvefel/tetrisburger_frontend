@@ -51,9 +51,6 @@ export default function PqrsList() {
     toast.success("PQRS eliminado con exito.");
   };
 
-  if (loading) {
-    return <LoadingSpinner />
-  }
 
   return (
     <div className="pqrsList__container-global">
@@ -107,42 +104,47 @@ export default function PqrsList() {
         </div>
       </div>
 
+
       {/* ---------- TABLE ---------- */}
-      <TableLayout>
 
-        <TableHead>
-          <tr>
-            <Th>ID</Th>
-            <Th>TIPO</Th>
-            <Th>PRIORIDAD</Th>
-            <Th>ESTADO</Th>
-            <Th>ACCIONES</Th>
-          </tr>
-        </TableHead>
+      {loading ? <LoadingSpinner /> : (
+        <TableLayout>
 
-        <TableBody>
-          {pqrs.map((pqr) => (
-            <tr key={pqr.idPqrs}>
-
-              <Td>{pqr.idPqrs}</Td>
-              <Td>{pqr.type === "PETITION" ? "Peticion" : pqr.type === "COMPLAINT" ? "Queja" : pqr.type === "CLAIM" ? "Reclamo" : pqr.type === "SUGGESTION" ? "Sugerencia" : pqr.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</Td>
-              <Td>{pqr.priority === "HIGH" ? "Alta" : pqr.priority === "LOW" ? "Baja" : pqr.priority === "MEDIUM" ? "Media" : "Critica"}</Td>
-              <Td><span className={`tableComponents__span-${pqr.status === "ANSWERED" ? "green" : "red"}`}> {pqr.status === "ANSWERED" ? "Respondido" : "Recibido"} </span> </Td>
-
-
-
-              <Td>
-                <TableActions
-                  linkEdit={`/admin/pqrs/update/${pqr.idPqrs}`}
-                  onDelete={() => openDeleteModal(pqr)}
-                />
-              </Td>
-
+          <TableHead>
+            <tr>
+              <Th>ID</Th>
+              <Th>TIPO</Th>
+              <Th>PRIORIDAD</Th>
+              <Th>ESTADO</Th>
+              <Th>ACCIONES</Th>
             </tr>
-          ))}
-        </TableBody>
+          </TableHead>
 
-      </TableLayout>
+          <TableBody>
+            {pqrs.map((pqr) => (
+              <tr key={pqr.idPqrs}>
+
+                <Td>{pqr.idPqrs}</Td>
+                <Td>{pqr.type === "PETITION" ? "Peticion" : pqr.type === "COMPLAINT" ? "Queja" : pqr.type === "CLAIM" ? "Reclamo" : pqr.type === "SUGGESTION" ? "Sugerencia" : pqr.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</Td>
+                <Td>{pqr.priority === "HIGH" ? "Alta" : pqr.priority === "LOW" ? "Baja" : pqr.priority === "MEDIUM" ? "Media" : "Critica"}</Td>
+                <Td><span className={`tableComponents__span-${pqr.status === "ANSWERED" ? "green" : "red"}`}> {pqr.status === "ANSWERED" ? "Respondido" : "Recibido"} </span> </Td>
+
+
+
+                <Td>
+                  <TableActions
+                    linkEdit={`/admin/pqrs/update/${pqr.idPqrs}`}
+                    onDelete={() => openDeleteModal(pqr)}
+                  />
+                </Td>
+
+              </tr>
+            ))}
+          </TableBody>
+
+        </TableLayout>
+      )}
+
 
       <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
     </div>

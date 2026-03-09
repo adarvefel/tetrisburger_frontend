@@ -49,10 +49,6 @@ export default function ProductList() {
         toast.success("Producto eliminado con exito.");
     };
 
-    if (loading) {
-        return <LoadingSpinner />
-    }
-
 
 
     return (
@@ -87,53 +83,57 @@ export default function ProductList() {
                 <ButtonCasual linkRedireccion="/admin/product/create" mensagge="Nuevo Producto" />
             </div>
 
-            <TableLayout>
+            {loading ? <LoadingSpinner /> : (
+                <TableLayout>
 
-                <TableHead>
-                    <tr>
-                        <Th>ID</Th>
-                        <Th>FOTO</Th>
-                        <Th>NOMBRE</Th>
-                        <Th>TIPO</Th>
-                        <Th>PRECIO</Th>
-                        <Th>STOCK</Th>
-                        <Th>DISPONIBILIDAD</Th>
-                        <Th>ACCIONES</Th>
-                    </tr>
-                </TableHead>
-
-                <TableBody>
-                    {products.map((product) => (
-                        <tr key={product.idProduct}>
-
-                            <Td>{product.idProduct}</Td>
-
-                            <Td>
-                                <div className="tableComponents__container-img">
-                                    <img className="tableComponents__img" src={product.imageUrl ? product.imageUrl : imageProductoNotFound} alt="" />
-                                </div>
-                            </Td>
-
-                            <Td>{product.name}</Td>
-                            <Td>{product.productType === "SIDE" ? "Acompañamiento" : product.productType === "INGREDIENT" ? "Ingrediente" : "Bebida"}</Td>
-                            <Td>{`$${product.price}`}</Td>
-                            <Td>{product.quantity}</Td>
-
-
-                            <Td><span className={`tableComponents__span-${product.availability ? "green" : "red"}`}> {product.availability ? "Disponible" : "No disponible"} </span> </Td>
-
-                            <Td>
-                                <TableActions
-                                    linkEdit={`/admin/product/update/${product.idProduct}`}
-                                    onDelete={() => openDeleteModal(product)}
-                                />
-                            </Td>
-
+                    <TableHead>
+                        <tr>
+                            <Th>ID</Th>
+                            <Th>FOTO</Th>
+                            <Th>NOMBRE</Th>
+                            <Th>TIPO</Th>
+                            <Th>PRECIO</Th>
+                            <Th>STOCK</Th>
+                            <Th>DISPONIBILIDAD</Th>
+                            <Th>ACCIONES</Th>
                         </tr>
-                    ))}
-                </TableBody>
+                    </TableHead>
 
-            </TableLayout>
+                    <TableBody>
+                        {products.map((product) => (
+                            <tr key={product.idProduct}>
+
+                                <Td>{product.idProduct}</Td>
+
+                                <Td>
+                                    <div className="tableComponents__container-img">
+                                        <img className="tableComponents__img" src={product.imageUrl ? product.imageUrl : imageProductoNotFound} alt="" />
+                                    </div>
+                                </Td>
+
+                                <Td>{product.name}</Td>
+                                <Td>{product.productType === "SIDE" ? "Acompañamiento" : product.productType === "INGREDIENT" ? "Ingrediente" : "Bebida"}</Td>
+                                <Td>{`$${product.price}`}</Td>
+                                <Td>{product.quantity}</Td>
+
+
+                                <Td><span className={`tableComponents__span-${product.availability ? "green" : "red"}`}> {product.availability ? "Disponible" : "No disponible"} </span> </Td>
+
+                                <Td>
+                                    <TableActions
+                                        linkEdit={`/admin/product/update/${product.idProduct}`}
+                                        onDelete={() => openDeleteModal(product)}
+                                    />
+                                </Td>
+
+                            </tr>
+                        ))}
+                    </TableBody>
+
+                </TableLayout>
+            )}
+
+
 
             <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 

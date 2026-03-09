@@ -31,6 +31,7 @@ export default function UserUpdate() {
             mode="admin-update"
             initialData={user}
             onSubmit={(data) => handleUserUpdate(Number(id), data)}
+            loading={updateLoading}
         />
 
     )

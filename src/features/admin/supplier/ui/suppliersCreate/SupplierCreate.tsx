@@ -5,7 +5,7 @@ import { CreateSupplierDto } from "../../../../../entities/supplier/dto/supplier
 import { useNavigate } from "react-router-dom";
 
 export default function SupplierCreate() {
-  const { handleSupplierCreate } = useSupplierCreate();
+  const { loading, handleSupplierCreate } = useSupplierCreate();
 
-  return <SupplierForm mode="admin-create" onSubmit={(data)=>handleSupplierCreate(data)} />;
+  return <SupplierForm mode="admin-create" onSubmit={(data)=>handleSupplierCreate(data)}  loading={loading}/>;
 }

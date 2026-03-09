@@ -30,9 +30,10 @@ interface AdditionFormProps {
     imageUrl?: string | null;
   }
   onSubmit: (data: any) => Promise<any>
+  loading?: boolean
 }
 
-export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFormProps) {
+export default function AdditionForm({ mode, initialData, onSubmit, loading=false}: AdditionFormProps) {
 
   const [formData, setFormData] = useState({
     idAddition: initialData?.idAddition || 0,
@@ -172,7 +173,7 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
       </div>
 
 
-      <ButtonSubmitCrud id='addition-form-submit' disabled={formIsEqual} label={mode === "admin-create" ? "Crear adicion" : "Actualizar adicion"} />
+      <ButtonSubmitCrud id='addition-form-submit' disabled={formIsEqual} label={mode === "admin-create" ? "Crear adicion" : "Actualizar adicion"} loading={loading} />
 
     </form>
   )

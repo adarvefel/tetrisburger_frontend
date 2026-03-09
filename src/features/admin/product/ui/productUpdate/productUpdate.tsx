@@ -29,6 +29,7 @@ export default function ProductUpdate() {
             mode="admin-update"
             initialData={product}
             onSubmit={(data) => handleProductUpdate(Number(id), data)}
+            loading={updateLoading}
         />
     )
 

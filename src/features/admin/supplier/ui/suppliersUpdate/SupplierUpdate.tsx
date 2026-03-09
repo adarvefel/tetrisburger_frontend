@@ -27,6 +27,7 @@ export default function SupplierUpdate() {
       mode="admin-update"
       initialData={supplier}
       onSubmit={(data) => handleSupplierUpdate(Number(id), data)}
+      loading={updateLoading}
     />
   );
 }

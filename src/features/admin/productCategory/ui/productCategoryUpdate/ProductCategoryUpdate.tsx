@@ -31,6 +31,7 @@ export default function CategoryUpdate() {
       mode="admin-update"
       initialData={category}
       onSubmit={(data) => handleCategoryUpdate(Number(id), data)}
+      loading={updateLoading}
     />
   );
 

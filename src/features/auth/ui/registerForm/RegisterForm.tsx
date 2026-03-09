@@ -96,7 +96,7 @@ export default function RegisterForm() {
 
             <div className="registerForm__buttonSubmit">
                 {error && <p className='registerForm__p'>{error}</p>}
-                <ButtonSubmit disabled={loading} textButton={loading ? "CARGANDO..." : "REGISTRARSE"} />
+                <ButtonSubmit disabled={loading} textButton={"REGISTRARSE"} loading={loading} />
             </div>
         </form>
     )

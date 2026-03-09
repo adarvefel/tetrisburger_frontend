@@ -16,7 +16,7 @@ export default function UpdateProfile() {
 
     return (
         <div className="updateProfile__container-global">
-            <UserForm mode='user-update' onSubmit={handleUpdateProfile} initialData={profile ? profile : undefined} />
+            <UserForm mode='user-update' onSubmit={handleUpdateProfile} initialData={profile ? profile : undefined} loading={updateLoading}/>
         </div>
     )
 }

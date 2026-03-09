@@ -32,9 +32,10 @@ interface BurgerFormProps {
     mode: FormMode;
     initialData?: BurgerResponseDTO
     onSubmit: (data: any) => Promise<any>
+    loading?: boolean
 }
 
-export default function BurgerCustomForm({ mode, initialData, onSubmit }: BurgerFormProps) {
+export default function BurgerCustomForm({ mode, initialData, onSubmit, loading }: BurgerFormProps) {
 
     const {
         modelIngredients,
@@ -297,7 +298,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
                 </div>
 
 
-                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : "Crear hamburguesa"} />
+                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : "Crear hamburguesa"}  loading={loading}/>
 
             </div>
 

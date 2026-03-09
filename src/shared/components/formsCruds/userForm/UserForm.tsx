@@ -20,9 +20,10 @@ interface UserFormProps {
         role?: string;
     }
     onSubmit: (data: any) => Promise<any>
+    loading?: boolean
 }
 
-export default function UserForm({ mode, initialData, onSubmit }: UserFormProps) {
+export default function UserForm({ mode, initialData, onSubmit, loading = false }: UserFormProps) {
 
     const [formData, setFormData] = useState({
         idUser: initialData?.idUser || 0,
@@ -341,7 +342,8 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                             mode === "admin-update" ? "Guardas cambios" :
                                 "Crear usuario"
 
-                    } />
+                        
+                    } loading = {loading} />
                 </div>
 
             </div>

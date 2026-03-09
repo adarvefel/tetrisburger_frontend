@@ -10,7 +10,7 @@ export default function UpdateBurger() {
 
     const {loading: findLoading, bruger, handleFindByIdBurger } = useFindByIdBurger();
 
-    const {  handleUpdateBurger } = useUpdateBurger();
+    const { loading: updateLoading, handleUpdateBurger } = useUpdateBurger();
 
 
     const { id } = useParams<{ id: string }>();
@@ -28,6 +28,6 @@ export default function UpdateBurger() {
 
 
     return (
-        <BurgerCustomForm mode='admin-update' initialData={bruger} onSubmit={(data) => handleUpdateBurger(Number(id), data)} />
+        <BurgerCustomForm mode='admin-update' initialData={bruger} onSubmit={(data) => handleUpdateBurger(Number(id), data)} loading={updateLoading} />
     )
 }
