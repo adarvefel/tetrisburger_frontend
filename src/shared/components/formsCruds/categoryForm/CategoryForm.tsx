@@ -86,9 +86,8 @@ export default function CategoryForm({
 
       if (response.data.id) {
         toast.success("Categoría creada con éxito.");
-        setTimeout(() => {
-          navegator("/admin/category-list");
-        }, 2000)
+        navegator("/admin/category-list");
+        
       }
 
       return
@@ -104,9 +103,7 @@ export default function CategoryForm({
 
     if (response.data.id) {
       toast.success("Categoría actualizada con éxito.");
-      setTimeout(() => {
-        navegator("/admin/category-list");
-      }, 2000)
+      navegator("/admin/category-list");
     }
 
   }

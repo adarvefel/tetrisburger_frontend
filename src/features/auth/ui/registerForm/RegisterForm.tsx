@@ -47,23 +47,14 @@ export default function RegisterForm() {
 
         if (respuesta?.status === 201) {
             toast.success("Usuario registrado exitosamente.");
-            setTimeout(() => {
-                setForm({
-                    userName: "",
-                    email: "",
-                    password: ""
-                });
-                setConfirmarPassword("");
-                navegador("/login");
-            }, 2000);
-
+            navegador("/login");
         }
         return;
     }
 
     return (
         <form className='registerForm__form' onSubmit={onSubmit} action="">
-            
+
 
             <div className='registerForm__titulo'>
                 <TituloForm textTitulo='REGISTRO' />

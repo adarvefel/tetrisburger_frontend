@@ -63,9 +63,7 @@ export default function CategoryMenuForm({ mode, initialData, onSubmit, loading 
 
             if (response.status === 200) {
                 toast.success("Categoria menu actualizada con exito");
-                setTimeout(() => {
-                    nagivation("/admin/category-menu-list");
-                }, 2000)
+                nagivation("/admin/category-menu-list");
                 return
 
             }
@@ -83,9 +81,7 @@ export default function CategoryMenuForm({ mode, initialData, onSubmit, loading 
 
             if (response.status === 201) {
                 toast.success("Categoria menu creada con exito");
-                setTimeout(() => {
-                    nagivation("/admin/category-menu-list");
-                }, 2000)
+               nagivation("/admin/category-menu-list");
                 return
 
             }

@@ -31,21 +31,7 @@ export default function PqrsCreate() {
 
             if (response.status === 201) {
                 toast.success("PQRS enviada correctamente ");
-                
-
-
-
-
-                setTimeout(() => {
-                    setPqrs({
-                        type: "",
-                        subject: "",
-                        description: ""
-                    });
-
-                    navegator("/pqrs-me");
-                }, 2000);
-
+                navegator("/pqrs-me");
             }
         } catch (err: any) {
             toast.error(

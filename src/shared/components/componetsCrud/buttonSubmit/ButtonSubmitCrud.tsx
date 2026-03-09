@@ -24,7 +24,12 @@ export default function ButtonSubmitCrud({
         disabled={isDisabled}
         {...rest}
       >
-        <FaSave size={20} />
+        {loading ? (
+          <span className="buttonSubmitCrud__spinner"></span>
+        ) : (
+          <FaSave size={18} />
+        )}
+
         {loading ? "Enviando..." : label}
       </button>
     </div>

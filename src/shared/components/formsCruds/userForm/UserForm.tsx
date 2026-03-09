@@ -131,9 +131,7 @@ export default function UserForm({ mode, initialData, onSubmit, loading = false 
 
             if (response.data.idUser) {
                 toast.success("Datos actualizados");
-                setTimeout(() => {
-                    navegator("/admin/users-list");
-                }, 2000)
+                navegator("/admin/users-list");
             }
 
             return
@@ -169,9 +167,7 @@ export default function UserForm({ mode, initialData, onSubmit, loading = false 
 
         if (response.data.idUser) {
             toast.success("Usuario Agregado correctamente");
-            setTimeout(() => {
-                navegator("/admin/users-list");
-            }, 2000)
+            navegator("/admin/users-list");
         } else {
             toast.error("Error al intenatar agragar este usuario.");
         }
@@ -342,8 +338,8 @@ export default function UserForm({ mode, initialData, onSubmit, loading = false 
                             mode === "admin-update" ? "Guardas cambios" :
                                 "Crear usuario"
 
-                        
-                    } loading = {loading} />
+
+                    } loading={loading} />
                 </div>
 
             </div>

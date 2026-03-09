@@ -33,7 +33,7 @@ interface AdditionFormProps {
   loading?: boolean
 }
 
-export default function AdditionForm({ mode, initialData, onSubmit, loading=false}: AdditionFormProps) {
+export default function AdditionForm({ mode, initialData, onSubmit, loading = false }: AdditionFormProps) {
 
   const [formData, setFormData] = useState({
     idAddition: initialData?.idAddition || 0,
@@ -57,7 +57,7 @@ export default function AdditionForm({ mode, initialData, onSubmit, loading=fals
     }
   }, [initialData]);
 
-  
+
 
 
   const onInputChange = (
@@ -102,9 +102,7 @@ export default function AdditionForm({ mode, initialData, onSubmit, loading=fals
       const response = await onSubmit(additionCreated);
       if (response.status === 201) {
         toast.success("Adicion creada con éxito.");
-        setTimeout(() => {
-          nagivation("/admin/addition-list");
-        }, 2000)
+        nagivation("/admin/addition-list");
         return
       }
       return
@@ -124,9 +122,7 @@ export default function AdditionForm({ mode, initialData, onSubmit, loading=fals
       const response = await onSubmit(additionUpdated);
       if (response.status === 200) {
         toast.success("Adicion actualizada con éxito.");
-        setTimeout(() => {
-          nagivation("/admin/addition-list");
-        }, 2000)
+        nagivation("/admin/addition-list");
         return
       }
       return
@@ -134,12 +130,12 @@ export default function AdditionForm({ mode, initialData, onSubmit, loading=fals
   }
 
   const formIsEqual =
-  (initialData?.name ?? "") === formData.name &&
-  (initialData?.description ?? "") === formData.description &&
-  (initialData?.price ?? 0) === Number(formData.price) &&
-  (initialData?.available ?? false) === formData.available &&
-  (initialData?.imageUrl ?? null) === (formData.imageUrl ?? null) &&
-  imageFile === null;
+    (initialData?.name ?? "") === formData.name &&
+    (initialData?.description ?? "") === formData.description &&
+    (initialData?.price ?? 0) === Number(formData.price) &&
+    (initialData?.available ?? false) === formData.available &&
+    (initialData?.imageUrl ?? null) === (formData.imageUrl ?? null) &&
+    imageFile === null;
 
   return (
     <form className='additionForm__form' onSubmit={handleSubmit}>
@@ -161,11 +157,11 @@ export default function AdditionForm({ mode, initialData, onSubmit, loading=fals
 
         <Line />
 
-        <InputCrud id='addition-form-id' label='ID adicion' name='idAddition' onChange={onInputChange} value={formData.idAddition} disabled/>
+        <InputCrud id='addition-form-id' label='ID adicion' name='idAddition' onChange={onInputChange} value={formData.idAddition} disabled />
 
-        <InputCrud id='addition-form-name' label='Nombre de la adicion' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={formData.name} required/>
+        <InputCrud id='addition-form-name' label='Nombre de la adicion' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={formData.name} required />
 
-        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' rows={3} placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} required/>
+        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' rows={3} placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} required />
 
         <InputNumberCrud id='addition-form-price' label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} required />
 

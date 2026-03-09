@@ -82,9 +82,7 @@ export default function SupplierForm({
       const res = await onSubmit(createData);
       if (res.data?.id) {
         toast.success("Proveedor creado con éxito.");
-        setTimeout(() => {
-          nagivation("/admin/suppliers-list");
-        }, 2000);
+        nagivation("/admin/suppliers-list");
       }
 
       return;
@@ -102,9 +100,7 @@ export default function SupplierForm({
     const res = await onSubmit(updateData);
     if (res.data?.id) {
       toast.success("Proveedor actualizado   con éxito.");
-      setTimeout(() => {
-        nagivation("/admin/suppliers-list");
-      }, 2000);
+      nagivation("/admin/suppliers-list");
     }
 
   }

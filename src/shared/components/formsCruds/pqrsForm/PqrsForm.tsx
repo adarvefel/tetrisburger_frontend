@@ -111,9 +111,7 @@ export default function PqrsForm({ mode, initialData, onSubmit, loading = false 
         const res = await onSubmit(pqrsUpdate);
         if (res.data?.idPqrs) {
           toast.success("Datos actualizados");
-          setTimeout(() => {
-            nagivation("/admin/pqrs-list");
-          }, 2000);
+          nagivation("/admin/pqrs-list");
         }
         else {
           toast.error("Datos no actualizados, error inesperado.")
@@ -151,9 +149,7 @@ export default function PqrsForm({ mode, initialData, onSubmit, loading = false 
       const res = await onSubmit(pqrsUpdate);
       if (res.data?.idPqrs) {
         toast.success("Datos actualizados");
-        setTimeout(() => {
-          nagivation("/pqrs-me");
-        }, 2000);
+        nagivation("/pqrs-me");
       }
       else {
         toast.error("Datos no actualizados, error inesperado.")
