@@ -70,6 +70,7 @@ import ListMenuPage from '../pages/admin/menu/listMenuPage/ListMenuPage'
 import CreateMenuPage from '../pages/admin/menu/createMenuPage/CreateMenuPage'
 import CategoryMenuForm from '../shared/components/formsCruds/categoryMenuForm/CategoryMenuForm'
 import MenuForm from '../shared/components/formsCruds/menuForm/MenuForm'
+import ListConfigurationsPage from '../pages/admin/configurations/listConfigurationsPage/ListConfigurationsPage'
 
 
 
@@ -135,6 +136,8 @@ export default function Router() {
         <Route path="/admin/menu-create" element={<ProtectedRoute requireAdmin><CreateMenuPage /></ProtectedRoute>} />
         <Route path="/admin/menu-list" element={<ProtectedRoute requireAdmin><ListMenuPage /></ProtectedRoute>} />
         <Route path="/admin/menu/update/:id" element={<ProtectedRoute requireAdmin><UpdateMenuPage /></ProtectedRoute>} />
+
+        <Route path="/admin/configurations-list" element={<ProtectedRoute requireAdmin><ListConfigurationsPage /></ProtectedRoute>} />
 
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
@@ -202,6 +205,8 @@ export default function Router() {
 
 
         <Route path='/prueba30' element={<InputSearch />} />
+
+        <Route path='/prueba31' element={<></>}/>
 
       </Routes>
     </BrowserRouter>

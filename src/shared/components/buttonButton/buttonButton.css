@@ -1,6 +1,7 @@
-.buttonCasual__link {
-    
+.buttonButton {
 
+    border: none;
+    cursor: pointer;
 
     text-decoration: none;
     font-family: 'Montserrat';
@@ -15,7 +16,7 @@
     transition: color 0.3s, background-color 0.3s;
 }
 
-.buttonCasual__link:hover {
+.buttonButton:hover {
     color: #bdbdbd;
     background-color: #982523;
 }

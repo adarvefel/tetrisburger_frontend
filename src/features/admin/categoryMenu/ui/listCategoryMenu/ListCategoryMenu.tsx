@@ -56,7 +56,7 @@ export default function ListCategoryMenu() {
             <div className="listCategoryMenu__container-top">
 
 
-                <ButtonCasual linkRedireccion='/admin/category-menu-create' mensagge='+ Nueva adicion' />
+                <ButtonCasual linkRedireccion='/admin/category-menu-create' mensagge='+ Nueva categoria menu' />
 
             </div>
 
