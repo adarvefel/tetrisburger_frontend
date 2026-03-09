@@ -5,7 +5,6 @@ export interface CreateProductDto {
   price: number;
   availability: boolean;
   productType: string;
-  isBurgerIngredient: boolean;
   productCategoryId: number;
   supplierId: number;
 }
@@ -24,7 +23,6 @@ export interface UpdateProductDto {
   price: number;
   availability: boolean;
   productType: string;
-  isBurgerIngredient: boolean;
   productCategoryId: number;
   supplierId: number;
 

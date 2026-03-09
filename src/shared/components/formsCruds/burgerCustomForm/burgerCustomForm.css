@@ -143,11 +143,6 @@
     cursor: pointer;
 }
 
-.burgerCustomForm__container-buttom {
-    width: 100%;
-    display: flex;
-    justify-content: end;
-}
 
 
 .burgerCustomForm__container-secound {
@@ -176,4 +171,12 @@
     font-family: "Montserrat";
     font-size: 0.7rem;
 
+}
+
+.burgerCustomForm__strong-green{
+    color: green;
+}
+
+.burgerCustomForm__strong-red{
+    color: red;
 }

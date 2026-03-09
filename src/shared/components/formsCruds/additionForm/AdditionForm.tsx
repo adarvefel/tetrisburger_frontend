@@ -56,6 +56,8 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
     }
   }, [initialData]);
 
+  
+
 
   const onInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -130,11 +132,19 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
     }
   }
 
+  const formIsEqual =
+  (initialData?.name ?? "") === formData.name &&
+  (initialData?.description ?? "") === formData.description &&
+  (initialData?.price ?? 0) === Number(formData.price) &&
+  (initialData?.available ?? false) === formData.available &&
+  (initialData?.imageUrl ?? null) === (formData.imageUrl ?? null) &&
+  imageFile === null;
+
   return (
     <form className='additionForm__form' onSubmit={handleSubmit}>
 
       <TittleCrud
-        tittle={mode === "admin-create" ?  "Crear nueva adición" : "Actualizar adicion"}
+        tittle={mode === "admin-create" ? "Crear nueva adición" : "Actualizar adicion"}
         description="Agrega un complemento adicional que los clientes podrán incluir en sus hamburguesas, como extras, toppings o acompañamientos."
       />
 
@@ -150,22 +160,20 @@ export default function AdditionForm({ mode, initialData, onSubmit }: AdditionFo
 
         <Line />
 
-        <InputCrud id='addition-form-id' label='ID adicion' name='idAddition' onChange={onInputChange} value={formData.idAddition} disabled />
+        <InputCrud id='addition-form-id' label='ID adicion' name='idAddition' onChange={onInputChange} value={formData.idAddition} disabled/>
 
-        <InputCrud id='addition-form-name' label='Nombre de la adicion' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={formData.name} />
+        <InputCrud id='addition-form-name' label='Nombre de la adicion' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={formData.name} required/>
 
-        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' rows={3} placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} />
+        <TextareaCrud id='addition-form-description' label='Descripcion' name='description' rows={3} placeholder='ej: tiene mas queso que colanta' onChange={onInputChange} value={formData.description} required/>
 
-        <InputNumberCrud id='addition-form-price' label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} />
+        <InputNumberCrud id='addition-form-price' label='Precio ($)' name='price' type='number' placeholder='$' onChange={onInputChange} value={formData.price} required />
 
         <CheckboxCrud id='addition-form-available' label='Disponibilidad' checkboxLabel='Marcar disponibilidad' name='available' onChange={onInputChange} checked={formData.available} />
       </div>
 
-      <div className='additionForm__container-buttom'>
-        <div className="additionForm__container-button">
-          <ButtonSubmitCrud id='addition-form-submit' label={mode === "admin-create" ? "Crear adicion" : "Actualizar adicion"} />
-        </div>
-      </div>
+
+      <ButtonSubmitCrud id='addition-form-submit' disabled={formIsEqual} label={mode === "admin-create" ? "Crear adicion" : "Actualizar adicion"} />
+
     </form>
   )
 }

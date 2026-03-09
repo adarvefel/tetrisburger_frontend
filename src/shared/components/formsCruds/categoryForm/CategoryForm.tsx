@@ -6,6 +6,7 @@ import {
 } from "../../../../entities/productCategory/dto/productCategoryDto";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import ButtonSubmitCrud from "../../componetsCrud/buttonSubmit/ButtonSubmitCrud";
 
 type CategoryFormMode = "admin-create" | "admin-update";
 
@@ -43,6 +44,11 @@ export default function CategoryForm({
       });
     }
   }, [initialData]);
+
+  const formIsEqual =
+  (initialData?.name ?? "") === formData.name &&
+  (initialData?.description ?? "") === formData.description &&
+  (initialData?.available ?? false) === formData.available;
 
 
 
@@ -185,9 +191,7 @@ export default function CategoryForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-          <button className="productForm__button-submit" type="submit">
-            {mode === "admin-create" ? "Crear categoría" : "Guardar cambios"}
-          </button>
+          <ButtonSubmitCrud id="category-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear categoría" : "Guardar cambios"}/>
         </div>
       </div>
     </form>

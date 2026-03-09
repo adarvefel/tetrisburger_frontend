@@ -5,6 +5,7 @@ import { UpdateProfileRequestDto, UpdateProfileWithImageRequestDto } from '../..
 import { useNavigate } from 'react-router-dom';
 import { CreateUserDto, CreateUserWithImageDto, UpdateUserDto, UpdateUserWithImageDto } from '../../../../entities/user/dto/userDto';
 import { toast } from 'sonner';
+import ButtonSubmitCrud from '../../componetsCrud/buttonSubmit/ButtonSubmitCrud';
 
 type FormMode = "create" | "user-update" | "admin-update";
 
@@ -71,11 +72,11 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
             const userUpdate: UpdateProfileRequestDto = {
                 userName: formData.userName,
-                
+
                 phone: formData.phone,
             }
 
-            
+
             if (formData.password.length >= 8) {
                 userUpdate.password = formData.password
             }
@@ -180,6 +181,13 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     }
 
     //GESTION PA LA PICTURE DEL USER
+    const MAX_SIZE = 5 * 1024 * 1024 // 5MB
+
+    const ALLOWED_TYPES = [
+        "image/jpeg",
+        "image/png",
+        "image/webp"
+    ]
 
     const [pictureUser, setPictureUser] = useState<string>(
         initialData?.userImage || imgProfile
@@ -196,6 +204,19 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
         const file = e.target.files?.[0];
 
         if (file) {
+            // Validar tipo
+            if (!ALLOWED_TYPES.includes(file.type)) {
+                toast.error("Solo se permiten imágenes JPG, PNG o WEBP")
+                e.target.value = ""
+                return
+            }
+
+            if (file.size > MAX_SIZE) {
+                toast.error("La imagen no puede pesar más de 5MB")
+                e.target.value = ""
+                return
+            }
+
             setImageFile(file)
             const pictureUrl = URL.createObjectURL(file);
             setPictureUser(pictureUrl);
@@ -221,11 +242,21 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
     }, [initialData])
 
 
+    const formIsEqual =
+        (initialData?.userName ?? "") === formData.userName &&
+        (initialData?.email ?? "") === formData.email &&
+        (initialData?.phone ?? "") === formData.phone &&
+        (initialData?.role ?? "") === formData.role &&
+        (initialData?.userImage ?? "") === (formData.userImage ?? "") &&
+        imageFile === null &&
+        formData.password === "";
+
+
 
     return (
         <form className='userForm__form' action="" onSubmit={handleSubmit}>
 
-            
+
 
             <div className="userForm__container-top">
 
@@ -244,7 +275,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                         Subir imagen
                     </button>
 
-                    <input ref={fileInputRef} className='userForm__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
+                    <input ref={fileInputRef} className='userForm__input-file' type="file" accept="image/png, image/jpeg, image/webp" onChange={onChangeInputFile} />
 
                 </div>
             </div>
@@ -303,13 +334,14 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
             <div className="userForm__container-buttom">
 
                 <div className="userForm__container-button-buttom">
-                    <button className='userForm__button-submit'>{
+
+                    <ButtonSubmitCrud id='user-form-submit' disabled={formIsEqual} label={
 
                         mode === "user-update" ? "Actualizar perfil" :
                             mode === "admin-update" ? "Guardas cambios" :
                                 "Crear usuario"
 
-                    }</button>
+                    } />
                 </div>
 
             </div>

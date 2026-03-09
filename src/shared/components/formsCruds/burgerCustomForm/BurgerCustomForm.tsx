@@ -94,6 +94,9 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
     }, [initialData]);
 
 
+    
+
+
 
     let nagivation = useNavigate();
 
@@ -205,6 +208,25 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
     }
 
 
+    const formIsEqual =
+        (initialData?.name ?? "") === form.name &&
+        (initialData?.description ?? "") === form.description &&
+        (initialData?.basePrice ?? 0) === Number(form.basePrice) &&
+        (initialData?.finalPrice ?? 0) === Number(form.finalPrice) &&
+        (initialData?.margin ?? 0) === form.margin &&
+        (initialData?.marginPercentage ?? 0) === form.marginPercentage &&
+        (initialData?.sellingAtLoss ?? false) === form.sellingAtLoss &&
+        (initialData?.isOnMenu ?? false) === form.isOnMenu &&
+        (initialData?.isFeatured ?? false) === form.isFeatured &&
+        (initialData?.availability ?? false) === form.availability &&
+        (initialData?.imageUrl ?? null) === (form.imageUrl ?? null) &&
+        image === null &&
+        JSON.stringify(initialData?.ingredients ?? []) === JSON.stringify(ingredientsList);
+
+
+
+
+
 
     return (
         <form className='burgerCustomForm__form' onSubmit={handleSubmit}>
@@ -274,11 +296,9 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
                     </div>
                 </div>
 
-                <div className='burgerCustomForm__container-buttom'>
-                    <div className="burgerCustomForm__container-button">
-                        <ButtonSubmitCrud id='burger-form-submit' label='Crear hamburguesa' />
-                    </div>
-                </div>
+
+                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : "Crear hamburguesa"} />
+
             </div>
 
             <div className="burgerCustomForm__container-secound">
@@ -286,9 +306,9 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
                     <span className='burgerCustomForm__span-2'>Precio Base: <strong>${formatPrice(analytics.basePrice)}</strong></span>
                     <span className='burgerCustomForm__span-2'>Precio Final: <strong>${formatPrice(Number(form.finalPrice))}</strong></span>
                     <Line />
-                    <span className='burgerCustomForm__span-2'>Margin: <strong>${formatPrice(analytics.margin)}</strong></span>
-                    <span className='burgerCustomForm__span-2'>% Margin: <strong>{analytics.marginPercentage.toFixed(2)}%</strong></span>
-                    <span className='burgerCustomForm__span-2'>Perdida: <strong>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
+                    <span className='burgerCustomForm__span-2'>Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>${formatPrice(analytics.margin)}</strong></span>
+                    <span className='burgerCustomForm__span-2'>% Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ?"red" : "green"}`}>{analytics.marginPercentage.toFixed(2)}%</strong></span>
+                    <span className='burgerCustomForm__span-2'>Perdida: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
                     <Line />
                     <span className='burgerCustomForm__span-2'>Veces ordena: <strong>{form.timesOrdered}</strong></span>
                 </div>

@@ -25,6 +25,12 @@ export default function ImageCrud({
 
   const MAX_SIZE = 5 * 1024 * 1024 // 5MB
 
+  const ALLOWED_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ]
+
   const onClickInputFile = () => {
     fileInputRef.current?.click()
   }
@@ -32,6 +38,14 @@ export default function ImageCrud({
   const onChangeInputFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (file) {
+
+      // Validar tipo
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        toast.error("Solo se permiten imágenes JPG, PNG o WEBP")
+        e.target.value = ""
+        return
+      }
+
       if (file.size > MAX_SIZE) {
         toast.error("La imagen no puede pesar más de 5MB")
         e.target.value = ""
@@ -72,7 +86,7 @@ export default function ImageCrud({
         <button className='imageCrud__button' onClick={onClickInputFile} type='button'>
           <MdOutlineSaveAlt size={13} /> Subir imagen
         </button>
-        <input ref={fileInputRef} className='imageCrud__input-file' type="file" accept='image/*' onChange={onChangeInputFile} />
+        <input ref={fileInputRef} className='imageCrud__input-file' type="file" accept="image/png, image/jpeg, image/webp" onChange={onChangeInputFile} />
       </div>
     </div>
   )

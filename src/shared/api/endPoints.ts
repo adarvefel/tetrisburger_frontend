@@ -100,7 +100,19 @@ export const endPoints = {
             findById: (id: number) => `/api/admin/burgers/${id}`,
             update: (id: number) => `/api/admin/burgers/menu/${id}`,
             updateImage: (id: number) => `/api/admin/burgers/menu/${id}/image`
-            
+
+        },
+
+        categoryMenu: {
+            create: "/api/menu-category",
+            update: (id: number) => `/api/menu-category/${id}`,
+            findById: (id: number) => `/api/menu-category/${id}`,
+            delete: (id: number) => `/api/menu-category/${id}`,
+            list: (numberPage: number) => `/api/menu-categories?page=${numberPage}&size=10`,
+        },
+
+        menu: {
+            create: "/api/menu",
         }
 
 

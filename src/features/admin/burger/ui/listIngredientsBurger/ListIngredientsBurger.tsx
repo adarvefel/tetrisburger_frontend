@@ -11,16 +11,36 @@ import { TablePagination } from '../../../../../shared/components/componetsCrud/
 import { GiForkKnifeSpoon } from "react-icons/gi";
 import { IoMdClose } from "react-icons/io";
 import photoNotFound from "../../../../../assets/productNotFound.png"
+import { useListProducts } from '../../../menu/hooks/useListProducts'
 
-
+type FormMode = "menu" | "burger";
 interface Props {
+  mode?: FormMode;
   onClose: () => void
   onAddIngredient: (data: IngredientsResponseDTO) => void
 }
 
-export default function ListIngredientsBurger({ onClose, onAddIngredient }: Props) {
+export default function ListIngredientsBurger({ mode = "burger", onClose, onAddIngredient }: Props) {
 
-  const { loading, error, ingredients, nextPage, numberPage, prevPage, totalPage, handleUseListIngredientsBurger, productCategoryId, setProductCategoryId, setName, name } = useListIngredientsBurger();
+  const burgerHook = useListIngredientsBurger();
+  const productHook = useListProducts();
+
+  const data = mode === "burger" ? burgerHook : productHook;
+
+  const {
+    loading,
+    error,
+    ingredients,
+    numberPage,
+    totalPage,
+    nextPage,
+    prevPage,
+    productCategoryId,
+    setProductCategoryId,
+    setName,
+    name
+  } = data;
+  
   const { items: categories, loading: loadingCategories } = useProductCategories();
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

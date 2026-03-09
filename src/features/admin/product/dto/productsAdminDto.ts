@@ -17,7 +17,6 @@ export interface ProductFindByIdResponse{
     price: number,
     availability: boolean,
     productType: string,
-    isBurgerIngredient: boolean,
     productCategory: {
         id: number,
         name: string,
