@@ -35,3 +35,16 @@ export interface MenuResponseDTO {
     idMenuCategory: number
     items: MenuItemResponseDTO[]
 }
+
+export interface UpdateMenuRequestDTO{
+    name: string,
+    description: string,
+    isAvailable: boolean,
+    idMenuCategory: number,
+    items: MenuItemRequestDTO[]
+}
+
+export interface UpdateMenuRequestWithImageDTO{
+    menu: UpdateMenuRequestDTO,
+    file: File | null
+}

@@ -1,7 +1,7 @@
 import { data } from "react-router-dom";
 import { axiosClient } from "../../../shared/api/axiosClient"
 import { endPoints } from "../../../shared/api/endPoints"
-import { CreateMenuRequestWithImageDTO } from "../dto/menuDto";
+import { CreateMenuRequestWithImageDTO, UpdateMenuRequestDTO, UpdateMenuRequestWithImageDTO } from "../dto/menuDto";
 
 export const listProducts = async (page: number, productCategoryId?: number) => {
     const response = await axiosClient.get(endPoints.admin.menu.listPrueba(page, productCategoryId));
@@ -26,6 +26,9 @@ export const createMenu = async (data: CreateMenuRequestWithImageDTO) => {
     );
 
     if (data.file) {
+
+
+        
         formData.append("image", data.file);
     }
 
@@ -40,5 +43,15 @@ export const listMenus = async (numberPage: number) =>{
 
 export const deleteMenu = async(id: number) =>{
     const response = await axiosClient.delete(endPoints.admin.menu.delete(id));
+    return response;
+}
+
+export const updateMenu = async(id: number, data: UpdateMenuRequestWithImageDTO) =>{
+    const response = await axiosClient.put(endPoints.admin.menu.update(id), data);
+    return response;
+}
+
+export const findByIdMenu = async(id: number) =>{
+    const response = await axiosClient.get(endPoints.admin.menu.findById(id));
     return response;
 }

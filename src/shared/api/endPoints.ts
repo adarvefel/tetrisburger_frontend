@@ -117,6 +117,10 @@ export const endPoints = {
             list: (numberPage: number) => `/api/menu?page=${numberPage}&size=10`,
 
             delete: (id: number) => `/api/menu/${id}`,
+
+            update: (id: number) => `/api/menu/${id}`,
+
+            findById: (id: number) => `/api/menu/${id}`,
         }
 
 
