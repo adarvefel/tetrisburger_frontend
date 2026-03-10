@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { BurgerIngredientsResponseDTO, BurgerResponseDTO, IngredientsResponseDTO } from "../../../../entities/burger/dto/burgerDto";
+import { BurgerResponseDTO, IngredientsResponseDTO } from "../../../../entities/burger/dto/burgerDto";
 import { toast } from "sonner";
-import { axiosClient } from "../../../api/axiosClient";
 import { MenuItemResponseDTO } from "../../../../entities/menu/dto/menuDto";
 
 export function useMenuForm() {
@@ -9,14 +8,14 @@ export function useMenuForm() {
 
     //GEstion pal model
 
-    const [modelIngredients, setModelIngredients] = useState(false);
+    const [modelIngredients, setModelIngredients] = useState<"ingredients" | "burgers" | null>(null);
 
-    const openModel = () => {
-        setModelIngredients(true);
+    const openModel = (type: "ingredients" | "burgers") => {
+        setModelIngredients(type);
     }
 
     const closeModel = () => {
-        setModelIngredients(false);
+        setModelIngredients(null);
     }
 
 
@@ -24,72 +23,88 @@ export function useMenuForm() {
 
     const [ingredientsList, setIngredientsList] = useState<MenuItemResponseDTO[]>([]);
 
-    const addIngredient = (newIngredient: IngredientsResponseDTO) => {
-        const alreadyExists = ingredientsList.some(ing => ing.idProduct === newIngredient.idProduct);
+    const addProduct = (product: IngredientsResponseDTO) => {
+
+        const alreadyExists = ingredientsList.some(
+            item => item.itemType === "PRODUCT" && item.idProduct === product.idProduct
+        );
 
         if (alreadyExists) {
-            toast.error("El producto ya esta en la lista.");
-            return
-        };
+            toast.error("El producto ya está en el menú.");
+            return;
+        }
 
         setIngredientsList(prev => [
             ...prev,
             {
-
                 itemType: "PRODUCT",
                 idBurger: null,
-                idProduct: newIngredient.idProduct,
-                quantity: 1,
-                imageUrl: newIngredient.imageUrl,
-                productName: newIngredient.name
-
+                idProduct: product.idProduct,
+                quantity: 1
             }
         ]);
-    }
+    };
 
-    const removeIngredient = (id: number) => {
+    const addBurger = (burger: BurgerResponseDTO) => {
+
+        const alreadyExists = ingredientsList.some(
+            item => item.itemType === "BURGER" && item.idBurger === burger.idBurger
+        );
+
+        if (alreadyExists) {
+            toast.error("La hamburguesa ya está en el menú.");
+            return;
+        }
+
+        setIngredientsList(prev => [
+            ...prev,
+            {
+                itemType: "BURGER",
+                idBurger: burger.idBurger,
+                idProduct: null,
+                quantity: 1
+            }
+        ]);
+    };
+
+    const removeItem = (item: MenuItemResponseDTO) => {
         setIngredientsList(prev =>
-            prev.filter(ing => ing.idProduct !== id)
+            prev.filter(i =>
+                !(i.itemType === item.itemType &&
+                    i.idProduct === item.idProduct &&
+                    i.idBurger === item.idBurger)
+            )
         );
     };
 
 
-    const plusQuantity = (id: number) => {
+    const plusQuantity = (item: MenuItemResponseDTO) => {
+
         setIngredientsList(prev =>
-            prev.map((ingredient) => (
-                ingredient.idProduct === id ? { ...ingredient, quantity: ingredient.quantity + 1 } : ingredient
-            ))
+            prev.map(i =>
+                i.itemType === item.itemType &&
+                    i.idBurger === item.idBurger &&
+                    i.idProduct === item.idProduct
+                    ? { ...i, quantity: i.quantity + 1 }
+                    : i
+            )
         );
-    }
-
-    const minusQuantity = (id: number) => {
-        setIngredientsList(prev =>
-            prev.map((ingredient) => (
-                ingredient.idProduct === id && ingredient.quantity > 1 ? { ...ingredient, quantity: ingredient.quantity - 1 }
-                    : ingredient
-            ))
-        );
-    }
-
-    //PARA EL SELECT DE MIERDA
-
-    type BurgerOption = {
-        value: number
-        label: string
-    }
-
-    
-    const loadBurgers = async (inputValue: string): Promise<BurgerOption[]> => {
-
-        const { data } = await axiosClient.get(
-            `/api/admin/burgers/menu/search?name=${inputValue}&page=0&size=10`
-        );
-
-        return data.content.map((burger: BurgerResponseDTO) => ({
-            value: burger.idBurger,
-            label: burger.name
-        }));
     };
+
+    const minusQuantity = (item: MenuItemResponseDTO) => {
+
+        setIngredientsList(prev =>
+            prev.map(i =>
+                i.itemType === item.itemType &&
+                    i.idBurger === item.idBurger &&
+                    i.idProduct === item.idProduct &&
+                    i.quantity > 1
+                    ? { ...i, quantity: i.quantity - 1 }
+                    : i
+            )
+        );
+    };
+
 
 
 
@@ -103,10 +118,10 @@ export function useMenuForm() {
         // Lista de ingredientes
         ingredientsList,
         setIngredientsList,
-        addIngredient,
-        removeIngredient,
+        addProduct,
+        addBurger,
+        removeItem,
         plusQuantity,
         minusQuantity,
-        loadBurgers
     };
 }

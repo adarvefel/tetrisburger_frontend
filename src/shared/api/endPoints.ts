@@ -21,20 +21,6 @@ export const endPoints = {
             delete: (id: number) => `/api/products/${id}`,
             searchByName: (name: string, numberPage: number) => `api/products/search?q=${name}&page=${numberPage}&size=10`,
 
-            listPrueba: (page: number, productCategoryId?: number) => {
-                const query = new URLSearchParams({
-                    page: page.toString(),
-                    size: "5",
-                    sortBy: "id",
-                    direction: "ASC",
-                });
-
-                if (productCategoryId) {
-                    query.append("productCategoryId", productCategoryId.toString());
-                }
-
-                return `/api/products/list?${query.toString()}`;
-            },
         },
 
         productCategory: {
@@ -94,9 +80,9 @@ export const endPoints = {
             create: "/api/admin/burgers/menu",
             listIngredients: (page: number, categoryId?: number) =>
                 `/api/admin/burgers/ingredients?page=${page}&size=5${categoryId ? `&categoryId=${categoryId}` : ""}`,
-            list: (numberPage: number) => `/api/admin/burgers/menu?page=${numberPage}&size=10&sortBy=idBurger&direction=ASC`,
+            list: (numberPage: number, size: number = 10) => `/api/admin/burgers/menu?page=${numberPage}&size=${size}&sortBy=idBurger&direction=ASC`,
             delete: (id: number) => `/api/admin/burgers/menu/${id}`,
-            searchByName: (name: string, numberPage: number) => `/api/admin/burgers/menu/search?name=${name}&page=${numberPage}&size=10`,
+            searchByName: (name: string, numberPage: number, size: number = 10) => `/api/admin/burgers/menu/search?name=${name}&page=${numberPage}&size=${size}`,
             findById: (id: number) => `/api/admin/burgers/${id}`,
             update: (id: number) => `/api/admin/burgers/menu/${id}`,
             updateImage: (id: number) => `/api/admin/burgers/menu/${id}/image`
@@ -113,6 +99,20 @@ export const endPoints = {
 
         menu: {
             create: "/api/menu",
+            listPrueba: (page: number, productCategoryId?: number) => {
+                const query = new URLSearchParams({
+                    page: page.toString(),
+                    size: "5",
+                    sortBy: "id",
+                    direction: "ASC",
+                });
+
+                if (productCategoryId) {
+                    query.append("productCategoryId", productCategoryId.toString());
+                }
+
+                return `/api/products/list?${query.toString()}`;
+            },
         }
 
 

@@ -57,13 +57,13 @@ export default function ListIngredientsBurger({ mode = "burger", onClose, onAddI
     <div className="listIngredientsBurger__container-global">
       <div className="listIngredientsBurger__container">
         <div className="listIngredientsBurger__container-tittle">
-          <SubTittleCrud icon={<GiForkKnifeSpoon size={22} color="red" />} title='Selecciona ingredientes' />
+          <SubTittleCrud icon={<GiForkKnifeSpoon size={22} color="red" />} title={mode === "burger" ? "Seleccione ingredientes" : "Seleccione productos"} />
           <button className='listIngredientsBurger__button-close' type='button' onClick={onClose}><IoMdClose size={22} color='black' /></button>
         </div>
         <Line />
 
         <div className="listIngredientsBurger__container-filter">
-          <InputSearch placeholder='Busque el ingrediente...' name='name' onChange={onInputChangeName} value={name} />
+          <InputSearch placeholder={mode === "burger" ? "Busque ingrediente..." : "Busque producto..."}name='name' onChange={onInputChangeName} value={name} />
           <div><SelectCrud label="Filtrar por categoria" name="productCategoryId" placeholder="Todas las categorias" options={categories.map((cat) => ({ value: String(cat.id), label: cat.name }))} onChange={handleCategoryChange} value={productCategoryId ?? undefined} /></div>
         </div>
 
