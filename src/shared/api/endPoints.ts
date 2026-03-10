@@ -113,6 +113,10 @@ export const endPoints = {
 
                 return `/api/products/list?${query.toString()}`;
             },
+
+            list: (numberPage: number) => `/api/menu?page=${numberPage}&size=10`,
+
+            delete: (id: number) => `/api/menu/${id}`,
         }
 
 

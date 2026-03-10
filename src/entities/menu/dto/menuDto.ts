@@ -16,8 +16,6 @@ export interface MenuItemRequestDTO{
 export interface CreateMenuRequestDTO{
     name: string,
     description: string,
-    regularPrice: number,
-    comboPrice: number,
     isAvailable: boolean,
     idMenuCategory: number,
     items: MenuItemRequestDTO[]
@@ -32,8 +30,6 @@ export interface MenuResponseDTO {
     idMenu: number
     name: string
     description: string
-    regularPrice: number
-    comboPrice: number
     isAvailable: boolean
     imageUrl: string
     idMenuCategory: number

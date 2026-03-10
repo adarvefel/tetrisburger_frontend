@@ -61,8 +61,6 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
         idMenu: initialData?.idMenu ?? 0,
         name: initialData?.name ?? "",
         description: initialData?.description ?? "",
-        regularPrice: initialData?.regularPrice ?? "",
-        comboPrice: initialData?.comboPrice ?? "",
         isAvailable: initialData?.isAvailable ?? true,
         imageUrl: initialData?.imageUrl ?? null,
         idMenuCategory: initialData?.idMenuCategory ?? 0,
@@ -75,8 +73,6 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                 idMenu: initialData?.idMenu ?? 0,
                 name: initialData?.name ?? "",
                 description: initialData?.description ?? "",
-                regularPrice: initialData?.regularPrice ?? "",
-                comboPrice: initialData?.comboPrice ?? "",
                 isAvailable: initialData?.isAvailable ?? true,
                 imageUrl: initialData?.imageUrl ?? null,
                 idMenuCategory: initialData?.idMenuCategory ?? 0,
@@ -113,8 +109,6 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
         if (mode === "admin-create") {
             const body: CreateMenuRequestDTO = {
                 ...form,
-                regularPrice: Number(form.regularPrice),
-                comboPrice: Number(form.comboPrice),
                 idMenuCategory: Number(form.idMenuCategory),
                 items: ingredientsList.map(({ itemType, idBurger, idProduct, quantity }) => ({
                     itemType,
@@ -141,8 +135,6 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
     const formIsEqual =
         (initialData?.name ?? "") === form.name &&
         (initialData?.description ?? "") === form.description &&
-        (initialData?.regularPrice ?? 0) === Number(form.regularPrice) &&
-        (initialData?.comboPrice ?? 0) === Number(form.comboPrice) &&
         (initialData?.isAvailable ?? true) === form.isAvailable &&
         (initialData?.idMenuCategory ?? 0) === Number(form.idMenuCategory) &&
         (initialData?.imageUrl ?? null) === (form.imageUrl ?? null) &&
@@ -181,10 +173,6 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                 <InputCrud required id='menu-form-name' label='Nombre del menu' name='name' placeholder='ej: menu infantil' value={form.name} onChange={onInputChange} />
 
                 <TextareaCrud required id='menu-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} value={form.description} onChange={onInputChange} />
-
-                <InputNumberCrud required id='menu-form-regularPrice' label='regularPrice ($)' name='regularPrice' type='number' placeholder='regularPrice' value={form.regularPrice} onChange={onInputChange} />
-
-                <InputNumberCrud required id='menu-form-comboPrice' label='comboPrice ($)' name='comboPrice' type='number' placeholder='comboPrice' value={form.comboPrice} onChange={onInputChange} />
 
                 <SelectCrud required id='menu-form-category' placeholder='Seleccione una categoria ...' label='Seleccione la categoria menu' name='idMenuCategory' value={form.idMenuCategory} onChange={onInputChange} options={categorysMenu.map((cat) => ({ value: String(cat.idMenuCategory), label: cat.menuCategoryName }))} />
 

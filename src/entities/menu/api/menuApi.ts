@@ -1,3 +1,4 @@
+import { data } from "react-router-dom";
 import { axiosClient } from "../../../shared/api/axiosClient"
 import { endPoints } from "../../../shared/api/endPoints"
 import { CreateMenuRequestWithImageDTO } from "../dto/menuDto";
@@ -29,5 +30,15 @@ export const createMenu = async (data: CreateMenuRequestWithImageDTO) => {
     }
 
     const response = await axiosClient.post(endPoints.admin.menu.create, formData);
+    return response;
+}
+
+export const listMenus = async (numberPage: number) =>{
+    const response = await axiosClient.get(endPoints.admin.menu.list(numberPage));
+    return response;
+}
+
+export const deleteMenu = async(id: number) =>{
+    const response = await axiosClient.delete(endPoints.admin.menu.delete(id));
     return response;
 }
