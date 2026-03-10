@@ -52,14 +52,7 @@ export default function ResetPasswordForm() {
             return;
 
         }
-
-        setTimeout(() => {
-            setNuevaPassword("");
-            setConfirmarPassword("");
-            navegador("/login");
-
-        }, 2000)
-
+        navegador("/login");
 
     }
 
@@ -67,7 +60,7 @@ export default function ResetPasswordForm() {
     return (
         <form onSubmit={onSubmit} className='resetPasswordForm__form' action="">
 
-            
+
 
             <div className="resetPasswordForm__titulo"><TituloForm textTitulo='Cambia tu contraseña' /></div>
 

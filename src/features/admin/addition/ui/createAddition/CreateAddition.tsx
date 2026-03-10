@@ -5,9 +5,9 @@ import useCreateAddition from '../../hooks/useCreateAddition'
 
 export default function CreateAddition() {
 
-  const {handleCreateAdition} = useCreateAddition();
+  const {loading, handleCreateAdition} = useCreateAddition();
 
   return (
-    <AdditionForm mode='admin-create' onSubmit={handleCreateAdition}/>
+    <AdditionForm mode='admin-create' onSubmit={handleCreateAdition} loading={loading}/>
   )
 }

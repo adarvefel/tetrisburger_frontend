@@ -16,12 +16,14 @@ interface ProductFormProps {
   mode: ProductFormMode;
   initialData?: ProductFindByIdResponse,
   onSubmit: (data: any) => Promise<any>;
+  loading?: boolean
 }
 
 export default function ProductForm({
   mode,
   initialData,
   onSubmit,
+  loading = false
 }: ProductFormProps) {
   const [formData, setFormData] = useState({
     idProduct: initialData?.idProduct ?? 0,
@@ -110,9 +112,8 @@ export default function ProductForm({
 
         await onSubmit(productCreated);
         toast.success("Producto creado con éxito.");
-        setTimeout(() => {
-          nagivation("/admin/product-list");
-        }, 2000)
+        nagivation("/admin/product-list");
+
       } else {
         const updateData: UpdateProductDto = {
 
@@ -135,9 +136,8 @@ export default function ProductForm({
 
         const response = await onSubmit(productUpdated);
         toast.success("Producto actualizado con éxito.");
-        setTimeout(() => {
-          nagivation("/admin/product-list");
-        }, 2000)
+        nagivation("/admin/product-list");
+
       }
     } catch (error: any) {
       toast.error(error?.response?.data?.message || "Error al procesar el formulario.");
@@ -395,7 +395,7 @@ export default function ProductForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-          <ButtonSubmitCrud id="product-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear producto" : "Guardar cambios"} />
+          <ButtonSubmitCrud id="product-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear producto" : "Guardar cambios"} loading={loading} />
         </div>
       </div>
     </form>

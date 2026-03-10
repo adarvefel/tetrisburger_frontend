@@ -34,18 +34,8 @@ export default function LoginForm() {
         const respuesta = await handleLogin(email, password);
 
         if (respuesta?.token) {
-
-
-            toast.success("Login exitoso.")
-
-            setTimeout(() => {
-                setForm({
-                    email: "",
-                    password: ""
-                });
-
-                navegator("/");
-            }, 2000);
+            toast.success("Login exitoso.");
+            navegator("/");
 
         }
 
@@ -86,7 +76,7 @@ export default function LoginForm() {
 
             <div className="loginForm__buttonSubmit">
                 {error && <p className='loginForm__p'>{error}</p>}
-                <ButtonSubmit disabled={loading} textButton={loading ? "CARGANDO..." : "INICIAR SESION"} />
+                <ButtonSubmit disabled={loading} textButton={"INICIAR SESION"} loading={loading} />
             </div>
 
 

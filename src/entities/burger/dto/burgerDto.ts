@@ -9,9 +9,6 @@ export interface IngredientsResponseDTO {
 }
 
 export interface IngredientsRequestUI {
-  imageUrl: string;
-  name: string,
-
   idProduct: number,
   quantity: number,
   isOptional: boolean

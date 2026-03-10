@@ -19,12 +19,14 @@ interface CategoryFormProps {
     available?: boolean;
   };
   onSubmit: (data: any) => Promise<any>;
+  loading?: boolean
 }
 
 export default function CategoryForm({
   mode,
   initialData,
   onSubmit,
+  loading = false
 }: CategoryFormProps) {
 
   const [formData, setFormData] = useState({
@@ -84,9 +86,8 @@ export default function CategoryForm({
 
       if (response.data.id) {
         toast.success("Categoría creada con éxito.");
-        setTimeout(() => {
-          navegator("/admin/category-list");
-        }, 2000)
+        navegator("/admin/category-list");
+        
       }
 
       return
@@ -102,9 +103,7 @@ export default function CategoryForm({
 
     if (response.data.id) {
       toast.success("Categoría actualizada con éxito.");
-      setTimeout(() => {
-        navegator("/admin/category-list");
-      }, 2000)
+      navegator("/admin/category-list");
     }
 
   }
@@ -191,7 +190,7 @@ export default function CategoryForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-          <ButtonSubmitCrud id="category-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear categoría" : "Guardar cambios"}/>
+          <ButtonSubmitCrud id="category-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear categoría" : "Guardar cambios"} loading={loading}/>
         </div>
       </div>
     </form>

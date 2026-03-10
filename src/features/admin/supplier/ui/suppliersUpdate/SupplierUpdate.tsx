@@ -5,6 +5,7 @@ import SupplierForm from "../../../../../shared/components/formsCruds/supplierFo
 import { useSupplierFindById } from "../../hooks/useSupplierFindById";
 import { useSupplierUpdate } from "../../hooks/useSupplierUpdate";
 import { UpdateSupplierDto } from "../../../../../entities/supplier/dto/supplierDto";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function SupplierUpdate() {
   const { id } = useParams<{ id: string }>();
@@ -17,12 +18,16 @@ export default function SupplierUpdate() {
     }
   }, [id]);
 
+  if (findLoading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <SupplierForm
       mode="admin-update"
       initialData={supplier}
       onSubmit={(data) => handleSupplierUpdate(Number(id), data)}
+      loading={updateLoading}
     />
   );
 }

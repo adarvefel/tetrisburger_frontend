@@ -32,9 +32,10 @@ interface BurgerFormProps {
     mode: FormMode;
     initialData?: BurgerResponseDTO
     onSubmit: (data: any) => Promise<any>
+    loading?: boolean
 }
 
-export default function BurgerCustomForm({ mode, initialData, onSubmit }: BurgerFormProps) {
+export default function BurgerCustomForm({ mode, initialData, onSubmit, loading }: BurgerFormProps) {
 
     const {
         modelIngredients,
@@ -94,7 +95,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
     }, [initialData]);
 
 
-    
+
 
 
 
@@ -177,9 +178,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
 
             if (response?.status === 201) {
                 toast.success("Burger creada con exito");
-                setTimeout(() => {
-                    nagivation("/admin/burger-list");
-                }, 2000)
+                nagivation("/admin/burger-list");
                 return
             }
         }
@@ -197,9 +196,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
 
             if (response?.status === 200) {
                 toast.success("Burger actualizada con exito");
-                setTimeout(() => {
-                    nagivation("/admin/burger-list");
-                }, 2000)
+                nagivation("/admin/burger-list");
                 return
             }
         }
@@ -297,7 +294,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
                 </div>
 
 
-                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : "Crear hamburguesa"} />
+                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : "Crear hamburguesa"} loading={loading} />
 
             </div>
 
@@ -307,7 +304,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit }: Burger
                     <span className='burgerCustomForm__span-2'>Precio Final: <strong>${formatPrice(Number(form.finalPrice))}</strong></span>
                     <Line />
                     <span className='burgerCustomForm__span-2'>Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>${formatPrice(analytics.margin)}</strong></span>
-                    <span className='burgerCustomForm__span-2'>% Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ?"red" : "green"}`}>{analytics.marginPercentage.toFixed(2)}%</strong></span>
+                    <span className='burgerCustomForm__span-2'>% Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.marginPercentage.toFixed(2)}%</strong></span>
                     <span className='burgerCustomForm__span-2'>Perdida: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
                     <Line />
                     <span className='burgerCustomForm__span-2'>Veces ordena: <strong>{form.timesOrdered}</strong></span>

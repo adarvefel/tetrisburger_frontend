@@ -5,9 +5,9 @@ import CategoryMenuForm from '../../../../../shared/components/formsCruds/catego
 
 export default function CreateCategoryMenu() {
 
-    const {handleCreateCategoryMenu} = useCreateCategoryMenu();
+    const { loading, handleCreateCategoryMenu} = useCreateCategoryMenu();
 
     return (
-        <CategoryMenuForm mode='admin-create' onSubmit={handleCreateCategoryMenu} />
+        <CategoryMenuForm mode='admin-create' onSubmit={handleCreateCategoryMenu} loading={loading}/>
     )
 }

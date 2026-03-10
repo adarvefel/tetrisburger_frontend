@@ -34,10 +34,19 @@ export function useListProducts() {
             setLoading(true);
             setError(null);
 
-            const response = await listProducts(numberPage, productCategoryId);
-            setIngredients(response.data.items);
-            setTotalPage(response.data.totalPages);
-            return response;
+            let response;
+
+            if (name.trim() !== "") {
+
+                response = await searchByName(name, numberPage);
+                setIngredients(response.data.items);
+                setTotalPage(response.data.totalPages);
+            } else {
+
+                response = await listProducts(numberPage);
+                setIngredients(response.data.items);
+                setTotalPage(response.data.totalPages);
+            }
 
 
         } catch (err: any) {

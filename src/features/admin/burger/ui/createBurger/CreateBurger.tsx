@@ -4,9 +4,9 @@ import useCreateBurger from '../../hooks/useCreateBurger'
 
 export default function CreateBurger() {
 
-  const {handleCreateBurger} = useCreateBurger();
+  const {loading, handleCreateBurger} = useCreateBurger();
 
   return (
-    <BurgerCustomForm mode="admin-create" onSubmit={handleCreateBurger} />
+    <BurgerCustomForm mode="admin-create" onSubmit={handleCreateBurger} loading={loading}/>
   )
 }

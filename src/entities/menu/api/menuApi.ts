@@ -3,7 +3,17 @@ import { endPoints } from "../../../shared/api/endPoints"
 import { CreateMenuRequestWithImageDTO } from "../dto/menuDto";
 
 export const listProducts = async (page: number, productCategoryId?: number) => {
-    const response = await axiosClient.get(endPoints.admin.product.listPrueba(page, productCategoryId));
+    const response = await axiosClient.get(endPoints.admin.menu.listPrueba(page, productCategoryId));
+    return response;
+}
+
+export const listBurgers = async (page: number) =>{
+    const response = await axiosClient.get(endPoints.admin.burgers.list(page, 5));
+    return response;
+}
+
+export const searchBurgerByName = async (name: string, numberPage: number) => {
+    const response = await axiosClient.get(endPoints.admin.burgers.searchByName(name, numberPage, 5));
     return response;
 }
 

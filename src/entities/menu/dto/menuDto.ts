@@ -1,17 +1,15 @@
 export interface MenuItemResponseDTO{
     idMenuItem?: number,
-    itemType: string,
+    itemType: "BURGER" | "PRODUCT",
     idBurger: number | null,
-    idProduct: number,
+    idProduct: number | null,
     quantity: number,
-    imageUrl: string,
-    productName: string
 }
 
 export interface MenuItemRequestDTO{
     itemType: string,
     idBurger: number | null,
-    idProduct: number,
+    idProduct: number | null,
     quantity: number,
 }
 

@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { deleteAddition } from '../../../../../entities/addition/api/additionApi';
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 export default function ListAddition() {
 
@@ -44,6 +45,7 @@ export default function ListAddition() {
     toast.success("Adicion eliminado con exito.");
   };
 
+
   return (
     <div className="listAddition__container-global">
 
@@ -70,48 +72,50 @@ export default function ListAddition() {
 
       </div>
 
-      <TableLayout>
+      {loading ? <LoadingSpinner /> : (
+        <TableLayout>
 
-        <TableHead>
-          <tr>
-            <Th>ID</Th>
-            <Th>FOTO</Th>
-            <Th>NOMBRE</Th>
-            <Th>PRECIO</Th>
-            <Th>DISPONIBILIDAD</Th>
-            <Th>ACCIONES</Th>
-          </tr>
-        </TableHead>
-
-        <TableBody>
-          {additions?.map((addition) => (
-            <tr key={addition.idAddition}>
-
-              <Td>{addition.idAddition}</Td>
-
-              <Td>
-                <div className="tableComponents__container-img">
-                  <img className="tableComponents__img" src={addition.imageUrl ? addition.imageUrl : photoNotFound} alt="" />
-                </div>
-              </Td>
-
-              <Td>{addition.name}</Td>
-              <Td>${addition.price}</Td>
-
-              <Td><span className={`tableComponents__span-${addition.available ? "green" : "red"}`}> {addition.available ? "DIsponible" : "No disponible"} </span> </Td>
-
-              <Td>
-                <TableActions
-                  linkEdit={`/admin/addition/update/${addition.idAddition}`}
-                  onDelete={() => openDeleteModal(addition)}
-                />
-              </Td>
-
+          <TableHead>
+            <tr>
+              <Th>ID</Th>
+              <Th>FOTO</Th>
+              <Th>NOMBRE</Th>
+              <Th>PRECIO</Th>
+              <Th>DISPONIBILIDAD</Th>
+              <Th>ACCIONES</Th>
             </tr>
-          ))}
-        </TableBody>
+          </TableHead>
 
-      </TableLayout>
+          <TableBody>
+            {additions?.map((addition) => (
+              <tr key={addition.idAddition}>
+
+                <Td>{addition.idAddition}</Td>
+
+                <Td>
+                  <div className="tableComponents__container-img">
+                    <img className="tableComponents__img" src={addition.imageUrl ? addition.imageUrl : photoNotFound} alt="" />
+                  </div>
+                </Td>
+
+                <Td>{addition.name}</Td>
+                <Td>${addition.price}</Td>
+
+                <Td><span className={`tableComponents__span-${addition.available ? "green" : "red"}`}> {addition.available ? "DIsponible" : "No disponible"} </span> </Td>
+
+                <Td>
+                  <TableActions
+                    linkEdit={`/admin/addition/update/${addition.idAddition}`}
+                    onDelete={() => openDeleteModal(addition)}
+                  />
+                </Td>
+
+              </tr>
+            ))}
+          </TableBody>
+
+        </TableLayout>
+      )}
 
       <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 

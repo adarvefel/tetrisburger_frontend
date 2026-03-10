@@ -9,6 +9,7 @@ import photoBurgerNotFound from "../../../../../assets/burgerNotFound.png"
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { toast } from 'sonner';
 import { deleteBurger } from '../../../../../entities/burger/api/burgerApi';
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 
 export default function ListBurger() {
@@ -16,7 +17,7 @@ export default function ListBurger() {
     const { loading, error, burgers, numberPage, totalPage, nextPage, prevPage, handleListBurgers, name, setName } = useListBurger();
 
 
-    const onInputChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
     }
 
@@ -46,6 +47,8 @@ export default function ListBurger() {
         toast.success("Adicion eliminado con exito.");
     };
 
+
+
     return (
         <div className="listBurger__container-global">
 
@@ -65,55 +68,58 @@ export default function ListBurger() {
             <div className="listBurger__container-top">
 
                 <div className="listBurger__container-input-search">
-                    <InputSearch placeholder='Buscar por nombre ...' name='name' onChange={onInputChange} value={name}/>
+                    <InputSearch placeholder='Buscar por nombre ...' name='name' onChange={onInputChange} value={name} />
                 </div>
 
                 <ButtonCasual linkRedireccion='/admin/burger-create' mensagge='+ Nueva Hamburguesa' />
 
             </div>
 
-            <TableLayout>
+            {loading ? <LoadingSpinner /> : (
+                <TableLayout>
 
-                <TableHead>
-                    <tr>
-                        <Th>ID</Th>
-                        <Th>FOTO</Th>
-                        <Th>NOMBRE</Th>
-                        <Th>PRECIO FINAL</Th>
-                        <Th>DISPONIBILIDAD</Th>
-                        <Th>ACCIONES</Th>
-                    </tr>
-                </TableHead>
-
-                <TableBody>
-                    {burgers?.map((burger) => (
-                        <tr key={burger.idBurger}>
-
-                            <Td>{burger.idBurger}</Td>
-
-                            <Td>
-                                <div className="tableComponents__container-img">
-                                    <img className="tableComponents__img" src={burger.imageUrl ? burger.imageUrl : photoBurgerNotFound} alt="" />
-                                </div>
-                            </Td>
-
-                            <Td>{burger.name}</Td>
-                            <Td>${burger.finalPrice}</Td>
-
-                            <Td><span className={`tableComponents__span-${burger.availability ? "green" : "red"}`}> {burger.availability ? "DIsponible" : "No disponible"} </span> </Td>
-
-                            <Td>
-                                <TableActions
-                                    linkEdit={`/admin/burger/update/${burger.idBurger}`}
-                                    onDelete={() => openDeleteModal(burger)}
-                                />
-                            </Td>
-
+                    <TableHead>
+                        <tr>
+                            <Th>ID</Th>
+                            <Th>FOTO</Th>
+                            <Th>NOMBRE</Th>
+                            <Th>PRECIO FINAL</Th>
+                            <Th>DISPONIBILIDAD</Th>
+                            <Th>ACCIONES</Th>
                         </tr>
-                    ))}
-                </TableBody>
+                    </TableHead>
 
-            </TableLayout>
+                    <TableBody>
+                        {burgers?.map((burger) => (
+                            <tr key={burger.idBurger}>
+
+                                <Td>{burger.idBurger}</Td>
+
+                                <Td>
+                                    <div className="tableComponents__container-img">
+                                        <img className="tableComponents__img" src={burger.imageUrl ? burger.imageUrl : photoBurgerNotFound} alt="" />
+                                    </div>
+                                </Td>
+
+                                <Td>{burger.name}</Td>
+                                <Td>${burger.finalPrice}</Td>
+
+                                <Td><span className={`tableComponents__span-${burger.availability ? "green" : "red"}`}> {burger.availability ? "DIsponible" : "No disponible"} </span> </Td>
+
+                                <Td>
+                                    <TableActions
+                                        linkEdit={`/admin/burger/update/${burger.idBurger}`}
+                                        onDelete={() => openDeleteModal(burger)}
+                                    />
+                                </Td>
+
+                            </tr>
+                        ))}
+                    </TableBody>
+                </TableLayout>
+            )}
+
+
 
             <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 

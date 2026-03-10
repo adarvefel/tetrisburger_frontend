@@ -4,12 +4,13 @@ import AdditionForm from '../../../../../shared/components/formsCruds/additionFo
 import { useFindByIdAddition } from '../../hooks/useFindByIdAddition'
 import { useUpdateAddition } from '../../hooks/useUpdateAddition';
 import { useParams } from 'react-router-dom';
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 export default function UpdateAddition() {
 
-  const { addition, handleFindByIdAddition } = useFindByIdAddition();
+  const {loading: findLoading, addition, handleFindByIdAddition } = useFindByIdAddition();
 
-  const { handleUpdateAddition } = useUpdateAddition();
+  const {loading: updateLoading, handleUpdateAddition } = useUpdateAddition();
 
   const { id } = useParams<{ id: string }>();
 
@@ -19,7 +20,11 @@ export default function UpdateAddition() {
     }
   }, [id])
 
+  if (findLoading) {
+    return <LoadingSpinner/>
+  }
+
   return (
-    <AdditionForm mode='admin-update' initialData={addition} onSubmit={(data) => handleUpdateAddition(Number(id), data)} />
+    <AdditionForm mode='admin-update' initialData={addition} onSubmit={(data) => handleUpdateAddition(Number(id), data)} loading={updateLoading}/>
   )
 }

@@ -8,6 +8,6 @@ export default function UserCreate() {
     const {error, loading, handleUserCreate} = useUserCreate();
            
     return (
-        <UserForm mode='create' onSubmit={handleUserCreate}/>
+        <UserForm mode='create' onSubmit={handleUserCreate} loading={loading}/>
     )
 }

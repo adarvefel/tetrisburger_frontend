@@ -20,12 +20,14 @@ interface SupplierFormProps {
     address?: string;
   };
   onSubmit: (data: any) => Promise<any>;
+  loading?: boolean
 }
 
 export default function SupplierForm({
   mode,
   initialData,
   onSubmit,
+  loading = false
 }: SupplierFormProps) {
   const [formData, setFormData] = useState({
     id: initialData?.id || 0,
@@ -80,9 +82,7 @@ export default function SupplierForm({
       const res = await onSubmit(createData);
       if (res.data?.id) {
         toast.success("Proveedor creado con éxito.");
-        setTimeout(() => {
-          nagivation("/admin/suppliers-list");
-        }, 2000);
+        nagivation("/admin/suppliers-list");
       }
 
       return;
@@ -100,9 +100,7 @@ export default function SupplierForm({
     const res = await onSubmit(updateData);
     if (res.data?.id) {
       toast.success("Proveedor actualizado   con éxito.");
-      setTimeout(() => {
-        nagivation("/admin/suppliers-list");
-      }, 2000);
+      nagivation("/admin/suppliers-list");
     }
 
   }
@@ -193,7 +191,7 @@ export default function SupplierForm({
 
       <div className="productForm__container-buttom">
         <div className="productForm__container-button-buttom">
-          <ButtonSubmitCrud id="supplier-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear proveedor" : "Guardar cambios"} />
+          <ButtonSubmitCrud id="supplier-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear proveedor" : "Guardar cambios"} loading={loading} />
         </div>
       </div>
     </form>

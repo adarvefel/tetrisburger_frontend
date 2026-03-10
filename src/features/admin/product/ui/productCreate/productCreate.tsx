@@ -12,6 +12,7 @@ export default function ProductCreate() {
       <ProductForm
         mode="admin-create"
         onSubmit={(data) =>  handleProductCreate(data)}
+        loading={loading}
       />
     </div>
   );

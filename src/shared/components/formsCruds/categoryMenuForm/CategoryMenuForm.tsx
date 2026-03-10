@@ -19,9 +19,10 @@ interface CategoryMenuFormProps {
         description?: string
     }
     onSubmit: (data: any) => Promise<any>
+    loading?: boolean
 }
 
-export default function CategoryMenuForm({ mode, initialData, onSubmit }: CategoryMenuFormProps) {
+export default function CategoryMenuForm({ mode, initialData, onSubmit, loading = false }: CategoryMenuFormProps) {
 
 
     const [formData, setFormData] = useState({
@@ -62,9 +63,7 @@ export default function CategoryMenuForm({ mode, initialData, onSubmit }: Catego
 
             if (response.status === 200) {
                 toast.success("Categoria menu actualizada con exito");
-                setTimeout(() => {
-                    nagivation("/admin/category-menu-list");
-                }, 2000)
+                nagivation("/admin/category-menu-list");
                 return
 
             }
@@ -82,9 +81,7 @@ export default function CategoryMenuForm({ mode, initialData, onSubmit }: Catego
 
             if (response.status === 201) {
                 toast.success("Categoria menu creada con exito");
-                setTimeout(() => {
-                    nagivation("/admin/category-menu-list");
-                }, 2000)
+               nagivation("/admin/category-menu-list");
                 return
 
             }
@@ -109,7 +106,7 @@ export default function CategoryMenuForm({ mode, initialData, onSubmit }: Catego
             <InputCrud id='categoryMenu-form-id' label='ID categoria menu' disabled name='idMenuCategory' value={formData.idMenuCategory} />
             <InputCrud id='categoryMenu-form-name' label='Nombre de la categoria menu' required name='menuCategoryName' onChange={onInputChange} value={formData.menuCategoryName} />
             <TextareaCrud id='categoryMenu-form-description' label='Descripcion' rows={6} required name='description' onChange={onInputChange} value={formData.description} />
-            <ButtonSubmitCrud id='categoryMenu-form-submit' disabled={formIsEqual} label={mode === "admin-create" ? "Crear categoria menu" : "Actualizar categoria menu"} />
+            <ButtonSubmitCrud id='categoryMenu-form-submit' disabled={formIsEqual} label={mode === "admin-create" ? "Crear categoria menu" : "Actualizar categoria menu"} loading={loading} />
         </form>
     )
 }

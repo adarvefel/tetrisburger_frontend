@@ -25,9 +25,10 @@ interface PqrsFormProps {
     assignedTo?: number;
   }
   onSubmit: (data: any) => Promise<any>
+  loading?: boolean
 }
 
-export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps) {
+export default function PqrsForm({ mode, initialData, onSubmit, loading = false }: PqrsFormProps) {
 
 
   const [formData, setFormData] = useState({
@@ -110,9 +111,7 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
         const res = await onSubmit(pqrsUpdate);
         if (res.data?.idPqrs) {
           toast.success("Datos actualizados");
-          setTimeout(() => {
-            nagivation("/admin/pqrs-list");
-          }, 2000);
+          nagivation("/admin/pqrs-list");
         }
         else {
           toast.error("Datos no actualizados, error inesperado.")
@@ -150,9 +149,7 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
       const res = await onSubmit(pqrsUpdate);
       if (res.data?.idPqrs) {
         toast.success("Datos actualizados");
-        setTimeout(() => {
-          nagivation("/pqrs-me");
-        }, 2000);
+        nagivation("/pqrs-me");
       }
       else {
         toast.error("Datos no actualizados, error inesperado.")
@@ -281,7 +278,7 @@ export default function PqrsForm({ mode, initialData, onSubmit }: PqrsFormProps)
 
       </div>
 
-      <ButtonSubmitCrud id='pqrs-form-submit' label='Actualizar PQRS' disabled={formIsEqual}/>
+      <ButtonSubmitCrud id='pqrs-form-submit' label='Actualizar PQRS' disabled={formIsEqual} loading={loading}/>
 
     </form>
   )

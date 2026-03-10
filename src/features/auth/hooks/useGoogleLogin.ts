@@ -24,9 +24,9 @@ export function useGoogleLogin() {
             login(response);
 
             toast.success("Login exitoso.");
-            setTimeout(() => {
-                navegetor("/");
-            }, 2000);
+
+            navegetor("/");
+
             return response;
 
         } catch (err: any) {

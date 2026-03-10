@@ -4,12 +4,13 @@ import { CreateProductCategoryDto } from "../../../../../entities/productCategor
 import { useNavigate } from "react-router-dom";
 
 export default function CategoryCreate() {
-  const { handleCategoryCreate } = useCategoryCreate();
+  const { loading, handleCategoryCreate } = useCategoryCreate();
   
   return (
     <CategoryForm
       mode="admin-create"
       onSubmit={(data)=>handleCategoryCreate(data)}
+      loading = {loading}
     />
   );
 }

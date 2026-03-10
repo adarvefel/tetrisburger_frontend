@@ -116,7 +116,7 @@ export default function AdminSidebar() {
 
 
         <div className="adminSidebar__container-settings">
-          <NavLink to={"/admin/sttings"}
+          <NavLink to={"/admin/configurations-list"}
             className={({ isActive }) =>
               `adminSidebar__container-option ${isActive ? "active" : ""}`
             } >

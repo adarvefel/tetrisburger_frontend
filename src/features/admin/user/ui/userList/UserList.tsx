@@ -9,7 +9,8 @@ import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteMo
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { deleteUser } from '../../../../../entities/user/api/userApi';
 import { toast } from 'sonner';
-import {TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 export default function UserList() {
 
@@ -82,6 +83,7 @@ export default function UserList() {
 
             </div>
 
+            {loading ? <LoadingSpinner /> : (
             <TableLayout>
 
                 <TableHead>
@@ -124,6 +126,9 @@ export default function UserList() {
                 </TableBody>
 
             </TableLayout>
+            )}
+
+
 
             <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 

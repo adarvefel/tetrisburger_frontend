@@ -20,9 +20,10 @@ interface UserFormProps {
         role?: string;
     }
     onSubmit: (data: any) => Promise<any>
+    loading?: boolean
 }
 
-export default function UserForm({ mode, initialData, onSubmit }: UserFormProps) {
+export default function UserForm({ mode, initialData, onSubmit, loading = false }: UserFormProps) {
 
     const [formData, setFormData] = useState({
         idUser: initialData?.idUser || 0,
@@ -130,9 +131,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
             if (response.data.idUser) {
                 toast.success("Datos actualizados");
-                setTimeout(() => {
-                    navegator("/admin/users-list");
-                }, 2000)
+                navegator("/admin/users-list");
             }
 
             return
@@ -168,9 +167,7 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
 
         if (response.data.idUser) {
             toast.success("Usuario Agregado correctamente");
-            setTimeout(() => {
-                navegator("/admin/users-list");
-            }, 2000)
+            navegator("/admin/users-list");
         } else {
             toast.error("Error al intenatar agragar este usuario.");
         }
@@ -341,7 +338,8 @@ export default function UserForm({ mode, initialData, onSubmit }: UserFormProps)
                             mode === "admin-update" ? "Guardas cambios" :
                                 "Crear usuario"
 
-                    } />
+
+                    } loading={loading} />
                 </div>
 
             </div>

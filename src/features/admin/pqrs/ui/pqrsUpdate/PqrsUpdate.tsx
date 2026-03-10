@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { usePqrsFindById } from "../../hooks/usePqrsFindById";
 import { usePqrsUpdate } from "../../hooks/usePqrsUpdate";
 import PqrsForm from "../../../../../shared/components/formsCruds/pqrsForm/PqrsForm";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function PqrsUpdate() {
 
@@ -13,6 +14,8 @@ export default function PqrsUpdate() {
 
     const { id } = useParams<{ id: string }>()
 
+    
+
     useEffect(() => {
         if (id) {
             handlePqrsFindById(Number(id));
@@ -20,12 +23,17 @@ export default function PqrsUpdate() {
     }, [id])
 
 
+    if (findLoading) {
+        return <LoadingSpinner />
+    }
+
     return (
 
         <PqrsForm
             mode="admin-update"
             initialData={pqrs}
             onSubmit={(data) => handlePqrsUpdate(Number(id), data)}
+            loading={updateLoading}
         />
 
     )
