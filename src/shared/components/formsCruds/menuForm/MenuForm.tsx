@@ -202,8 +202,8 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                     </TableHead>
 
                     <TableBody>
-                        {ingredientsList.map((ingredient) => (
-                            <tr key={ingredient.idProduct}>
+                        {ingredientsList.map((ingredient, index) => (
+                            <tr key={index}>
 
                                 <Td>{ingredient.itemType}</Td>
                                 <Td>{ingredient.idBurger}</Td>

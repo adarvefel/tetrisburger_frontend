@@ -120,6 +120,8 @@ export const endPoints = {
 
             update: (id: number) => `/api/menu/${id}`,
 
+            updateImage: (id: number) => `/api/menu/${id}/image`,
+
             findById: (id: number) => `/api/menu/${id}`,
         }
 
