@@ -46,7 +46,7 @@ export default function CategoryList() {
     await remove(productCategoryToDelete.id);
     closeDeleteModal();
     fetchCategoryList();
-    toast.success("productCategory eliminado con exito.");
+    toast.success("Categoria producto eliminado con exito.");
   };
 
   if (loading) {
