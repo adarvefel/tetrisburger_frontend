@@ -44,7 +44,7 @@ export default function ListBurger() {
         await remove(itemToDelete.idBurger);
         closeDeleteModal();
         handleListBurgers();
-        toast.success("Adicion eliminado con exito.");
+        toast.success("Hamburguesa eliminado con exito.");
     };
 
 
