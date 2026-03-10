@@ -178,3 +178,73 @@
 .menuForm__strong-red{
     color: red;
 }
+
+/* === Responsive para pantallas <= 768px === */
+@media (max-width: 768px) {
+
+    .menuForm__container-data {
+        grid-template-columns: 1fr; /* de 2 columnas a 1 */
+        padding: 1rem;
+    }
+
+    .menuForm__container-image,
+    .menuForm__container-ingredients,
+    .menuForm__container-actions,
+    .menuForm__container-analitic {
+        padding: 1rem;
+    }
+
+    .menuForm__buttons-adds {
+        flex-direction: column; /* botones apilados verticalmente */
+        gap: 0.5rem;
+    }
+
+    .menuForm__button-add {
+        font-size: 0.6rem;
+        justify-content: flex-start;
+    }
+
+    .menuForm__container-quantity {
+        gap: 0.5rem;
+    }
+
+    .menuForm__span {
+        font-size: 0.6rem;
+    }
+
+    .menuForm__container-img {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .menuForm__img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .menuForm__container-tittle {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+
+    .menuForm__form {
+        gap: 0.8rem;
+    }
+
+    .menuForm__container-list {
+        height: 12rem;
+    }
+
+    .menuForm__card-ingredient {
+        grid-template-columns: 1fr 2fr 2fr 2fr 1rem; /* ajustamos columnas para que no se rompa */
+        font-size: 0.7rem;
+        padding: 0.7rem;
+    }
+
+    .menuForm__container-analitic {
+        top: 0.5rem;
+        padding: 1rem;
+    }
+}
