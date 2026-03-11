@@ -1,6 +1,6 @@
 import "./updateWhatsappConfigurations.css"
 import { IoIosSettings } from "react-icons/io";
-import SubTittleCrud from '../../../../shared/components/componetsCrud/subTittle/SubTittleCrud'
+import SubTittleCrud from '../../../../../shared/components/componetsCrud/subTittle/SubTittleCrud'
 import { IoMdClose } from "react-icons/io";
 
 interface Props {

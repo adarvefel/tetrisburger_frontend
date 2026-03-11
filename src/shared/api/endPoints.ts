@@ -123,6 +123,10 @@ export const endPoints = {
             updateImage: (id: number) => `/api/menu/${id}/image`,
 
             findById: (id: number) => `/api/menu/${id}`,
+        },
+
+        settings: {
+            getSettingsAddition: "/api/addition-settings",
         }
 
 
