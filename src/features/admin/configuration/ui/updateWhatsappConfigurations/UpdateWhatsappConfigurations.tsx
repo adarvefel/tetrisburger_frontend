@@ -16,6 +16,8 @@ export default function UpdateWhatsappConfigurations({ onClose }: Props) {
                     <SubTittleCrud icon={<IoIosSettings  size={22} color="red" />} title='Configuaraiones de WhatsApp' />
                     <button className='updateWhatsappConfigurations__button-close' type='button' onClick={onClose}><IoMdClose size={22} color='black' /></button>
                 </div>
+
+                <p style={{color:"red"}}>PROXIMAMENTE...</p>
             </div>
         </div>
 

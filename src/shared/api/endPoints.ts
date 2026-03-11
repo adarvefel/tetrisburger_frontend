@@ -127,6 +127,10 @@ export const endPoints = {
 
         settings: {
             getSettingsAddition: "/api/addition-settings",
+            updateSettingsAddition: "/api/addition-settings",
+
+            getSettingsBurger : "/api/admin/settings/burgers",
+            updateSettingsBurger : "/api/admin/settings/burgers",
         }
 
 

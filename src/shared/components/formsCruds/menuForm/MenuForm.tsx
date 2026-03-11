@@ -219,7 +219,7 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                     <SubTittleCrud icon={<PiHamburgerFill size={22} color='red' />} title='Hamburguesas y productos' />
 
                     <div className='menuForm__buttons-adds'>
-                        <button id='menu-form-add-product' className='menuForm__button-add' type='button' onClick={() => openModel("ingredients")}> <IoIosAddCircleOutline size={17} color='red' />Añadir ingrediente</button>
+                        <button id='menu-form-add-product' className='menuForm__button-add' type='button' onClick={() => openModel("ingredients")}> <IoIosAddCircleOutline size={17} color='red' />Añadir Producto</button>
                         <button id='menu-form-add-burger' className='menuForm__button-add' type='button' onClick={() => openModel("burgers")}> <IoIosAddCircleOutline size={17} color='red' />Añadir Hamburguesa</button>
                     </div>
 
