@@ -58,3 +58,8 @@ export const findByIdMenu = async(id: number) =>{
     const response = await axiosClient.get(endPoints.admin.menu.findById(id));
     return response;
 }
+
+export const searchByNameProducto = async (name: string, numberPage: number) =>{
+    const response = await axiosClient.get(endPoints.admin.product.searchByName(name, numberPage, 5));
+    return response;
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { IngredientsResponseDTO } from "../../../../entities/burger/dto/burgerDto";
 import { toast } from "sonner";
-import { listIngredientsBurger } from "../../../../entities/burger/api/burgerApi";
+import { listIngredientsBurger, searchByNameIngredient } from "../../../../entities/burger/api/burgerApi";
 import { searchByName } from "../../../../entities/product/api/productApi";
 
 export function useListIngredientsBurger() {
@@ -32,11 +32,19 @@ export function useListIngredientsBurger() {
         try {
             setLoading(true);
             setError(null);
+            let response;
 
-            const response = await listIngredientsBurger(numberPage, productCategoryId);
-            setIngredients(response.data.items);
-            setTotalPage(response.data.totalPages);
-            return response;
+            if (name.trim() !== "") {
+
+                response = await searchByNameIngredient(name, numberPage);
+                setIngredients(response.data.items);
+                setTotalPage(response.data.totalPages);
+            } else {
+
+                response = await listIngredientsBurger(numberPage, productCategoryId);
+                setIngredients(response.data.items);
+                setTotalPage(response.data.totalPages);
+            }
 
 
         } catch (err: any) {

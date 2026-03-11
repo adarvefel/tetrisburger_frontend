@@ -46,7 +46,7 @@ export default function SupplierList() {
     await remove(supplierToDelete.id);
     closeDeleteModal();
     fetchSupplierList();
-    toast.success("supplier eliminado con exito.");
+    toast.success("Proveedor eliminado con exito.");
   };
 
   if (loading) {
@@ -72,7 +72,7 @@ export default function SupplierList() {
 
         <ButtonCasual
           linkRedireccion="/admin/suppliers/create"
-          mensagge="Nuevo Proveedor"
+          mensagge="+ Nuevo Proveedor"
         />
       </div>
 

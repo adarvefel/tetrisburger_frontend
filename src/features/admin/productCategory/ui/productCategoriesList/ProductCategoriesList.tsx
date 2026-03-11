@@ -70,7 +70,7 @@ export default function CategoryList() {
       <div className="productList__container-top">
         <ButtonCasual
           linkRedireccion="/admin/category/create"
-          mensagge="Nueva Categoría"
+          mensagge="+ Nueva Categoría"
         />
       </div>
 

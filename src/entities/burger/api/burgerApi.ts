@@ -57,3 +57,8 @@ export const updateBurger = async (id: number, data: BurgerUpdateRequestWithImag
     const response = await axiosClient.put(endPoints.admin.burgers.update(id), data.burger);
     return response;
 }
+
+export const searchByNameIngredient = async (name: string, numberPage: number) => {
+    const response = await axiosClient.get(endPoints.admin.burgers.searchIngredientsByName(name, numberPage));
+    return response;
+}

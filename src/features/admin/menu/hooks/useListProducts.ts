@@ -3,7 +3,7 @@ import { IngredientsResponseDTO } from "../../../../entities/burger/dto/burgerDt
 import { toast } from "sonner";
 import { listIngredientsBurger } from "../../../../entities/burger/api/burgerApi";
 import { searchByName } from "../../../../entities/product/api/productApi";
-import { listProducts } from "../../../../entities/menu/api/menuApi";
+import { listProducts, searchByNameProducto } from "../../../../entities/menu/api/menuApi";
 
 export function useListProducts() {
     const [loading, setLoading] = useState(false);
@@ -38,12 +38,12 @@ export function useListProducts() {
 
             if (name.trim() !== "") {
 
-                response = await searchByName(name, numberPage);
+                response = await searchByNameProducto(name, numberPage);
                 setIngredients(response.data.items);
                 setTotalPage(response.data.totalPages);
             } else {
 
-                response = await listProducts(numberPage);
+                response = await listProducts(numberPage, productCategoryId);
                 setIngredients(response.data.items);
                 setTotalPage(response.data.totalPages);
             }
