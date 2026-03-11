@@ -3,7 +3,7 @@ import "./listConfigurations.css"
 import { PiWhatsappLogoDuotone } from "react-icons/pi";
 import { FaHamburger } from "react-icons/fa";
 import { IoFastFood } from "react-icons/io5";
-import ButtonButton from '../../../../shared/components/buttonButton/ButtonButton';
+import ButtonButton from '../../../../../shared/components/buttonButton/ButtonButton';
 import UpdateAdditionsConfigurations from '../updateAdditionsConfigurations/UpdateAdditionsConfigurations';
 import UpdateWhatsappConfigurations from '../updateWhatsappConfigurations/UpdateWhatsappConfigurations';
 import UpdateBurgerConfigurations from '../updateBurgerConfigurations/UpdateBurgerConfigurations';

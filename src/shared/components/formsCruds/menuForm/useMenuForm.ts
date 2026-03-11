@@ -1,32 +1,28 @@
 import { useState } from "react";
 import { BurgerResponseDTO, IngredientsResponseDTO } from "../../../../entities/burger/dto/burgerDto";
 import { toast } from "sonner";
-import { MenuItemResponseDTO } from "../../../../entities/menu/dto/menuDto";
+import { MenuItemRequestDTO, MenuItemResponseDTO } from "../../../../entities/menu/dto/menuDto";
 
 export function useMenuForm() {
 
-
-    //GEstion pal model
-
+    // Gestión del modal
     const [modelIngredients, setModelIngredients] = useState<"ingredients" | "burgers" | null>(null);
 
     const openModel = (type: "ingredients" | "burgers") => {
         setModelIngredients(type);
-    }
+    };
 
     const closeModel = () => {
         setModelIngredients(null);
-    }
+    };
 
-
-    //lista de ingredients etc...
-
+    // Lista de items del menú (REQUEST DTO)
     const [ingredientsList, setIngredientsList] = useState<MenuItemResponseDTO[]>([]);
 
     const addProduct = (product: IngredientsResponseDTO) => {
 
         const alreadyExists = ingredientsList.some(
-            item => item.itemType === "PRODUCT" && item.idProduct === product.idProduct
+            item => item.itemType === "PRODUCT" && item.product?.idProduct === product.idProduct
         );
 
         if (alreadyExists) {
@@ -38,8 +34,13 @@ export function useMenuForm() {
             ...prev,
             {
                 itemType: "PRODUCT",
-                idBurger: null,
-                idProduct: product.idProduct,
+                burger: null,
+                product: {
+                    idProduct: product.idProduct,
+                    name: product.name,
+                    finalPrice: product.price,
+                    imageUrl: product.imageUrl
+                },
                 quantity: 1
             }
         ]);
@@ -48,7 +49,7 @@ export function useMenuForm() {
     const addBurger = (burger: BurgerResponseDTO) => {
 
         const alreadyExists = ingredientsList.some(
-            item => item.itemType === "BURGER" && item.idBurger === burger.idBurger
+            item => item.itemType === "BURGER" && item.burger?.idBurger === burger.idBurger
         );
 
         if (alreadyExists) {
@@ -60,8 +61,13 @@ export function useMenuForm() {
             ...prev,
             {
                 itemType: "BURGER",
-                idBurger: burger.idBurger,
-                idProduct: null,
+                burger: {
+                    idBurger: burger.idBurger,
+                    name: burger.name,
+                    finalPrice: burger.finalPrice,
+                    imageUrl: burger.imageUrl
+                },
+                product: null,
                 quantity: 1
             }
         ]);
@@ -70,21 +76,21 @@ export function useMenuForm() {
     const removeItem = (item: MenuItemResponseDTO) => {
         setIngredientsList(prev =>
             prev.filter(i =>
-                !(i.itemType === item.itemType &&
-                    i.idProduct === item.idProduct &&
-                    i.idBurger === item.idBurger)
+                !(
+                    i.itemType === item.itemType &&
+                    i.burger?.idBurger === item.burger?.idBurger &&
+                    i.product?.idProduct === item.product?.idProduct
+                )
             )
         );
     };
 
-
     const plusQuantity = (item: MenuItemResponseDTO) => {
-
         setIngredientsList(prev =>
             prev.map(i =>
                 i.itemType === item.itemType &&
-                    i.idBurger === item.idBurger &&
-                    i.idProduct === item.idProduct
+                    i.burger?.idBurger === item.burger?.idBurger &&
+                    i.product?.idProduct === item.product?.idProduct
                     ? { ...i, quantity: i.quantity + 1 }
                     : i
             )
@@ -92,22 +98,17 @@ export function useMenuForm() {
     };
 
     const minusQuantity = (item: MenuItemResponseDTO) => {
-
         setIngredientsList(prev =>
             prev.map(i =>
                 i.itemType === item.itemType &&
-                    i.idBurger === item.idBurger &&
-                    i.idProduct === item.idProduct &&
+                    i.burger?.idBurger === item.burger?.idBurger &&
+                    i.product?.idProduct === item.product?.idProduct &&
                     i.quantity > 1
                     ? { ...i, quantity: i.quantity - 1 }
                     : i
             )
         );
     };
-
-
-
-
 
     return {
         // Modal

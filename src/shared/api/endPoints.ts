@@ -19,7 +19,7 @@ export const endPoints = {
             update: (id: number) => `/api/products/${id}`,
             updateImage: (id: number) => `/api/products/image/${id}`,
             delete: (id: number) => `/api/products/${id}`,
-            searchByName: (name: string, numberPage: number) => `api/products/search?q=${name}&page=${numberPage}&size=10`,
+            searchByName: (name: string, numberPage: number, size : number = 10) => `api/products/search?q=${name}&page=${numberPage}&size=${size}`,
 
         },
 
@@ -85,7 +85,9 @@ export const endPoints = {
             searchByName: (name: string, numberPage: number, size: number = 10) => `/api/admin/burgers/menu/search?name=${name}&page=${numberPage}&size=${size}`,
             findById: (id: number) => `/api/admin/burgers/${id}`,
             update: (id: number) => `/api/admin/burgers/menu/${id}`,
-            updateImage: (id: number) => `/api/admin/burgers/menu/${id}/image`
+            updateImage: (id: number) => `/api/admin/burgers/menu/${id}/image`,
+
+            searchIngredientsByName: (name: string, numberPage: number,) => `/api/admin/burgers/ingredients/search?name=${name}&page=${numberPage}&size=5`
 
         },
 
@@ -113,6 +115,24 @@ export const endPoints = {
 
                 return `/api/products/list?${query.toString()}`;
             },
+
+            list: (numberPage: number) => `/api/menu?page=${numberPage}&size=10`,
+
+            delete: (id: number) => `/api/menu/${id}`,
+
+            update: (id: number) => `/api/menu/${id}`,
+
+            updateImage: (id: number) => `/api/menu/${id}/image`,
+
+            findById: (id: number) => `/api/menu/${id}`,
+        },
+
+        settings: {
+            getSettingsAddition: "/api/addition-settings",
+            updateSettingsAddition: "/api/addition-settings",
+
+            getSettingsBurger : "/api/admin/settings/burgers",
+            updateSettingsBurger : "/api/admin/settings/burgers",
         }
 
 

@@ -164,6 +164,10 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (ingredientsList.length === 0) {
+            toast.error("La hamburguesa debe tener al menos 1 ingrediente.");
+            return;
+        }
 
         if (mode === "admin-create") {
             const body: CreateBurgerByAdminDTO = {
@@ -244,11 +248,11 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
                     <InputCrud id='burger-form-id' label='ID hambuguresa' name='id' value={form.idBurger} disabled />
 
-                    <InputCrud id='burger-form-name' label='Nombre de la hamburguesa' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={form.name} />
+                    <InputCrud id='burger-form-name' label='Nombre de la hamburguesa' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={form.name} required />
 
-                    <TextareaCrud id='burger-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} onChange={onInputChange} value={form.description} />
+                    <TextareaCrud id='burger-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} onChange={onInputChange} value={form.description} required />
 
-                    <InputNumberCrud id='burger-form-finalPrice' label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} />
+                    <InputNumberCrud id='burger-form-finalPrice' label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} required />
                 </div>
 
                 <div className="burgerCustomForm__container-actions">

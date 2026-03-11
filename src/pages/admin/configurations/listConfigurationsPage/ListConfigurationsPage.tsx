@@ -6,7 +6,7 @@ import { PiWhatsappLogoDuotone } from "react-icons/pi";
 import { FaHamburger } from "react-icons/fa";
 import { IoFastFood } from "react-icons/io5";
 import ButtonButton from '../../../../shared/components/buttonButton/ButtonButton';
-import ListConfigurations from '../../../../features/admin/configuration/listConfigurations/ListConfigurations';
+import ListConfigurations from '../../../../features/admin/configuration/ui/listConfigurations/ListConfigurations';
 
 export default function ListConfigurationsPage() {
     return (

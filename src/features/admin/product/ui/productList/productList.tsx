@@ -80,7 +80,7 @@ export default function ProductList() {
                     />
                 </div>
 
-                <ButtonCasual linkRedireccion="/admin/product/create" mensagge="Nuevo Producto" />
+                <ButtonCasual linkRedireccion="/admin/product/create" mensagge="+ Nuevo Producto" />
             </div>
 
             {loading ? <LoadingSpinner /> : (

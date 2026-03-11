@@ -13,17 +13,16 @@ import { FiMinus } from "react-icons/fi";
 import { PiTrash } from "react-icons/pi";
 import { FiPlus } from "react-icons/fi"
 import "./menuForm.css"
-import photoNotFound from "../../../../assets/productNotFound.png"
-import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud';
 import { useMenuForm } from './useMenuForm';
 import ListIngredientsBurger from '../../../../features/admin/burger/ui/listIngredientsBurger/ListIngredientsBurger';
-import { CreateMenuRequestDTO, MenuResponseDTO } from '../../../../entities/menu/dto/menuDto';
+import { CreateMenuRequestDTO, MenuResponseDTO, MenuItemResponseDTO, UpdateMenuRequestDTO, UpdateMenuRequestWithImageDTO, CreateMenuRequestWithImageDTO, MenuItemRequestDTO } from '../../../../entities/menu/dto/menuDto';
 import { TableBody, TableHead, TableLayout, Td, Th } from '../../componetsCrud/table/TableComponents';
 import ListModelBurgers from '../../../../features/admin/menu/ui/listModelBurgers/ListModelBurgers';
 import { useListCategoryMenu } from '../../../../features/admin/categoryMenu/hooks/useListCategoryMenu';
 import SelectCrud from '../../componetsCrud/fields/selectCrud/SelectCrud';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+import photoNotFound from "../../../../assets/productNotFound.png"
 
 type FormMode = "admin-create" | "admin-update";
 
@@ -33,7 +32,6 @@ interface MenuFormProps {
     onSubmit: (data: any) => Promise<any>
     loading?: boolean
 }
-
 
 export default function MenuForm({ mode, initialData, onSubmit, loading = false }: MenuFormProps) {
 
@@ -61,30 +59,33 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
         idMenu: initialData?.idMenu ?? 0,
         name: initialData?.name ?? "",
         description: initialData?.description ?? "",
-        regularPrice: initialData?.regularPrice ?? "",
-        comboPrice: initialData?.comboPrice ?? "",
         isAvailable: initialData?.isAvailable ?? true,
         imageUrl: initialData?.imageUrl ?? null,
-        idMenuCategory: initialData?.idMenuCategory ?? 0,
+        idMenuCategory: initialData?.menuCategory?.idMenuCategory ?? 0,
         items: initialData?.items ?? []
     });
 
     useEffect(() => {
         if (initialData) {
             setForm({
-                idMenu: initialData?.idMenu ?? 0,
-                name: initialData?.name ?? "",
-                description: initialData?.description ?? "",
-                regularPrice: initialData?.regularPrice ?? "",
-                comboPrice: initialData?.comboPrice ?? "",
-                isAvailable: initialData?.isAvailable ?? true,
-                imageUrl: initialData?.imageUrl ?? null,
-                idMenuCategory: initialData?.idMenuCategory ?? 0,
-                items: initialData?.items ?? []
+                idMenu: initialData.idMenu,
+                name: initialData.name,
+                description: initialData.description,
+                isAvailable: initialData.isAvailable,
+                imageUrl: initialData.imageUrl ?? null,
+                idMenuCategory: initialData.menuCategory?.idMenuCategory ?? 0,
+                items: [] // Mantener vacío, usamos ingredientsList
             });
 
-            setIngredientsList(initialData.items ?? []);
+            const mappedItems: MenuItemResponseDTO[] = (initialData.items ?? []).map(item => ({
+                itemType: item.itemType,
+                burger: item.burger ?? null,
+                product: item.product ?? null,
+                quantity: item.quantity,
+                idMenuItem: item.idMenuItem ?? undefined
+            }));
 
+            setIngredientsList(mappedItems);
         }
     }, [initialData]);
 
@@ -110,46 +111,72 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // Convertir la lista de ingredientes a MenuItemRequestDTO
+        const items: MenuItemRequestDTO[] = ingredientsList.map(({ itemType, burger, product, quantity }) => ({
+            itemType,
+            idBurger: burger?.idBurger ?? null,
+            idProduct: product?.idProduct ?? null,
+            quantity
+        }));
+
         if (mode === "admin-create") {
+            // Crear menú
             const body: CreateMenuRequestDTO = {
                 ...form,
-                regularPrice: Number(form.regularPrice),
-                comboPrice: Number(form.comboPrice),
                 idMenuCategory: Number(form.idMenuCategory),
-                items: ingredientsList.map(({ itemType, idBurger, idProduct, quantity }) => ({
-                    itemType,
-                    idBurger: idBurger ?? null,
-                    idProduct: idProduct ?? null,
-                    quantity
-                }))
-            }
+                items
+            };
 
-            const response = await onSubmit({ menu: body, file: image });
+            const response = await onSubmit({ menu: body, file: image } as CreateMenuRequestWithImageDTO);
 
             if (response?.status === 201) {
-                toast.success("Menu cread con exito");
+                toast.success("Menú creado con éxito");
                 nagivation("/admin/menu-list");
-                return
+            }
+        } else if (mode === "admin-update" && initialData) {
+            // Actualizar menú
+            const body: UpdateMenuRequestDTO = {
+                name: form.name,
+                description: form.description,
+                isAvailable: form.isAvailable,
+                idMenuCategory: Number(form.idMenuCategory),
+                items
+            };
+
+            const response = await onSubmit({ menu: body, file: image } as UpdateMenuRequestWithImageDTO);
+
+            if (response?.status === 200) {
+                toast.success("Menú actualizado con éxito");
+                nagivation("/admin/menu-list");
             }
         }
+    };
+    const itemsAreEqual = (a: MenuItemResponseDTO[], b: MenuItemResponseDTO[]) => {
+        if (a.length !== b.length) return false;
+        for (let i = 0; i < a.length; i++) {
+            const itemA = a[i];
+            const itemB = b[i];
 
-    }
-
-
-
+            if (
+                itemA.itemType !== itemB.itemType ||
+                itemA.quantity !== itemB.quantity ||
+                (itemA.burger?.idBurger ?? null) !== (itemB.burger?.idBurger ?? null) ||
+                (itemA.product?.idProduct ?? null) !== (itemB.product?.idProduct ?? null)
+            ) {
+                return false;
+            }
+        }
+        return true;
+    };
 
     const formIsEqual =
         (initialData?.name ?? "") === form.name &&
         (initialData?.description ?? "") === form.description &&
-        (initialData?.regularPrice ?? 0) === Number(form.regularPrice) &&
-        (initialData?.comboPrice ?? 0) === Number(form.comboPrice) &&
         (initialData?.isAvailable ?? true) === form.isAvailable &&
-        (initialData?.idMenuCategory ?? 0) === Number(form.idMenuCategory) &&
+        (initialData?.menuCategory?.idMenuCategory ?? 0) === Number(form.idMenuCategory) &&
         (initialData?.imageUrl ?? null) === (form.imageUrl ?? null) &&
         image === null &&
-        JSON.stringify(initialData?.items ?? []) === JSON.stringify(ingredientsList);
-
-
+        itemsAreEqual(initialData?.items ?? [], ingredientsList);
 
     return (
         <form className='menuForm__form' onSubmit={handleSubmit}>
@@ -172,7 +199,7 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
             <div className="menuForm__container-image">
                 <SubTittleCrud icon={<FaImage size={22} color='red' />} title='Imagen' />
                 <Line />
-                <ImageCrud defaultImage={photoNotFound} onImageChange={(file) => setImage(file)} title='Imagen del menu' />
+                <ImageCrud defaultImage={form.imageUrl ?? photoNotFound} onImageChange={(file) => setImage(file)} title='Imagen del menu' />
             </div>
 
             <div className="menuForm__container-data">
@@ -181,10 +208,6 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                 <InputCrud required id='menu-form-name' label='Nombre del menu' name='name' placeholder='ej: menu infantil' value={form.name} onChange={onInputChange} />
 
                 <TextareaCrud required id='menu-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} value={form.description} onChange={onInputChange} />
-
-                <InputNumberCrud required id='menu-form-regularPrice' label='regularPrice ($)' name='regularPrice' type='number' placeholder='regularPrice' value={form.regularPrice} onChange={onInputChange} />
-
-                <InputNumberCrud required id='menu-form-comboPrice' label='comboPrice ($)' name='comboPrice' type='number' placeholder='comboPrice' value={form.comboPrice} onChange={onInputChange} />
 
                 <SelectCrud required id='menu-form-category' placeholder='Seleccione una categoria ...' label='Seleccione la categoria menu' name='idMenuCategory' value={form.idMenuCategory} onChange={onInputChange} options={categorysMenu.map((cat) => ({ value: String(cat.idMenuCategory), label: cat.menuCategoryName }))} />
 
@@ -196,7 +219,7 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                     <SubTittleCrud icon={<PiHamburgerFill size={22} color='red' />} title='Hamburguesas y productos' />
 
                     <div className='menuForm__buttons-adds'>
-                        <button id='menu-form-add-product' className='menuForm__button-add' type='button' onClick={() => openModel("ingredients")}> <IoIosAddCircleOutline size={17} color='red' />Añadir ingrediente</button>
+                        <button id='menu-form-add-product' className='menuForm__button-add' type='button' onClick={() => openModel("ingredients")}> <IoIosAddCircleOutline size={17} color='red' />Añadir Producto</button>
                         <button id='menu-form-add-burger' className='menuForm__button-add' type='button' onClick={() => openModel("burgers")}> <IoIosAddCircleOutline size={17} color='red' />Añadir Hamburguesa</button>
                     </div>
 
@@ -206,20 +229,27 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                     <TableHead>
                         <tr>
                             <Th>Tipo producto</Th>
-                            <Th>Id Burger</Th>
-                            <Th>Id Product</Th>
+                            <Th>Foto</Th>
+                            <Th>Nombre</Th>
                             <Th>Cantidad</Th>
                             <Th>Acciones</Th>
                         </tr>
                     </TableHead>
 
                     <TableBody>
-                        {ingredientsList.map((ingredient) => (
-                            <tr key={ingredient.idProduct}>
+                        {ingredientsList.map((ingredient, index) => (
+                            <tr key={index}>
 
-                                <Td>{ingredient.itemType}</Td>
-                                <Td>{ingredient.idBurger}</Td>
-                                <Td>{ingredient.idProduct}</Td>
+                                <Td>{ingredient.itemType === "BURGER" ? "Hambugursa" : "Producto"}</Td>
+
+                                <Td>
+                                    <div className="tableComponents__container-img">
+                                        <img className="tableComponents__img" src={ingredient.product?.imageUrl ?? ingredient.burger?.imageUrl ?? photoNotFound} alt="" />
+                                    </div>
+                                </Td>
+
+                                <Td>{ingredient.product?.name ?? ingredient.burger?.name}</Td>
+
 
                                 <Td>
                                     <div className="menuForm__container-quantity">
@@ -261,7 +291,7 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                 </TableLayout>
             </div>
 
-            <ButtonSubmitCrud id='menu-form-submit' disabled={formIsEqual} loading={loading} label={mode === "admin-create" ? "Crear Menu": "Actualizar Menu"}/>
+            <ButtonSubmitCrud id='menu-form-submit' disabled={formIsEqual} loading={loading} label={mode === "admin-create" ? "Crear Menu" : "Actualizar Menu"} />
         </form>
     )
 }

@@ -1,32 +1,24 @@
 import React, { useState } from 'react'
-import "./listBurger.css"
-import { useListBurger } from '../../hooks/useListBurger'
 import { TableActions, TableBody, TableHead, TableLayout, TablePagination, Td, Th } from '../../../../../shared/components/componetsCrud/table/TableComponents';
-import ButtonCasual from '../../../../../shared/components/buttonCasual/ButtonCasual';
-import InputSearch from '../../../../../shared/components/componetsCrud/fields/inputSearch/InputSearch';
+import "./listMenu.css"
+import { useListMenu } from '../../hooks/useListMenu';
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
-import photoBurgerNotFound from "../../../../../assets/burgerNotFound.png"
 import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
+import { deleteMenu } from '../../../../../entities/menu/api/menuApi';
 import { toast } from 'sonner';
-import { deleteBurger } from '../../../../../entities/burger/api/burgerApi';
+import ButtonCasual from '../../../../../shared/components/buttonCasual/ButtonCasual';
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
+import photoNotFound from "../../../../../assets/productNotFound.png"
 
+export default function ListMenu() {
 
-export default function ListBurger() {
-
-    const { loading, error, burgers, numberPage, totalPage, nextPage, prevPage, handleListBurgers, name, setName } = useListBurger();
-
-
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setName(e.target.value);
-    }
-
+    const { loading, error, menus, numberPage, totalPage, nextPage, prevPage, handleListMenu } = useListMenu();
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [itemToDelete, setItemToDelete] = useState<any>(null);
 
-    const { loading: deleting, remove } = useDeleteEntity(deleteBurger);
+    const { loading: deleting, remove } = useDeleteEntity(deleteMenu);
 
     const openDeleteModal = (item: any) => {
         setItemToDelete(item);
@@ -41,23 +33,21 @@ export default function ListBurger() {
     const confirmDelete = async () => {
         if (!itemToDelete) return;
 
-        await remove(itemToDelete.idBurger);
+        await remove(itemToDelete.idMenu);
         closeDeleteModal();
-        handleListBurgers();
-        toast.success("Hamburguesa eliminado con exito.");
+        handleListMenu();
+        toast.success("Menu eliminado con exito.");
     };
 
-
-
     return (
-        <div className="listBurger__container-global">
+        <div className="listMenu__container-global">
 
             {/* ---------- DELETE MODAL ---------- */}
 
             {showDeleteModal && itemToDelete && (
                 <ConfirmDeleteModal
-                    title="Eliminar Hamburguesa"
-                    description={`Estas a punto de eliminar permanentemente la Hamburguesa con nombre "${itemToDelete.name}". Esta acción es irreversible.`}
+                    title="Eliminar Menu"
+                    description={`Estas a punto de eliminar permanentemente la menu con nombre "${itemToDelete.name}". Esta acción es irreversible.`}
                     loading={deleting}
                     onConfirm={confirmDelete}
                     onClose={closeDeleteModal}
@@ -65,13 +55,9 @@ export default function ListBurger() {
             )}
 
 
-            <div className="listBurger__container-top">
+            <div className="listMenu__container-top">
 
-                <div className="listBurger__container-input-search">
-                    <InputSearch placeholder='Buscar por nombre ...' name='name' onChange={onInputChange} value={name} />
-                </div>
-
-                <ButtonCasual linkRedireccion='/admin/burger-create' mensagge='+ Nueva Hamburguesa' />
+                <ButtonCasual linkRedireccion='/admin/menu-create' mensagge='+ Nuevo Menu' />
 
             </div>
 
@@ -83,43 +69,43 @@ export default function ListBurger() {
                             <Th>ID</Th>
                             <Th>FOTO</Th>
                             <Th>NOMBRE</Th>
-                            <Th>PRECIO FINAL</Th>
+                            <Th>DESCRIPCION</Th>
                             <Th>DISPONIBILIDAD</Th>
                             <Th>ACCIONES</Th>
                         </tr>
                     </TableHead>
 
                     <TableBody>
-                        {burgers?.map((burger) => (
-                            <tr key={burger.idBurger}>
+                        {menus?.map((menu) => (
+                            <tr key={menu.idMenu}>
 
-                                <Td>{burger.idBurger}</Td>
+                                <Td>{menu.idMenu}</Td>
 
                                 <Td>
                                     <div className="tableComponents__container-img">
-                                        <img className="tableComponents__img" src={burger.imageUrl ? burger.imageUrl : photoBurgerNotFound} alt="" />
+                                        <img className="tableComponents__img" src={menu.imageUrl ? menu.imageUrl : photoNotFound} alt="" />
                                     </div>
                                 </Td>
 
-                                <Td>{burger.name}</Td>
-                                <Td>${burger.finalPrice}</Td>
+                                <Td>{menu.name}</Td>
 
-                                <Td><span className={`tableComponents__span-${burger.availability ? "green" : "red"}`}> {burger.availability ? "DIsponible" : "No disponible"} </span> </Td>
+                                <Td>{menu.description}</Td>
+
+                                <Td><span className={`tableComponents__span-${menu.isAvailable ? "green" : "red"}`}> {menu.isAvailable ? "DIsponible" : "No disponible"} </span> </Td>
 
                                 <Td>
                                     <TableActions
-                                        linkEdit={`/admin/burger/update/${burger.idBurger}`}
-                                        onDelete={() => openDeleteModal(burger)}
+                                        linkEdit={`/admin/menu/update/${menu.idMenu}`}
+                                        onDelete={() => openDeleteModal(menu)}
                                     />
                                 </Td>
 
                             </tr>
                         ))}
                     </TableBody>
+
                 </TableLayout>
             )}
-
-
 
             <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
 
