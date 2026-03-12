@@ -75,6 +75,9 @@ import LoadingSpinner from '../shared/components/loadings/loadingSpinner/Loading
 import CardProduct from '../shared/components/cardProduct/CardProduct'
 import ModelDetailsProduct from '../shared/components/modelDetailsProduct/ModelDetailsProduct'
 import ViewTest from '../shared/components/test/ViewTest'
+import ProductsPage from '../pages/shop/productsPage/ProductsPage'
+import BurgersPage from '../pages/shop/burgerPage/BurgersPage'
+import ProductFilters from '../shared/components/productFilters/ProductFilters'
 
 
 
@@ -95,6 +98,9 @@ export default function Router() {
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/terms' element={<TermsAndConditionsPage />} />
         <Route path='/contact-us' element={<ContactUsPage />} />
+        <Route path='/products' element={<ProductsPage />} />
+        <Route path='/burgers' element={<BurgersPage />} />
+        
 
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}
@@ -200,6 +206,9 @@ export default function Router() {
 
 
         <Route path='/prueba27' element={<CreateBurger />} />
+        <Route path='/prueba28' element={<ProductFilters activeFilter='BURGER'/>} />
+
+
 
 
         <Route path='/prueba29' element={<InputNumberCrud />} />

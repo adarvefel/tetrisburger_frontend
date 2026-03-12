@@ -1,0 +1,20 @@
+.sides__container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sides__container-search{
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.sides{
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+    height: 35rem;
+}

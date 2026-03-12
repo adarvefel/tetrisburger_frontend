@@ -1,0 +1,17 @@
+.additions__container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.additions__container-search{
+    display: flex;
+    justify-content: left;
+}
+
+.additions{
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+    height: 35rem;
+}

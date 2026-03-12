@@ -1,0 +1,10 @@
+.productsPage__container-global{
+    background-color: #F6F7F8;
+}
+
+.productsPage__container-content{
+    min-height: 100vh;
+
+    margin-top: 4rem;
+    padding: 2rem;
+}

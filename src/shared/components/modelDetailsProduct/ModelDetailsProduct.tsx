@@ -13,6 +13,7 @@ interface Props {
     price: number,
     description: string,
     imageUrl: string,
+    available: boolean,
     ingredients?:
     {
         imageUrl: string,
@@ -22,7 +23,7 @@ interface Props {
 
 }
 
-export default function ModelDetailsProduct({ onClose, typeProduct, id, description, price, imageUrl, name, ingredients }: Props) {
+export default function ModelDetailsProduct({ onClose, typeProduct, id, description, price, imageUrl,available,  name, ingredients }: Props) {
 
 
     const formatPriceCOP = (price: number) =>
@@ -96,9 +97,9 @@ export default function ModelDetailsProduct({ onClose, typeProduct, id, descript
 
                     <Line />
 
-                    <button className="modelDetailsProduct__addCart">
+                    <button className="modelDetailsProduct__addCart" disabled={!available}>
                         <MdOutlineAddShoppingCart size={18} />
-                        Agregar al carrito
+                        {available ? "Agregar al carrito" : "No disponible"}
                     </button>
 
                 </div>

@@ -11,17 +11,18 @@ interface Props {
     price: number,
     description: string,
     imageUrl: string,
+    available: boolean
     ingredients?:
     {
         imageUrl: string,
         name: string
         quantity: number
-    }[]
+    }[],
 
 
 }
 
-export default function CardProduct({ typeProduct, id, description, price, imageUrl, name, ingredients }: Props) {
+export default function CardProduct({ typeProduct, id, description, price, imageUrl, available,  name, ingredients }: Props) {
 
 
     const [model, setModel] = useState(false);
@@ -62,10 +63,10 @@ export default function CardProduct({ typeProduct, id, description, price, image
                     {formatPriceCOP(price)}
                 </p>
 
-                <div className="cardProduct__button">
+                <button className="cardProduct__button" disabled={!available}>
                     <MdOutlineAddShoppingCart size={14} />
-                    Agregar al carrito
-                </div>
+                    {available ? "Agregar al carrito" : "No disponible"}
+                </button>
 
             </div>
 
@@ -76,6 +77,7 @@ export default function CardProduct({ typeProduct, id, description, price, image
                     description={description}
                     name={name}
                     imageUrl={imageUrl}
+                    available={available}
                     price={price}
                     typeProduct={typeProduct}
                     ingredients={ingredients}
