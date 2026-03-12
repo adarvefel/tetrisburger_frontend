@@ -25,8 +25,8 @@ export default function NavbarAuthenticated() {
                 <div className={`navbarAuthenticated__container-links ${menuOpen ? 'active' : ''}`}>
                     <ul className='navbarAuthenticated__ul'>
                         <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/"}>INICIO</Link></li>
+                        <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/products"}>PRODUCTOS</Link></li>
                         <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/menu"}>MENU</Link></li>
-                      
                         <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/contact-us"}>CONTACTANOS</Link></li>
                     </ul>
                 </div>

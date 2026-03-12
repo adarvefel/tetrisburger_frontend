@@ -72,6 +72,9 @@ import CategoryMenuForm from '../shared/components/formsCruds/categoryMenuForm/C
 import MenuForm from '../shared/components/formsCruds/menuForm/MenuForm'
 import ListConfigurationsPage from '../pages/admin/configurations/listConfigurationsPage/ListConfigurationsPage'
 import LoadingSpinner from '../shared/components/loadings/loadingSpinner/LoadingSpinner'
+import CardProduct from '../shared/components/cardProduct/CardProduct'
+import ModelDetailsProduct from '../shared/components/modelDetailsProduct/ModelDetailsProduct'
+import ViewTest from '../shared/components/test/ViewTest'
 
 
 
@@ -199,15 +202,14 @@ export default function Router() {
         <Route path='/prueba27' element={<CreateBurger />} />
 
 
-        <Route path='/prueba28' element={<MenuForm />} />
-
         <Route path='/prueba29' element={<InputNumberCrud />} />
-
-
 
         <Route path='/prueba30' element={<InputSearch />} />
 
         <Route path='/prueba31' element={<LoadingSpinner />}/>
+
+
+        <Route path='/prueba34' element={<ViewTest />}/>
 
       </Routes>
     </BrowserRouter>
