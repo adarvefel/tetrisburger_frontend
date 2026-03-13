@@ -78,6 +78,8 @@ import ViewTest from '../shared/components/test/ViewTest'
 import ProductsPage from '../pages/shop/productsPage/ProductsPage'
 import BurgersPage from '../pages/shop/burgerPage/BurgersPage'
 import ProductFilters from '../shared/components/productFilters/ProductFilters'
+import CartPage from '../pages/user/cart/CartPage'
+import Cart from '../features/user/cart/Cart'
 
 
 
@@ -108,6 +110,7 @@ export default function Router() {
         <Route path="/pqrs-create" element={<ProtectedRoute><PqrsCreatePage /></ProtectedRoute>} />
         <Route path="/pqrs-me" element={<ProtectedRoute><PqrsMePage /></ProtectedRoute>} />
         <Route path="/pqrs/update/:id" element={<ProtectedRoute><PqrsUpdateMePage /></ProtectedRoute>} />
+        <Route path="/cart-me" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
 
 
 
@@ -216,6 +219,7 @@ export default function Router() {
         <Route path='/prueba30' element={<InputSearch />} />
 
         <Route path='/prueba31' element={<LoadingSpinner />}/>
+        <Route path='/prueba32' element={<Cart />}/>
 
 
         <Route path='/prueba34' element={<ViewTest />}/>
