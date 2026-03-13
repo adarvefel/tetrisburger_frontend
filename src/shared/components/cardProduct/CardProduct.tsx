@@ -3,6 +3,7 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import photoNotFound from "../../../assets/productNotFound.png"
 import { useState } from "react";
 import ModelDetailsProduct from "../modelDetailsProduct/ModelDetailsProduct";
+import { useCartStore } from "../../../shared/store/useCartStore";
 
 interface Props {
     typeProduct: "BURGER" | "PRODUCT" | "ADICION",
@@ -22,7 +23,7 @@ interface Props {
 
 }
 
-export default function CardProduct({ typeProduct, id, description, price, imageUrl, available,  name, ingredients }: Props) {
+export default function CardProduct({ typeProduct, id, description, price, imageUrl, available, name, ingredients }: Props) {
 
 
     const [model, setModel] = useState(false);
@@ -45,6 +46,20 @@ export default function CardProduct({ typeProduct, id, description, price, image
         }).format(price);
     };
 
+
+    const addProduct = useCartStore((state) => state.addProduct);
+
+    const handleAddToCart = (e: React.MouseEvent) => {
+        e.stopPropagation(); // evita que se abra el modal
+
+        addProduct({
+            typeProduct,
+            idProduct: id,
+            name,
+            price,
+            imageUrl
+        });
+    };
     return (
 
         <>
@@ -63,7 +78,11 @@ export default function CardProduct({ typeProduct, id, description, price, image
                     {formatPriceCOP(price)}
                 </p>
 
-                <button className="cardProduct__button" disabled={!available}>
+                <button
+                    className="cardProduct__button"
+                    disabled={!available}
+                    onClick={handleAddToCart}
+                >
                     <MdOutlineAddShoppingCart size={14} />
                     {available ? "Agregar al carrito" : "No disponible"}
                 </button>
