@@ -17,7 +17,6 @@ export default function useListFavorites() {
             setError(null);
             const response = await listBurgerFavorite();
             setBurgersFavorites(response.data)
-            console.log(response)
             return response;
 
         } catch (err: any) {

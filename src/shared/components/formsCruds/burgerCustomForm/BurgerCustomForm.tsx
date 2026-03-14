@@ -21,7 +21,7 @@ import { FaCircleExclamation } from "react-icons/fa6";
 import photoNotFound from "../../../../assets/productNotFound.png"
 import { BurgerResponseDTO, BurgerUpdateRequestDTO, CreateBurgerByAdminDTO } from '../../../../entities/burger/dto/burgerDto';
 import { toast } from 'sonner';
-import useCreateBurger from '../../../../features/admin/burger/hooks/useCreateBurger';
+import burgerCustom from "../../../../assets/burgerCustom.png"
 import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud';
 import { useNavigate } from 'react-router-dom';
 import { CreateCustomBurgerRequestDTO } from '../../../../features/user/burgerCustom/dto/burgerCustomDto';
@@ -229,7 +229,8 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                     typeProduct: "BURGER",
                     idProduct: response.data.idBurger,
                     name: response.data.name,
-                    price: response.data.finalPrice
+                    price: response.data.finalPrice,
+                    imageUrl: burgerCustom
                 });
 
                 nagivation("/cart-me");

@@ -168,7 +168,8 @@ export const endPoints = {
 
             create: "/api/burgers/custom",
             addFavorite: "/api/favorites",
-            listFavorites: "/api/favorites"
+            listFavorites: "/api/favorites",
+            deleteFavorite: (id: number)  => `/api/favorites/${id}`,
         }
     }
 }

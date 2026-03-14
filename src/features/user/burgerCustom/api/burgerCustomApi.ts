@@ -16,3 +16,8 @@ export const listBurgerFavorite = async() =>{
     const response = axiosClient.get(endPoints.user.burgerCustom.addFavorite);
     return response;
 }
+ 
+export const deleteBurgerFavorite = async(id: number) =>{
+    const response = axiosClient.delete(endPoints.user.burgerCustom.deleteFavorite(id));
+    return response;
+}
