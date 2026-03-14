@@ -5,6 +5,7 @@ import Burgers from '../burgers/Burgers';
 import Sides from '../sides/Sides';
 import Additions from '../additions/Additions';
 import Line from '../../../shared/components/componetsCrud/fields/line/Line';
+import BurgerCustom from '../burgerCustom/BurgerCustom';
 
 export default function Products() {
 
@@ -21,6 +22,7 @@ export default function Products() {
       {filter === "BURGER" && <Burgers/>}
       {filter === "SIDE" && <Sides/>}
       {filter === "ADDITION" && <Additions/>}
+      {filter === "BURGERCUSTOM" && <BurgerCustom/>}
     </div>
   )
 }

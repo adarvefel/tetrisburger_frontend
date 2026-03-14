@@ -24,9 +24,12 @@ import { toast } from 'sonner';
 import useCreateBurger from '../../../../features/admin/burger/hooks/useCreateBurger';
 import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud';
 import { useNavigate } from 'react-router-dom';
+import { CreateCustomBurgerRequestDTO } from '../../../../features/user/burgerCustom/dto/burgerCustomDto';
+import useAddBurgerFavorite from '../../../../features/user/burgerCustom/hooks/useAddBurgerFavorite';
+import { useCartStore } from '../../../store/useCartStore';
 
 
-type FormMode = "admin-create" | "admin-update";
+type FormMode = "admin-create" | "admin-update" | "user-create";
 
 interface BurgerFormProps {
     mode: FormMode;
@@ -36,6 +39,10 @@ interface BurgerFormProps {
 }
 
 export default function BurgerCustomForm({ mode, initialData, onSubmit, loading }: BurgerFormProps) {
+
+    //BURGER CUSTON USER
+    const { handleAddBurgerFavorite } = useAddBurgerFavorite();
+    const addProduct = useCartStore((state) => state.addProduct);
 
     const {
         modelIngredients,
@@ -205,6 +212,32 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
             }
         }
 
+        else if (mode === "user-create") {
+            const data: CreateCustomBurgerRequestDTO = {
+                name: form.name,
+                ingredients: ingredientsList.map(({ idProduct, quantity, isOptional }) => ({
+                    idProduct, quantity, isOptional
+                }))
+            }
+
+            const response = await onSubmit(data);
+
+            if (response?.status === 201) {
+                form.isFeatured && handleAddBurgerFavorite(response.data.idBurger);
+    
+                addProduct({
+                    typeProduct: "BURGER",
+                    idProduct: response.data.idBurger,
+                    name: response.data.name,
+                    price: response.data.finalPrice
+                });
+
+                nagivation("/cart-me");
+
+                return;
+            }
+        }
+
 
     }
 
@@ -235,24 +268,34 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
             {modelIngredients ? <ListIngredientsBurger onClose={closeModel} onAddIngredient={addIngredient} /> : null}
 
             <div className="burgerCustomForm__container-main">
-                <div className="burgerCustomForm__container-image">
-                    <SubTittleCrud icon={<FaImage size={22} color='red' />} title='Imagen' />
-                    <Line />
-                    <ImageCrud defaultImage={form.imageUrl ?? burgerNotFound} onImageChange={(file) => setImage(file)} title='Imagen de la hamburguesa' />
-                </div>
+                {mode !== "user-create" && (
+                    <div className="burgerCustomForm__container-image">
+                        <SubTittleCrud
+                            icon={<FaImage size={22} color='red' />}
+                            title='Imagen'
+                        />
+                        <Line />
+                        <ImageCrud
+                            defaultImage={form.imageUrl ?? burgerNotFound}
+                            onImageChange={(file) => setImage(file)}
+                            title='Imagen de la hamburguesa'
+                        />
+                    </div>
+                )}
 
                 <div className="burgerCustomForm__container-data">
                     <SubTittleCrud title="Informacion general" icon={<FaCircleExclamation size={22} color="red" />} />
 
                     <Line />
 
-                    <InputCrud id='burger-form-id' label='ID hambuguresa' name='id' value={form.idBurger} disabled />
+                    {mode !== "user-create" && (<InputCrud id='burger-form-id' label='ID hambuguresa' name='id' value={form.idBurger} disabled />)}
 
                     <InputCrud id='burger-form-name' label='Nombre de la hamburguesa' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={form.name} required />
 
-                    <TextareaCrud id='burger-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} onChange={onInputChange} value={form.description} required />
+                    {mode !== "user-create" && (<TextareaCrud id='burger-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} onChange={onInputChange} value={form.description} required />)}
 
-                    <InputNumberCrud id='burger-form-finalPrice' label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} required />
+                    {mode !== "user-create" && (<InputNumberCrud id='burger-form-finalPrice' label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} required />)}
+
                 </div>
 
                 <div className="burgerCustomForm__container-actions">
@@ -260,7 +303,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                     <Line />
                     <div className="burgerCustomForm__container-checks">
                         <CheckboxCrud id='burger-form-isFeatured' label='Destacada' name='isFeatured' checkboxLabel='Marcar como favorita' onChange={onInputChange} checked={form.isFeatured} />
-                        <CheckboxCrud id='burger-form-availability' label='Disponible' name='availability' checkboxLabel='Marcar como disponible' onChange={onInputChange} checked={form.availability} />
+                        {mode !== "user-create" && (<CheckboxCrud id='burger-form-availability' label='Disponible' name='availability' checkboxLabel='Marcar como disponible' onChange={onInputChange} checked={form.availability} />)}
                     </div>
                 </div>
 
@@ -298,22 +341,26 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                 </div>
 
 
-                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : "Crear hamburguesa"} loading={loading} />
+                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : mode === "admin-create" ? "Crear hamburguesa" : mode === "user-create" ? "Guardar y añadir al carrito." : "oli"} loading={loading} />
 
             </div>
 
-            <div className="burgerCustomForm__container-secound">
-                <div className="burgerCustomForm__container-analitic">
-                    <span className='burgerCustomForm__span-2'>Precio Base: <strong>${formatPrice(analytics.basePrice)}</strong></span>
-                    <span className='burgerCustomForm__span-2'>Precio Final: <strong>${formatPrice(Number(form.finalPrice))}</strong></span>
-                    <Line />
-                    <span className='burgerCustomForm__span-2'>Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>${formatPrice(analytics.margin)}</strong></span>
-                    <span className='burgerCustomForm__span-2'>% Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.marginPercentage.toFixed(2)}%</strong></span>
-                    <span className='burgerCustomForm__span-2'>Perdida: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
-                    <Line />
-                    <span className='burgerCustomForm__span-2'>Veces ordena: <strong>{form.timesOrdered}</strong></span>
+            {mode !== "user-create" && (
+                <div className="burgerCustomForm__container-secound">
+                    <div className="burgerCustomForm__container-analitic">
+                        <span className='burgerCustomForm__span-2'>Precio Base: <strong>${formatPrice(analytics.basePrice)}</strong></span>
+                        <span className='burgerCustomForm__span-2'>Precio Final: <strong>${formatPrice(Number(form.finalPrice))}</strong></span>
+                        <Line />
+                        <span className='burgerCustomForm__span-2'>Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>${formatPrice(analytics.margin)}</strong></span>
+                        <span className='burgerCustomForm__span-2'>% Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.marginPercentage.toFixed(2)}%</strong></span>
+                        <span className='burgerCustomForm__span-2'>Perdida: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
+                        <Line />
+                        <span className='burgerCustomForm__span-2'>Veces ordena: <strong>{form.timesOrdered}</strong></span>
+                    </div>
                 </div>
-            </div>
+            )}
+
+
 
         </form>
     )

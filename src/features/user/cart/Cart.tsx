@@ -12,6 +12,7 @@ import { PiTrashDuotone } from "react-icons/pi";
 import { IoIosTrash } from "react-icons/io";
 import { FaTrashRestoreAlt } from "react-icons/fa";
 import { useCartStore } from '../../../shared/store/useCartStore'
+import photoNotFound from "../../../assets/productNotFound.png"
 
 export default function Cart() {
 
@@ -67,7 +68,7 @@ export default function Cart() {
 
                             <div className='cart__container-card-left'>
                                 <div className="cart__container-image">
-                                    <img className='cart__img' src={item.imageUrl} alt="" />
+                                    <img className='cart__img' src={item.imageUrl ?? photoNotFound} alt="" />
                                 </div>
 
                                 <div className="cart__container-data">

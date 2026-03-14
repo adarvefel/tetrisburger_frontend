@@ -1,5 +1,10 @@
 .productFilters{
     display: flex;
+    justify-content: space-between;
+}
+
+.productFilters__container-left{
+    display: flex;
     gap: 1rem;
 }
 

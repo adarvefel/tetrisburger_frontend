@@ -162,6 +162,13 @@ export const endPoints = {
             delete: (id: number) => `/api/pqrs/${id}`
 
 
+        },
+
+        burgerCustom:{
+
+            create: "/api/burgers/custom",
+            addFavorite: "/api/favorites",
+            listFavorites: "/api/favorites"
         }
     }
 }

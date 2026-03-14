@@ -1,0 +1,13 @@
+.burgerCustom__container{
+    display: flex;
+    gap: 2rem;
+    
+}
+
+.burgerCustom__container-form{
+    flex: 2;
+}
+
+.burgerCustom__container-list{
+    flex: 1;
+}
