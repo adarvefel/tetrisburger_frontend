@@ -1,0 +1,68 @@
+.menuDetails__container{
+    
+    margin: auto;
+    color: black;
+    font-family: "Montserrat";
+}
+
+/* HEADER */
+
+.menuDetails__header{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.menuDetails__image{
+    width: 420px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.menuDetails__info{
+    flex: 1;
+}
+
+.menuDetails__category{
+    display: inline-block;
+    background: #ff7a00;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+
+.menuDetails__title{
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.menuDetails__description{
+    color: #666;
+    font-size: 16px;
+    max-width: 500px;
+}
+
+/* ITEMS */
+
+.menuDetails__items{
+    margin-top: 20px;
+}
+
+.menuDetails__items-title{
+    font-size: 24px;
+    margin-bottom: 25px;
+}
+
+/* GRID */
+
+.menuDetails__items-list{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+    gap: 25px;
+}

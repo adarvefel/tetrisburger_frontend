@@ -67,6 +67,6 @@
         idProduct: number,
         name: string,
         description?: string,
-        finalPrice: number,
+        price: number,
         imageUrl: string
     }

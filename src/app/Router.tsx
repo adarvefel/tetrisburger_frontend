@@ -76,10 +76,12 @@ import CardProduct from '../shared/components/cardProduct/CardProduct'
 import ModelDetailsProduct from '../shared/components/modelDetailsProduct/ModelDetailsProduct'
 import ViewTest from '../shared/components/test/ViewTest'
 import ProductsPage from '../pages/shop/productsPage/ProductsPage'
-import BurgersPage from '../pages/shop/burgerPage/BurgersPage'
+import BurgersPage from '../pages/shop/menu/menuPage/MenuPage'
 import ProductFilters from '../shared/components/productFilters/ProductFilters'
 import CartPage from '../pages/user/cart/CartPage'
 import Cart from '../features/user/cart/Cart'
+import MenuPage from '../pages/shop/menu/menuPage/MenuPage'
+import MenuDetailsPage from '../pages/shop/menu/menuDetailsPage/MenuDetailsPage'
 
 
 
@@ -101,7 +103,8 @@ export default function Router() {
         <Route path='/terms' element={<TermsAndConditionsPage />} />
         <Route path='/contact-us' element={<ContactUsPage />} />
         <Route path='/products' element={<ProductsPage />} />
-        <Route path='/burgers' element={<BurgersPage />} />
+        <Route path='/menu' element={<MenuPage />} />
+        <Route path="/menu/:menuId" element={<MenuDetailsPage />} />
         
 
 
@@ -209,7 +212,6 @@ export default function Router() {
 
 
         <Route path='/prueba27' element={<CreateBurger />} />
-        <Route path='/prueba28' element={<ProductFilters activeFilter='BURGER'/>} />
 
 
 
