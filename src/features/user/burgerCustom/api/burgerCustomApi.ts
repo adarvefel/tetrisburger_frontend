@@ -1,6 +1,6 @@
 import { axiosClient } from "../../../../shared/api/axiosClient";
 import { endPoints } from "../../../../shared/api/endPoints";
-import { CreateCustomBurgerRequestDTO } from "../dto/burgerCustomDto";
+import { CreateCustomBurgerRequestDTO, UpdateCustomBurgerRequestDTO } from "../dto/burgerCustomDto";
 
 export const createBurgerCustom = async(data: CreateCustomBurgerRequestDTO) =>{
     const response = axiosClient.post(endPoints.user.burgerCustom.create, data);
@@ -19,5 +19,10 @@ export const listBurgerFavorite = async() =>{
  
 export const deleteBurgerFavorite = async(id: number) =>{
     const response = axiosClient.delete(endPoints.user.burgerCustom.deleteFavorite(id));
+    return response;
+}
+
+export const updateBurgerCustom = async(id: number, data: UpdateCustomBurgerRequestDTO) =>{
+    const response = axiosClient.put(endPoints.user.burgerCustom.update(id), data);
     return response;
 }

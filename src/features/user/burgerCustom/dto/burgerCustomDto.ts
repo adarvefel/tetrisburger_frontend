@@ -21,3 +21,8 @@ export interface FavoriteBurgerResponseDTO{
   idFavorite: number
   burger: BurgerFavoriteResponseDTO
 }
+
+export interface UpdateCustomBurgerRequestDTO{
+  name: string
+  ingredients: IngredientRequestDTO[]
+}

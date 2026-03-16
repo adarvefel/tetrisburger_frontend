@@ -24,12 +24,12 @@ import { toast } from 'sonner';
 import burgerCustom from "../../../../assets/burgerCustom.png"
 import InputNumberCrud from '../../componetsCrud/fields/inputNumberCrud/InputNumberCrud';
 import { useNavigate } from 'react-router-dom';
-import { CreateCustomBurgerRequestDTO } from '../../../../features/user/burgerCustom/dto/burgerCustomDto';
+import { CreateCustomBurgerRequestDTO, UpdateCustomBurgerRequestDTO } from '../../../../features/user/burgerCustom/dto/burgerCustomDto';
 import useAddBurgerFavorite from '../../../../features/user/burgerCustom/hooks/useAddBurgerFavorite';
 import { useCartStore } from '../../../store/useCartStore';
 
 
-type FormMode = "admin-create" | "admin-update" | "user-create";
+type FormMode = "admin-create" | "admin-update" | "user-create" | "user-update";
 
 interface BurgerFormProps {
     mode: FormMode;
@@ -224,7 +224,34 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
             if (response?.status === 201) {
                 form.isFeatured && handleAddBurgerFavorite(response.data.idBurger);
-    
+
+                addProduct({
+                    typeProduct: "BURGER",
+                    idProduct: response.data.idBurger,
+                    name: response.data.name,
+                    price: response.data.finalPrice,
+                    imageUrl: burgerCustom
+                });
+
+                nagivation("/cart-me");
+
+                return;
+            }
+
+        }
+
+        else {
+            const data: UpdateCustomBurgerRequestDTO = {
+                name: form.name,
+                ingredients: ingredientsList.map(({ idProduct, quantity, isOptional }) => ({
+                    idProduct, quantity, isOptional
+                }))
+            }
+
+            const response = await onSubmit(data);
+
+            if (response?.status === 200) {
+
                 addProduct({
                     typeProduct: "BURGER",
                     idProduct: response.data.idBurger,
@@ -269,7 +296,8 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
             {modelIngredients ? <ListIngredientsBurger onClose={closeModel} onAddIngredient={addIngredient} /> : null}
 
             <div className="burgerCustomForm__container-main">
-                {mode !== "user-create" && (
+
+                {(mode !== "user-create" && mode !== "user-update") && (
                     <div className="burgerCustomForm__container-image">
                         <SubTittleCrud
                             icon={<FaImage size={22} color='red' />}
@@ -289,79 +317,221 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
                     <Line />
 
-                    {mode !== "user-create" && (<InputCrud id='burger-form-id' label='ID hambuguresa' name='id' value={form.idBurger} disabled />)}
+                    {(mode !== "user-create" && mode !== "user-update") && (
+                        <InputCrud
+                            id='burger-form-id'
+                            label='ID hambuguresa'
+                            name='id'
+                            value={form.idBurger}
+                            disabled
+                        />
+                    )}
 
-                    <InputCrud id='burger-form-name' label='Nombre de la hamburguesa' name='name' placeholder='ej: burger super quesuda' onChange={onInputChange} value={form.name} required />
+                    <InputCrud
+                        id='burger-form-name'
+                        label='Nombre de la hamburguesa'
+                        name='name'
+                        placeholder='ej: burger super quesuda'
+                        onChange={onInputChange}
+                        value={form.name}
+                        required
+                    />
 
-                    {mode !== "user-create" && (<TextareaCrud id='burger-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} onChange={onInputChange} value={form.description} required />)}
+                    {(mode !== "user-create" && mode !== "user-update") && (
+                        <TextareaCrud
+                            id='burger-form-description'
+                            label='Descripcion'
+                            name='description'
+                            placeholder='ej: tiene mas queso que colanta'
+                            rows={4}
+                            onChange={onInputChange}
+                            value={form.description}
+                            required
+                        />
+                    )}
 
-                    {mode !== "user-create" && (<InputNumberCrud id='burger-form-finalPrice' label='Precio ($)' name='finalPrice' type='number' placeholder='$' onChange={onInputChange} value={form.finalPrice} required />)}
+                    {(mode !== "user-create" && mode !== "user-update") && (
+                        <InputNumberCrud
+                            id='burger-form-finalPrice'
+                            label='Precio ($)'
+                            name='finalPrice'
+                            type='number'
+                            placeholder='$'
+                            onChange={onInputChange}
+                            value={form.finalPrice}
+                            required
+                        />
+                    )}
 
                 </div>
 
-                <div className="burgerCustomForm__container-actions">
-                    <SubTittleCrud icon={<FaCheckDouble size={22} color='red' />} title='Acciones' />
-                    <Line />
-                    <div className="burgerCustomForm__container-checks">
-                        <CheckboxCrud id='burger-form-isFeatured' label='Destacada' name='isFeatured' checkboxLabel='Marcar como favorita' onChange={onInputChange} checked={form.isFeatured} />
-                        {mode !== "user-create" && (<CheckboxCrud id='burger-form-availability' label='Disponible' name='availability' checkboxLabel='Marcar como disponible' onChange={onInputChange} checked={form.availability} />)}
+                {(mode !== "user-update") && (
+                    <div className="burgerCustomForm__container-actions">
+                        <SubTittleCrud icon={<FaCheckDouble size={22} color='red' />} title='Acciones' />
+                        <Line />
+                        <div className="burgerCustomForm__container-checks">
+                            <CheckboxCrud
+                                id='burger-form-isFeatured'
+                                label='Destacada'
+                                name='isFeatured'
+                                checkboxLabel='Marcar como favorita'
+                                onChange={onInputChange}
+                                checked={form.isFeatured}
+                            />
+
+                            {(mode !== "user-create") && (
+                                <CheckboxCrud
+                                    id='burger-form-availability'
+                                    label='Disponible'
+                                    name='availability'
+                                    checkboxLabel='Marcar como disponible'
+                                    onChange={onInputChange}
+                                    checked={form.availability}
+                                />
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 <div className="burgerCustomForm__container-ingredients">
                     <div className="burgerCustomForm__container-tittle">
                         <SubTittleCrud icon={<PiHamburgerFill size={22} color='red' />} title='Ingredientes' />
-                        <button className='burgerCustomForm__button-add' type='button' onClick={openModel}> <IoIosAddCircleOutline size={17} color='red' />Añadir ingrediente</button>
+                        <button
+                            className='burgerCustomForm__button-add'
+                            type='button'
+                            onClick={openModel}
+                        >
+                            <IoIosAddCircleOutline size={17} color='red' />
+                            Añadir ingrediente
+                        </button>
                     </div>
+
                     <Line />
+
                     <div className="burgerCustomForm__container-list">
 
-                        {
-                            ingredientsList.map((ingredient) => (
-                                <div key={ingredient.idProduct} className="burgerCustomForm__card-ingredient">
+                        {ingredientsList.map((ingredient) => (
+                            <div key={ingredient.idProduct} className="burgerCustomForm__card-ingredient">
 
-                                    <div className="burgerCustomForm__container-img">
-                                        <img className='burgerCustomForm__img' src={ingredient.imageUrl ?? photoNotFound} alt="" />
-                                    </div>
-                                    <span className='burgerCustomForm__span'>{ingredient.productName}</span>
-                                    <div className="burgerCustomForm__container-quantity">
-                                        <button className='burgerCustomForm__button' type='button' onClick={() => minusQuantity(ingredient.idProduct)}><FiMinus size={17} color='black' /></button>
-                                        <span className='burgerCustomForm__span'>Cant: <strong>{ingredient.quantity}</strong>x</span>
-                                        <button className='burgerCustomForm__button' type='button' onClick={() => plusQuantity(ingredient.idProduct)}><FiPlus size={15} color='black' /></button>
-                                    </div>
-                                    <span className='burgerCustomForm__span'>Opcional <input type='checkbox' name='isOptional' checked={ingredient.isOptional} onChange={() => changeIsOptional(ingredient.idProduct)} /></span>
-                                    <button className='burgerCustomForm__button' type='button' onClick={() => removeIngredient(ingredient.idProduct)}><PiTrash size={17} color='black' /></button>
-
+                                <div className="burgerCustomForm__container-img">
+                                    <img
+                                        className='burgerCustomForm__img'
+                                        src={ingredient.imageUrl ?? photoNotFound}
+                                        alt=""
+                                    />
                                 </div>
 
-                            ))}
+                                <span className='burgerCustomForm__span'>
+                                    {ingredient.productName}
+                                </span>
 
+                                <div className="burgerCustomForm__container-quantity">
+                                    <button
+                                        className='burgerCustomForm__button'
+                                        type='button'
+                                        onClick={() => minusQuantity(ingredient.idProduct)}
+                                    >
+                                        <FiMinus size={17} color='black' />
+                                    </button>
 
+                                    <span className='burgerCustomForm__span'>
+                                        Cant: <strong>{ingredient.quantity}</strong>x
+                                    </span>
+
+                                    <button
+                                        className='burgerCustomForm__button'
+                                        type='button'
+                                        onClick={() => plusQuantity(ingredient.idProduct)}
+                                    >
+                                        <FiPlus size={15} color='black' />
+                                    </button>
+                                </div>
+
+                                <span className='burgerCustomForm__span'>
+                                    Opcional
+                                    <input
+                                        type='checkbox'
+                                        name='isOptional'
+                                        checked={ingredient.isOptional}
+                                        onChange={() => changeIsOptional(ingredient.idProduct)}
+                                    />
+                                </span>
+
+                                <button
+                                    className='burgerCustomForm__button'
+                                    type='button'
+                                    onClick={() => removeIngredient(ingredient.idProduct)}
+                                >
+                                    <PiTrash size={17} color='black' />
+                                </button>
+
+                            </div>
+                        ))}
 
                     </div>
                 </div>
 
-
-                <ButtonSubmitCrud id='burger-form-submit' disabled={formIsEqual} label={mode == "admin-update" ? "Actualizar hamburguesa" : mode === "admin-create" ? "Crear hamburguesa" : mode === "user-create" ? "Guardar y añadir al carrito." : "oli"} loading={loading} />
+                <ButtonSubmitCrud
+                    id='burger-form-submit'
+                    disabled={formIsEqual}
+                    label={
+                        mode == "admin-update"
+                            ? "Actualizar hamburguesa"
+                            : mode === "admin-create"
+                                ? "Crear hamburguesa"
+                                : mode === "user-create"
+                                    ? "Guardar y añadir al carrito"
+                                    : "Actualizar y añadir al carrito"
+                    }
+                    loading={loading}
+                />
 
             </div>
 
-            {mode !== "user-create" && (
+            {(mode !== "user-create" && mode !== "user-update") && (
                 <div className="burgerCustomForm__container-secound">
                     <div className="burgerCustomForm__container-analitic">
-                        <span className='burgerCustomForm__span-2'>Precio Base: <strong>${formatPrice(analytics.basePrice)}</strong></span>
-                        <span className='burgerCustomForm__span-2'>Precio Final: <strong>${formatPrice(Number(form.finalPrice))}</strong></span>
+
+                        <span className='burgerCustomForm__span-2'>
+                            Precio Base: <strong>${formatPrice(analytics.basePrice)}</strong>
+                        </span>
+
+                        <span className='burgerCustomForm__span-2'>
+                            Precio Final: <strong>${formatPrice(Number(form.finalPrice))}</strong>
+                        </span>
+
                         <Line />
-                        <span className='burgerCustomForm__span-2'>Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>${formatPrice(analytics.margin)}</strong></span>
-                        <span className='burgerCustomForm__span-2'>% Margin: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.marginPercentage.toFixed(2)}%</strong></span>
-                        <span className='burgerCustomForm__span-2'>Perdida: <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>{analytics.sellingAtLoss ? "Si" : "No"}</strong></span>
+
+                        <span className='burgerCustomForm__span-2'>
+                            Margin:
+                            <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>
+                                ${formatPrice(analytics.margin)}
+                            </strong>
+                        </span>
+
+                        <span className='burgerCustomForm__span-2'>
+                            % Margin:
+                            <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>
+                                {analytics.marginPercentage.toFixed(2)}%
+                            </strong>
+                        </span>
+
+                        <span className='burgerCustomForm__span-2'>
+                            Perdida:
+                            <strong className={`burgerCustomForm__strong-${analytics.sellingAtLoss ? "red" : "green"}`}>
+                                {analytics.sellingAtLoss ? "Si" : "No"}
+                            </strong>
+                        </span>
+
                         <Line />
-                        <span className='burgerCustomForm__span-2'>Veces ordena: <strong>{form.timesOrdered}</strong></span>
+
+                        <span className='burgerCustomForm__span-2'>
+                            Veces ordena: <strong>{form.timesOrdered}</strong>
+                        </span>
+
                     </div>
                 </div>
             )}
-
-
 
         </form>
     )

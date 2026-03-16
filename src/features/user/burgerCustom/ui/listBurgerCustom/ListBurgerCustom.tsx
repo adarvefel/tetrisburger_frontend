@@ -11,7 +11,11 @@ import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity'
 import { deleteBurgerFavorite } from '../../api/burgerCustomApi'
 import { toast } from 'sonner'
 
-export default function ListBurgerCustom() {
+interface Props {
+  onEditBurger: (burger: any) => void
+}
+
+export default function ListBurgerCustom({ onEditBurger }: Props) {
 
   const { error, loading, burgersFavorites, handleListFavorites } = useListFavorites()
   const addProduct = useCartStore((state) => state.addProduct)
@@ -115,7 +119,7 @@ export default function ListBurgerCustom() {
                   <FaShoppingCart />
                 </button>
 
-                <button className='burgerCard__btn view'>
+                <button className='burgerCard__btn view' onClick={() => onEditBurger(burger)}>
                   <FaEye />
                 </button>
 

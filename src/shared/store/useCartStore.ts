@@ -58,7 +58,12 @@ export const useCartStore = create<CartStore>((set, get) => ({
             updatedItems = items.map((item) =>
                 item.idProduct === product.idProduct &&
                     item.typeProduct === product.typeProduct
-                    ? { ...item, quantity: item.quantity + 1 }
+                    ? {
+                        ...item,
+                        quantity: item.quantity + 1,
+                        price: product.price,
+                        name: product.name
+                    }
                     : item
             )
 
