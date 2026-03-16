@@ -76,7 +76,6 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
         ingredients: initialData?.ingredients ?? [],
     });
 
-
     useEffect(() => {
         if (initialData) {
             setForm({
@@ -100,11 +99,6 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
         }
     }, [initialData]);
-
-
-
-
-
 
     let nagivation = useNavigate();
 
@@ -143,20 +137,6 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
     const formatPrice = (value: number) => value.toLocaleString("es-CO");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value, type } = e.target;
         const checked = (e.target as HTMLInputElement).checked;
@@ -167,7 +147,6 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
         }));
 
     }
-
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -265,10 +244,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                 return;
             }
         }
-
-
     }
-
 
     const formIsEqual =
         (initialData?.name ?? "") === form.name &&
@@ -284,11 +260,6 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
         (initialData?.imageUrl ?? null) === (form.imageUrl ?? null) &&
         image === null &&
         JSON.stringify(initialData?.ingredients ?? []) === JSON.stringify(ingredientsList);
-
-
-
-
-
 
     return (
         <form className='burgerCustomForm__form' onSubmit={handleSubmit}>
@@ -447,15 +418,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                                     </button>
                                 </div>
 
-                                <span className='burgerCustomForm__span'>
-                                    Opcional
-                                    <input
-                                        type='checkbox'
-                                        name='isOptional'
-                                        checked={ingredient.isOptional}
-                                        onChange={() => changeIsOptional(ingredient.idProduct)}
-                                    />
-                                </span>
+                                
 
                                 <button
                                     className='burgerCustomForm__button'

@@ -13,6 +13,7 @@ import { IoIosTrash } from "react-icons/io";
 import { FaTrashRestoreAlt } from "react-icons/fa";
 import { useCartStore } from '../../../shared/store/useCartStore'
 import photoNotFound from "../../../assets/productNotFound.png"
+import { Link } from "react-router-dom";
 
 export default function Cart() {
 
@@ -59,71 +60,102 @@ export default function Cart() {
 
                 <div className="cart__container-products">
 
-                    {items.map((item) => (
+                    {items.length === 0 ? (
 
-                        <div
-                            key={`${item.typeProduct}-${item.idProduct}`}
-                            className="cart__items-card"
-                        >
+                        <div className="cart__empty">
 
-                            <div className='cart__container-card-left'>
-                                <div className="cart__container-image">
-                                    <img className='cart__img' src={item.imageUrl ?? photoNotFound} alt="" />
-                                </div>
+                           
 
-                                <div className="cart__container-data">
+                            <h2 className="cart__empty-title">
+                                Tu carrito está vacío
+                            </h2>
 
-                                    <div className="cart__container-name">
-                                        <span className='cart__span-name'>{item.name}</span>
-                                        <span className='cart__span-type-orange'>{item.typeProduct}</span>
-                                    </div>
+                            <p className="cart__empty-text">
+                                Aún no has agregado productos
+                            </p>
 
-                                    <span className='cart__span-price'>
-                                        {formatPriceCOP(item.price)}
-                                    </span>
-
-                                </div>
-                            </div>
-
-                            <div className="cart__card-container-right">
-
-                                <div className="cart__container-quantity">
-
-                                    <button
-                                        className="cart__btn-quantity"
-                                        type='button'
-                                        onClick={() => decreaseQuantity(item.typeProduct, item.idProduct)}
-                                    >
-                                        -
-                                    </button>
-
-                                    <span className='cart__span-quantity'>
-                                        x{item.quantity}
-                                    </span>
-
-                                    <button
-                                        className="cart__btn-quantity"
-                                        type='button'
-                                        onClick={() => increaseQuantity(item.typeProduct, item.idProduct)}
-                                    >
-                                        +
-                                    </button>
-
-                                </div>
-
-                                <button
-                                    className='cart__button-delete'
-                                    type='button'
-                                    onClick={() => removeProduct(item.typeProduct, item.idProduct)}
-                                >
-                                    <PiTrashDuotone size={25} />
-                                </button>
-
-                            </div>
+                            <Link
+                                to="/products"
+                                className="cart__empty-link"
+                            >
+                                Ver productos
+                            </Link>
 
                         </div>
 
-                    ))}
+                    ) : (
+
+                        items.map((item) => (
+
+                            <div
+                                key={`${item.typeProduct}-${item.idProduct}`}
+                                className="cart__items-card"
+                            >
+
+                                <div className='cart__container-card-left'>
+                                    <div className="cart__container-image">
+                                        <img
+                                            className='cart__img'
+                                            src={item.imageUrl ?? photoNotFound}
+                                            alt=""
+                                        />
+                                    </div>
+
+                                    <div className="cart__container-data">
+
+                                        <div className="cart__container-name">
+                                            <span className='cart__span-name'>{item.name}</span>
+                                            <span className='cart__span-type-orange'>{item.typeProduct}</span>
+                                        </div>
+
+                                        <span className='cart__span-price'>
+                                            {formatPriceCOP(item.price)}
+                                        </span>
+
+                                    </div>
+                                </div>
+
+                                <div className="cart__card-container-right">
+
+                                    <div className="cart__container-quantity">
+
+                                        <button
+                                            className="cart__btn-quantity"
+                                            type='button'
+                                            onClick={() => decreaseQuantity(item.typeProduct, item.idProduct)}
+                                        >
+                                            -
+                                        </button>
+
+                                        <span className='cart__span-quantity'>
+                                            x{item.quantity}
+                                        </span>
+
+                                        <button
+                                            className="cart__btn-quantity"
+                                            type='button'
+                                            onClick={() => increaseQuantity(item.typeProduct, item.idProduct)}
+                                        >
+                                            +
+                                        </button>
+
+                                    </div>
+
+                                    <button
+                                        className='cart__button-delete'
+                                        type='button'
+                                        onClick={() => removeProduct(item.typeProduct, item.idProduct)}
+                                    >
+                                        <PiTrashDuotone size={25} />
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        ))
+
+                    )}
 
                 </div>
 
