@@ -16,49 +16,10 @@
     width: 78%;
 }
 
-.profileUser__container-buttons{
-    display: flex;
-    width: 100%;
-    margin-top: 5px;
-    align-items: center;
-    justify-content: space-between;
 
-    
-}
-
-
-
-.profileUser__link{
-    border: 2px solid rgb(255, 0, 0);
-
-    padding: 8px;
-    border-radius: 10px;
-    font-size: 17px;
-    font-family: 'Montserrat';
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    gap: 8px;
-    background-color: #b72b29;
-    color: #000;
-    font-weight: 600;
-    transition: background-color 0.3, color 0.3s, transform 0.4s; 
-    
-   
-}
-
-.profileUser__link:hover{
-    background-color: #b72b29;
-    transform: scale(1.1);
-}
 
 @media (max-width: 768px) {
     .profileUser__container__form{
         width: 90%;
-    }
-
-    .profileUser__link{
-        font-size: 0.8rem;
     }
 }

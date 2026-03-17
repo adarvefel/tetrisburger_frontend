@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom'
 import { useEffect } from "react";
-import PqrsForm from "../../../../../shared/components/pqrsForm/PqrsForm";
+import PqrsForm from "../../../../../shared/components/formsCruds/pqrsForm/PqrsForm";
 import { usePqrsFindByIdMe } from '../../hooks/usePqrsFindByIdMe';
 import { usePqrsUpdateMe } from '../../hooks/usePqrsUpdateMe';
 

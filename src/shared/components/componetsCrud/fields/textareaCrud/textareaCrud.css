@@ -1,0 +1,42 @@
+.textareaCrud__container-textarea {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.1rem;
+}
+
+
+.textareaCrud__label {
+
+    font-family: 'Montserrat';
+    font-size: 0.7rem;
+    color: black;
+    font-weight: 700;
+
+}
+
+.textareaCrud__textarea {
+    height: 100%;
+    border: 2px solid #E7DCDC;
+    border-radius: 0.3rem;
+    color: black;
+    padding-left: 10px;
+
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+/* HOVER */
+.textareaCrud__input:hover {
+    border-color: #c9baba;
+}
+
+/* FOCUS */
+.textareaCrud__input:focus {
+    border-color: #000000;
+}
+
+/* PLACEHOLDER */
+.textareaCrud__input::placeholder {
+    color: #aaa;
+}

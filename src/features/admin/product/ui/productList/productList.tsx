@@ -1,23 +1,16 @@
 import React, { useState } from "react";
-import { MdDeleteOutline } from "react-icons/md";
-import { CiEdit } from "react-icons/ci";
-import { FaArrowRight } from "react-icons/fa";
-import { FaArrowLeft } from "react-icons/fa";
-
 import "./productList.css";
-import { Link } from "react-router-dom";
+import "./../../../../../shared/components/componetsCrud/table/tableComponents.css";
 import { useProductList } from "../../hooks/useProdustList";
-import { useProductDelete } from "../../hooks/useProductDelete";
-import { ProductFetchList } from "../../dto/productsAdminDto";
-import ProductDelete from "../productDelete/productDelete";
-import SuccessAlert from "../../../../../shared/components/alerts/successAlert/SuccessAlert";
-import ButtonHome from "../../../../../shared/components/buttonHome/ButtonHome";
 import ButtonCasual from "../../../../../shared/components/buttonCasual/ButtonCasual";
 import { FaSearch } from "react-icons/fa";
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 import { deleteProduct } from "../../../../../entities/product/api/productApi";
 import { toast } from "sonner";
+import imageProductoNotFound from "./../../../../../assets/productNotFound.png"
+import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function ProductList() {
 
@@ -53,7 +46,7 @@ export default function ProductList() {
         await remove(productToDelete.idProduct);
         closeDeleteModal();
         fetchProductList();
-        toast.success("product eliminado con exito.");
+        toast.success("Producto eliminado con exito.");
     };
 
 
@@ -90,45 +83,61 @@ export default function ProductList() {
                 <ButtonCasual linkRedireccion="/admin/product/create" mensagge="Nuevo Producto" />
             </div>
 
-            <table className="productList__table">
-                <thead className="productList__thead">
-                    <tr className="productList__tr">
-                        <th className="productList__th">ID</th>
-                        <th className="productList__th">Nombre</th>
-                        <th className="productList__th">Descripcion</th>
-                        <th className="productList__th">Precio</th>
-                        <th className="productList__th">Stock</th>
-                        <th className="productList__th">Disponibilidad</th>
-                        <th className="productList__th">Tipo Producto</th>
-                        <th className="productList__th">Acciones</th>
-                    </tr>
-                </thead>
-                <tbody className="productList__tbody">
-                    {products.map((product) => (
-                        <tr key={product.idProduct} className="productList__tr">
-                            <td className="productList__td">{product.idProduct}</td>
-                            <td className="productList__td">{product.name}</td>
-                            <td className="productList__td">{product.description}</td>
-                            <td className="productList__td">${product.price}</td>
-                            <td className="productList__td">{product.quantity}</td>
-                            <td className="productList__td">{product.availability ? "Disponible" : "No Disponible"}</td>
-                            <td className="productList__td">{product.productType === "INGREDIENT" ? "Ingrediente" : product.productType === "BEVERAGE" ? "Bebida" : "Adicion"}</td>
-                            <td className="productList__td">
-                                <div className="productList__container-actions">
-                                    <Link className="productList__button-edit" to={`/admin/product/update/${product.idProduct}`}><CiEdit size={18} /></Link>
-                                    <button className="productList__button-delete" onClick={() => openDeleteModal(product)}><MdDeleteOutline size={18} /></button>
-                                </div>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+            {loading ? <LoadingSpinner /> : (
+                <TableLayout>
 
-            <div className="productList__container-pages">
-                <button className="productList__button" onClick={prevPage} disabled={numberPage == 0}><FaArrowLeft size={18} /></button>
-                <p className="userList__p">Pagina {numberPage + 1} de: {totalPage}</p>
-                <button className="productList__button" onClick={nextPage} disabled={numberPage + 1 == totalPage}><FaArrowRight size={18} /></button>
-            </div>
+                    <TableHead>
+                        <tr>
+                            <Th>ID</Th>
+                            <Th>FOTO</Th>
+                            <Th>NOMBRE</Th>
+                            <Th>TIPO</Th>
+                            <Th>PRECIO</Th>
+                            <Th>STOCK</Th>
+                            <Th>DISPONIBILIDAD</Th>
+                            <Th>ACCIONES</Th>
+                        </tr>
+                    </TableHead>
+
+                    <TableBody>
+                        {products.map((product) => (
+                            <tr key={product.idProduct}>
+
+                                <Td>{product.idProduct}</Td>
+
+                                <Td>
+                                    <div className="tableComponents__container-img">
+                                        <img className="tableComponents__img" src={product.imageUrl ? product.imageUrl : imageProductoNotFound} alt="" />
+                                    </div>
+                                </Td>
+
+                                <Td>{product.name}</Td>
+                                <Td>{product.productType === "SIDE" ? "Acompañamiento" : product.productType === "INGREDIENT" ? "Ingrediente" : "Bebida"}</Td>
+                                <Td>{`$${product.price}`}</Td>
+                                <Td>{product.quantity}</Td>
+
+
+                                <Td><span className={`tableComponents__span-${product.availability ? "green" : "red"}`}> {product.availability ? "Disponible" : "No disponible"} </span> </Td>
+
+                                <Td>
+                                    <TableActions
+                                        linkEdit={`/admin/product/update/${product.idProduct}`}
+                                        onDelete={() => openDeleteModal(product)}
+                                    />
+                                </Td>
+
+                            </tr>
+                        ))}
+                    </TableBody>
+
+                </TableLayout>
+            )}
+
+
+
+            <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
+
+
         </div>
     );
 }

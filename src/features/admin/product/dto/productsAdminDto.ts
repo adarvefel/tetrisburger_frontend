@@ -15,10 +15,22 @@ export interface ProductFindByIdResponse{
     description: string,
     quantity: number,
     price: number,
-    available: boolean,
+    availability: boolean,
     productType: string,
-    ingredientsType: string,
-    burguerIngredients: string,
+    productCategory: {
+        id: number,
+        name: string,
+        description: string,
+        available: boolean
+    },
+    supplier: {
+        id: number,
+        name: string,
+        phone: string,
+        email: string,
+        address: string
+
+    }
     imageUrl?: string
 }
 

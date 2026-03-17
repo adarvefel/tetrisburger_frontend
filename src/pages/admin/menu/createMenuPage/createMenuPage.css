@@ -1,0 +1,30 @@
+.createMenuPage__container-global {
+
+
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-color: #F6F7F8;
+}
+
+.createMenuPage__container-content {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    align-items: center;
+    padding-left: 9rem;
+    padding-right: 9rem;
+}
+
+@media (max-width: 768px) {
+    .createMenuPage__container-content {
+        padding-top: 3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+
+}

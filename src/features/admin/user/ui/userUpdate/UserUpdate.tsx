@@ -1,10 +1,11 @@
 
 import "./userUpdate.css"
 import { useParams } from 'react-router-dom'
-import UserForm from '../../../../../shared/components/userForm/UserForm'
+import UserForm from '../../../../../shared/components/formsCruds/userForm/UserForm'
 import { useUserFindById } from "../../hooks/useUserFindById"
 import { useUserUpdate } from "../../hooks/useUserUpdate";
 import { useEffect } from "react";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function UserUpdate() {
 
@@ -19,6 +20,10 @@ export default function UserUpdate() {
         }
     }, [id])
 
+    if (findLoading) {
+        return <LoadingSpinner/>
+    }
+
 
     return (
 
@@ -26,6 +31,7 @@ export default function UserUpdate() {
             mode="admin-update"
             initialData={user}
             onSubmit={(data) => handleUserUpdate(Number(id), data)}
+            loading={updateLoading}
         />
 
     )

@@ -16,44 +16,62 @@ import ExtraGallerySection from '../pages/homePage/components/extraGallerySectio
 import UserCard from '../entities/user/ui/UserCard'
 import UserList from '../features/admin/user/ui/userList/UserList'
 import UserUpdate from '../features/admin/user/ui/userUpdate/UserUpdate'
-import NavbarAuthenticated from '../shared/components/navbar/navbarAuthenticated/NavbarAuthenticated'
-import UserForm from '../shared/components/userForm/UserForm'
-import { createUser } from '../entities/user/api/userApi'
 import ProfileUserPage from '../pages/user/profilePage/ProfileUserPage'
 import IconTetris from '../shared/components/iconTetris/IconTetris'
-import UsersListPage2 from '../pages/admin/users/usersListPage/UsersListPage'
-import ButtonCasual from '../shared/components/buttonCasual/ButtonCasual'
-import UsersCreate from '../pages/admin/users/usersCreatePage/UsersCreatePage'
 import UsersCreatePage from '../pages/admin/users/usersCreatePage/UsersCreatePage'
 import UsersListPage from '../pages/admin/users/usersListPage/UsersListPage'
 import UsersUpdatePage from '../pages/admin/users/usersUpdatePage/UsersUpdatePage'
 import TermsAndConditionsPage from '../pages/auth/termsAndConditionsPage/TermsAndConditionsPage'
 import ProductsListPage from '../pages/admin/products/productsListPage/productsListPage'
 import ProductsCreatePage from '../pages/admin/products/productsCreatePage/productsCreatePage'
-import ProductUpdate from '../features/admin/product/ui/productUpdate/productUpdate'
 import ProductsUpdatePage from '../pages/admin/products/productsUpdatePage/productsUpdatePage'
 import ProductCategoriesListPage from '../pages/admin/productCategory/productCategoriesListPage/productCategoriesListPage'
 import SuppliersListPage from '../pages/admin/suppliers/suppliersListPage/suppliersListPage'
 import ProductCategoriesCreatePage from '../pages/admin/productCategory/productCategoriesCreatePage/productCategoriesCreatePage'
 import ProductCategoriesUpdatePage from '../pages/admin/productCategory/productCategoriesUpdatePage/productCategoriesUpdatePage'
-import SupplierCreate from '../features/admin/supplier/ui/suppliersCreate/SupplierCreate'
 import SuppliersCreatePage from '../pages/admin/suppliers/suppliersCreatePage/suppliersCreatePage'
 import SuppliersUpdatePage from '../pages/admin/suppliers/suppliersUpdatePage/suppliersUpdatePage'
 import ContactUsPage from '../pages/contactUs/ContactUsPage'
 import PqrsCreate from '../features/user/pqrs/ui/pqrsCreate/PqrsCreate'
-import PqrsMe from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
 import PqrsCreatePage from '../pages/user/pqrs/pqrsCreatePage/PqrsCreatePage'
 import PqrsMePage from '../pages/user/pqrs/pqrsMePage/PqrsMePage'
 import PqrsListMe from '../features/user/pqrs/ui/pqrsListMe/PqrsListMe'
 import PqrsListPage from '../pages/admin/pqrs/pqrsListPage/PqrsListPage'
 import ConfirmDeleteModal from '../shared/components/confirmDeleteModal/ConfirmDeleteModal'
-import PqrsForm from '../shared/components/pqrsForm/PqrsForm'
 import PqrsUpdatePage from '../pages/admin/pqrs/pqrsUpdatePage/PqrsUpdatePage'
 import PqrsUpdateMePage from '../pages/user/pqrs/pqrsUpdateMePage/PqrsUpdateMePage'
 import ProtectedRoute from "../shared/routes/ProtectedRoute";
 import AdminSidebar from '../pages/admin/components/adminSidebar/AdminSidebar'
-import BurgerCustomForm from '../shared/components/burgerCustomForm/ui/BurgerCustomForm'
-import ListIngredients from '../shared/components/burgerCustomForm/ingredients/ListIngredients'
+import TestTable from '../shared/components/componetsCrud/table/TestTable'
+import TestFields from '../shared/components/componetsCrud/fields/TestFields'
+import ButtonSubmitCrud from '../shared/components/componetsCrud/buttonSubmit/ButtonSubmitCrud'
+
+import { FaCircleExclamation } from "react-icons/fa6";
+import SubTittleCrud from '../shared/components/componetsCrud/subTittle/SubTittleCrud'
+
+import CreateBurger from '../shared/components/test/createBurger/CreateBurger'
+
+import InputSearch from '../shared/components/componetsCrud/fields/inputSearch/InputSearch'
+import BurgerCustomForm from '../shared/components/formsCruds/burgerCustomForm/BurgerCustomForm'
+
+import AdditionForm from '../shared/components/formsCruds/additionForm/AdditionForm'
+import CreateAdditionPage from '../pages/admin/additions/createAdditionPage/CreateAdditionPage'
+import ListAdditionPage from '../pages/admin/additions/listAdditionPage/ListAdditionPage'
+import UpdateAdditionPage from '../pages/admin/additions/updateAdditionPage/UpdateAdditionPage'
+import CreateBurgerPage from '../pages/admin/burgers/createBurgerPage/CreateBurgerPage'
+import ListBurgerPage from '../pages/admin/burgers/listBurgerPage/ListBurgerPage'
+import UpdateBurgerPage from '../pages/admin/burgers/updateBurgerPage/UpdateBurgerPage'
+import InputNumberCrud from '../shared/components/componetsCrud/fields/inputNumberCrud/InputNumberCrud'
+import CreateMenuCategoryPage from '../pages/admin/menuCategory/createMenuCategoryPage/CreateMenuCategoryPage'
+import ListMenuCategoryPage from '../pages/admin/menuCategory/listMenuCategoryPage/ListMenuCategoryPage'
+import UpdateMenuCategoryPage from '../pages/admin/menuCategory/updateMenuCategoryPage/UpdateMenuCategoryPage'
+import UpdateMenuPage from '../pages/admin/menu/updateMenuPage/UpdateMenuPage'
+import ListMenuPage from '../pages/admin/menu/listMenuPage/ListMenuPage'
+import CreateMenuPage from '../pages/admin/menu/createMenuPage/CreateMenuPage'
+import CategoryMenuForm from '../shared/components/formsCruds/categoryMenuForm/CategoryMenuForm'
+import MenuForm from '../shared/components/formsCruds/menuForm/MenuForm'
+import ListConfigurationsPage from '../pages/admin/configurations/listConfigurationsPage/ListConfigurationsPage'
+import LoadingSpinner from '../shared/components/loadings/loadingSpinner/LoadingSpinner'
 
 
 
@@ -104,7 +122,23 @@ export default function Router() {
         <Route path="/admin/pqrs-list" element={<ProtectedRoute requireAdmin><PqrsListPage /></ProtectedRoute>} />
         <Route path="/admin/pqrs/update/:id" element={<ProtectedRoute requireAdmin><PqrsUpdatePage /></ProtectedRoute>} />
 
+        <Route path="/admin/addition-create" element={<ProtectedRoute requireAdmin><CreateAdditionPage /></ProtectedRoute>} />
+        <Route path="/admin/addition-list" element={<ProtectedRoute requireAdmin><ListAdditionPage /></ProtectedRoute>} />
+        <Route path="/admin/addition/update/:id" element={<ProtectedRoute requireAdmin><UpdateAdditionPage /></ProtectedRoute>} />
 
+        <Route path="/admin/burger-create" element={<ProtectedRoute requireAdmin><CreateBurgerPage /></ProtectedRoute>} />
+        <Route path="/admin/burger-list" element={<ProtectedRoute requireAdmin><ListBurgerPage /></ProtectedRoute>} />
+        <Route path="/admin/burger/update/:id" element={<ProtectedRoute requireAdmin><UpdateBurgerPage /></ProtectedRoute>} />
+
+        <Route path="/admin/category-menu-create" element={<ProtectedRoute requireAdmin><CreateMenuCategoryPage /></ProtectedRoute>} />
+        <Route path="/admin/category-menu-list" element={<ProtectedRoute requireAdmin><ListMenuCategoryPage /></ProtectedRoute>} />
+        <Route path="/admin/category-menu/update/:id" element={<ProtectedRoute requireAdmin><UpdateMenuCategoryPage /></ProtectedRoute>} />
+
+        <Route path="/admin/menu-create" element={<ProtectedRoute requireAdmin><CreateMenuPage /></ProtectedRoute>} />
+        <Route path="/admin/menu-list" element={<ProtectedRoute requireAdmin><ListMenuPage /></ProtectedRoute>} />
+        <Route path="/admin/menu/update/:id" element={<ProtectedRoute requireAdmin><UpdateMenuPage /></ProtectedRoute>} />
+
+        <Route path="/admin/configurations-list" element={<ProtectedRoute requireAdmin><ListConfigurationsPage /></ProtectedRoute>} />
 
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
@@ -147,13 +181,33 @@ export default function Router() {
 
         <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={() => { }} onConfirm={() => { }} />} />
 
-        <Route path='/prueba21' element={<AdminSidebar/>}/>
-
-        <Route path='/prueba22' element={<BurgerCustomForm/>}/>
-
-        <Route path='/ingredients-list' element={<ListIngredients/>}/>
+        <Route path='/prueba21' element={<AdminSidebar />} />
 
 
+        <Route path='/prueba23' element={<TestTable />} />
+
+        <Route path='/prueba23' element={<TestTable />} />
+
+
+        <Route path='/prueba24' element={<TestFields />} />
+
+        <Route path='/prueba25' element={<ButtonSubmitCrud label='Actualizar' />} />
+
+        <Route path='/prueba26' element={<SubTittleCrud title='Actualizar datos de don pene' icon={<FaCircleExclamation size={23} color='red' />} />} />
+
+
+        <Route path='/prueba27' element={<CreateBurger />} />
+
+
+        <Route path='/prueba28' element={<MenuForm />} />
+
+        <Route path='/prueba29' element={<InputNumberCrud />} />
+
+
+
+        <Route path='/prueba30' element={<InputSearch />} />
+
+        <Route path='/prueba31' element={<LoadingSpinner />}/>
 
       </Routes>
     </BrowserRouter>

@@ -1,27 +1,16 @@
 import "./supplierUpdate.css";
 import { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import SupplierForm from "../../../../../shared/components/supplierForm/SupplierForm";
+import { useParams, useNavigate, data } from "react-router-dom";
+import SupplierForm from "../../../../../shared/components/formsCruds/supplierForm/SupplierForm";
 import { useSupplierFindById } from "../../hooks/useSupplierFindById";
 import { useSupplierUpdate } from "../../hooks/useSupplierUpdate";
 import { UpdateSupplierDto } from "../../../../../entities/supplier/dto/supplierDto";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function SupplierUpdate() {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
-
-  const {
-    loading: findLoading,
-    error: findError,
-    supplier,
-    handleSupplierFindById,
-  } = useSupplierFindById();
-
-  const {
-    loading: updateLoading,
-    error: updateError,
-    handleSupplierUpdate,
-  } = useSupplierUpdate();
+  const { loading: findLoading, error: findError, supplier, handleSupplierFindById } = useSupplierFindById();
+  const { loading: updateLoading, error: updateError, handleSupplierUpdate, } = useSupplierUpdate();
 
   useEffect(() => {
     if (id) {
@@ -29,37 +18,16 @@ export default function SupplierUpdate() {
     }
   }, [id]);
 
-  const handleSubmit = async (data: UpdateSupplierDto) => {
-    if (!id) return;
-    await handleSupplierUpdate(Number(id), data);
-    setTimeout(() => {
-      navigate("/admin/suppliers-list");
-    }, 3000);
-  };
-
-  if (findLoading) return <p style={{ padding: 16 }}>Cargando proveedor...</p>;
-  if (findError)
-    return (
-      <p style={{ padding: 16, color: "red" }}>
-        Error al cargar el proveedor: {findError}
-      </p>
-    );
-  if (!supplier)
-    return (
-      <p style={{ padding: 16 }}>No se encontró el proveedor con id {id}.</p>
-    );
+  if (findLoading) {
+    return <LoadingSpinner />
+  }
 
   return (
     <SupplierForm
       mode="admin-update"
-      initialData={{
-        id: supplier.id,
-        name: supplier.name,
-        phone: supplier.phone,
-        email: supplier.email,
-        address: supplier.address,
-      }}
-      onSubmit={handleSubmit}
+      initialData={supplier}
+      onSubmit={(data) => handleSupplierUpdate(Number(id), data)}
+      loading={updateLoading}
     />
   );
 }

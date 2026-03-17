@@ -1,0 +1,27 @@
+.listBurger__container-global {    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.listBurger__container-top {
+    border-radius: 50px ;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+
+@media (max-width: 768px){
+    .listBurger__container-global{
+        overflow: scroll;
+    }
+}

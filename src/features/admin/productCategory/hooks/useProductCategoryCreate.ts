@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createProductCategory } from "../../../../entities/productCategory/api/productCategoryApi";
 import { CreateProductCategoryDto } from "../../../../entities/productCategory/dto/productCategoryDto";
+import { toast } from "sonner";
 
 export function useCategoryCreate() {
   const [loading, setLoading] = useState(false);
@@ -18,6 +19,7 @@ export function useCategoryCreate() {
         err?.message ||
         "Error al intentar crear una nueva categoría";
       setError(msg);
+      toast.error(msg);
       throw err;
     } finally {
       setLoading(false);

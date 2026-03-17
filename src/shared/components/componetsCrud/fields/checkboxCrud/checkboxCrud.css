@@ -1,0 +1,35 @@
+/*LA QUE ES*/
+
+.checkboxCrud__container-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 7px;
+}
+
+
+.checkboxCrud__label {
+  font-family: "Montserrat";
+  font-size: 0.7rem;
+  color: black;
+  font-weight: 700;
+}
+
+/* checkbox disponible */
+.checkboxCrud__container-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkboxCrud__checkbox {
+  width: 16px;
+  height: 16px;
+}
+
+.checkboxCrud__checkbox-text {
+  font-family: "Montserrat";
+  font-size: 0.8rem;
+  color: black;
+}

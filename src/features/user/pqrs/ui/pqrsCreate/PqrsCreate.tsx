@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
 import "./pqrsCreate.css"
 import { usePqrsCreate } from '../../hooks/usePqrsCreate'
-import { ErrorAlert } from '../../../../../shared/components/alerts/errorAlert/ErrorAlert';
-import SuccessAlert from '../../../../../shared/components/alerts/successAlert/SuccessAlert';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 export default function PqrsCreate() {
 
@@ -31,50 +30,26 @@ export default function PqrsCreate() {
             const response = await handlePqrsCreate(pqrs);
 
             if (response.status === 201) {
-                setAlertSuccess("PQRS enviada correctamente ");
-                setAlertError(null);
-
-
-
-
-                setTimeout(() => {
-                    setPqrs({
-                        type: "",
-                        subject: "",
-                        description: ""
-                    });
-
-                    navegator("/pqrs-me");
-                }, 2000);
-
+                toast.success("PQRS enviada correctamente ");
+                navegator("/pqrs-me");
             }
         } catch (err: any) {
-            setAlertError(
+            toast.error(
                 err?.response?.data?.message ||
                 "Ocurrió un error al enviar la PQRS "
             );
-            setAlertSuccess(null);
+
         }
 
 
     }
 
-    const [alertError, setAlertError] = useState<string | null>(null);
-    const [alertSuccess, setAlertSuccess] = useState<string | null>(null);
 
-    const onCloseAlertSucces = () => {
-        setAlertSuccess(null);
-    }
-
-    const onCloseAlertError = () => {
-        setAlertError(null);
-    }
 
     return (
         <form className='pqrsCreate__form' onSubmit={onSubmit}>
 
-            {alertError ? <ErrorAlert mensaje={alertError} onClosed={onCloseAlertError} /> : null}
-            {alertSuccess ? <SuccessAlert mensaje={alertSuccess} onClosed={onCloseAlertSucces} /> : null}
+
 
             <div className="pqrsCreate__container-inputs">
                 <h1 className='pqrsCreate__h1'>PQRS formulario de envio</h1>

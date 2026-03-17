@@ -1,22 +1,19 @@
-import React, { useState } from "react";
-import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { useState } from "react";
 import { GrDocumentText } from "react-icons/gr";
-import { MdDeleteOutline } from "react-icons/md";
-import { FaEye } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
 import "./pqrsList.css";
+import "./../../../../../shared/components/componetsCrud/table/tableComponents.css";
 import { usePqrsList } from "../../hooks/usePqrsList";
-
 import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal";
 import { useDeleteEntity } from "../../../../../shared/hooks/useDeleteEntity";
 import { deletePqrs } from "../../../../../entities/pqrs/api/pqrsApi";
-import SuccessAlert from "../../../../../shared/components/alerts/successAlert/SuccessAlert";
+import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
 import { toast } from "sonner";
+import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
 export default function PqrsList() {
 
   const {
+    loading,
     pqrs,
     numberPage,
     totalPage,
@@ -53,6 +50,7 @@ export default function PqrsList() {
     handlePqrsList();
     toast.success("PQRS eliminado con exito.");
   };
+
 
   return (
     <div className="pqrsList__container-global">
@@ -106,54 +104,49 @@ export default function PqrsList() {
         </div>
       </div>
 
-      {/* ---------- TABLE ---------- */}
-      <table className="pqrsList__table">
-        <thead className="pqrsList__thead">
-          <tr className="pqrsList__tr">
-            <th className="pqrsList__th" >ID</th>
-            <th className="pqrsList__th">TIPO</th>
-            <th className="pqrsList__th" >ASUNTO</th>
-            <th className="pqrsList__th">ESTADO</th>
-            <th className="pqrsList__th">ACCIONES</th>
-          </tr>
-        </thead>
-        <tbody className="pqrsList__tbody">
-          {pqrs.map((item) => (
-            <tr className="pqrsList__tr" key={item.idPqrs}>
-              <td className="pqrsList__td">{item.idPqrs}</td>
-              <td className="pqrsList__td">{item.type === "PETITION" ? "Peticion" : item.type === "COMPLAINT" ? "Queja" : item.type === "CLAIM" ? "Reclamo" : item.type === "SUGGESTION" ? "Sugerencia" : item.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</td>
-              <td className="pqrsList__td">{item.subject}</td>
-              <td className="pqrsList__td"><p className={item.status === "RECEIVED" ? "pqrsList__p-received" : "pqrsList__p-answered"}>{item.status === "RECEIVED" ? "Recibido" : "Respondido"}</p></td>
-              <td className="pqrsList__td">
-                <div className="pqrsList__container-actions">
-                  <Link className="pqrsList__button-edit" to={`/admin/pqrs/update/${item.idPqrs}`}>
-                    <FaEye size={18} />
-                  </Link>
-                  <button id="loquesea" className="pqrsList__button-delete" onClick={() => openDeleteModal(item)}>
-                    <MdDeleteOutline size={18} />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
 
-      {/* ---------- PAGINATION ---------- */}
-      <div className="pqrsList__container-pages">
-        <button className="pqrsList__button" onClick={prevPage} disabled={numberPage === 0}>
-          <FaArrowLeft />
-        </button>
-        <p className="pqrsList__p">
-          Página {numberPage + 1} de {totalPage}
-        </p>
-        <button className="pqrsList__button"
-          onClick={nextPage}
-          disabled={numberPage + 1 === totalPage}
-        >
-          <FaArrowRight />
-        </button>
-      </div>
+      {/* ---------- TABLE ---------- */}
+
+      {loading ? <LoadingSpinner /> : (
+        <TableLayout>
+
+          <TableHead>
+            <tr>
+              <Th>ID</Th>
+              <Th>TIPO</Th>
+              <Th>PRIORIDAD</Th>
+              <Th>ESTADO</Th>
+              <Th>ACCIONES</Th>
+            </tr>
+          </TableHead>
+
+          <TableBody>
+            {pqrs.map((pqr) => (
+              <tr key={pqr.idPqrs}>
+
+                <Td>{pqr.idPqrs}</Td>
+                <Td>{pqr.type === "PETITION" ? "Peticion" : pqr.type === "COMPLAINT" ? "Queja" : pqr.type === "CLAIM" ? "Reclamo" : pqr.type === "SUGGESTION" ? "Sugerencia" : pqr.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</Td>
+                <Td>{pqr.priority === "HIGH" ? "Alta" : pqr.priority === "LOW" ? "Baja" : pqr.priority === "MEDIUM" ? "Media" : "Critica"}</Td>
+                <Td><span className={`tableComponents__span-${pqr.status === "ANSWERED" ? "green" : "red"}`}> {pqr.status === "ANSWERED" ? "Respondido" : "Recibido"} </span> </Td>
+
+
+
+                <Td>
+                  <TableActions
+                    linkEdit={`/admin/pqrs/update/${pqr.idPqrs}`}
+                    onDelete={() => openDeleteModal(pqr)}
+                  />
+                </Td>
+
+              </tr>
+            ))}
+          </TableBody>
+
+        </TableLayout>
+      )}
+
+
+      <TablePagination numberPage={numberPage} totalPage={totalPage} onNext={nextPage} onPrev={prevPage} />
     </div>
   );
 }

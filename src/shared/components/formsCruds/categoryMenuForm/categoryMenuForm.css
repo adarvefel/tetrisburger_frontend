@@ -1,0 +1,11 @@
+.categoryMenuForm__form{
+    width: 100%;    
+
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 0.6rem;
+    border: 2px solid #E7DCDC;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { updateUser } from "../../../../entities/user/api/userApi";
 import { UpdateUserDto, UpdateUserWithImageDto } from "../../../../entities/user/dto/userDto";
+import { toast } from "sonner";
 
 export function useUserUpdate (){
 
@@ -14,7 +15,9 @@ export function useUserUpdate (){
             const response = await updateUser(id, data);
             return response
         }catch(err: any){
-            setError(err.message || "Error al actualizar datos de este usuario.");
+            setError(err.response?.data?.massage || "Error al actualizar datos de este usuario.");
+            const massage = err.response?.data?.message || "Error al actualizar datos de este usuario.";
+            toast.error(massage);
         }finally{
             setLoading(false);
         }
