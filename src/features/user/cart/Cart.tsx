@@ -1,28 +1,40 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./cart.css"
-import TittleCrud from '../../../shared/components/componetsCrud/tittle/TittleCrud'
-import { MdDelete } from "react-icons/md";
-import burgerTest from "../../../assets/burgerGRANDE.jpg"
 import SubTittleCrud from '../../../shared/components/componetsCrud/subTittle/SubTittleCrud';
 import Line from '../../../shared/components/componetsCrud/fields/line/Line';
 import { BiSolidSpreadsheet } from "react-icons/bi";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
-import { PiTrashSimpleDuotone } from "react-icons/pi";
 import { PiTrashDuotone } from "react-icons/pi";
-import { IoIosTrash } from "react-icons/io";
-import { FaTrashRestoreAlt } from "react-icons/fa";
 import { useCartStore } from '../../../shared/store/useCartStore'
+import { Link, useNavigate } from "react-router-dom";
 import photoNotFound from "../../../assets/productNotFound.png"
-import { Link } from "react-router-dom";
+import { useAuthStore } from '../../../shared/store/useAuthStore';
+
 
 export default function Cart() {
 
     const items = useCartStore((state) => state.items)
+    const loadCart = useCartStore((state) => state.loadCart)
     const clearCart = useCartStore((state) => state.clearCart)
     const increaseQuantity = useCartStore((state) => state.increaseQuantity)
     const decreaseQuantity = useCartStore((state) => state.decreaseQuantity)
     const removeProduct = useCartStore((state) => state.removeProduct)
     const getTotal = useCartStore((state) => state.getTotal)
+
+    const navigate = useNavigate()
+    const { user } = useAuthStore()
+
+    const handleCheckout = () => {
+        if (!user) {
+            navigate('/login')
+        } else {
+            navigate('/checkout')
+        }
+    }
+
+    useEffect(() => {
+        loadCart()
+    }, [])
 
     const total = getTotal()
 
@@ -63,8 +75,6 @@ export default function Cart() {
                     {items.length === 0 ? (
 
                         <div className="cart__empty">
-
-                           
 
                             <h2 className="cart__empty-title">
                                 Tu carrito está vacío
@@ -168,10 +178,18 @@ export default function Cart() {
                     <span className='cart__span'>Productos totales: <strong>{totalItems}</strong></span>
                     <span className='cart__span'>Sub total: <strong>---</strong></span>
                     <Line />
-                    <span className='cart__span'><SubTittleCrud title='Total: ' /> <strong className='cart__strong-total'>{formatPriceCOP(total)}</strong></span>
+                    <span className='cart__span'>
+                        <SubTittleCrud title='Total: ' />
+                        <strong className='cart__strong-total'>{formatPriceCOP(total)}</strong>
+                    </span>
                     <Line />
-                    <button className='cart__button-checkout'>PAGAR <MdOutlineShoppingCartCheckout size={23} /></button>
-
+                    <button 
+                        className='cart__button-checkout'
+                        type='button'
+                        onClick={handleCheckout}
+                    >
+                        PAGAR <MdOutlineShoppingCartCheckout size={23} />
+                    </button>
                 </div>
             </div>
 

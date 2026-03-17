@@ -1,8 +1,13 @@
 import { toast } from "sonner"
 import { create } from "zustand"
+import { useAuthStore } from "./useAuthStore"
+import { axiosClient } from "../api/axiosClient"
+import { endPoints } from "../api/endPoints"
+
+let syncTimeout: ReturnType<typeof setTimeout> | null = null
 
 export interface CartItem {
-    typeProduct: "BURGER" | "PRODUCT" | "ADICION"
+    typeProduct: "BURGER" | "PRODUCT" | "ADDITION"
     idProduct: number
     name: string
     price: number
@@ -19,8 +24,8 @@ interface CartStore {
     removeProduct: (type: CartItem["typeProduct"], id: number) => void
     clearCart: () => void
 
-    loadCart: () => void
-    saveCart: (items: CartItem[]) => void
+    loadCart: () => Promise<void>
+    saveCart: (items: CartItem[]) => Promise<void>
 
     getTotal: () => number
 }
@@ -28,18 +33,53 @@ interface CartStore {
 export const useCartStore = create<CartStore>((set, get) => ({
     items: [],
 
-    saveCart: (items) => {
+    saveCart: async (items) => {
         localStorage.setItem("cart", JSON.stringify(items))
+
+        if (!useAuthStore.getState().isAuthenticated) return
+
+        if (syncTimeout) clearTimeout(syncTimeout)
+
+        syncTimeout = setTimeout(async () => {
+            try {
+                await axiosClient.post(endPoints.user.cart.sync, items)
+            } catch {
+                // fallback a localStorage
+            }
+        }, 800)
     },
 
-    loadCart: () => {
-        const cart = localStorage.getItem("cart")
-
-        if (cart) {
-            set({
-                items: JSON.parse(cart)
-            })
+    loadCart: async () => {
+        if (!useAuthStore.getState().isAuthenticated) {
+            const raw = localStorage.getItem("cart")
+            if (raw) set({ items: JSON.parse(raw) })
+            return
         }
+
+        try {
+            const { data } = await axiosClient.get<CartItem[]>(endPoints.user.cart.get)
+            localStorage.setItem("cart", JSON.stringify(data))
+            set({ items: data })
+        } catch {
+            const raw = localStorage.getItem("cart")
+            if (raw) set({ items: JSON.parse(raw) })
+        }
+    },
+
+    clearCart: async () => {
+        if (syncTimeout) {
+            clearTimeout(syncTimeout)
+            syncTimeout = null
+        }
+
+        localStorage.removeItem("cart")
+        set({ items: [] })
+
+        if (!useAuthStore.getState().isAuthenticated) return
+
+        try {
+            await axiosClient.delete(endPoints.user.cart.clear)
+        } catch {}
     },
 
     addProduct: (product) => {
@@ -54,10 +94,9 @@ export const useCartStore = create<CartStore>((set, get) => ({
         let updatedItems: CartItem[]
 
         if (existing) {
-
             updatedItems = items.map((item) =>
                 item.idProduct === product.idProduct &&
-                    item.typeProduct === product.typeProduct
+                item.typeProduct === product.typeProduct
                     ? {
                         ...item,
                         quantity: item.quantity + 1,
@@ -68,19 +107,13 @@ export const useCartStore = create<CartStore>((set, get) => ({
             )
 
             toast.info("Producto ya estaba en el carrito, se aumentó la cantidad")
-
         } else {
-
             updatedItems = [...items, { ...product, quantity: 1 }]
-
             toast.success("Producto agregado al carrito")
         }
 
+        set({ items: updatedItems })
         get().saveCart(updatedItems)
-
-        set({
-            items: updatedItems
-        })
     },
 
     increaseQuantity: (type, id) => {
@@ -90,9 +123,8 @@ export const useCartStore = create<CartStore>((set, get) => ({
                 : item
         )
 
-        get().saveCart(updatedItems)
-
         set({ items: updatedItems })
+        get().saveCart(updatedItems)
     },
 
     decreaseQuantity: (type, id) => {
@@ -115,36 +147,25 @@ export const useCartStore = create<CartStore>((set, get) => ({
                 : item
         )
 
-        get().saveCart(updatedItems)
-
         set({ items: updatedItems })
+        get().saveCart(updatedItems)
     },
 
     removeProduct: (type, id) => {
-
         const updatedItems = get().items.filter(
             (item) =>
                 !(item.idProduct === id && item.typeProduct === type)
         )
 
+        set({ items: updatedItems })
         get().saveCart(updatedItems)
 
-        set({ items: updatedItems })
-
         toast.error("Producto eliminado del carrito")
-    },
-
-    clearCart: () => {
-        localStorage.removeItem("cart")
-
-        set({
-            items: []
-        })
     },
 
     getTotal: () =>
         get().items.reduce(
             (total, item) => total + item.price * item.quantity,
             0
-        )
+        ),
 }))

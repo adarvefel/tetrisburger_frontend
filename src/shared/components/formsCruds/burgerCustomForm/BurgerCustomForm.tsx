@@ -27,6 +27,7 @@ import { useNavigate } from 'react-router-dom';
 import { CreateCustomBurgerRequestDTO, UpdateCustomBurgerRequestDTO } from '../../../../features/user/burgerCustom/dto/burgerCustomDto';
 import useAddBurgerFavorite from '../../../../features/user/burgerCustom/hooks/useAddBurgerFavorite';
 import { useCartStore } from '../../../store/useCartStore';
+import { useAuthStore } from '../../../store/useAuthStore';
 
 
 type FormMode = "admin-create" | "admin-update" | "user-create" | "user-update";
@@ -43,6 +44,11 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
     //BURGER CUSTON USER
     const { handleAddBurgerFavorite } = useAddBurgerFavorite();
     const addProduct = useCartStore((state) => state.addProduct);
+
+    const navigate = useNavigate()
+const { user } = useAuthStore()
+
+
 
     const {
         modelIngredients,

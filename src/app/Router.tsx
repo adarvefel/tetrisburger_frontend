@@ -113,7 +113,7 @@ export default function Router() {
         <Route path="/pqrs-create" element={<ProtectedRoute><PqrsCreatePage /></ProtectedRoute>} />
         <Route path="/pqrs-me" element={<ProtectedRoute><PqrsMePage /></ProtectedRoute>} />
         <Route path="/pqrs/update/:id" element={<ProtectedRoute><PqrsUpdateMePage /></ProtectedRoute>} />
-        <Route path="/cart-me" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
+        <Route path='/cart-me' element={<CartPage />} />
 
 
 
@@ -187,43 +187,22 @@ export default function Router() {
 
 
 
-
+        {/*Pruebas de componentres */}
         <Route path='/prueba17' element={<IconTetris />} />
-
         <Route path='/prueba18' element={<PqrsCreate />} />
-
         <Route path='/prueba19' element={<PqrsListMe />} />
-
         <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={() => { }} onConfirm={() => { }} />} />
-
         <Route path='/prueba21' element={<AdminSidebar />} />
-
-
         <Route path='/prueba23' element={<TestTable />} />
-
         <Route path='/prueba23' element={<TestTable />} />
-
-
         <Route path='/prueba24' element={<TestFields />} />
-
         <Route path='/prueba25' element={<ButtonSubmitCrud label='Actualizar' />} />
-
         <Route path='/prueba26' element={<SubTittleCrud title='Actualizar datos de don pene' icon={<FaCircleExclamation size={23} color='red' />} />} />
-
-
         <Route path='/prueba27' element={<CreateBurger />} />
-
-
-
-
         <Route path='/prueba29' element={<InputNumberCrud />} />
-
         <Route path='/prueba30' element={<InputSearch />} />
-
         <Route path='/prueba31' element={<LoadingSpinner />}/>
         <Route path='/prueba32' element={<Cart />}/>
-
-
         <Route path='/prueba34' element={<ViewTest />}/>
 
       </Routes>

@@ -37,7 +37,7 @@ export default function NavbarNotAuthenticated() {
             <div className="navbarNotAuthenticated__container-right">
                 <Link className='navbarNotAuthenticated__link-login' to={"/login"}>Iniciar sesión</Link>
                 <ButtonHome linkRedireccion='/register' textoButton='Registrarse' />
-                <Link className='navbarNotAuthenticated__link-car' to={"/carrito"}><FiShoppingCart /></Link>
+                <Link className='navbarNotAuthenticated__link-car' to={"/cart-me"}><FiShoppingCart /></Link>
                 <div className="navbarNotAuthenticated__container-lenguaje">
                     <button className='navbarNotAuthenticated__button-lenguaje'>
                         <img className='navbarNotAuthenticated__img-colombia' src={colombiaBandera} alt="" />
