@@ -1,62 +1,121 @@
-.menu__container{
-   
-   
+.menu__container {
+    padding: 2rem;
 }
 
-
-.menu__container-card{
+/* GRID en vez de flex para mejor orden */
+.menu__container-card {
     margin-top: 2rem;
-    height: 420px;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 por fila en desktop */
     gap: 20px;
 }
 
-
-.menu-card{
+/* CARD */
+.menu-card {
     position: relative;
-    width: 247px;
-    height: 200px;
-    border-radius: 12px;
+    height: 220px;
+    border-radius: 16px;
     overflow: hidden;
     cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.menu-card__image{
+/* HOVER */
+.menu-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* IMAGE */
+.menu-card__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform 0.4s ease;
 }
 
+.menu-card:hover .menu-card__image {
+    transform: scale(1.1);
+}
 
-
-.menu-card__overlay{
+/* OVERLAY */
+.menu-card__overlay {
     position: absolute;
     bottom: 0;
     width: 100%;
     padding: 16px;
-
     display: flex;
     justify-content: space-between;
     align-items: center;
-
     background: linear-gradient(
         to top,
-        rgba(0,0,0,0.8),
-        rgba(0,0,0,0)
+        rgba(0, 0, 0, 0.85),
+        rgba(0, 0, 0, 0.4),
+        transparent
     );
-
     color: white;
 }
 
-.menu-card__title{
+/* TITLE */
+.menu-card__title {
     margin: 0;
-    font-size: 0.8rem;
-    font-family: "Montserrat";
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
 }
 
+/* BOTÓN */
+.menu-card__overlay button {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+}
 
-.menu__container-pagination{
-   
-    margin-top: 2rem;
+/* PAGINACIÓN */
+.menu__container-pagination {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.menu__loading {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+/* Mobile grande: 2 columnas */
+@media (max-width: 768px) {
+    .menu__container {
+        padding: 1rem;
+    }
+
+    .menu__container-card {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .menu-card {
+        height: 180px;
+    }
+
+    .menu-card__title {
+        font-size: 0.85rem;
+    }
+
+    .menu-card__overlay {
+        padding: 10px;
+    }
+
+    .menu-card__overlay button {
+        font-size: 0.7rem;
+        padding: 5px 8px;
+    }
+
+    /* Reducir hover en touch */
+    .menu-card:hover {
+        transform: translateY(-3px) scale(1.01);
+    }
 }

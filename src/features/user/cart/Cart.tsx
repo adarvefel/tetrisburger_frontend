@@ -61,7 +61,7 @@ export default function Cart() {
                         <h1 className='cart__h1'>Tu orden</h1>
                         <p className='cart__p'>Revisa los articulos antes de pagar</p>
                     </div>
-                    <button
+                    <button id='cart-clean'
                         className='cart__button-clean'
                         type='button'
                         onClick={clearCart}
@@ -84,7 +84,7 @@ export default function Cart() {
                                 Aún no has agregado productos
                             </p>
 
-                            <Link
+                            <Link id='cart-link-products'
                                 to="/products"
                                 className="cart__empty-link"
                             >
@@ -129,7 +129,7 @@ export default function Cart() {
 
                                     <div className="cart__container-quantity">
 
-                                        <button
+                                        <button id='cart-btn-decrease'
                                             className="cart__btn-quantity"
                                             type='button'
                                             onClick={() => decreaseQuantity(item.typeProduct, item.idProduct)}
@@ -141,7 +141,7 @@ export default function Cart() {
                                             x{item.quantity}
                                         </span>
 
-                                        <button
+                                        <button id='cart-btn-increase'
                                             className="cart__btn-quantity"
                                             type='button'
                                             onClick={() => increaseQuantity(item.typeProduct, item.idProduct)}
@@ -152,6 +152,7 @@ export default function Cart() {
                                     </div>
 
                                     <button
+                                        id='cart-delete'
                                         className='cart__button-delete'
                                         type='button'
                                         onClick={() => removeProduct(item.typeProduct, item.idProduct)}
@@ -183,7 +184,7 @@ export default function Cart() {
                         <strong className='cart__strong-total'>{formatPriceCOP(total)}</strong>
                     </span>
                     <Line />
-                    <button 
+                    <button id='cart-checkout'
                         className='cart__button-checkout'
                         type='button'
                         onClick={handleCheckout}

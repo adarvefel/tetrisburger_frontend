@@ -112,18 +112,18 @@ export default function ListBurgerCustom({ onEditBurger }: Props) {
 
               <div className='burgerCard__actions'>
 
-                <button
+                <button id='burgerCard-add-cart'
                   className='burgerCard__btn cart'
                   onClick={() => handleAddToCart(burger)}
                 >
                   <FaShoppingCart />
                 </button>
 
-                <button className='burgerCard__btn view' onClick={() => onEditBurger(burger)}>
+                <button id='burgerCard-view' className='burgerCard__btn view' onClick={() => onEditBurger(burger)}>
                   <FaEye />
                 </button>
 
-                <button
+                <button id='burgerCard-delete'
                   className='burgerCard__btn favorite'
                   onClick={() => openDeleteModal(burger)}
                 >

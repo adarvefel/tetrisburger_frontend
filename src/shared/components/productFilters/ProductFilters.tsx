@@ -32,21 +32,21 @@ export default function ProductFilters({ activeFilter, onChangeFilter }: Props) 
         <div className="productFilters">
 
             <div className="productFilters__container-left">
-                <button
+                <button id="productFilter-burger"
                     className={`productFilters__button ${activeFilter === "BURGER" ? "active" : ""}`}
                     onClick={() => onChangeFilter("BURGER")}
                 >
                     <FaHamburger /> Hamburguesas
                 </button>
 
-                <button
+                <button id="productFilter-side"
                     className={`productFilters__button ${activeFilter === "SIDE" ? "active" : ""}`}
                     onClick={() => onChangeFilter("SIDE")}
                 >
                     <RiDrinks2Fill /> Acompañantes
                 </button>
 
-                <button
+                <button id="productFilter-addition"
                     className={`productFilters__button ${activeFilter === "ADDITION" ? "active" : ""}`}
                     onClick={() => onChangeFilter("ADDITION")}
                 >
@@ -54,7 +54,7 @@ export default function ProductFilters({ activeFilter, onChangeFilter }: Props) 
                 </button>
             </div>
 
-            <button
+            <button id="productFilter-burger-custom"
                 className={`productFilters__button ${activeFilter === "BURGERCUSTOM" ? "active" : ""}`}
                 onClick={handleBurgerCustom}
             >

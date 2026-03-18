@@ -37,7 +37,7 @@ export default function Additions() {
               description={addition.description}
               name={addition.name}
               price={addition.price}
-              typeProduct="ADICION"
+              typeProduct="ADDITION"
 
             />
           ))

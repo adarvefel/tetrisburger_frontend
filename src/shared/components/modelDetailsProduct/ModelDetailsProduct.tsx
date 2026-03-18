@@ -4,10 +4,11 @@ import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { IoMdClose } from "react-icons/io";
 import Line from "../componetsCrud/fields/line/Line";
 import photoNotFound from "../../../assets/productNotFound.png"
+import { useCartStore } from "../../store/useCartStore";
 
 interface Props {
     onClose: () => void,
-    typeProduct: "BURGER" | "PRODUCT" | "ADICION",
+    typeProduct: "BURGER" | "PRODUCT" | "ADDITION",
     id: number,
     name: string,
     price: number,
@@ -23,7 +24,7 @@ interface Props {
 
 }
 
-export default function ModelDetailsProduct({ onClose, typeProduct, id, description, price, imageUrl,available,  name, ingredients }: Props) {
+export default function ModelDetailsProduct({ onClose, typeProduct, id, description, price, imageUrl, available, name, ingredients }: Props) {
 
 
     const formatPriceCOP = (price: number) =>
@@ -33,12 +34,27 @@ export default function ModelDetailsProduct({ onClose, typeProduct, id, descript
             minimumFractionDigits: 0
         }).format(price);
 
+
+    const addProduct = useCartStore((state) => state.addProduct);
+
+    const handleAddToCart = (e: React.MouseEvent) => {
+        e.stopPropagation(); // evita que se abra el modal
+
+        addProduct({
+            typeProduct,
+            idProduct: id,
+            name,
+            price,
+            imageUrl
+        });
+    };
+
     return (
-        <div  onClick={onClose} className="modelDetailsProduct__overlay">
+        <div onClick={onClose} className="modelDetailsProduct__overlay">
 
             <div onClick={onClose} className="modelDetailsProduct__container">
 
-                <button  className="modelDetailsProduct__close">
+                <button className="modelDetailsProduct__close">
                     <IoMdClose size={22} />
                 </button>
 
@@ -97,7 +113,7 @@ export default function ModelDetailsProduct({ onClose, typeProduct, id, descript
 
                     <Line />
 
-                    <button className="modelDetailsProduct__addCart" disabled={!available}>
+                    <button id="modelDetailsProduct-add-cart" className="modelDetailsProduct__addCart" disabled={!available} onClick={handleAddToCart}>
                         <MdOutlineAddShoppingCart size={18} />
                         {available ? "Agregar al carrito" : "No disponible"}
                     </button>

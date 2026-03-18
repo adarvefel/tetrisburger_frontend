@@ -6,7 +6,7 @@ import ModelDetailsProduct from "../modelDetailsProduct/ModelDetailsProduct";
 import { useCartStore } from "../../../shared/store/useCartStore";
 
 interface Props {
-    typeProduct: "BURGER" | "PRODUCT" | "ADICION",
+    typeProduct: "BURGER" | "PRODUCT" | "ADDITION",
     id: number,
     name: string,
     price: number,
@@ -78,7 +78,7 @@ export default function CardProduct({ typeProduct, id, description, price, image
                     {formatPriceCOP(price)}
                 </p>
 
-                <button
+                <button id="cardProduct-add-cart"
                     className="cardProduct__button"
                     disabled={!available}
                     onClick={handleAddToCart}

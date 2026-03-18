@@ -5,6 +5,10 @@
     font-family: "Montserrat";
 }
 
+.menuDetails__loading{
+    height: 100vh;
+}
+
 /* HEADER */
 
 .menuDetails__header{

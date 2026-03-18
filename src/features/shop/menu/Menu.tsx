@@ -21,42 +21,45 @@ export default function Menu() {
 
             <div className="menu__container-card">
 
-                {loading ? <LoadingSpinner /> : menus?.map(menu => (
+                {loading ?
+                    <div className="menu__loading">
+                        <LoadingSpinner />
+                    </div> : menus?.map(menu => (
 
-                    <div
-                        key={menu.idMenu}
-                        className="menu-card"
-                    >
+                        <div
+                            key={menu.idMenu}
+                            className="menu-card"
+                        >
 
-                        <img
-                            src={menu.imageUrl ?? photoNotFound}
-                            alt={menu.name}
-                            className="menu-card__image"
-                        />
-
-                        <div className="menu-card__overlay">
-
-                            <h3 className="menu-card__title">
-                                {menu.name}
-                            </h3>
-
-                            <ButtonButton
-                                message={menu.isAvailable ? "Ver" : "No disponible"}
-                                disabled={!menu.isAvailable}
-                                onClick={(e) => {
-                                    e.stopPropagation()
-
-                                    if (menu.isAvailable) {
-                                        navigate(`/menu/${menu.idMenu}`)
-                                    }
-                                }}
+                            <img
+                                src={menu.imageUrl ?? photoNotFound}
+                                alt={menu.name}
+                                className="menu-card__image"
                             />
+
+                            <div className="menu-card__overlay">
+
+                                <h3 className="menu-card__title">
+                                    {menu.name}
+                                </h3>
+
+                                <ButtonButton
+                                    message={menu.isAvailable ? "Ver" : "No disponible"}
+                                    disabled={!menu.isAvailable}
+                                    onClick={(e) => {
+                                        e.stopPropagation()
+
+                                        if (menu.isAvailable) {
+                                            navigate(`/menu/${menu.idMenu}`)
+                                        }
+                                    }}
+                                />
+
+                            </div>
 
                         </div>
 
-                    </div>
-
-                ))}
+                    ))}
 
             </div>
 

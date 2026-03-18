@@ -36,7 +36,7 @@ export default function UpdateBurgerCustom({ burger, onCancel }: Props) {
 
   return (
     <div className="updateBurgerCustom">
-      <button
+      <button id='updateBurgerCustom-volver'
         className="updateBurgerCustom__backBtn"
         onClick={onCancel}
       >

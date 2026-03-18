@@ -17,7 +17,7 @@ export default function MenuDetails() {
         handleFindByIdMenu(Number(menuId));
     }, [menuId])
 
-    if (loading) return <LoadingSpinner />
+    if (loading) return <div className='menuDetails__loading'><LoadingSpinner /></div>
 
     return (
         <div className='menuDetails__container'>
@@ -48,7 +48,7 @@ export default function MenuDetails() {
 
             </div>
 
-            <Line/>
+            <Line />
 
 
             <div className="menuDetails__items">
@@ -72,6 +72,12 @@ export default function MenuDetails() {
                                 id={item.burger?.idBurger ?? 0}
                                 imageUrl={item.burger?.imageUrl ?? photoNotFound}
                                 price={item.burger?.finalPrice ?? 0}
+                                ingredients={item.burger?.ingredients.map((ingredient) => ({
+                                    imageUrl: ingredient.imageUrl,
+                                    quantity: ingredient.quantity,
+                                    name: ingredient.productName
+                                }))}
+
                             />
 
                             :
