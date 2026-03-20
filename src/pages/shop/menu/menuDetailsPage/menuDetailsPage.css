@@ -1,0 +1,12 @@
+.menuDetailsPage__container-global{
+    background-color: #F6F7F8;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 4rem;
+}
+
+.menuDetailsPage__container-content{
+    padding: 2rem;
+   
+}
+

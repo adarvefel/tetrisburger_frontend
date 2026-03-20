@@ -1,0 +1,38 @@
+.productFilters{
+    display: flex;
+    justify-content: space-between;
+}
+
+.productFilters__container-left{
+    display: flex;
+    gap: 1rem;
+}
+
+.productFilters__button{
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: "Montserrat";
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: #fff;
+}
+
+.productFilters__button:hover{
+    background: #ffe0e0;
+}
+
+.productFilters__button.active{
+    background-color: #E53935;
+    color: white;
+    border: none;
+    font-weight: 800;
+}

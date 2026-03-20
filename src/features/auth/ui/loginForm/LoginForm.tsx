@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import { useLogin } from '../../hooks/useLogin'
 import TituloForm from '../../../../shared/components/formAuth/tituloForm/TituloForm'
-
-
 import "./loginForm.css"
 import InputForm from '../../../../shared/components/formAuth/inputForm/InputForm'
 import ButtonGmail from '../../../../shared/components/formAuth/buttonSocial/buttonGmail/ButtonGmail'
 import ButtonSubmit from '../../../../shared/components/formAuth/buttonSubmit/ButtonSubmit'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
+import { useCartStore } from '../../../../shared/store/useCartStore'
 
 export default function LoginForm() {
 
     const { loading, error, handleLogin } = useLogin()
+    const navigate = useNavigate()
+    const location = useLocation()
 
-    const navegator = useNavigate();
-
+    const { saveCart } = useCartStore()
 
     const [form, setForm] = useState({
         email: "",
@@ -29,22 +29,30 @@ export default function LoginForm() {
     }
 
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+        e.preventDefault()
 
-        const respuesta = await handleLogin(email, password);
+        const respuesta = await handleLogin(email, password)
 
         if (respuesta?.token) {
-            toast.success("Login exitoso.");
-            navegator("/");
 
+            // 🔥 Merge carrito local → backend
+            const localCart = JSON.parse(localStorage.getItem("cart") || "[]")
+
+            if (localCart.length > 0) {
+                useCartStore.setState({ items: localCart })
+                saveCart(localCart)
+            }
+
+            toast.success("Login exitoso.")
+
+            // 🔁 Redirección inteligente
+            const from = (location.state as { from?: string })?.from ?? "/"
+            navigate(from, { replace: true })
         }
-
-        return;
     }
 
-
     return (
-        <form onSubmit={onSubmit} className='loginForm__form' action="">
+        <form onSubmit={onSubmit} className='loginForm__form'>
 
             <div className="loginForm__titulo">
                 <TituloForm textTitulo='LOGIN' />
@@ -72,14 +80,14 @@ export default function LoginForm() {
                 <span>or</span>
             </div>
 
-
-
             <div className="loginForm__buttonSubmit">
                 {error && <p className='loginForm__p'>{error}</p>}
-                <ButtonSubmit disabled={loading} textButton={"INICIAR SESION"} loading={loading} />
+                <ButtonSubmit
+                    disabled={loading}
+                    textButton={"INICIAR SESION"}
+                    loading={loading}
+                />
             </div>
-
-
 
         </form>
     )

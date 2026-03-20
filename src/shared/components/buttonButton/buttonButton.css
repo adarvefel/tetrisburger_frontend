@@ -20,3 +20,9 @@
     color: #bdbdbd;
     background-color: #982523;
 }
+
+.buttonButton:disabled{
+    background: gray;
+    cursor: not-allowed;
+    opacity: 0.9;
+}

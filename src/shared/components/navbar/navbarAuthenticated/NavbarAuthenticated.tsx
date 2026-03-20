@@ -25,8 +25,8 @@ export default function NavbarAuthenticated() {
                 <div className={`navbarAuthenticated__container-links ${menuOpen ? 'active' : ''}`}>
                     <ul className='navbarAuthenticated__ul'>
                         <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/"}>INICIO</Link></li>
+                        <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/products"}>PRODUCTOS</Link></li>
                         <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/menu"}>MENU</Link></li>
-                      
                         <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/contact-us"}>CONTACTANOS</Link></li>
                     </ul>
                 </div>
@@ -39,7 +39,7 @@ export default function NavbarAuthenticated() {
                     <p className='navbarAuthenticated__p-user'>{user?.userName}</p>
                 </Link>
 
-                <Link className='navbarAuthenticated__link-car' to={"/carrito"}><FiShoppingCart size={29} /></Link>
+                <Link className='navbarAuthenticated__link-car' to={"/cart-me"}><FiShoppingCart size={29} /></Link>
 
                 <div className="navbarAuthenticated__container-lenguaje">
                     <button className='navbarAuthenticated__button-lenguaje'>

@@ -1,0 +1,21 @@
+.updateBurgerCustom{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.updateBurgerCustom__backBtn{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:none;
+  border:none;
+  color:#e53935;
+  font-weight:600;
+  cursor:pointer;
+  margin-bottom:10px;
+}
+
+.updateBurgerCustom__backBtn:hover{
+  text-decoration:underline;
+}

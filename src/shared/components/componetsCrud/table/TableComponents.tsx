@@ -55,9 +55,9 @@ interface TablePaginationProps {
 export function TablePagination({ numberPage, totalPage, onPrev, onNext }: TablePaginationProps) {
   return (
     <div className="tableComponents__container-pages">
-      <button className="tableComponents__button" onClick={onPrev} disabled={numberPage == 0}><FaArrowLeft size={18}/> </button> 
+      <button className="tableComponents__button" type="button" onClick={onPrev} disabled={numberPage == 0}><FaArrowLeft size={18}/> </button> 
       <p className="tableComponents__p"> Página {numberPage + 1} de {totalPage} </p>
-      <button className="tableComponents__button" onClick={onNext} disabled={numberPage + 1 == totalPage}><FaArrowRight size={18}/> </button>
+      <button className="tableComponents__button" type="button" onClick={onNext} disabled={numberPage + 1 == totalPage}><FaArrowRight size={18}/> </button>
     </div>
   );
 }

@@ -26,8 +26,8 @@ export default function NavbarNotAuthenticated() {
                 <div className={`navbarNotAuthenticated__container-links ${menuOpen ? 'active' : ''}`}>
                     <ul className='navbarNotAuthenticated__ul'>
                         <li className='navbarNotAuthenticated__li'><Link className='navbarNotAuthenticated__link' to={"/"}>INICIO</Link></li>
+                        <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/products"}>PRODUCTOS</Link></li>
                         <li className='navbarNotAuthenticated__li'><Link className='navbarNotAuthenticated__link' to={"/menu"}>MENU</Link></li>
-                        
                         <li className='navbarNotAuthenticated__li'><Link className='navbarNotAuthenticated__link' to={"/contact-us"}>CONTACTANOS</Link></li>
                     </ul>
                 </div>
@@ -37,7 +37,7 @@ export default function NavbarNotAuthenticated() {
             <div className="navbarNotAuthenticated__container-right">
                 <Link className='navbarNotAuthenticated__link-login' to={"/login"}>Iniciar sesión</Link>
                 <ButtonHome linkRedireccion='/register' textoButton='Registrarse' />
-                <Link className='navbarNotAuthenticated__link-car' to={"/carrito"}><FiShoppingCart /></Link>
+                <Link className='navbarNotAuthenticated__link-car' to={"/cart-me"}><FiShoppingCart /></Link>
                 <div className="navbarNotAuthenticated__container-lenguaje">
                     <button className='navbarNotAuthenticated__button-lenguaje'>
                         <img className='navbarNotAuthenticated__img-colombia' src={colombiaBandera} alt="" />
