@@ -383,10 +383,13 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                 <div className="burgerCustomForm__container-ingredients">
                     <div className="burgerCustomForm__container-tittle">
                         <SubTittleCrud icon={<PiHamburgerFill size={22} color='red' />} title='Ingredientes' />
-                        <p className='burgerCustomForm__p-text-priceFinal'>
-                            Precio total de la hamburguesa: 
-                            <span className='burgerCustomForm__span-priceTotal'> ${formatPrice(analytics.basePrice)}</span>
-                        </p>
+
+                        {(mode !== "admin-create" && mode !== "admin-update") && (
+                            <p className='burgerCustomForm__p-text-priceFinal'>
+                                Precio total de la hamburguesa:
+                                <span className='burgerCustomForm__span-priceTotal'> ${formatPrice(analytics.basePrice)}</span>
+                            </p>
+                        )}
                         <button
                             className='burgerCustomForm__button-add'
                             type='button'
