@@ -26,7 +26,8 @@ interface CartStore {
 
     loadCart: () => Promise<void>
     saveCart: (items: CartItem[]) => Promise<void>
-
+    
+    syncNow: () => Promise<void>
     getTotal: () => number
 }
 
@@ -162,6 +163,22 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
         toast.error("Producto eliminado del carrito")
     },
+
+    syncNow: async () => {
+        if (syncTimeout) {
+            clearTimeout(syncTimeout)  
+            syncTimeout = null
+        }
+
+        if (!useAuthStore.getState().isAuthenticated) return
+
+        try {
+            const items = get().items
+            await axiosClient.post(endPoints.user.cart.sync, items)
+        } catch {
+            // fallback silencioso
+        }
+   },
 
     getTotal: () =>
         get().items.reduce(

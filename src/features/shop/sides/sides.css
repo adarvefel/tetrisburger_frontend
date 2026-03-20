@@ -8,6 +8,19 @@
     
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    gap: 10rem;
+
+}
+
+.sides__container-search > *:first-child {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.sides__container-search > *:last-child {
+    width: 180px;
+    flex-shrink: 0;
 }
 
 

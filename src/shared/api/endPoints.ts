@@ -156,6 +156,29 @@ export const endPoints = {
             listFavorites: "/api/favorites",
             deleteFavorite: (id: number) => `/api/favorites/${id}`,
             update: (id: number) => `api/burgers/custom/${id}`
-        }
-    }
+        },
+
+    },
+    public: {
+        products: {
+            list: (params?: {
+                productType?: string;
+                categoryId?: number;
+                page?: number;
+                size?: number;
+            }) => {
+                const query = new URLSearchParams({
+                    page: (params?.page ?? 0).toString(),
+                    size: (params?.size ?? 10).toString(),
+                });
+                if (params?.productType) query.append("productType", params.productType);
+                if (params?.categoryId) query.append("categoryId", params.categoryId.toString());
+                return `/api/products/public?${query.toString()}`;
+            },
+        },
+        productCategory: {
+            list: "/api/product-categories/public",  
+        },
+    },
+    
 }

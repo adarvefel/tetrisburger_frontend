@@ -39,15 +39,18 @@ interface BurgerFormProps {
     loading?: boolean
 }
 
+
 export default function BurgerCustomForm({ mode, initialData, onSubmit, loading }: BurgerFormProps) {
 
     //BURGER CUSTON USER
+
+    
     const { handleAddBurgerFavorite } = useAddBurgerFavorite();
     const addProduct = useCartStore((state) => state.addProduct);
 
     const navigate = useNavigate()
-const { user } = useAuthStore()
-
+    const { user } = useAuthStore()
+    const syncNow = useCartStore((state) => state.syncNow);
 
 
     const {
@@ -62,6 +65,8 @@ const { user } = useAuthStore()
         minusQuantity,
         changeIsOptional
     } = useBurgerCustomForm();
+
+    
 
     const [image, setImage] = useState<File | null>(null);
 
@@ -196,7 +201,6 @@ const { user } = useAuthStore()
                 return
             }
         }
-
         else if (mode === "user-create") {
             const data: CreateCustomBurgerRequestDTO = {
                 name: form.name,
@@ -207,23 +211,31 @@ const { user } = useAuthStore()
 
             const response = await onSubmit(data);
 
-            if (response?.status === 201) {
-                form.isFeatured && handleAddBurgerFavorite(response.data.idBurger);
+            const burgerData = response?.data ?? response;
+            const statusOk = response?.status === 201 || burgerData?.idBurger != null;
+
+            if (statusOk && burgerData?.idBurger) {
+                burgerData.isFeatured && handleAddBurgerFavorite(burgerData.idBurger);
 
                 addProduct({
                     typeProduct: "BURGER",
-                    idProduct: response.data.idBurger,
-                    name: response.data.name,
-                    price: response.data.finalPrice,
+                    idProduct: burgerData.idBurger,
+                    name: burgerData.name,
+                    price: Number(burgerData.finalPrice) || 0,
                     imageUrl: burgerCustom
                 });
+                await new Promise(r => setTimeout(r, 50));
+                await syncNow();
 
-                nagivation("/cart-me");
-
+                toast.success("Hamburguesa creada y añadida al carrito");
+                navigate("/cart-me");
                 return;
             }
 
+            toast.error("No se pudo añadir la hamburguesa al carrito");
         }
+
+        
 
         else {
             const data: UpdateCustomBurgerRequestDTO = {
