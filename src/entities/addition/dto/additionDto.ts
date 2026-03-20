@@ -16,7 +16,7 @@ export interface AddtionResponse {
   description: string;
   price: number;
   available: boolean;
-  imageUrl?: string
+  imageUrl: string
 }
 
 export interface UpdateAdditionRequestDTO{

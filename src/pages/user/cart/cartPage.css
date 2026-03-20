@@ -1,0 +1,12 @@
+.cartPage__container-global{
+    background-color: #F6F7F8;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 6rem;
+}
+
+.cartPage__container-content{
+    margin-left: 8rem;
+    margin-right: 8rem;
+    
+}

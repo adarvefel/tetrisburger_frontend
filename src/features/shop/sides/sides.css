@@ -1,0 +1,32 @@
+.sides__container{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.sides__container-search{
+    
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10rem;
+
+}
+
+.sides__container-search > *:first-child {
+    width: 200px;
+    flex-shrink: 0;
+}
+
+.sides__container-search > *:last-child {
+    width: 180px;
+    flex-shrink: 0;
+}
+
+
+.sides{
+    display: flex;
+    gap: 5rem;
+    flex-wrap: wrap;
+    height: 35rem;
+}

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { LoginResponseDto } from "../../features/auth/dto/authDto";
+import { useCartStore } from "./useCartStore";
 
 
 interface AuthStore {
@@ -37,6 +38,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
     logout: () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
+        localStorage.removeItem("cart");
+
+        useCartStore.getState().clearCart() 
 
         set({
             token: null,

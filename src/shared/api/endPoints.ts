@@ -13,14 +13,13 @@ export const endPoints = {
         },
 
         product: {
-            list: (numberPage: number) => `/api/products/list?page=${numberPage}&size=10&sortBy=id&direction=ASC`,
+            list: "/api/products/list",
             create: "/api/products",
             findById: (id: number) => `/api/products/${id}`,
             update: (id: number) => `/api/products/${id}`,
             updateImage: (id: number) => `/api/products/image/${id}`,
             delete: (id: number) => `/api/products/${id}`,
-            searchByName: (name: string, numberPage: number, size : number = 10) => `api/products/search?q=${name}&page=${numberPage}&size=${size}`,
-
+            searchByName: (name: string, numberPage: number, size: number = 10) => `api/products/search?q=${name}&page=${numberPage}&size=${size}`,
         },
 
         productCategory: {
@@ -40,11 +39,7 @@ export const endPoints = {
         },
 
         pqrs: {
-            list: (
-                page: number,
-                type?: string,
-                status?: string,
-                priority?: string) => {
+            list: (page: number, type?: string, status?: string, priority?: string) => {
                 const query = new URLSearchParams({
                     page: page.toString(),
                 });
@@ -57,12 +52,8 @@ export const endPoints = {
             },
 
             delete: (id: number) => `/api/pqrs/${id}`,
-
             findById: (id: number) => `/api/pqrs/${id}`,
-
             update: (id: number) => `/api/pqrs/admin/${id}`,
-
-
         },
 
         addition: {
@@ -73,7 +64,6 @@ export const endPoints = {
             findById: (id: number) => `/api/admin/additions/${id}`,
             update: (id: number) => `/api/admin/additions/${id}`,
             updateImage: (id: number) => `/api/admin/additions/image/${id}`,
-
         },
 
         burgers: {
@@ -86,9 +76,8 @@ export const endPoints = {
             findById: (id: number) => `/api/admin/burgers/${id}`,
             update: (id: number) => `/api/admin/burgers/menu/${id}`,
             updateImage: (id: number) => `/api/admin/burgers/menu/${id}/image`,
-
-            searchIngredientsByName: (name: string, numberPage: number,) => `/api/admin/burgers/ingredients/search?name=${name}&page=${numberPage}&size=5`
-
+            searchIngredientsByName: (name: string, numberPage: number) =>
+                `/api/admin/burgers/ingredients/search?name=${name}&page=${numberPage}&size=5`
         },
 
         categoryMenu: {
@@ -117,26 +106,18 @@ export const endPoints = {
             },
 
             list: (numberPage: number) => `/api/menu?page=${numberPage}&size=10`,
-
             delete: (id: number) => `/api/menu/${id}`,
-
             update: (id: number) => `/api/menu/${id}`,
-
             updateImage: (id: number) => `/api/menu/${id}/image`,
-
             findById: (id: number) => `/api/menu/${id}`,
         },
 
         settings: {
             getSettingsAddition: "/api/addition-settings",
             updateSettingsAddition: "/api/addition-settings",
-
-            getSettingsBurger : "/api/admin/settings/burgers",
-            updateSettingsBurger : "/api/admin/settings/burgers",
+            getSettingsBurger: "/api/admin/settings/burgers",
+            updateSettingsBurger: "/api/admin/settings/burgers",
         }
-
-
-
     },
 
     auth: {
@@ -160,8 +141,44 @@ export const endPoints = {
             findById: (id: number) => `/api/pqrs/${id}`,
             update: (id: number) => `/api/pqrs/${id}`,
             delete: (id: number) => `/api/pqrs/${id}`
+        },
 
+        // 🔥 Merge correcto aquí
+        cart: {
+            sync: "/api/cart/sync",
+            get: "/api/cart",
+            clear: "/api/cart/clear",
+        },
 
-        }
-    }
+        burgerCustom: {
+            create: "/api/burgers/custom",
+            addFavorite: "/api/favorites",
+            listFavorites: "/api/favorites",
+            deleteFavorite: (id: number) => `/api/favorites/${id}`,
+            update: (id: number) => `api/burgers/custom/${id}`
+        },
+
+    },
+    public: {
+        products: {
+            list: (params?: {
+                productType?: string;
+                categoryId?: number;
+                page?: number;
+                size?: number;
+            }) => {
+                const query = new URLSearchParams({
+                    page: (params?.page ?? 0).toString(),
+                    size: (params?.size ?? 10).toString(),
+                });
+                if (params?.productType) query.append("productType", params.productType);
+                if (params?.categoryId) query.append("categoryId", params.categoryId.toString());
+                return `/api/products/public?${query.toString()}`;
+            },
+        },
+        productCategory: {
+            list: "/api/product-categories/public",  
+        },
+    },
+    
 }

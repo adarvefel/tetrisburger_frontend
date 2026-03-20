@@ -103,6 +103,23 @@
     cursor: pointer;
 }
 
+.deleteModel__button-acept:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #a0222f;
+}
+
+.deleteModel__button-acept:disabled:hover{
+    background-color: #a0222f;
+}
+
+.deleteModel__button-cancel:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+
 @media (max-width: 768px) {
 
 
