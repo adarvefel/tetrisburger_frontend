@@ -180,3 +180,16 @@
 .burgerCustomForm__strong-red{
     color: red;
 }
+
+.burgerCustomForm__p-text-priceFinal{
+    color: black;
+    font-family: "Montserrat";
+    font-size: 0.7rem;
+}
+
+.burgerCustomForm__span-priceTotal{
+    color: rgb(221, 12, 12);
+    font-family: "Montserrat";
+    font-size: 0.8rem;
+    font-weight: 600;
+}

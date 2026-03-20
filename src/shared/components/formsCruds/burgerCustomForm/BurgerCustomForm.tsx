@@ -44,7 +44,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
     //BURGER CUSTON USER
 
-    
+
     const { handleAddBurgerFavorite } = useAddBurgerFavorite();
     const addProduct = useCartStore((state) => state.addProduct);
 
@@ -66,7 +66,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
         changeIsOptional
     } = useBurgerCustomForm();
 
-    
+
 
     const [image, setImage] = useState<File | null>(null);
 
@@ -215,7 +215,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
             const statusOk = response?.status === 201 || burgerData?.idBurger != null;
 
             if (statusOk && burgerData?.idBurger) {
-                burgerData.isFeatured && handleAddBurgerFavorite(burgerData.idBurger);
+                form.isFeatured && handleAddBurgerFavorite(burgerData.idBurger);
 
                 addProduct({
                     typeProduct: "BURGER",
@@ -235,8 +235,6 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
             toast.error("No se pudo añadir la hamburguesa al carrito");
         }
 
-        
-
         else {
             const data: UpdateCustomBurgerRequestDTO = {
                 name: form.name,
@@ -253,7 +251,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                     typeProduct: "BURGER",
                     idProduct: response.data.idBurger,
                     name: response.data.name,
-                    price: response.data.finalPrice,
+                    price: Number(response.data.finalPrice) || 0,  // ← cambio aquí
                     imageUrl: burgerCustom
                 });
 
@@ -385,6 +383,10 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                 <div className="burgerCustomForm__container-ingredients">
                     <div className="burgerCustomForm__container-tittle">
                         <SubTittleCrud icon={<PiHamburgerFill size={22} color='red' />} title='Ingredientes' />
+                        <p className='burgerCustomForm__p-text-priceFinal'>
+                            Precio total de la hamburguesa: 
+                            <span className='burgerCustomForm__span-priceTotal'> ${formatPrice(analytics.basePrice)}</span>
+                        </p>
                         <button
                             className='burgerCustomForm__button-add'
                             type='button'
@@ -436,7 +438,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
                                     </button>
                                 </div>
 
-                                
+
 
                                 <button
                                     className='burgerCustomForm__button'

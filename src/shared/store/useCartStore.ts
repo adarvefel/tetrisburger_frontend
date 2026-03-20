@@ -47,7 +47,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
             } catch {
                 // fallback a localStorage
             }
-        }, 800)
+        })
     },
 
     loadCart: async () => {
