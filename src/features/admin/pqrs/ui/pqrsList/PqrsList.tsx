@@ -116,6 +116,10 @@ export default function PqrsList() {
               <Th>TIPO</Th>
               <Th>PRIORIDAD</Th>
               <Th>ESTADO</Th>
+              <Th>FECHA DE CREACIÓN</Th>
+              <Th>FECHA DE ACTUALIZACIÓN</Th>
+              <Th>CREADO POR</Th>
+              <Th>ACTUALIZADO POR</Th>
               <Th>ACCIONES</Th>
             </tr>
           </TableHead>
@@ -129,7 +133,10 @@ export default function PqrsList() {
                 <Td>{pqr.priority === "HIGH" ? "Alta" : pqr.priority === "LOW" ? "Baja" : pqr.priority === "MEDIUM" ? "Media" : "Critica"}</Td>
                 <Td><span className={`tableComponents__span-${pqr.status === "ANSWERED" ? "green" : "red"}`}> {pqr.status === "ANSWERED" ? "Respondido" : "Recibido"} </span> </Td>
 
-
+                <Td>{pqr.createdAt ?? "---"}</Td>
+                <Td>{pqr.updatedAt ?? "---"}</Td>
+                <Td>{pqr.createdBy ?? "---"}</Td>
+                <Td>{pqr.updatedBy ?? "---"}</Td>
 
                 <Td>
                   <TableActions

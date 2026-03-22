@@ -84,48 +84,57 @@ export default function UserList() {
             </div>
 
             {loading ? <LoadingSpinner /> : (
-            <TableLayout>
+                <TableLayout>
 
-                <TableHead>
-                    <tr>
-                        <Th>ID</Th>
-                        <Th>FOTO</Th>
-                        <Th>NOMBRE</Th>
-                        <Th>CORREO</Th>
-                        <Th>ROL</Th>
-                        <Th>ACCIONES</Th>
-                    </tr>
-                </TableHead>
-
-                <TableBody>
-                    {users.map((user) => (
-                        <tr key={user.idUser}>
-
-                            <Td>{user.idUser}</Td>
-
-                            <Td>
-                                <div className="tableComponents__container-img">
-                                    <img className="tableComponents__img" src={user.userImage ? user.userImage : pictureProfle} alt="" />
-                                </div>
-                            </Td>
-
-                            <Td>{user.userName}</Td>
-                            <Td>{user.email}</Td>
-
-                            <Td><span className={`tableComponents__span-${user.role === "ADMIN" ? "red" : user.role === "EMPLOYEE" ? "orange" : "blue"}`}> {user.role === "ADMIN" ? "Administrador" : user.role === "EMPLOYEE" ? "Empleado" : "Cliente"} </span> </Td>
-
-                            <Td>
-                                <TableActions
-                                    linkEdit={`/admin/users/update/${user.idUser}`}
-                                    onDelete={() => openDeleteModal(user)}
-                                />
-                            </Td>
-
+                    <TableHead>
+                        <tr>
+                            <Th>ID</Th>
+                            <Th>FOTO</Th>
+                            <Th>NOMBRE</Th>
+                            <Th>CORREO</Th>
+                            <Th>ROL</Th>
+                            <Th>FECHA DE CREACIÓN</Th>
+                            <Th>FECHA DE ACTUALIZACIÓN</Th>
+                            <Th>CREADO POR</Th>
+                            <Th>ACTUALIZADO POR</Th>
+                            <Th>ACCIONES</Th>
                         </tr>
-                    ))}
-                </TableBody>
+                    </TableHead>
 
-            </TableLayout>
+                    <TableBody>
+                        {users.map((user) => (
+                            <tr key={user.idUser}>
+
+                                <Td>{user.idUser}</Td>
+
+                                <Td>
+                                    <div className="tableComponents__container-img">
+                                        <img className="tableComponents__img" src={user.userImage ? user.userImage : pictureProfle} alt="" />
+                                    </div>
+                                </Td>
+
+                                <Td>{user.userName}</Td>
+                                <Td>{user.email}</Td>
+
+                                <Td><span className={`tableComponents__span-${user.role === "ADMIN" ? "red" : user.role === "EMPLOYEE" ? "orange" : "blue"}`}> {user.role === "ADMIN" ? "Administrador" : user.role === "EMPLOYEE" ? "Empleado" : "Cliente"} </span> </Td>
+
+                                <Td>{user.createdAt  ?? "---"}</Td>
+                                <Td>{user.updatedAt  ?? "---"}</Td>
+                                <Td>{user.createdBy  ?? "---"}</Td>
+                                <Td>{user.updatedBy  ?? "---"}</Td>
+
+                                <Td>
+                                    <TableActions
+                                        linkEdit={`/admin/users/update/${user.idUser}`}
+                                        onDelete={() => openDeleteModal(user)}
+                                    />
+                                </Td>
+
+                            </tr>
+                        ))}
+                    </TableBody>
+
+                </TableLayout>
             )}
 
 

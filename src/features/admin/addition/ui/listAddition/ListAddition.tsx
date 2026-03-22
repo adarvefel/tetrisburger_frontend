@@ -82,6 +82,10 @@ export default function ListAddition() {
               <Th>NOMBRE</Th>
               <Th>PRECIO</Th>
               <Th>DISPONIBILIDAD</Th>
+              <Th>FECHA DE CREACIÓN</Th>
+              <Th>FECHA DE ACTUALIZACIÓN</Th>
+              <Th>CREADO POR</Th>
+              <Th>ACTUALIZADO POR</Th>
               <Th>ACCIONES</Th>
             </tr>
           </TableHead>
@@ -103,6 +107,10 @@ export default function ListAddition() {
 
                 <Td><span className={`tableComponents__span-${addition.available ? "green" : "red"}`}> {addition.available ? "DIsponible" : "No disponible"} </span> </Td>
 
+                <Td>{addition.createdAt ?? "---"}</Td>
+                <Td>{addition.updatedAt ?? "---"}</Td>
+                <Td>{addition.createdBy ?? "---"}</Td>
+                <Td>{addition.updatedBy ?? "---"}</Td>
                 <Td>
                   <TableActions
                     linkEdit={`/admin/addition/update/${addition.idAddition}`}
