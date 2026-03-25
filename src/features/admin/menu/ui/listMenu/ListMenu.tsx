@@ -71,6 +71,10 @@ export default function ListMenu() {
                             <Th>NOMBRE</Th>
                             <Th>DESCRIPCION</Th>
                             <Th>DISPONIBILIDAD</Th>
+                            <Th>FECHA DE CREACIÓN</Th>
+                            <Th>FECHA DE ACTUALIZACIÓN</Th>
+                            <Th>CREADO POR</Th>
+                            <Th>ACTUALIZADO POR</Th>
                             <Th>ACCIONES</Th>
                         </tr>
                     </TableHead>
@@ -92,7 +96,10 @@ export default function ListMenu() {
                                 <Td>{menu.description}</Td>
 
                                 <Td><span className={`tableComponents__span-${menu.isAvailable ? "green" : "red"}`}> {menu.isAvailable ? "DIsponible" : "No disponible"} </span> </Td>
-
+                                <Td>{menu.createdAt ?? "---"}</Td>
+                                <Td>{menu.updatedAt ?? "---"}</Td>
+                                <Td>{menu.createdBy ?? "---"}</Td>
+                                <Td>{menu.updatedBy ?? "---"}</Td>
                                 <Td>
                                     <TableActions
                                         linkEdit={`/admin/menu/update/${menu.idMenu}`}

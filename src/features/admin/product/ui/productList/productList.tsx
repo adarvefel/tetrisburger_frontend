@@ -95,6 +95,10 @@ export default function ProductList() {
                             <Th>PRECIO</Th>
                             <Th>STOCK</Th>
                             <Th>DISPONIBILIDAD</Th>
+                            <Th>FECHA DE CREACIÓN</Th>
+                            <Th>FECHA DE ACTUALIZACIÓN</Th>
+                            <Th>CREADO POR</Th>
+                            <Th>ACTUALIZADO POR</Th>
                             <Th>ACCIONES</Th>
                         </tr>
                     </TableHead>
@@ -116,8 +120,14 @@ export default function ProductList() {
                                 <Td>{`$${product.price}`}</Td>
                                 <Td>{product.quantity}</Td>
 
-
+                
                                 <Td><span className={`tableComponents__span-${product.availability ? "green" : "red"}`}> {product.availability ? "Disponible" : "No disponible"} </span> </Td>
+
+
+                                <Td>{product.createdAt}</Td>
+                                <Td>{product.updatedAt}</Td>
+                                <Td>{product.createdBy  ?? "---"}</Td>
+                                <Td>{product.updatedBy  ?? "---"}</Td>
 
                                 <Td>
                                     <TableActions

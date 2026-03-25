@@ -161,7 +161,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
         set({ items: updatedItems })
         get().saveCart(updatedItems)
 
-        toast.error("Producto eliminado del carrito")
+        toast.success("Producto eliminado del carrito")
     },
 
     syncNow: async () => {

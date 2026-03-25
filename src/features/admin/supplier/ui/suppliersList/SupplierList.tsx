@@ -85,6 +85,10 @@ export default function SupplierList() {
             <Th>CORREO</Th>
             <Th>TELEFONO</Th>
             <Th>DIRECCION</Th>
+            <Th>FECHA DE CREACIÓN</Th>
+            <Th>FECHA DE ACTUALIZACIÓN</Th>
+            <Th>CREADO POR</Th>
+            <Th>ACTUALIZADO POR</Th>
             <Th>ACCIONES</Th>
           </tr>
         </TableHead>
@@ -98,6 +102,11 @@ export default function SupplierList() {
               <Td>{supplier.email}</Td>
               <Td>{supplier.phone}</Td>
               <Td>{supplier.address}</Td>
+
+              <Td>{supplier.createdAt ?? "---"}</Td>
+              <Td>{supplier.updatedAt ?? "---"}</Td>
+              <Td>{supplier.createdBy ?? "---"}</Td>
+              <Td>{supplier.updatedBy ?? "---"}</Td>
 
               <Td>
                 <TableActions
