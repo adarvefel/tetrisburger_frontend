@@ -12,3 +12,8 @@ export const createOrder = async (
 
   return response.data;
 };
+
+export const listOrder = async (numberPage: number) =>{
+  const response = await axiosClient.get(endPoints.admin.order.list(numberPage));
+    return response;
+}

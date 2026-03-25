@@ -117,6 +117,11 @@ export const endPoints = {
             updateSettingsAddition: "/api/addition-settings",
             getSettingsBurger: "/api/admin/settings/burgers",
             updateSettingsBurger: "/api/admin/settings/burgers",
+        },
+
+
+        order: {
+            list: (numberPage: number) => `/api/orders/all?page=${numberPage}&size=10`,
         }
     },
 
@@ -159,7 +164,8 @@ export const endPoints = {
         },
 
         order :{
-            create: "/api/orders"
+            create: "/api/orders",
+            
         }
 
     },

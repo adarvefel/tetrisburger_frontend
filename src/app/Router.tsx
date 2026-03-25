@@ -82,6 +82,8 @@ import CartPage from '../pages/user/cart/CartPage'
 import Cart from '../features/user/cart/Cart'
 import MenuPage from '../pages/shop/menu/menuPage/MenuPage'
 import MenuDetailsPage from '../pages/shop/menu/menuDetailsPage/MenuDetailsPage'
+import EmployeeSidebar from '../pages/employee/components/employeeSidebar/EmployeeSidebar'
+import ListOrdersPage from '../pages/employee/listOrdersPage/listOrdersPage'
 
 
 
@@ -105,7 +107,7 @@ export default function Router() {
         <Route path='/products' element={<ProductsPage />} />
         <Route path='/menu' element={<MenuPage />} />
         <Route path="/menu/:menuId" element={<MenuDetailsPage />} />
-        
+
 
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}
@@ -155,6 +157,12 @@ export default function Router() {
 
         <Route path="/admin/configurations-list" element={<ProtectedRoute requireAdmin><ListConfigurationsPage /></ProtectedRoute>} />
 
+
+
+        {/*RUTAS PA EMPLEADOS*/}
+        <Route path="/employee/orders-list" element={<ProtectedRoute requireEmployee><ListOrdersPage /></ProtectedRoute>} />
+
+
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
         <Route path='/prueba3' element={<Navbar />} />
@@ -201,9 +209,10 @@ export default function Router() {
         <Route path='/prueba27' element={<CreateBurger />} />
         <Route path='/prueba29' element={<InputNumberCrud />} />
         <Route path='/prueba30' element={<InputSearch />} />
-        <Route path='/prueba31' element={<LoadingSpinner />}/>
-        <Route path='/prueba32' element={<Cart />}/>
-        <Route path='/prueba34' element={<ViewTest />}/>
+        <Route path='/prueba31' element={<LoadingSpinner />} />
+        <Route path='/prueba32' element={<Cart />} />
+        <Route path='/prueba34' element={<ViewTest />} />
+        <Route path='/prueba35' element={<EmployeeSidebar />} />
 
       </Routes>
     </BrowserRouter>

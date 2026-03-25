@@ -1,17 +1,22 @@
-import { Navigate, useLocation } from "react-router-dom"
-import { useAuthStore } from "../store/useAuthStore"
-import { JSX } from "react"
+import { Navigate, useLocation } from "react-router-dom";
+import { useAuthStore } from "../store/useAuthStore";
+import { JSX } from "react";
 
 interface ProtectedRouteProps {
-  children: JSX.Element
-  requireAdmin?: boolean
+  children: JSX.Element;
+  requireAdmin?: boolean;
+  requireEmployee?: boolean;
 }
 
-const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps) => {
-  const { isAuthenticated, isAdmin, isLoading } = useAuthStore()
-  const location = useLocation()
+const ProtectedRoute = ({
+  children,
+  requireAdmin = false,
+  requireEmployee = false,
+}: ProtectedRouteProps) => {
+  const { isAuthenticated, isAdmin, isEmployee, isLoading } = useAuthStore();
+  const location = useLocation();
 
-  if (isLoading) return null
+  if (isLoading) return null;
 
   if (!isAuthenticated) {
     return (
@@ -20,14 +25,18 @@ const ProtectedRoute = ({ children, requireAdmin = false }: ProtectedRouteProps)
         state={{ from: location.pathname }}
         replace
       />
-    )
+    );
   }
 
   if (requireAdmin && !isAdmin) {
-    return <Navigate to="/" replace />
+    return <Navigate to="/" replace />;
   }
 
-  return children
-}
+  if (requireEmployee && !isEmployee) {
+    return <Navigate to="/" replace />;
+  }
 
-export default ProtectedRoute
+  return children;
+};
+
+export default ProtectedRoute;
