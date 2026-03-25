@@ -158,6 +158,10 @@ export const endPoints = {
             update: (id: number) => `api/burgers/custom/${id}`
         },
 
+        order :{
+            create: "/api/orders"
+        }
+
     },
     public: {
         products: {

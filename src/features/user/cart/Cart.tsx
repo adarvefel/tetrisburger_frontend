@@ -9,6 +9,8 @@ import { useCartStore } from '../../../shared/store/useCartStore'
 import { Link, useNavigate } from "react-router-dom";
 import photoNotFound from "../../../assets/productNotFound.png"
 import { useAuthStore } from '../../../shared/store/useAuthStore';
+import { useCreateOrder } from './hooks/useCreateOrder';
+import { OrderResponseDTO } from '../../../entities/order/dto/orderDto';
 
 
 export default function Cart() {
@@ -24,13 +26,31 @@ export default function Cart() {
     const navigate = useNavigate()
     const { user } = useAuthStore()
 
-    const handleCheckout = () => {
+    //Ordenees
+
+    const { handleOrderCreate, loading } = useCreateOrder();
+
+    const handleCheckout = async () => {
         if (!user) {
-            navigate('/login')
-        } else {
-            navigate('/checkout')
+            navigate('/login');
+            return;
         }
-    }
+
+        const payload = {
+            items: items.map(item => ({
+                typeProduct: item.typeProduct,
+                idProduct: item.idProduct,
+                name: item.name,
+                price: item.price,
+                imageUrl: item.imageUrl ?? "",
+                quantity: item.quantity
+            }))
+        };
+
+        const order = await handleOrderCreate(payload);
+
+        sendWhatsApp(order, user.userName);
+    };
 
     useEffect(() => {
         loadCart()
@@ -49,6 +69,40 @@ export default function Cart() {
             currency: "COP",
             minimumFractionDigits: 0
         }).format(price);
+    };
+
+    const sendWhatsApp = (order: OrderResponseDTO, user?: any) => {
+        const numero = "573216893662";
+
+        const formatPriceCOP = (price: number) => {
+            return new Intl.NumberFormat("es-CO", {
+                style: "currency",
+                currency: "COP",
+                minimumFractionDigits: 0
+            }).format(price);
+        };
+
+        const productos = order.items
+            .map(item =>
+                `• ${item.itemName} x${item.quantity} - ${formatPriceCOP(item.subtotal)}`
+            )
+            .join("\n");
+
+        const mensaje = `
+            🛒 *Nuevo pedido*
+            📦 *Orden:* ${order.orderNumber}
+
+            🧾 *Detalle:*
+            ${productos}
+
+            💰 *Total:* ${formatPriceCOP(order.totalAmount)}
+            📊 *Estado:* ${order.status}
+            📅 *Fecha:* ${new Date(order.orderDate).toLocaleString("es-CO")}
+
+            👤 *Cliente:* ${user || "No registrado"}`;
+
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;
+        window.open(url, "_blank");
     };
 
     return (
@@ -184,12 +238,20 @@ export default function Cart() {
                         <strong className='cart__strong-total'>{formatPriceCOP(total)}</strong>
                     </span>
                     <Line />
-                    <button id='cart-checkout'
+                    <button
+                        id='cart-checkout'
                         className='cart__button-checkout'
                         type='button'
                         onClick={handleCheckout}
+                        disabled={loading}
                     >
-                        PAGAR <MdOutlineShoppingCartCheckout size={23} />
+                        {loading ? (
+                            <span className="cart__spinner"></span>
+                        ) : (
+                            <>
+                                PAGAR <MdOutlineShoppingCartCheckout size={23} />
+                            </>
+                        )}
                     </button>
                 </div>
             </div>
