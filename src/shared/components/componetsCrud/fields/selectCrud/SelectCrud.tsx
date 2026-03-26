@@ -7,7 +7,7 @@ interface SelectOption {
 }
 
 interface SelectCrudProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  label: string;
+  label?: string;
   name: string;
   options: SelectOption[];
   placeholder?: string;
@@ -21,7 +21,7 @@ export default function SelectCrud({ label, name, id, options, placeholder, ...r
 
   return (
     <div className="selectCrud__container-select">
-      <label htmlFor={selectId} className='selectCrud__label'>{label}</label>
+      <label htmlFor={selectId} className='selectCrud__label'>{label ?? ""}</label>
       <select id={selectId} className='selectCrud__select' name={name} {...rest}>
         {placeholder && (
           <option className='selectCrud__option' value="">{placeholder}</option>

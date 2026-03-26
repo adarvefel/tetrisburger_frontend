@@ -13,7 +13,13 @@ export const createOrder = async (
   return response.data;
 };
 
-export const listOrder = async (numberPage: number) =>{
-  const response = await axiosClient.get(endPoints.admin.order.list(numberPage));
-    return response;
-}
+export const listOrder = async (params: {
+  page: number;
+  status?: string;
+  date?: string;
+}) => {
+  const response = await axiosClient.get(
+    endPoints.admin.order.list(params)
+  );
+  return response;
+};

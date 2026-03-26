@@ -1,6 +1,4 @@
 import { useEffect, useState } from "react";
-import { BurgerResponseDTO } from "../../../../entities/burger/dto/burgerDto";
-import { listBurgers, searchByName } from "../../../../entities/burger/api/burgerApi";
 import { toast } from "sonner";
 import { listOrder } from "../../../../entities/order/api/orderApi";
 import { OrderResponseDTO } from "../../../../entities/order/dto/orderDto";
@@ -12,6 +10,9 @@ export function useListOrder() {
 
     const [numberPage, setNumberPage] = useState(0);
     const [totalPage, setTotalPage] = useState(0);
+
+    const [status, setStatus] = useState<string | undefined>();
+    const [date, setDate] = useState<string | undefined>();
 
     const nextPage = () => {
         if (numberPage < totalPage - 1) {
@@ -33,22 +34,27 @@ export function useListOrder() {
             setLoading(true);
             setError(null);
 
-            const response = await listOrder(numberPage);
+            const response = await listOrder({
+                page: numberPage,
+                status,
+                date,
+            });
+
             setOrders(response.data.content);
             setTotalPage(response.data.totalPages);
 
         } catch (err: any) {
-            const msg = err.response?.data?.message || "Error al traer las ordenes";
+            const msg = err.response?.data?.message || "Error al traer las órdenes";
             setError(msg);
             toast.error(msg);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         handleListOrders();
-    }, [numberPage]);
+    }, [numberPage, status, date]);
 
-    return { loading, error, orders, numberPage, totalPage, nextPage, prevPage, handleListOrders, name };
+    return { loading, error, orders, numberPage, totalPage, nextPage, prevPage, handleListOrders, status, setStatus, date, setDate };
 }

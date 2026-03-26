@@ -1,8 +1,6 @@
-import React, { useState } from 'react'
 import "./listOrder.css"
 import { useListOrder } from '../../hooks/useListOrder'
 import {
-  TableActions,
   TableBody,
   TableHead,
   TableLayout,
@@ -12,6 +10,8 @@ import {
 } from '../../../../../shared/components/componetsCrud/table/TableComponents';
 
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
+import InputSearch from '../../../../../shared/components/componetsCrud/fields/inputSearch/InputSearch';
+import SelectCrud from "../../../../../shared/components/componetsCrud/fields/selectCrud/SelectCrud";
 
 export default function ListOrder() {
 
@@ -22,8 +22,20 @@ export default function ListOrder() {
     totalPage,
     nextPage,
     prevPage,
-    handleListOrders,
+    status,
+    setStatus,
+    date,
+    setDate
   } = useListOrder();
+
+
+  //Tin paras las tan
+
+  const statusOptions = [
+    { value: "PENDING", label: "Pendiente" },
+    { value: "ACCEPTED", label: "Aceptada" },
+    { value: "REJECTED", label: "Rechazada" },
+  ];
 
 
 
@@ -33,6 +45,30 @@ export default function ListOrder() {
 
       <div className="listOrder__container-top">
 
+        {/* izquierda */}
+        <div className="listOrder__left">
+          <InputSearch placeholder='Buscar por codigo ...' name='codeOrder' />
+        </div>
+
+        {/* derecha */}
+        <div className="listOrder__right">
+
+          <SelectCrud
+            name="status"
+            options={statusOptions}
+            placeholder="Todos los estados"
+            value={status || ""}
+            onChange={(e) => setStatus(e.target.value || undefined)}
+          />
+
+          <input
+            type="date"
+            value={date || ""}
+            onChange={(e) => setDate(e.target.value || undefined)}
+            className="listOrder__input-date"
+          />
+
+        </div>
 
       </div>
 
@@ -58,11 +94,15 @@ export default function ListOrder() {
                 <Td>{order.orderNumber}</Td>
 
 
-        
-                <Td>${order.totalAmount}</Td>
+
+                <Td>{new Intl.NumberFormat('es-CO', {
+                  style: 'currency',
+                  currency: 'COP',
+                  minimumFractionDigits: 0
+                }).format(order.totalAmount)}</Td>
 
                 <Td>
-                  <span className={`tableComponents__span-${order.status === 'PAID' ? "green" : "red"}`}>
+                  <span className={`tableComponents__span-${order.status === 'ACCEPTED' ? "green" : "red"}`}>
                     {order.status}
                   </span>
                 </Td>

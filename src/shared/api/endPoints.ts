@@ -121,7 +121,21 @@ export const endPoints = {
 
 
         order: {
-            list: (numberPage: number) => `/api/orders/all?page=${numberPage}&size=10`,
+            list: (params: {
+                page: number;
+                status?: string;
+                date?: string;
+            }) => {
+                const query = new URLSearchParams({
+                    page: params.page.toString(),
+                    size: "10",
+                });
+
+                if (params.status) query.append("status", params.status);
+                if (params.date) query.append("date", params.date);
+
+                return `/api/orders/all?${query.toString()}`;
+            },
         }
     },
 
@@ -163,9 +177,9 @@ export const endPoints = {
             update: (id: number) => `api/burgers/custom/${id}`
         },
 
-        order :{
+        order: {
             create: "/api/orders",
-            
+
         }
 
     },
@@ -187,8 +201,8 @@ export const endPoints = {
             },
         },
         productCategory: {
-            list: "/api/product-categories/public",  
+            list: "/api/product-categories/public",
         },
     },
-    
+
 }
