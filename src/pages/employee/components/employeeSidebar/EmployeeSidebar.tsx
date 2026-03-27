@@ -3,6 +3,7 @@ import "./employeeSidebar.css"
 import IconTetris from '../../../../shared/components/iconTetris/IconTetris'
 import { useAuthStore } from '../../../../shared/store/useAuthStore'
 import ButtonLogout from '../../../../shared/components/buttonLogout/ButtonLogout';
+import { FaUsers, FaBoxOpen, FaHamburger, FaEnvelopeOpenText, FaTags, FaStore } from "react-icons/fa"
 import { NavLink } from 'react-router-dom';
 import { IoMenuOutline } from "react-icons/io5";
 import { AiOutlineClose } from "react-icons/ai";
@@ -37,7 +38,17 @@ export default function EmployeeSidebar() {
                     <span className='employeeSidebar__span'>Ordenes</span>
                 </NavLink>
 
+                <NavLink to={"/employee/pqrs-list"}
+                    className={({ isActive }) =>
+                        `employeeSidebar__container-option ${isActive ? "active" : ""}`
+                    } >
+                    <FaEnvelopeOpenText size={19} />
+                    <span className='employeeSidebar__span'>PQRS</span>
+                </NavLink>
+
             </div>
+
+
 
             <div className="employeeSidebar__container-settings">
                 <NavLink to={"/employee/configurations-list"}

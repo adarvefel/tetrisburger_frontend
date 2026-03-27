@@ -12,6 +12,11 @@ import {
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 import InputSearch from '../../../../../shared/components/componetsCrud/fields/inputSearch/InputSearch';
 import SelectCrud from "../../../../../shared/components/componetsCrud/fields/selectCrud/SelectCrud";
+import { useUpdateOrder } from "../../hooks/useUpdateOrder";
+import { toast } from "sonner";
+import { FaEye } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { usePreviewOrder } from "../../hooks/usePreviewOrder";
 
 export default function ListOrder() {
 
@@ -28,13 +33,18 @@ export default function ListOrder() {
     setDate
   } = useListOrder();
 
+  const {handleUpdateOrder } = useUpdateOrder();
+
+  const {handlePreviewOrder} = usePreviewOrder();
+
+
+
 
   //Tin paras las tan
 
   const statusOptions = [
     { value: "PENDING", label: "Pendiente" },
     { value: "ACCEPTED", label: "Aceptada" },
-    { value: "REJECTED", label: "Rechazada" },
   ];
 
 
@@ -82,6 +92,7 @@ export default function ListOrder() {
               <Th>TOTAL</Th>
               <Th>ESTADO</Th>
               <Th>FECHA</Th>
+              <Th>VER</Th>
             </tr>
           </TableHead>
 
@@ -102,12 +113,36 @@ export default function ListOrder() {
                 }).format(order.totalAmount)}</Td>
 
                 <Td>
-                  <span className={`tableComponents__span-${order.status === 'ACCEPTED' ? "green" : "red"}`}>
-                    {order.status}
-                  </span>
+                  <select
+                    name="status"
+                    id=""
+                    value={order.status}
+                    onChange={async (e) => {
+                      const newStatus = e.target.value;
+
+                      // Actualiza localmente la tabla para ver el cambio inmediatamente
+                      order.status = newStatus;
+
+                      // Llama al hook para actualizar en backend
+                      
+                      const response = await handleUpdateOrder(order.idOrder, newStatus);
+
+                      response?.status === 200 && toast.success("Actualizado con exito")
+                    }}
+                  >
+                    <option value="">Seleccione un estado</option>
+                    <option value="ACCEPTED">Aceptado</option>
+                    <option value="CANCELLED_BY_EMPLOYEE">Cancelado</option>
+                    <option value="PENDING">Pendiente</option>
+                    <option value="COMPLETED">Completado</option>
+                    <option value="IN_PROGRESS">En progreso</option>
+                    <option value="READY">Listo</option>
+                  </select>
                 </Td>
 
                 <Td>{order.orderDate}</Td>
+
+                <Td><button className="tableComponents__button-edit" onClick={()=>handlePreviewOrder(order.idOrder)}><FaEye size={18} /></button></Td>
 
               </tr>
             ))}

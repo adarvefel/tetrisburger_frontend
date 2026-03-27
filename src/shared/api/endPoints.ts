@@ -120,23 +120,7 @@ export const endPoints = {
         },
 
 
-        order: {
-            list: (params: {
-                page: number;
-                status?: string;
-                date?: string;
-            }) => {
-                const query = new URLSearchParams({
-                    page: params.page.toString(),
-                    size: "10",
-                });
-
-                if (params.status) query.append("status", params.status);
-                if (params.date) query.append("date", params.date);
-
-                return `/api/orders/all?${query.toString()}`;
-            },
-        }
+        
     },
 
     auth: {
@@ -183,6 +167,34 @@ export const endPoints = {
         }
 
     },
+
+
+    employee: {
+        order: {
+            list: (params: {
+                page: number;
+                status?: string;
+                date?: string;
+            }) => {
+                const query = new URLSearchParams({
+                    page: params.page.toString(),
+                    size: "10",
+                });
+
+                if (params.status) query.append("status", params.status);
+                if (params.date) query.append("date", params.date);
+
+                return `/api/orders/all?${query.toString()}`;
+            },
+
+            updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}&paymentMethod=CASH`),
+
+            preview: (id: number) => (`/api/invoices/order/${id}/pdf`)
+
+
+        }
+    },
+
     public: {
         products: {
             list: (params?: {

@@ -19,7 +19,17 @@ export const listOrder = async (params: {
   date?: string;
 }) => {
   const response = await axiosClient.get(
-    endPoints.admin.order.list(params)
+    endPoints.employee.order.list(params)
   );
   return response;
 };
+
+export const updateOrder = async (id: number, status: string) =>{
+  const response = await axiosClient.patch(endPoints.employee.order.updated(id, status));
+  return response;
+}
+
+export const previewOrder = async (id: number) =>{
+  const response = await axiosClient.get(endPoints.employee.order.preview(id));
+  return response;
+}
