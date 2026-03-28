@@ -10,7 +10,11 @@ import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePaginatio
 import { toast } from "sonner";
 import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
-export default function PqrsList() {
+interface Props{
+  mode?: "admin" | "employee"
+}
+
+export default function PqrsList({mode}: Props) {
 
   const {
     loading,
@@ -140,7 +144,7 @@ export default function PqrsList() {
 
                 <Td>
                   <TableActions
-                    linkEdit={`/admin/pqrs/update/${pqr.idPqrs}`}
+                    linkEdit={mode == "employee" ? `/employee/pqrs/update/${pqr.idPqrs}` : `/admin/pqrs/update/${pqr.idPqrs}`}
                     onDelete={() => openDeleteModal(pqr)}
                   />
                 </Td>

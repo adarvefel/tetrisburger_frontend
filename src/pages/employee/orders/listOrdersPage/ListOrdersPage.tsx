@@ -1,8 +1,8 @@
 
 import React from 'react'
 import "./listOrdersPage.css"
-import EmployeeSidebar from '../components/employeeSidebar/EmployeeSidebar'
-import ListOrder from '../../../features/employee/order/ui/listOrder/ListOrder'
+import EmployeeSidebar from '../../components/employeeSidebar/EmployeeSidebar'
+import ListOrder from '../../../../features/employee/order/ui/listOrder/ListOrder'
 
 
 export default function ListOrdersPage() {

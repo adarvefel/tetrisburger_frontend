@@ -83,7 +83,10 @@ import Cart from '../features/user/cart/Cart'
 import MenuPage from '../pages/shop/menu/menuPage/MenuPage'
 import MenuDetailsPage from '../pages/shop/menu/menuDetailsPage/MenuDetailsPage'
 import EmployeeSidebar from '../pages/employee/components/employeeSidebar/EmployeeSidebar'
-import ListOrdersPage from '../pages/employee/listOrdersPage/listOrdersPage'
+import ListOrdersPage from '../pages/employee/orders/listOrdersPage/ListOrdersPage'
+import ListPqrsEmployeePage from '../pages/employee/pqrs/listPqrsPage/ListPqrsEmployeePage'
+import UpdatePqrsEmployeePage from '../pages/employee/pqrs/updatePqrsPage/UpdatePqrsEmployeePage'
+
 
 
 
@@ -161,6 +164,9 @@ export default function Router() {
 
         {/*RUTAS PA EMPLEADOS*/}
         <Route path="/employee/orders-list" element={<ProtectedRoute requireEmployee><ListOrdersPage /></ProtectedRoute>} />
+
+        <Route path="/employee/pqrs-list" element={<ProtectedRoute requireEmployee><ListPqrsEmployeePage /></ProtectedRoute>} />
+        <Route path="/employee/pqrs/update/:id" element={<ProtectedRoute requireEmployee><UpdatePqrsEmployeePage /></ProtectedRoute>} />
 
 
         {/*Pruebas de componentres */}
