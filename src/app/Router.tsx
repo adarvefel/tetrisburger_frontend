@@ -86,6 +86,7 @@ import EmployeeSidebar from '../pages/employee/components/employeeSidebar/Employ
 import ListOrdersPage from '../pages/employee/orders/listOrdersPage/ListOrdersPage'
 import ListPqrsEmployeePage from '../pages/employee/pqrs/listPqrsPage/ListPqrsEmployeePage'
 import UpdatePqrsEmployeePage from '../pages/employee/pqrs/updatePqrsPage/UpdatePqrsEmployeePage'
+import TestPage from '../pages/TestPage'
 
 
 
@@ -219,6 +220,9 @@ export default function Router() {
         <Route path='/prueba32' element={<Cart />} />
         <Route path='/prueba34' element={<ViewTest />} />
         <Route path='/prueba35' element={<EmployeeSidebar />} />
+
+
+        <Route path='/testPage' element={<TestPage/>}/>
 
       </Routes>
     </BrowserRouter>
