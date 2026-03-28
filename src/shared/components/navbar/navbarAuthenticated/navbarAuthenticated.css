@@ -121,6 +121,18 @@
     cursor: pointer;
 }
 
+.navbarAuthenticated__container-img{
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.navbarAuthenticated__img{
+    width: 100%;
+    height: 100%;
+}
+
 /* MEDIA QUERIES */
 @media (max-width: 768px) {
     .navbarAuthenticated__container-hamburger{
