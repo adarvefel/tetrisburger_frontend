@@ -26,7 +26,7 @@ export default function UpdateProfile() {
             <div className="updateProfile__container-buttons">
                 <ButtonLogout />
                 {
-                    isAdmin ? <Link className='updateProfile__link' to={"/admin/users-list"}><GrUserAdmin size={27} /> Dashboard Administrador</Link> : null
+                    isAdmin ? <Link className='updateProfile__link' to={"/admin/analityc"}><GrUserAdmin size={27} /> Dashboard Administrador</Link> : null
                 }
                 {
                     isEmployee ? <Link className='updateProfile__link2' to={"/employee/orders-list"}><GrUserAdmin size={27} /> Dashboard  Empleado</Link> : null

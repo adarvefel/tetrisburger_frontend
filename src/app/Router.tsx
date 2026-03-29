@@ -86,7 +86,14 @@ import EmployeeSidebar from '../pages/employee/components/employeeSidebar/Employ
 import ListOrdersPage from '../pages/employee/orders/listOrdersPage/ListOrdersPage'
 import ListPqrsEmployeePage from '../pages/employee/pqrs/listPqrsPage/ListPqrsEmployeePage'
 import UpdatePqrsEmployeePage from '../pages/employee/pqrs/updatePqrsPage/UpdatePqrsEmployeePage'
-import TestPage from '../pages/TestPage'
+import TestPage from '../shared/components/test/metrics/ventas/TestPage'
+import PedidosTest from '../shared/components/test/metrics/pedidos/PedidosTest'
+import Metricas from '../shared/components/test/metrics/metricas/Metricas'
+import TopProducts from '../shared/components/test/metrics/topProducts/TopProducts'
+import DebugTablas from '../shared/components/test/metrics/debugTablas/DebugTablas'
+import DashboardMain from '../shared/components/test/metrics/dashboardMain/DashboardMain'
+import AnalitycPage from '../pages/admin/analitycPage/AnalitycPage'
+import ButtonFIlter from '../shared/components/buttonFIlter/ButtonFIlter'
 
 
 
@@ -161,6 +168,8 @@ export default function Router() {
 
         <Route path="/admin/configurations-list" element={<ProtectedRoute requireAdmin><ListConfigurationsPage /></ProtectedRoute>} />
 
+        <Route path="/admin/analityc" element={<ProtectedRoute requireAdmin><AnalitycPage /></ProtectedRoute>} />
+
 
 
         {/*RUTAS PA EMPLEADOS*/}
@@ -222,7 +231,15 @@ export default function Router() {
         <Route path='/prueba35' element={<EmployeeSidebar />} />
 
 
-        <Route path='/testPage' element={<TestPage/>}/>
+        <Route path='/36' element={<TestPage/>}/>
+        <Route path='/37' element={<PedidosTest/>}/>
+        <Route path='/38' element={<TopProducts/>}/>
+        <Route path='/39' element={<Metricas/>}/>
+        <Route path='/40' element={<DebugTablas/>}/>
+        <Route path='/41' element={<DashboardMain/>}/>
+
+
+        <Route path='/42' element={<ButtonFIlter/>}/>
 
       </Routes>
     </BrowserRouter>

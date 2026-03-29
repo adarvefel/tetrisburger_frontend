@@ -11,6 +11,7 @@ import { CiSettings } from "react-icons/ci";
 import { IoFastFood } from "react-icons/io5";
 import { BiSolidCategory } from "react-icons/bi";
 import { MdMenuBook } from "react-icons/md";
+import { FcStatistics } from "react-icons/fc";
 
 export default function AdminSidebar() {
 
@@ -29,6 +30,14 @@ export default function AdminSidebar() {
       </div>
 
       <div className={`adminSidebar__container-medium ${menuOpen ? 'active' : ''}`}>
+
+        <NavLink to={"/admin/analityc"}
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <FcStatistics  size={19} />
+          <span className='adminSidebar__span'>Estadisticas</span>
+        </NavLink>
 
         <NavLink to={"/admin/users-list"}
           className={({ isActive }) =>
@@ -104,6 +113,8 @@ export default function AdminSidebar() {
           <FaEnvelopeOpenText size={19} />
           <span className='adminSidebar__span'>PQRS</span>
         </NavLink>
+
+        
 
 
 

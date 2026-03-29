@@ -14,6 +14,7 @@ import { OrderResponseDTO } from '../../../entities/order/dto/orderDto';
 
 
 export default function Cart() {
+    const NUMBER = import.meta.env.VITE_NUMBER_WHATSAPP;
 
     const items = useCartStore((state) => state.items)
     const loadCart = useCartStore((state) => state.loadCart)
@@ -72,7 +73,7 @@ export default function Cart() {
     };
 
     const sendWhatsApp = (order: OrderResponseDTO, user?: any) => {
-        const numero = "573216893662";
+        const numero = NUMBER;
 
         const formatPriceCOP = (price: number) => {
             return new Intl.NumberFormat("es-CO", {
