@@ -26,9 +26,10 @@ interface PqrsFormProps {
   }
   onSubmit: (data: any) => Promise<any>
   loading?: boolean
+  isEmployee?: boolean
 }
 
-export default function PqrsForm({ mode, initialData, onSubmit, loading = false }: PqrsFormProps) {
+export default function PqrsForm({ mode, initialData, onSubmit, loading = false, isEmployee = false }: PqrsFormProps) {
 
 
   const [formData, setFormData] = useState({
@@ -67,19 +68,19 @@ export default function PqrsForm({ mode, initialData, onSubmit, loading = false 
     (initialData?.description ?? "") === formData.description &&
     (initialData?.response ?? "") === formData.response
 
-    
+
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   }
 
   let nagivation = useNavigate();
 
- 
+
 
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
 
     if (mode === "admin-update") {
 
@@ -107,19 +108,17 @@ export default function PqrsForm({ mode, initialData, onSubmit, loading = false 
       }
 
 
-      try {
-        const res = await onSubmit(pqrsUpdate);
-        if (res.data?.idPqrs) {
-          toast.success("Datos actualizados");
-          nagivation("/admin/pqrs-list");
-        }
-        else {
-          toast.error("Datos no actualizados, error inesperado.")
-        }
 
-      } catch (error) {
-        toast.error("Error inesperado al actualizar la PQRS.");
+      const res = await onSubmit(pqrsUpdate);
+      if (res.data?.idPqrs) {
+        toast.success("Datos actualizados");
+        isEmployee ? nagivation("/employee/pqrs-list") : nagivation("/admin/pqrs-list") ;
       }
+      else {
+        toast.error("Datos no actualizados, error inesperado.")
+      }
+
+
 
       return
     }
@@ -145,21 +144,14 @@ export default function PqrsForm({ mode, initialData, onSubmit, loading = false 
       description: formData.description
     }
 
-    try {
-      const res = await onSubmit(pqrsUpdate);
-      if (res.data?.idPqrs) {
-        toast.success("Datos actualizados");
-        nagivation("/pqrs-me");
-      }
-      else {
-        toast.error("Datos no actualizados, error inesperado.")
-      }
-
-    } catch (error) {
-      toast.error("Error inesperado al actualizar la PQRS.");
+    const res = await onSubmit(pqrsUpdate);
+    if (res.data?.idPqrs) {
+      toast.success("Datos actualizados");
+      nagivation("/pqrs-me");
     }
-
-
+    else {
+      toast.error("Datos no actualizados, error inesperado.")
+    }
 
     return;
   }
@@ -278,7 +270,7 @@ export default function PqrsForm({ mode, initialData, onSubmit, loading = false 
 
       </div>
 
-      <ButtonSubmitCrud id='pqrs-form-submit' label='Actualizar PQRS' disabled={formIsEqual} loading={loading}/>
+      <ButtonSubmitCrud id='pqrs-form-submit' label='Actualizar PQRS' disabled={formIsEqual} loading={loading} />
 
     </form>
   )

@@ -39,6 +39,30 @@
     transform: scale(1.1);
 }
 
+.updateProfile__link2{
+    border: 2px solid #f39c12;
+
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-family: 'Montserrat';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    gap: 8px;
+    background-color: #f39c12;
+    color: #000;
+    font-weight: 600;
+    transition: background-color 0.3, color 0.3s, transform 0.4s; 
+    
+   
+}
+
+.updateProfile__link2:hover{
+    transform: scale(1.1);
+}
+
 @media (max-width: 768px) {
 
     .updateProfile__link{

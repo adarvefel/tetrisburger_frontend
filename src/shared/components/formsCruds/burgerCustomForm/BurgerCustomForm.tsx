@@ -47,6 +47,7 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
     const { handleAddBurgerFavorite } = useAddBurgerFavorite();
     const addProduct = useCartStore((state) => state.addProduct);
+    const replaceProduct = useCartStore((state) => state.replaceProduct);
 
     const navigate = useNavigate()
     const { user } = useAuthStore()
@@ -247,19 +248,21 @@ export default function BurgerCustomForm({ mode, initialData, onSubmit, loading 
 
             if (response?.status === 200) {
 
-                addProduct({
+                replaceProduct({
                     typeProduct: "BURGER",
                     idProduct: response.data.idBurger,
                     name: response.data.name,
-                    price: Number(response.data.finalPrice) || 0,  // ← cambio aquí
-                    imageUrl: burgerCustom
+                    price: Number(response.data.finalPrice) || 0,
+                    imageUrl: burgerCustom,
+                    quantity: 1
                 });
 
+                await syncNow();
                 nagivation("/cart-me");
-
                 return;
             }
         }
+           
     }
 
     const formIsEqual =

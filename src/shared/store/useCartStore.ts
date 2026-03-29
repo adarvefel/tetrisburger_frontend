@@ -23,6 +23,7 @@ interface CartStore {
     decreaseQuantity: (type: CartItem["typeProduct"], id: number) => void
     removeProduct: (type: CartItem["typeProduct"], id: number) => void
     clearCart: () => void
+    replaceProduct: (product: CartItem) => void
 
     loadCart: () => Promise<void>
     saveCart: (items: CartItem[]) => Promise<void>
@@ -112,6 +113,24 @@ export const useCartStore = create<CartStore>((set, get) => ({
             updatedItems = [...items, { ...product, quantity: 1 }]
             toast.success("Producto agregado al carrito")
         }
+
+        set({ items: updatedItems })
+        get().saveCart(updatedItems)
+    },
+
+    replaceProduct: (product: CartItem) => {
+        const items = get().items
+        const exists = items.some(
+            i => i.idProduct === product.idProduct && i.typeProduct === product.typeProduct
+        )
+
+        const updatedItems = exists
+            ? items.map(i =>
+                i.idProduct === product.idProduct && i.typeProduct === product.typeProduct
+                    ? { ...product }
+                    : i
+            )
+            : [...items, product]
 
         set({ items: updatedItems })
         get().saveCart(updatedItems)

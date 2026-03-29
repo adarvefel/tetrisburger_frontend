@@ -3,7 +3,7 @@ export interface User{
     userName: string,
     email: string,
     password?: string,
-    imageUser?: string,
+    userImage?: string,
     phone?: string,
     role?: string,
 

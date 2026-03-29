@@ -117,7 +117,10 @@ export const endPoints = {
             updateSettingsAddition: "/api/addition-settings",
             getSettingsBurger: "/api/admin/settings/burgers",
             updateSettingsBurger: "/api/admin/settings/burgers",
-        }
+        },
+
+
+        
     },
 
     auth: {
@@ -158,7 +161,40 @@ export const endPoints = {
             update: (id: number) => `api/burgers/custom/${id}`
         },
 
+        order: {
+            create: "/api/orders",
+
+        }
+
     },
+
+
+    employee: {
+        order: {
+            list: (params: {
+                page: number;
+                status?: string;
+                date?: string;
+            }) => {
+                const query = new URLSearchParams({
+                    page: params.page.toString(),
+                    size: "10",
+                });
+
+                if (params.status) query.append("status", params.status);
+                if (params.date) query.append("date", params.date);
+
+                return `/api/orders/all?${query.toString()}`;
+            },
+
+            updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}&paymentMethod=CASH`),
+
+            preview: (id: number) => (`/api/invoices/order/${id}/pdf`)
+
+
+        }
+    },
+
     public: {
         products: {
             list: (params?: {
@@ -177,8 +213,8 @@ export const endPoints = {
             },
         },
         productCategory: {
-            list: "/api/product-categories/public",  
+            list: "/api/product-categories/public",
         },
     },
-    
+
 }

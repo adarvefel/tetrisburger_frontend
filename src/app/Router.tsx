@@ -82,6 +82,19 @@ import CartPage from '../pages/user/cart/CartPage'
 import Cart from '../features/user/cart/Cart'
 import MenuPage from '../pages/shop/menu/menuPage/MenuPage'
 import MenuDetailsPage from '../pages/shop/menu/menuDetailsPage/MenuDetailsPage'
+import EmployeeSidebar from '../pages/employee/components/employeeSidebar/EmployeeSidebar'
+import ListOrdersPage from '../pages/employee/orders/listOrdersPage/ListOrdersPage'
+import ListPqrsEmployeePage from '../pages/employee/pqrs/listPqrsPage/ListPqrsEmployeePage'
+import UpdatePqrsEmployeePage from '../pages/employee/pqrs/updatePqrsPage/UpdatePqrsEmployeePage'
+import TestPage from '../shared/components/test/metrics/ventas/TestPage'
+import PedidosTest from '../shared/components/test/metrics/pedidos/PedidosTest'
+import Metricas from '../shared/components/test/metrics/metricas/Metricas'
+import TopProducts from '../shared/components/test/metrics/topProducts/TopProducts'
+import DebugTablas from '../shared/components/test/metrics/debugTablas/DebugTablas'
+import DashboardMain from '../shared/components/test/metrics/dashboardMain/DashboardMain'
+import AnalitycPage from '../pages/admin/analitycPage/AnalitycPage'
+import ButtonFIlter from '../shared/components/buttonFIlter/ButtonFIlter'
+
 
 
 
@@ -105,7 +118,7 @@ export default function Router() {
         <Route path='/products' element={<ProductsPage />} />
         <Route path='/menu' element={<MenuPage />} />
         <Route path="/menu/:menuId" element={<MenuDetailsPage />} />
-        
+
 
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}
@@ -155,6 +168,17 @@ export default function Router() {
 
         <Route path="/admin/configurations-list" element={<ProtectedRoute requireAdmin><ListConfigurationsPage /></ProtectedRoute>} />
 
+        <Route path="/admin/analityc" element={<ProtectedRoute requireAdmin><AnalitycPage /></ProtectedRoute>} />
+
+
+
+        {/*RUTAS PA EMPLEADOS*/}
+        <Route path="/employee/orders-list" element={<ProtectedRoute requireEmployee><ListOrdersPage /></ProtectedRoute>} />
+
+        <Route path="/employee/pqrs-list" element={<ProtectedRoute requireEmployee><ListPqrsEmployeePage /></ProtectedRoute>} />
+        <Route path="/employee/pqrs/update/:id" element={<ProtectedRoute requireEmployee><UpdatePqrsEmployeePage /></ProtectedRoute>} />
+
+
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
         <Route path='/prueba3' element={<Navbar />} />
@@ -201,9 +225,21 @@ export default function Router() {
         <Route path='/prueba27' element={<CreateBurger />} />
         <Route path='/prueba29' element={<InputNumberCrud />} />
         <Route path='/prueba30' element={<InputSearch />} />
-        <Route path='/prueba31' element={<LoadingSpinner />}/>
-        <Route path='/prueba32' element={<Cart />}/>
-        <Route path='/prueba34' element={<ViewTest />}/>
+        <Route path='/prueba31' element={<LoadingSpinner />} />
+        <Route path='/prueba32' element={<Cart />} />
+        <Route path='/prueba34' element={<ViewTest />} />
+        <Route path='/prueba35' element={<EmployeeSidebar />} />
+
+
+        <Route path='/36' element={<TestPage/>}/>
+        <Route path='/37' element={<PedidosTest/>}/>
+        <Route path='/38' element={<TopProducts/>}/>
+        <Route path='/39' element={<Metricas/>}/>
+        <Route path='/40' element={<DebugTablas/>}/>
+        <Route path='/41' element={<DashboardMain/>}/>
+
+
+        <Route path='/42' element={<ButtonFIlter/>}/>
 
       </Routes>
     </BrowserRouter>
