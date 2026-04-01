@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { usePreviewOrder } from "../../hooks/usePreviewOrder";
+import { MdEdit } from "react-icons/md";
 
 export default function ListOrder() {
 
@@ -33,9 +34,9 @@ export default function ListOrder() {
     setDate
   } = useListOrder();
 
-  const {handleUpdateOrder } = useUpdateOrder();
+  const { handleUpdateOrder } = useUpdateOrder();
 
-  const {handlePreviewOrder} = usePreviewOrder();
+  const { handlePreviewOrder } = usePreviewOrder();
 
 
 
@@ -45,7 +46,15 @@ export default function ListOrder() {
   const statusOptions = [
     { value: "PENDING", label: "Pendiente" },
     { value: "ACCEPTED", label: "Aceptada" },
+    { value: "IN_PROGRESS", label: "En progreso" },
+    { value: "COMPLETED", label: "Completada" },
+    { value: "CANCELLED_BY_EMPLOYEE", label: "Cancelada" },
   ];
+
+  const getStatusLabel = (status: string) => {
+    const found = statusOptions.find(s => s.value === status);
+    return found ? found.label : status;
+  };
 
 
 
@@ -92,7 +101,7 @@ export default function ListOrder() {
               <Th>TOTAL</Th>
               <Th>ESTADO</Th>
               <Th>FECHA</Th>
-              <Th>VER</Th>
+              <Th>ACCIONES</Th>
             </tr>
           </TableHead>
 
@@ -113,36 +122,22 @@ export default function ListOrder() {
                 }).format(order.totalAmount)}</Td>
 
                 <Td>
-                  <select
-                    name="status"
-                    id=""
-                    value={order.status}
-                    onChange={async (e) => {
-                      const newStatus = e.target.value;
 
-                      // Actualiza localmente la tabla para ver el cambio inmediatamente
-                      order.status = newStatus;
-
-                      // Llama al hook para actualizar en backend
-                      
-                      const response = await handleUpdateOrder(order.idOrder, newStatus);
-
-                      response?.status === 200 && toast.success("Actualizado con exito")
-                    }}
-                  >
-                    <option value="">Seleccione un estado</option>
-                    <option value="ACCEPTED">Aceptado</option>
-                    <option value="CANCELLED_BY_EMPLOYEE">Cancelado</option>
-                    <option value="PENDING">Pendiente</option>
-                    <option value="COMPLETED">Completado</option>
-                    <option value="IN_PROGRESS">En progreso</option>
-                    <option value="READY">Listo</option>
-                  </select>
+                  {getStatusLabel(order.status)}
                 </Td>
 
                 <Td>{order.orderDate}</Td>
 
-                <Td><button className="tableComponents__button-edit" onClick={()=>handlePreviewOrder(order.idOrder)}><FaEye size={18} /></button></Td>
+                <Td>
+                  <div className="listOrder__container-actions">
+
+                    <button className="tableComponents__button-edit" ><MdEdit size={18} /></button>
+                    <button className="tableComponents__button-edit" onClick={() => handlePreviewOrder(order.idOrder)}><FaEye size={18} /></button>
+                    
+                  </div>
+
+                </Td>
+
 
               </tr>
             ))}

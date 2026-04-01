@@ -187,7 +187,7 @@ export const endPoints = {
                 return `/api/orders/all?${query.toString()}`;
             },
 
-            updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}&paymentMethod=CASH`),
+            updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}`),
 
             preview: (id: number) => (`/api/invoices/order/${id}/pdf`)
 
