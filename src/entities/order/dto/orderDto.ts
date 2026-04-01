@@ -26,7 +26,11 @@ export interface OrderResponseDTO {
   status: "PENDING" | "PREPARING" | "READY" | "DELIVERED" | string;
   totalAmount: number;
   orderDate: string; 
+  updatedAt: string;
+  createdBy: number;
+  updatedBy: number;
   items: OrderItemResponseDTO[];
+  paymentMethod: string
 }
 
 export interface CreatePaymentMethodDTO {

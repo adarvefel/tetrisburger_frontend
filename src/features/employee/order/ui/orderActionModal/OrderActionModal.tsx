@@ -13,24 +13,28 @@ interface Props {
 }
 
 const statusOptions = [
-  { value: "PENDING",               label: "Pendiente" },
-  { value: "ACCEPTED",              label: "Aceptada" },
-  { value: "IN_PROGRESS",           label: "En progreso" },
-  { value: "COMPLETED",             label: "Completada" },
+  { value: "PENDING", label: "Pendiente" },
+  { value: "ACCEPTED", label: "Aceptada" },
+  { value: "IN_PROGRESS", label: "En progreso" },
+  { value: "COMPLETED", label: "Completada" },
   { value: "CANCELLED_BY_EMPLOYEE", label: "Cancelada por empleado" },
 ];
 
 const paymentOptions = [
-  { value: "CASH",     label: "Efectivo" },
-  { value: "CARD",     label: "Tarjeta" },
+  { value: "CASH", label: "Efectivo" },
+  { value: "CARD", label: "Tarjeta" },
   { value: "TRANSFER", label: "Transferencia" },
 ];
+
+// Útil para mostrar el label en lugar del value
+const paymentLabel = (value: string) =>
+  paymentOptions.find(p => p.value === value)?.label ?? value;
 
 export default function OrderActionsModal({ order, onClose, onSuccess }: Props) {
   const { loading, handleCreatePayment, handleUpdateOrder } = useOrderActions();
 
-  // Si está en PENDING no tiene pago aún
-  const hasPayment = order.status !== "PENDING";
+  // ✅ Ahora se basa en el campo real del DTO
+  const hasPayment = !!order.paymentMethod;
 
   const [selectedPayment, setSelectedPayment] = useState("");
   const [selectedStatus, setSelectedStatus] = useState(order.status);
@@ -82,7 +86,7 @@ export default function OrderActionsModal({ order, onClose, onSuccess }: Props) 
           {hasPayment ? (
             <div className="oam__locked-box">
               <FaLock size={13} />
-              <p>El método de pago ya fue registrado y no puede modificarse.</p>
+              <p>Método registrado: <strong>{paymentLabel(order.paymentMethod!)}</strong>. No puede modificarse.</p>
             </div>
           ) : (
             <div className="oam__field-row">
@@ -134,13 +138,16 @@ export default function OrderActionsModal({ order, onClose, onSuccess }: Props) 
                 <option key={s.value} value={s.value}>{s.label}</option>
               ))}
             </select>
-            <button
-              className="oam__btn oam__btn--dark"
-              onClick={handleSaveStatus}
-              disabled={loading || !hasPayment}
-            >
-              {loading ? "Actualizando..." : "Actualizar"}
-            </button>
+
+            {hasPayment && (
+              <button
+                className="oam__btn oam__btn--dark"
+                onClick={handleSaveStatus}
+                disabled={loading}
+              >
+                {loading ? "Actualizando..." : "Actualizar"}
+              </button>
+            )}
           </div>
         </section>
 

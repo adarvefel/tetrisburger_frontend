@@ -38,10 +38,10 @@ export default function ListOrder() {
   const { handlePreviewOrder } = usePreviewOrder();
 
   const statusOptions = [
-    { value: "PENDING",               label: "Pendiente" },
-    { value: "ACCEPTED",              label: "Aceptada" },
-    { value: "IN_PROGRESS",           label: "En progreso" },
-    { value: "COMPLETED",             label: "Completada" },
+    { value: "PENDING", label: "Pendiente" },
+    { value: "ACCEPTED", label: "Aceptada" },
+    { value: "IN_PROGRESS", label: "En progreso" },
+    { value: "COMPLETED", label: "Completada" },
     { value: "CANCELLED_BY_EMPLOYEE", label: "Cancelada" },
   ];
 
@@ -82,7 +82,10 @@ export default function ListOrder() {
               <Th>Número de orden</Th>
               <Th>TOTAL</Th>
               <Th>ESTADO</Th>
-              <Th>FECHA</Th>
+              <Th>FECHA DE CREACIÓN</Th>
+              <Th>FECHA DE ACTUALIZACIÓN</Th>
+              <Th>CREADO POR</Th>
+              <Th>ACTUALIZADO POR</Th>
               <Th>ACCIONES</Th>
             </tr>
           </TableHead>
@@ -98,8 +101,20 @@ export default function ListOrder() {
                     minimumFractionDigits: 0
                   }).format(order.totalAmount)}
                 </Td>
-                <Td>{getStatusLabel(order.status)}</Td>
+                <Td>
+                  <span className={`tableComponents__span-${order.status === "COMPLETED" ? "green" :
+                    order.status === "CANCELLED_BY_EMPLOYEE" ? "red" :
+                      order.status === "IN_PROGRESS" ? "orange" :
+                        order.status === "ACCEPTED" ? "blue" :
+                          "yellow"
+                    }`}>
+                    {getStatusLabel(order.status)}
+                  </span>
+                </Td>
                 <Td>{order.orderDate}</Td>
+                <Td>{order.updatedAt ?? "---"}</Td>
+                <Td>{order.createdBy ?? "---"}</Td>
+                <Td>{order.updatedBy ?? "---"}</Td>
                 <Td>
                   <div className="listOrder__container-actions">
                     <button
