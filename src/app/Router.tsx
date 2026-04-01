@@ -95,6 +95,8 @@ import DashboardMain from '../shared/components/test/metrics/dashboardMain/Dashb
 import AnalitycPage from '../pages/admin/analitycPage/AnalitycPage'
 import ButtonFIlter from '../shared/components/buttonFIlter/ButtonFIlter'
 import ListConfigurationsEmployeePage from '../pages/employee/configurations/ListConfigurationsEmployeePage'
+import AboutSectionPage from '../pages/aboutSectionPage/AboutSectionPage'
+import FaqPage from '../pages/FAQ/FaqPage'
 
 
 
@@ -119,6 +121,8 @@ export default function Router() {
         <Route path='/products' element={<ProductsPage />} />
         <Route path='/menu' element={<MenuPage />} />
         <Route path="/menu/:menuId" element={<MenuDetailsPage />} />
+        <Route path="/about" element={<AboutSectionPage />} />
+        <Route path='/faq' element={<FaqPage/>}/>
 
 
 

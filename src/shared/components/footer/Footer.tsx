@@ -31,8 +31,8 @@ export default function Footer() {
                 </div>
                 <div className="footer__columna-tres">
                     <p className='footer__p'>Sobre tetrisburger</p>
-                    <Link className='footer__link' to={"/quienes-somos"}>¿Quienes somos?</Link>
-                    <Link className='footer__link' to={"/preguntas-frecuentes"}>Preguntas frecuentes</Link>
+                    <Link className='footer__link' to={"/about"}>¿Quienes somos?</Link>
+                    <Link className='footer__link' to={"/faq"}>Preguntas frecuentes</Link>
                     <Link className='footer__link' to={"/contact-us"}>Contactanos</Link>
                     <Link className='footer__link' to={"/pqrs-create"}>PQRS</Link>
                 </div>
