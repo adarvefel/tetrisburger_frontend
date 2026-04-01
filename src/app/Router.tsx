@@ -97,6 +97,7 @@ import ButtonFIlter from '../shared/components/buttonFIlter/ButtonFIlter'
 import ListConfigurationsEmployeePage from '../pages/employee/configurations/ListConfigurationsEmployeePage'
 import AboutSectionPage from '../pages/aboutSectionPage/AboutSectionPage'
 import FaqPage from '../pages/FAQ/FaqPage'
+import ListOrderAdminPage from '../pages/admin/order/ListOrderAdminPage'
 
 
 
@@ -174,6 +175,8 @@ export default function Router() {
         <Route path="/admin/configurations-list" element={<ProtectedRoute requireAdmin><ListConfigurationsPage /></ProtectedRoute>} />
 
         <Route path="/admin/analityc" element={<ProtectedRoute requireAdmin><AnalitycPage /></ProtectedRoute>} />
+
+        <Route path="/admin/orders-list" element={<ProtectedRoute requireAdmin><ListOrderAdminPage /></ProtectedRoute>} />
 
 
 
