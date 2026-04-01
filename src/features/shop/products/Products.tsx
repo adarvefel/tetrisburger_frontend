@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useLocation } from "react-router-dom";
 import "./products.css"
 import ProductFilters, { ProductFilter } from '../../../shared/components/productFilters/ProductFilters';
 import Burgers from '../burgers/Burgers';
@@ -9,7 +10,13 @@ import BurgerCustom from '../burgerCustom/BurgerCustom';
 
 export default function Products() {
 
-  const [filter, setFilter] = useState<ProductFilter>("BURGER");
+  const location = useLocation();
+  const initialFilterFromState = location.state?.initialFilter;
+
+  const [filter, setFilter] = useState<ProductFilter>(
+    initialFilterFromState || "BURGER"
+  );
+
   return (
     <div className='products'>
       <ProductFilters
