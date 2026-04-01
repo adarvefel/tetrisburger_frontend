@@ -94,6 +94,7 @@ import DebugTablas from '../shared/components/test/metrics/debugTablas/DebugTabl
 import DashboardMain from '../shared/components/test/metrics/dashboardMain/DashboardMain'
 import AnalitycPage from '../pages/admin/analitycPage/AnalitycPage'
 import ButtonFIlter from '../shared/components/buttonFIlter/ButtonFIlter'
+import ListConfigurationsEmployeePage from '../pages/employee/configurations/ListConfigurationsEmployeePage'
 
 
 
@@ -178,6 +179,7 @@ export default function Router() {
         <Route path="/employee/pqrs-list" element={<ProtectedRoute requireEmployee><ListPqrsEmployeePage /></ProtectedRoute>} />
         <Route path="/employee/pqrs/update/:id" element={<ProtectedRoute requireEmployee><UpdatePqrsEmployeePage /></ProtectedRoute>} />
 
+        <Route path="/employee/configurations-list" element={<ProtectedRoute requireEmployee><ListConfigurationsEmployeePage /></ProtectedRoute>} />
 
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
