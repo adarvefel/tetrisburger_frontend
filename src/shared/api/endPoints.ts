@@ -189,8 +189,9 @@ export const endPoints = {
 
             updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}`),
 
-            preview: (id: number) => (`/api/invoices/order/${id}/pdf`)
+            preview: (id: number) => (`/api/invoices/order/${id}/pdf`),
 
+            createPayment: "/api/payments"
 
         }
     },

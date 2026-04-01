@@ -28,3 +28,8 @@ export interface OrderResponseDTO {
   orderDate: string; 
   items: OrderItemResponseDTO[];
 }
+
+export interface CreatePaymentMethodDTO {
+  idOrder: number;
+  paymentMethod: string;
+}

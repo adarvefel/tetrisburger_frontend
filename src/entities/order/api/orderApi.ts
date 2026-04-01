@@ -1,6 +1,6 @@
 import { axiosClient } from "../../../shared/api/axiosClient";
 import { endPoints } from "../../../shared/api/endPoints";
-import { CreateOrderRequestDTO, OrderResponseDTO } from "../dto/orderDto";
+import { CreateOrderRequestDTO, CreatePaymentMethodDTO, OrderResponseDTO } from "../dto/orderDto";
 
 export const createOrder = async (
   data: CreateOrderRequestDTO
@@ -26,6 +26,11 @@ export const listOrder = async (params: {
 
 export const updateOrder = async (id: number, status: string) =>{
   const response = await axiosClient.patch(endPoints.employee.order.updated(id, status));
+  return response;
+}
+
+export const createPayment = async (data: CreatePaymentMethodDTO) =>{
+  const response = await axiosClient.post(endPoints.employee.order.createPayment, data);
   return response;
 }
 
