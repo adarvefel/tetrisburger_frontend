@@ -7,6 +7,7 @@ import Sides from '../sides/Sides';
 import Additions from '../additions/Additions';
 import Line from '../../../shared/components/componetsCrud/fields/line/Line';
 import BurgerCustom from '../burgerCustom/BurgerCustom';
+import Featured from '../featured/Featured';
 
 export default function Products() {
 
@@ -14,7 +15,7 @@ export default function Products() {
   const initialFilterFromState = location.state?.initialFilter;
 
   const [filter, setFilter] = useState<ProductFilter>(
-    initialFilterFromState || "BURGER"
+    initialFilterFromState || "FEATURED"
   );
 
   return (
@@ -24,12 +25,14 @@ export default function Products() {
         onChangeFilter={setFilter}
       />
 
-      <Line/>
+      <Line />
 
-      {filter === "BURGER" && <Burgers/>}
-      {filter === "SIDE" && <Sides/>}
-      {filter === "ADDITION" && <Additions/>}
-      {filter === "BURGERCUSTOM" && <BurgerCustom/>}
+      {filter === "FEATURED" && <Featured />}
+      {filter === "BURGER" && <Burgers />}
+      {filter === "SIDE" && <Sides />}
+      {filter === "ADDITION" && <Additions />}
+      {filter === "BURGERCUSTOM" && <BurgerCustom />}
+
     </div>
   )
 }

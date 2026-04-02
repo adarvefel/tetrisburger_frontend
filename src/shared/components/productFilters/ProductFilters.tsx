@@ -6,9 +6,10 @@ import { FaHamburger } from "react-icons/fa";
 import { PiHamburgerDuotone } from "react-icons/pi";
 import { useAuthStore } from '../../../shared/store/useAuthStore'
 import { useNavigate } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
 
-export type ProductFilter = "BURGER" | "SIDE" | "ADDITION" | "BURGERCUSTOM";
+export type ProductFilter = "FEATURED" | "BURGER" | "SIDE" | "ADDITION" | "BURGERCUSTOM";
 
 interface Props {
     activeFilter: ProductFilter;
@@ -32,6 +33,12 @@ export default function ProductFilters({ activeFilter, onChangeFilter }: Props) 
         <div className="productFilters">
 
             <div className="productFilters__container-left">
+                <button id="productFilter-burger"
+                    className={`productFilters__button ${activeFilter === "FEATURED" ? "active" : ""}`}
+                    onClick={() => onChangeFilter("FEATURED")}
+                >
+                    <FaStar  /> Destacadas
+                </button>
                 <button id="productFilter-burger"
                     className={`productFilters__button ${activeFilter === "BURGER" ? "active" : ""}`}
                     onClick={() => onChangeFilter("BURGER")}
@@ -58,7 +65,7 @@ export default function ProductFilters({ activeFilter, onChangeFilter }: Props) 
                 className={`productFilters__button ${activeFilter === "BURGERCUSTOM" ? "active" : ""}`}
                 onClick={handleBurgerCustom}
             >
-                <PiHamburgerDuotone size={22}/> Hamburguesas personalizadas
+                <PiHamburgerDuotone size={22} /> Hamburguesas personalizadas
             </button>
 
 
