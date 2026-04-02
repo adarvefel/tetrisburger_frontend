@@ -24,17 +24,26 @@ export const listOrder = async (params: {
   return response;
 };
 
-export const updateOrder = async (id: number, status: string) =>{
+export const updateOrder = async (id: number, status: string) => {
   const response = await axiosClient.patch(endPoints.employee.order.updated(id, status));
   return response;
 }
 
-export const createPayment = async (data: CreatePaymentMethodDTO) =>{
+export const createPayment = async (data: CreatePaymentMethodDTO) => {
   const response = await axiosClient.post(endPoints.employee.order.createPayment, data);
   return response;
 }
 
-export const previewOrder = async (id: number) =>{
+export const previewOrder = async (id: number) => {
   const response = await axiosClient.get(endPoints.employee.order.preview(id));
   return response;
 }
+export const search = async (params: {
+  page: number;
+  numberOrder: string;
+}) => {
+  const response = await axiosClient.get(
+    endPoints.employee.order.search(params)
+  );
+  return response;
+};

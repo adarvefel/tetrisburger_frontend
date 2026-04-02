@@ -120,7 +120,7 @@ export const endPoints = {
         },
 
 
-        
+
     },
 
     auth: {
@@ -188,11 +188,27 @@ export const endPoints = {
                 return `/api/orders/all?${query.toString()}`;
             },
 
+            search: (params: {
+                page: number;
+                numberOrder: string;
+            }) => {
+                const query = new URLSearchParams({
+                    page: params.page.toString(),
+                    size: "10",
+                    orderNumber: params.numberOrder
+                });
+
+                return `/api/orders/search?${query.toString()}`;
+            },
+
             updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}`),
 
             preview: (id: number) => (`/api/invoices/order/${id}/pdf`),
 
-            createPayment: "/api/payments"
+            createPayment: "/api/payments",
+
+
+
 
         }
     },

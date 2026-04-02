@@ -31,7 +31,9 @@ export default function ListOrder() {
     setStatus,
     date,
     setDate,
-    handleListOrders  // necesitas exponer esto en useListOrder para recargar tras el modal
+    search,
+    setSearch,
+    handleListOrders
   } = useListOrder();
 
   const [selectedOrder, setSelectedOrder] = useState<OrderResponseDTO | null>(null);
@@ -55,7 +57,12 @@ export default function ListOrder() {
 
       <div className="listOrder__container-top">
         <div className="listOrder__left">
-          <InputSearch placeholder='Buscar por codigo ...' name='codeOrder' />
+          <InputSearch
+            placeholder='Buscar por codigo ...'
+            name='codeOrder'
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
         <div className="listOrder__right">
           <SelectCrud
