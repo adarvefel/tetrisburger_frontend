@@ -8,6 +8,7 @@ import { useAuthStore } from '../../../../shared/store/useAuthStore';
 import { Link } from 'react-router-dom';
 import ButtonLogout from '../../../../shared/components/buttonLogout/ButtonLogout';
 import { GrUserAdmin } from "react-icons/gr";
+import { GrNotes } from "react-icons/gr";
 
 export default function UpdateProfile() {
 
@@ -30,6 +31,9 @@ export default function UpdateProfile() {
                 }
                 {
                     isEmployee ? <Link className='updateProfile__link2' to={"/employee/orders-list"}><GrUserAdmin size={27} /> Dashboard  Empleado</Link> : null
+                }
+                {
+                    !isAdmin && !isEmployee ? <Link className='updateProfile__link3' to={"/orders-me"}><GrNotes size={27} />Historial de ordenes</Link> : null
                 }
             </div>
         </div>

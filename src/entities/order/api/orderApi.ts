@@ -2,6 +2,8 @@ import { axiosClient } from "../../../shared/api/axiosClient";
 import { endPoints } from "../../../shared/api/endPoints";
 import { CreateOrderRequestDTO, CreatePaymentMethodDTO, OrderResponseDTO } from "../dto/orderDto";
 
+
+//CLiente
 export const createOrder = async (
   data: CreateOrderRequestDTO
 ): Promise<OrderResponseDTO> => {
@@ -12,6 +14,14 @@ export const createOrder = async (
 
   return response.data;
 };
+
+export const listOrdersMe = async (numberPage: number) => {
+  const response = await axiosClient.get(endPoints.user.order.listOrders(numberPage));
+  return response;
+}
+
+
+//Admin
 
 export const listOrder = async (params: {
   page: number;

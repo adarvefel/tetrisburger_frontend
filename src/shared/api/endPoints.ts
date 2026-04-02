@@ -164,6 +164,7 @@ export const endPoints = {
 
         order: {
             create: "/api/orders",
+            listOrders: (numberPage: number) => `/api/orders/my-orders?page=${numberPage}`
 
         }
 

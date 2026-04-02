@@ -98,6 +98,7 @@ import ListConfigurationsEmployeePage from '../pages/employee/configurations/Lis
 import AboutSectionPage from '../pages/aboutSectionPage/AboutSectionPage'
 import FaqPage from '../pages/FAQ/FaqPage'
 import ListOrderAdminPage from '../pages/admin/order/ListOrderAdminPage'
+import ListOrdersMePage from '../pages/user/order/ListOrdersMePage'
 
 
 
@@ -133,6 +134,7 @@ export default function Router() {
         <Route path="/pqrs-me" element={<ProtectedRoute><PqrsMePage /></ProtectedRoute>} />
         <Route path="/pqrs/update/:id" element={<ProtectedRoute><PqrsUpdateMePage /></ProtectedRoute>} />
         <Route path='/cart-me' element={<CartPage />} />
+        <Route path='/orders-me' element={<ListOrdersMePage />} />
 
 
 
