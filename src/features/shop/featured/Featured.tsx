@@ -1,5 +1,4 @@
 import React from 'react'
-import "./featured.css"
 import useListFeatured from '../../user/burgerCustom/hooks/useListFeatured'
 import LoadingSpinner from '../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 import CardProduct from '../../../shared/components/cardProduct/CardProduct';
