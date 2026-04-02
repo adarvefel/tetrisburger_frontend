@@ -3,6 +3,10 @@ export interface ProductCategoryFetchList {
   name: string;
   description: string;
   available: boolean;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: number,
+  updatedBy: number
 }
 
 export interface ProductCategoryListResponse {

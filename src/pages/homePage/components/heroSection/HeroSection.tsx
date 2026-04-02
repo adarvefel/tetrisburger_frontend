@@ -13,7 +13,7 @@ export default function HeroSection() {
               <p className='heroSection__p'>¡Arma tu burger, juega con el sabor! En Tetris Burger, cada ingrediente encaja a la perfección. Crea, combina y disfruta la hamburguesa que tú quieras.</p>
           </div>
           <div className="heroSection__container-button">
-              <ButtonHome linkRedireccion='/ordenar' textoButton='Ordena ya mismo'/>
+              <ButtonHome linkRedireccion='/cart-me' textoButton='Ordena ya mismo'/>
           </div>
         </div>
     </section> 

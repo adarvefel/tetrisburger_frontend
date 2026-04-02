@@ -23,6 +23,7 @@ interface CartStore {
     decreaseQuantity: (type: CartItem["typeProduct"], id: number) => void
     removeProduct: (type: CartItem["typeProduct"], id: number) => void
     clearCart: () => void
+    replaceProduct: (product: CartItem) => void
 
     loadCart: () => Promise<void>
     saveCart: (items: CartItem[]) => Promise<void>
@@ -117,6 +118,24 @@ export const useCartStore = create<CartStore>((set, get) => ({
         get().saveCart(updatedItems)
     },
 
+    replaceProduct: (product: CartItem) => {
+        const items = get().items
+        const exists = items.some(
+            i => i.idProduct === product.idProduct && i.typeProduct === product.typeProduct
+        )
+
+        const updatedItems = exists
+            ? items.map(i =>
+                i.idProduct === product.idProduct && i.typeProduct === product.typeProduct
+                    ? { ...product }
+                    : i
+            )
+            : [...items, product]
+
+        set({ items: updatedItems })
+        get().saveCart(updatedItems)
+    },
+
     increaseQuantity: (type, id) => {
         const updatedItems = get().items.map((item) =>
             item.idProduct === id && item.typeProduct === type
@@ -161,7 +180,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
         set({ items: updatedItems })
         get().saveCart(updatedItems)
 
-        toast.error("Producto eliminado del carrito")
+        toast.success("Producto eliminado del carrito")
     },
 
     syncNow: async () => {

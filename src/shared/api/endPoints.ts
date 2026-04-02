@@ -117,7 +117,10 @@ export const endPoints = {
             updateSettingsAddition: "/api/addition-settings",
             getSettingsBurger: "/api/admin/settings/burgers",
             updateSettingsBurger: "/api/admin/settings/burgers",
-        }
+        },
+
+
+
     },
 
     auth: {
@@ -155,10 +158,62 @@ export const endPoints = {
             addFavorite: "/api/favorites",
             listFavorites: "/api/favorites",
             deleteFavorite: (id: number) => `/api/favorites/${id}`,
-            update: (id: number) => `api/burgers/custom/${id}`
+            update: (id: number) => `api/burgers/custom/${id}`,
+            featured: "/api/burgers/featured"
         },
 
+        order: {
+            create: "/api/orders",
+            listOrders: (numberPage: number) => `/api/orders/my-orders?page=${numberPage}`
+
+        }
+
     },
+
+
+    employee: {
+        order: {
+            list: (params: {
+                page: number;
+                status?: string;
+                date?: string;
+            }) => {
+                const query = new URLSearchParams({
+                    page: params.page.toString(),
+                    size: "10",
+                });
+
+                if (params.status) query.append("status", params.status);
+                if (params.date) query.append("date", params.date);
+
+                return `/api/orders/all?${query.toString()}`;
+            },
+
+            search: (params: {
+                page: number;
+                numberOrder: string;
+            }) => {
+                const query = new URLSearchParams({
+                    page: params.page.toString(),
+                    size: "10",
+                    orderNumber: params.numberOrder
+                });
+
+                return `/api/orders/search?${query.toString()}`;
+            },
+
+            updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}`),
+
+            preview: (id: number) => (`/api/invoices/order/${id}/pdf`),
+
+            createPayment: "/api/payments",
+
+
+
+
+        }
+    },
+
     public: {
         products: {
             list: (params?: {
@@ -177,8 +232,8 @@ export const endPoints = {
             },
         },
         productCategory: {
-            list: "/api/product-categories/public",  
+            list: "/api/product-categories/public",
         },
     },
-    
+
 }

@@ -10,7 +10,11 @@ import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePaginatio
 import { toast } from "sonner";
 import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
-export default function PqrsList() {
+interface Props{
+  mode?: "admin" | "employee"
+}
+
+export default function PqrsList({mode}: Props) {
 
   const {
     loading,
@@ -116,6 +120,10 @@ export default function PqrsList() {
               <Th>TIPO</Th>
               <Th>PRIORIDAD</Th>
               <Th>ESTADO</Th>
+              <Th>FECHA DE CREACIÓN</Th>
+              <Th>FECHA DE ACTUALIZACIÓN</Th>
+              <Th>CREADO POR</Th>
+              <Th>ACTUALIZADO POR</Th>
               <Th>ACCIONES</Th>
             </tr>
           </TableHead>
@@ -129,11 +137,14 @@ export default function PqrsList() {
                 <Td>{pqr.priority === "HIGH" ? "Alta" : pqr.priority === "LOW" ? "Baja" : pqr.priority === "MEDIUM" ? "Media" : "Critica"}</Td>
                 <Td><span className={`tableComponents__span-${pqr.status === "ANSWERED" ? "green" : "red"}`}> {pqr.status === "ANSWERED" ? "Respondido" : "Recibido"} </span> </Td>
 
-
+                <Td>{pqr.createdAt ?? "---"}</Td>
+                <Td>{pqr.updatedAt ?? "---"}</Td>
+                <Td>{pqr.createdBy ?? "---"}</Td>
+                <Td>{pqr.updatedBy ?? "---"}</Td>
 
                 <Td>
                   <TableActions
-                    linkEdit={`/admin/pqrs/update/${pqr.idPqrs}`}
+                    linkEdit={mode == "employee" ? `/employee/pqrs/update/${pqr.idPqrs}` : `/admin/pqrs/update/${pqr.idPqrs}`}
                     onDelete={() => openDeleteModal(pqr)}
                   />
                 </Td>

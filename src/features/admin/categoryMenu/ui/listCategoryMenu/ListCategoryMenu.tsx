@@ -72,6 +72,10 @@ export default function ListCategoryMenu() {
                         <Th>ID</Th>
                         <Th>NOMBRE</Th>
                         <Th>DESCRIPCION</Th>
+                        <Th>FECHA DE CREACIÓN</Th>
+                        <Th>FECHA DE ACTUALIZACIÓN</Th>
+                        <Th>CREADO POR</Th>
+                        <Th>ACTUALIZADO POR</Th>
                         <Th>ACCIONES</Th>
                     </tr>
                 </TableHead>
@@ -83,6 +87,11 @@ export default function ListCategoryMenu() {
                             <Td>{categoryMenu.idMenuCategory}</Td>
                             <Td>{categoryMenu.menuCategoryName}</Td>
                             <Td>{categoryMenu.description}</Td>
+
+                            <Td>{categoryMenu.createdAt ?? "---"}</Td>
+                            <Td>{categoryMenu.updatedAt ?? "---"}</Td>
+                            <Td>{categoryMenu.createdBy ?? "---"}</Td>
+                            <Td>{categoryMenu.updatedBy ?? "---"}</Td>
 
 
                             <Td>

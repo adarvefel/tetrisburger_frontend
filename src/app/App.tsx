@@ -9,6 +9,9 @@ import { Toaster } from 'sonner'
 
 export default function App() {
 
+  const GOOGLE_AUTH_KEY = import.meta.env.VITE_GOOGLE_AUTH_KEY;
+  const REPCACHAT_KEY = import.meta.env.VITE_REPCACHAT_KEY;
+
   const { loadFromStorge } = useAuthStore()
   const { loadCart } = useCartStore()
 
@@ -18,8 +21,8 @@ export default function App() {
   }, [])
 
   return (
-    <GoogleOAuthProvider clientId='157248408373-i7kgglkl62u4ijhqct2545r7gb0ri4i9.apps.googleusercontent.com'>
-      <GoogleReCaptchaProvider reCaptchaKey="6LfCBG0sAAAAAES2EY4vm1ZYs6EfEr3gDmkTvHE9">
+    <GoogleOAuthProvider clientId={GOOGLE_AUTH_KEY}>
+      <GoogleReCaptchaProvider reCaptchaKey={REPCACHAT_KEY}>
         <Toaster richColors duration={2000} position='top-right'/>
         <Router />
       </GoogleReCaptchaProvider>

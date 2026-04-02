@@ -82,6 +82,10 @@ export default function CategoryList() {
             <Th>NOMBRE</Th>
             <Th>DESCRIPCION</Th>
             <Th>DISPONIBILIDAD</Th>
+            <Th>FECHA DE CREACIÓN</Th>
+            <Th>FECHA DE ACTUALIZACIÓN</Th>
+            <Th>CREADO POR</Th>
+            <Th>ACTUALIZADO POR</Th>
             <Th>ACCIONES</Th>
           </tr>
         </TableHead>
@@ -95,6 +99,10 @@ export default function CategoryList() {
               <Td>{category.description}</Td>
               <Td><span className={`tableComponents__span-${category.available ? "green" : "red"}`}> {category.available ? "Disponible" : "No disponible"} </span> </Td>
 
+              <Td>{category.createdAt ?? "---"}</Td>
+              <Td>{category.updatedAt ?? "---"}</Td>
+              <Td>{category.createdBy ?? "---"}</Td>
+              <Td>{category.updatedBy ?? "---"}</Td>
 
 
               <Td>

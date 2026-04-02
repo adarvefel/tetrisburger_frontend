@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useAuthStore } from "../store/useAuthStore";
-import { toast } from "sonner";
+
+const API_URL = import.meta.env.VITE_API_BACKEND_URL;
 
 export const axiosClient = axios.create({
-    baseURL: "http://localhost:8080",
+    baseURL: API_URL,
 
 })
 

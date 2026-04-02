@@ -1,0 +1,6 @@
+.aboutSectionPage__container-global{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F6F7F8;
+    padding-top: 3rem; /* mejor que margin */
+}

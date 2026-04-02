@@ -11,6 +11,8 @@ import { CiSettings } from "react-icons/ci";
 import { IoFastFood } from "react-icons/io5";
 import { BiSolidCategory } from "react-icons/bi";
 import { MdMenuBook } from "react-icons/md";
+import { FcStatistics } from "react-icons/fc";
+import { GrNotes } from "react-icons/gr";
 
 export default function AdminSidebar() {
 
@@ -29,6 +31,14 @@ export default function AdminSidebar() {
       </div>
 
       <div className={`adminSidebar__container-medium ${menuOpen ? 'active' : ''}`}>
+
+        <NavLink to={"/admin/analityc"}
+          className={({ isActive }) =>
+            `adminSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <FcStatistics size={19} />
+          <span className='adminSidebar__span'>Estadisticas</span>
+        </NavLink>
 
         <NavLink to={"/admin/users-list"}
           className={({ isActive }) =>
@@ -93,8 +103,16 @@ export default function AdminSidebar() {
           className={({ isActive }) =>
             `adminSidebar__container-option ${isActive ? "active" : ""}`
           } >
-          <MdMenuBook  size={19} />
+          <MdMenuBook size={19} />
           <span className='adminSidebar__span'>Menu</span>
+        </NavLink>
+
+        <NavLink to={"/admin/orders-list"}
+          className={({ isActive }) =>
+            `employeeSidebar__container-option ${isActive ? "active" : ""}`
+          } >
+          <GrNotes size={21} />
+          <span className='employeeSidebar__span'>Ordenes</span>
         </NavLink>
 
         <NavLink to={"/admin/pqrs-list"}
@@ -104,6 +122,8 @@ export default function AdminSidebar() {
           <FaEnvelopeOpenText size={19} />
           <span className='adminSidebar__span'>PQRS</span>
         </NavLink>
+
+
 
 
 

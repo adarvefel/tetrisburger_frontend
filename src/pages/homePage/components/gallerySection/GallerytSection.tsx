@@ -35,7 +35,7 @@ export default function GallerySection() {
                 </div>
 
                 <div className="gallerySection__container-button">
-                    <ButtonHome linkRedireccion='/ordenar' textoButton='Ordena ya' />
+                    <ButtonHome linkRedireccion='/cart-me' textoButton='Ordena ya' />
                 </div>
 
                 <div className="gallerySection__container-puntos">

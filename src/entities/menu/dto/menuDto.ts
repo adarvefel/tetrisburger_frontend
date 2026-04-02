@@ -34,6 +34,10 @@ export interface MenuResponseDTO {
     imageUrl: string
     menuCategory: MenuCategory
     items: MenuItemResponseDTO[]
+    createdAt: string;
+    updatedAt: string;
+    createdBy: number,
+    updatedBy: number
 }
 
 export interface UpdateMenuRequestDTO {

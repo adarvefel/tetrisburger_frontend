@@ -26,6 +26,13 @@
     font-size: 0.7rem;
 }
 
+.listConfigurations__card--disabled {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
 @media (max-width: 768px) {
 
     .listConfigurations__container{

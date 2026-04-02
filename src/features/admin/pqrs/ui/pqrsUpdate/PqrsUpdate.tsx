@@ -7,7 +7,11 @@ import { usePqrsUpdate } from "../../hooks/usePqrsUpdate";
 import PqrsForm from "../../../../../shared/components/formsCruds/pqrsForm/PqrsForm";
 import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
 
-export default function PqrsUpdate() {
+interface Props{
+    isEmployee?: boolean
+}
+
+export default function PqrsUpdate({isEmployee = false} : Props) {
 
     const { error: findError, loading: findLoading, pqrs, handlePqrsFindById } = usePqrsFindById();
     const { error: updateError, loading: updateLoading, handlePqrsUpdate } = usePqrsUpdate();
@@ -34,6 +38,7 @@ export default function PqrsUpdate() {
             initialData={pqrs}
             onSubmit={(data) => handlePqrsUpdate(Number(id), data)}
             loading={updateLoading}
+            isEmployee={isEmployee}
         />
 
     )

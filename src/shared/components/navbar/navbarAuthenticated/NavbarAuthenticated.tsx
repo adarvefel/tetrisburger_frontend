@@ -35,7 +35,9 @@ export default function NavbarAuthenticated() {
             <div className="navbarAuthenticated__container-right">
 
                 <Link to={"/profile"} className='navbarAuthenticated__link-profile'>
-                    <FaUserCircle size={33} color='#fff' />
+                    <div className="navbarAuthenticated__container-img">
+                        {user?.userImage ? <img className='navbarAuthenticated__img' src={user.userImage} /> : <FaUserCircle size={33} color='#fff' />}
+                    </div>
                     <p className='navbarAuthenticated__p-user'>{user?.userName}</p>
                 </Link>
 

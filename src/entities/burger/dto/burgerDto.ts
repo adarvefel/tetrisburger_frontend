@@ -5,7 +5,7 @@ export interface IngredientsResponseDTO {
   imageUrl: string,
   availability: boolean,
   quantity: number
-  
+
 }
 
 export interface IngredientsRequestUI {
@@ -25,19 +25,19 @@ export interface CreateBurgerByAdminDTO {
   name: string,
   description: string,
   finalPrice: number,
-  
+
   isFeatured: boolean,
   availability: boolean,
   ingredients: IngredientsRequestDTO[],
 }
 
 
-export interface CreateBurgerWithImageDTO{
+export interface CreateBurgerWithImageDTO {
   burger: CreateBurgerByAdminDTO,
   file?: File | null
 }
 
-export interface BurgerIngredientsResponseDTO{
+export interface BurgerIngredientsResponseDTO {
   idBurgerIngredient?: number,
   idProduct: number,
   productName: string,
@@ -48,7 +48,7 @@ export interface BurgerIngredientsResponseDTO{
   imageUrl: string
 }
 
-export interface BurgerResponseDTO{
+export interface BurgerResponseDTO {
   idBurger: number,
   name: string,
   description: string,
@@ -63,19 +63,23 @@ export interface BurgerResponseDTO{
   imageUrl: string,
   timesOrdered: number,
   ingredients: BurgerIngredientsResponseDTO[]
+  createdAt: string;
+  updatedAt: string;
+  createdBy: number,
+  updatedBy: number
 }
 
-export interface BurgerUpdateRequestDTO{
+export interface BurgerUpdateRequestDTO {
   name: string,
   description: string,
   finalPrice: number,
-  
+
   isFeatured: boolean,
   availability: boolean,
   ingredients: IngredientsRequestDTO[],
 }
 
-export interface BurgerUpdateRequestWithImageDTO{
+export interface BurgerUpdateRequestWithImageDTO {
   burger: BurgerUpdateRequestDTO,
   file?: File | null
 }
