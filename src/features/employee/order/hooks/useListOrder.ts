@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { listOrder } from "../../../../entities/order/api/orderApi";
+import { listOrder, search as searchOrderApi } from "../../../../entities/order/api/orderApi";
 import { OrderResponseDTO } from "../../../../entities/order/dto/orderDto";
 
 export function useListOrder() {
@@ -14,34 +14,46 @@ export function useListOrder() {
     const [status, setStatus] = useState<string | undefined>();
     const [date, setDate] = useState<string | undefined>();
 
+    const [searchTerm, setSearchTerm] = useState<string>("");
+
     const nextPage = () => {
         if (numberPage < totalPage - 1) {
             setNumberPage(prev => prev + 1);
-
         }
-        return;
-    }
+    };
 
     const prevPage = () => {
         if (numberPage > 0) {
             setNumberPage(prev => prev - 1);
         }
-        return;
-    }
+    };
 
     const handleListOrders = async () => {
         try {
             setLoading(true);
             setError(null);
 
-            const response = await listOrder({
-                page: numberPage,
-                status,
-                date,
-            });
+            let response;
 
-            setOrders(response.data.content);
-            setTotalPage(response.data.totalPages);
+            // 🔍 Si hay búsqueda → endpoint sin paginación
+            if (searchTerm && searchTerm.trim() !== "") {
+                response = await searchOrderApi({
+                    page: numberPage,
+                    numberOrder: searchTerm
+                });
+
+                setOrders(response.data.content);
+                setTotalPage(response.data.totalPages);
+            } else {
+                response = await listOrder({
+                    page: numberPage,
+                    status,
+                    date,
+                });
+
+                setOrders(response.data.content);
+                setTotalPage(response.data.totalPages);
+            }
 
         } catch (err: any) {
             const msg = err.response?.data?.message || "Error al traer las órdenes";
@@ -54,7 +66,22 @@ export function useListOrder() {
 
     useEffect(() => {
         handleListOrders();
-    }, [numberPage, status, date]);
+    }, [numberPage, status, date, searchTerm]);
 
-    return { loading, error, orders, numberPage, totalPage, nextPage, prevPage, handleListOrders, status, setStatus, date, setDate };
+    return {
+        loading,
+        error,
+        orders,
+        numberPage,
+        totalPage,
+        nextPage,
+        prevPage,
+        handleListOrders,
+        status,
+        setStatus,
+        date,
+        setDate,
+        search: searchTerm,
+        setSearch: setSearchTerm
+    };
 }

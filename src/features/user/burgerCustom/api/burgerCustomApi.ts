@@ -26,3 +26,8 @@ export const updateBurgerCustom = async(id: number, data: UpdateCustomBurgerRequ
     const response = axiosClient.put(endPoints.user.burgerCustom.update(id), data);
     return response;
 }
+
+export const listFeatured = async() =>{
+    const response = axiosClient.get(endPoints.user.burgerCustom.featured);
+    return response;
+}

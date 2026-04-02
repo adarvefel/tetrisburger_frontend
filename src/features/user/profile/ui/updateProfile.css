@@ -1,20 +1,20 @@
-.updateProfile__container-global{
+.updateProfile__container-global {
     width: 100%;
 }
 
-.updateProfile__container-buttons{
+.updateProfile__container-buttons {
     display: flex;
     width: 100%;
     margin-top: 5px;
     align-items: center;
     justify-content: space-between;
 
-    
+
 }
 
 
 
-.updateProfile__link{
+.updateProfile__link {
     border: 2px solid rgb(255, 0, 0);
 
     padding: 8px;
@@ -29,17 +29,17 @@
     background-color: #b72b29;
     color: #000;
     font-weight: 600;
-    transition: background-color 0.3, color 0.3s, transform 0.4s; 
-    
-   
+    transition: background-color 0.3, color 0.3s, transform 0.4s;
+
+
 }
 
-.updateProfile__link:hover{
+.updateProfile__link:hover {
     background-color: #b72b29;
     transform: scale(1.1);
 }
 
-.updateProfile__link2{
+.updateProfile__link2 {
     border: 2px solid #f39c12;
 
     padding: 8px;
@@ -54,18 +54,44 @@
     background-color: #f39c12;
     color: #000;
     font-weight: 600;
-    transition: background-color 0.3, color 0.3s, transform 0.4s; 
-    
-   
+    transition: background-color 0.3, color 0.3s, transform 0.4s;
+
+
 }
 
-.updateProfile__link2:hover{
+
+
+.updateProfile__link2:hover {
+    transform: scale(1.1);
+}
+
+.updateProfile__link3 {
+    border: 2px solid #3498db;
+
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 17px;
+    font-family: 'Montserrat';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    gap: 8px;
+    background-color: #3498db;
+    color: #000;
+    font-weight: 600;
+    transition: background-color 0.3, color 0.3s, transform 0.4s;
+
+
+}
+
+.updateProfile__link3:hover {
     transform: scale(1.1);
 }
 
 @media (max-width: 768px) {
 
-    .updateProfile__link{
+    .updateProfile__link {
         font-size: 0.8rem;
     }
 }

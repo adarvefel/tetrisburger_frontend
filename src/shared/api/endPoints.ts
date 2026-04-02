@@ -120,7 +120,7 @@ export const endPoints = {
         },
 
 
-        
+
     },
 
     auth: {
@@ -158,11 +158,13 @@ export const endPoints = {
             addFavorite: "/api/favorites",
             listFavorites: "/api/favorites",
             deleteFavorite: (id: number) => `/api/favorites/${id}`,
-            update: (id: number) => `api/burgers/custom/${id}`
+            update: (id: number) => `api/burgers/custom/${id}`,
+            featured: "/api/burgers/featured"
         },
 
         order: {
             create: "/api/orders",
+            listOrders: (numberPage: number) => `/api/orders/my-orders?page=${numberPage}`
 
         }
 
@@ -187,9 +189,26 @@ export const endPoints = {
                 return `/api/orders/all?${query.toString()}`;
             },
 
-            updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}&paymentMethod=CASH`),
+            search: (params: {
+                page: number;
+                numberOrder: string;
+            }) => {
+                const query = new URLSearchParams({
+                    page: params.page.toString(),
+                    size: "10",
+                    orderNumber: params.numberOrder
+                });
 
-            preview: (id: number) => (`/api/invoices/order/${id}/pdf`)
+                return `/api/orders/search?${query.toString()}`;
+            },
+
+            updated: (id: number, status: string) => (`/api/orders/${id}/status?status=${status}`),
+
+            preview: (id: number) => (`/api/invoices/order/${id}/pdf`),
+
+            createPayment: "/api/payments",
+
+
 
 
         }
