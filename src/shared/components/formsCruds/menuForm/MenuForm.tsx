@@ -74,14 +74,13 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                 isAvailable: initialData.isAvailable,
                 imageUrl: initialData.imageUrl ?? null,
                 idMenuCategory: initialData.menuCategory?.idMenuCategory ?? 0,
-                items: [] // Mantener vacío, usamos ingredientsList
+                items: []
             });
 
             const mappedItems: MenuItemResponseDTO[] = (initialData.items ?? []).map(item => ({
                 itemType: item.itemType,
                 burger: item.burger ?? null,
                 product: item.product ?? null,
-                quantity: item.quantity,
                 idMenuItem: item.idMenuItem ?? undefined
             }));
 
@@ -111,12 +110,16 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        if (ingredientsList.length === 0) {
+          toast.error("El menú debe tener al menos un ítem");
+         return;
+       }
+
         // Convertir la lista de ingredientes a MenuItemRequestDTO
-        const items: MenuItemRequestDTO[] = ingredientsList.map(({ itemType, burger, product, quantity }) => ({
+        const items: MenuItemRequestDTO[] = ingredientsList.map(({ itemType, burger, product }) => ({
             itemType,
             idBurger: burger?.idBurger ?? null,
-            idProduct: product?.idProduct ?? null,
-            quantity
+            idProduct: product?.idProduct ?? null
         }));
 
         if (mode === "admin-create") {
@@ -159,7 +162,6 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
 
             if (
                 itemA.itemType !== itemB.itemType ||
-                itemA.quantity !== itemB.quantity ||
                 (itemA.burger?.idBurger ?? null) !== (itemB.burger?.idBurger ?? null) ||
                 (itemA.product?.idProduct ?? null) !== (itemB.product?.idProduct ?? null)
             ) {
@@ -199,7 +201,11 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
             <div className="menuForm__container-image">
                 <SubTittleCrud icon={<FaImage size={22} color='red' />} title='Imagen' />
                 <Line />
-                <ImageCrud defaultImage={form.imageUrl ?? photoNotFound} onImageChange={(file) => setImage(file)} title='Imagen del menu' />
+                <ImageCrud
+                    defaultImage={form.imageUrl ?? photoNotFound}
+                    onImageChange={(file) => setImage(file)}
+                    title='Imagen del menu'
+                />
             </div>
 
             <div className="menuForm__container-data">
@@ -209,9 +215,28 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
 
                 <TextareaCrud required id='menu-form-description' label='Descripcion' name='description' placeholder='ej: tiene mas queso que colanta' rows={4} value={form.description} onChange={onInputChange} />
 
-                <SelectCrud required id='menu-form-category' placeholder='Seleccione una categoria ...' label='Seleccione la categoria menu' name='idMenuCategory' value={form.idMenuCategory} onChange={onInputChange} options={categorysMenu.map((cat) => ({ value: String(cat.idMenuCategory), label: cat.menuCategoryName }))} />
+                <SelectCrud
+                    required
+                    id='menu-form-category'
+                    placeholder='Seleccione una categoria ...'
+                    label='Seleccione la categoria menu'
+                    name='idMenuCategory'
+                    value={form.idMenuCategory}
+                    onChange={onInputChange}
+                    options={categorysMenu.map((cat) => ({
+                        value: String(cat.idMenuCategory),
+                        label: cat.menuCategoryName
+                    }))}
+                />
 
-                <CheckboxCrud id='menu-form-isAvailable' label='Disponible' name='isAvailable' checkboxLabel='Marcar como disponible' checked={form.isAvailable} onChange={onInputChange} />
+                <CheckboxCrud
+                    id='menu-form-isAvailable'
+                    label='Disponible'
+                    name='isAvailable'
+                    checkboxLabel='Marcar como disponible'
+                    checked={form.isAvailable}
+                    onChange={onInputChange}
+                />
             </div>
 
             <div className="menuForm__container-ingredients">
@@ -219,19 +244,36 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                     <SubTittleCrud icon={<PiHamburgerFill size={22} color='red' />} title='Hamburguesas y productos' />
 
                     <div className='menuForm__buttons-adds'>
-                        <button id='menu-form-add-product' className='menuForm__button-add' type='button' onClick={() => openModel("ingredients")}> <IoIosAddCircleOutline size={17} color='red' />Añadir Producto</button>
-                        <button id='menu-form-add-burger' className='menuForm__button-add' type='button' onClick={() => openModel("burgers")}> <IoIosAddCircleOutline size={17} color='red' />Añadir Hamburguesa</button>
-                    </div>
+                        <button
+                            id='menu-form-add-product'
+                            className='menuForm__button-add'
+                            type='button'
+                            onClick={() => openModel("ingredients")}
+                        >
+                            <IoIosAddCircleOutline size={17} color='red' />
+                            Añadir Producto
+                        </button>
 
+                        <button
+                            id='menu-form-add-burger'
+                            className='menuForm__button-add'
+                            type='button'
+                            onClick={() => openModel("burgers")}
+                        >
+                            <IoIosAddCircleOutline size={17} color='red' />
+                            Añadir Hamburguesa
+                        </button>
+                    </div>
                 </div>
+
                 <Line />
+
                 <TableLayout className="menuForm__table">
                     <TableHead>
                         <tr>
                             <Th>Tipo producto</Th>
                             <Th>Foto</Th>
                             <Th>Nombre</Th>
-                            <Th>Cantidad</Th>
                             <Th>Acciones</Th>
                         </tr>
                     </TableHead>
@@ -240,39 +282,26 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                         {ingredientsList.map((ingredient, index) => (
                             <tr key={index}>
 
-                                <Td>{ingredient.itemType === "BURGER" ? "Hambugursa" : "Producto"}</Td>
+                                <Td>
+                                    {ingredient.itemType === "BURGER" ? "Hamburguesa" : "Producto"}
+                                </Td>
 
                                 <Td>
                                     <div className="tableComponents__container-img">
-                                        <img className="tableComponents__img" src={ingredient.product?.imageUrl ?? ingredient.burger?.imageUrl ?? photoNotFound} alt="" />
+                                        <img
+                                            className="tableComponents__img"
+                                            src={
+                                                ingredient.product?.imageUrl ??
+                                                ingredient.burger?.imageUrl ??
+                                                photoNotFound
+                                            }
+                                            alt=""
+                                        />
                                     </div>
                                 </Td>
 
-                                <Td>{ingredient.product?.name ?? ingredient.burger?.name}</Td>
-
-
                                 <Td>
-                                    <div className="menuForm__container-quantity">
-                                        <button
-                                            className="menuForm__button"
-                                            type="button"
-                                            onClick={() => minusQuantity(ingredient)}
-                                        >
-                                            <FiMinus size={17} />
-                                        </button>
-
-                                        <span className="menuForm__span">
-                                            <strong>{ingredient.quantity}</strong>x
-                                        </span>
-
-                                        <button
-                                            className="menuForm__button"
-                                            type="button"
-                                            onClick={() => plusQuantity(ingredient)}
-                                        >
-                                            <FiPlus size={15} />
-                                        </button>
-                                    </div>
+                                    {ingredient.product?.name ?? ingredient.burger?.name}
                                 </Td>
 
                                 <Td>
@@ -291,7 +320,13 @@ export default function MenuForm({ mode, initialData, onSubmit, loading = false 
                 </TableLayout>
             </div>
 
-            <ButtonSubmitCrud id='menu-form-submit' disabled={formIsEqual} loading={loading} label={mode === "admin-create" ? "Crear Menu" : "Actualizar Menu"} />
+            <ButtonSubmitCrud
+                id='menu-form-submit'
+                disabled={formIsEqual}
+                loading={loading}
+                label={mode === "admin-create" ? "Crear Menu" : "Actualizar Menu"}
+            />
+
         </form>
     )
 }
