@@ -5,6 +5,8 @@ import "./orderActionModal.css";
 import { MdClose, MdPayment, MdSwapHoriz } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { toast } from "sonner";
+import { useBurgerDetail } from "../../../../../shared/hooks/useBurgerDetail";
+import BurgerIngredientsModal from "../burgerIngredientsModa/BurgerIngredientsModal";
 
 interface Props {
   order: OrderResponseDTO;
@@ -26,16 +28,14 @@ const paymentOptions = [
   { value: "TRANSFER", label: "Transferencia" },
 ];
 
-// Útil para mostrar el label en lugar del value
 const paymentLabel = (value: string) =>
   paymentOptions.find(p => p.value === value)?.label ?? value;
 
 export default function OrderActionsModal({ order, onClose, onSuccess }: Props) {
   const { loading, handleCreatePayment, handleUpdateOrder } = useOrderActions();
+  const { burger, fetchBurger, clear } = useBurgerDetail();
 
-  // ✅ Ahora se basa en el campo real del DTO
   const hasPayment = !!order.paymentMethod;
-
   const [selectedPayment, setSelectedPayment] = useState("");
   const [selectedStatus, setSelectedStatus] = useState(order.status);
 
@@ -58,100 +58,179 @@ export default function OrderActionsModal({ order, onClose, onSuccess }: Props) 
   };
 
   return (
-    <div className="oam__backdrop" onClick={onClose}>
-      <div className="oam__panel" onClick={(e) => e.stopPropagation()}>
+    <>
+      <div className="oam__backdrop" onClick={onClose}>
+        <div className="oam__panel" onClick={(e) => e.stopPropagation()}>
 
-        {/* Header */}
-        <div className="oam__header">
-          <div>
-            <span className="oam__tag">#{order.orderNumber}</span>
-            <h2 className="oam__title">Gestionar orden</h2>
-          </div>
-          <button className="oam__close" onClick={onClose}>
-            <MdClose size={20} />
-          </button>
-        </div>
-
-        {/* Sección 1 — Pago */}
-        <section className="oam__section">
-          <div className="oam__section-header">
-            <MdPayment size={18} />
-            <h3>Método de pago</h3>
-            {hasPayment
-              ? <span className="oam__badge oam__badge--green">Registrado</span>
-              : <span className="oam__badge oam__badge--yellow">Pendiente</span>
-            }
-          </div>
-
-          {hasPayment ? (
-            <div className="oam__locked-box">
-              <FaLock size={13} />
-              <p>Método registrado: <strong>{paymentLabel(order.paymentMethod!)}</strong>. No puede modificarse.</p>
+          {/* Header */}
+          <div className="oam__header">
+            <div>
+              <span className="oam__tag">#{order.orderNumber}</span>
+              <h2 className="oam__title">Gestionar orden</h2>
             </div>
-          ) : (
+            <button className="oam__close" onClick={onClose}>
+              <MdClose size={20} />
+            </button>
+          </div>
+
+          {/* Sección 0 — Ítems */}
+          <section className="oam__section">
+            <div className="oam__section-header">
+              <h3>Ítems de la orden</h3>
+            </div>
+            <div className="oam__items-wrapper">
+              <table className="oam__items-table">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio unitario</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {order.items.map((item) => (
+                    <tr key={item.idOrderItem}>
+                      <td>{item.itemName}</td>
+                      <td>{item.quantity}</td>
+                      <td>
+                        {new Intl.NumberFormat('es-CO', {
+                          style: 'currency',
+                          currency: 'COP',
+                          minimumFractionDigits: 0
+                        }).format(item.unitPrice)}
+                      </td>
+                      <td>
+                        {new Intl.NumberFormat('es-CO', {
+                          style: 'currency',
+                          currency: 'COP',
+                          minimumFractionDigits: 0
+                        }).format(item.subtotal)}
+                      </td>
+                      <td>
+                        {item.itemType === "BURGER" && item.idBurger && (
+                          <button
+                            className="oam__btn-sm"
+                            onClick={() => fetchBurger(item.idBurger!)}
+                          >
+                            Ver ingredientes
+                          </button>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan={4}><strong>Total</strong></td>
+                    <td>
+                      <strong>
+                        {new Intl.NumberFormat('es-CO', {
+                          style: 'currency',
+                          currency: 'COP',
+                          minimumFractionDigits: 0
+                        }).format(order.totalAmount)}
+                      </strong>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </section>
+
+          <div className="oam__divider" />
+
+          {/* Sección 1 — Pago */}
+          <section className="oam__section">
+            <div className="oam__section-header">
+              <MdPayment size={18} />
+              <h3>Método de pago</h3>
+              {hasPayment
+                ? <span className="oam__badge oam__badge--green">Registrado</span>
+                : <span className="oam__badge oam__badge--yellow">Pendiente</span>
+              }
+            </div>
+
+            {hasPayment ? (
+              <div className="oam__locked-box">
+                <FaLock size={13} />
+                <p>Método registrado: <strong>{paymentLabel(order.paymentMethod!)}</strong>. No puede modificarse.</p>
+              </div>
+            ) : (
+              <div className="oam__field-row">
+                <select
+                  className="oam__select"
+                  value={selectedPayment}
+                  onChange={(e) => setSelectedPayment(e.target.value)}
+                >
+                  <option value="">Selecciona un método...</option>
+                  {paymentOptions.map(p => (
+                    <option key={p.value} value={p.value}>{p.label}</option>
+                  ))}
+                </select>
+                <button
+                  className="oam__btn oam__btn--indigo"
+                  onClick={handleSavePayment}
+                  disabled={loading}
+                >
+                  {loading ? "Guardando..." : "Registrar"}
+                </button>
+              </div>
+            )}
+          </section>
+
+          <div className="oam__divider" />
+
+          {/* Sección 2 — Estado */}
+          <section className={`oam__section ${!hasPayment ? "oam__section--disabled" : ""}`}>
+            <div className="oam__section-header">
+              <MdSwapHoriz size={18} />
+              <h3>Estado de la orden</h3>
+              {!hasPayment && <span className="oam__badge oam__badge--gray">Requiere pago</span>}
+            </div>
+
+            {!hasPayment && (
+              <p className="oam__warning-text">
+                ⚠️ Primero debes registrar un método de pago para poder cambiar el estado.
+              </p>
+            )}
+
             <div className="oam__field-row">
               <select
                 className="oam__select"
-                value={selectedPayment}
-                onChange={(e) => setSelectedPayment(e.target.value)}
+                value={selectedStatus}
+                onChange={(e) => setSelectedStatus(e.target.value)}
+                disabled={!hasPayment}
               >
-                <option value="">Selecciona un método...</option>
-                {paymentOptions.map(p => (
-                  <option key={p.value} value={p.value}>{p.label}</option>
+                {statusOptions.map(s => (
+                  <option key={s.value} value={s.value}>{s.label}</option>
                 ))}
               </select>
-              <button
-                className="oam__btn oam__btn--indigo"
-                onClick={handleSavePayment}
-                disabled={loading}
-              >
-                {loading ? "Guardando..." : "Registrar"}
-              </button>
+
+              {hasPayment && (
+                <button
+                  className="oam__btn oam__btn--dark"
+                  onClick={handleSaveStatus}
+                  disabled={loading}
+                >
+                  {loading ? "Actualizando..." : "Actualizar"}
+                </button>
+              )}
             </div>
-          )}
-        </section>
+          </section>
 
-        <div className="oam__divider" />
-
-        {/* Sección 2 — Estado */}
-        <section className={`oam__section ${!hasPayment ? "oam__section--disabled" : ""}`}>
-          <div className="oam__section-header">
-            <MdSwapHoriz size={18} />
-            <h3>Estado de la orden</h3>
-            {!hasPayment && <span className="oam__badge oam__badge--gray">Requiere pago</span>}
-          </div>
-
-          {!hasPayment && (
-            <p className="oam__warning-text">
-              ⚠️ Primero debes registrar un método de pago para poder cambiar el estado.
-            </p>
-          )}
-
-          <div className="oam__field-row">
-            <select
-              className="oam__select"
-              value={selectedStatus}
-              onChange={(e) => setSelectedStatus(e.target.value)}
-              disabled={!hasPayment}
-            >
-              {statusOptions.map(s => (
-                <option key={s.value} value={s.value}>{s.label}</option>
-              ))}
-            </select>
-
-            {hasPayment && (
-              <button
-                className="oam__btn oam__btn--dark"
-                onClick={handleSaveStatus}
-                disabled={loading}
-              >
-                {loading ? "Actualizando..." : "Actualizar"}
-              </button>
-            )}
-          </div>
-        </section>
-
+        </div>
       </div>
-    </div>
+
+      {/* Modal ingredientes */}
+      {burger && (
+        <BurgerIngredientsModal
+          burgerName={burger.name}
+          ingredients={burger.ingredients}
+          onClose={clear}
+        />
+      )}
+    </>
   );
 }
