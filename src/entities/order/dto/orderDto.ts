@@ -13,6 +13,7 @@ export interface CreateOrderRequestDTO{
 
 export interface OrderItemResponseDTO {
   idOrderItem: number;
+  idBurger?: number;
   itemType: "BURGER" | "PRODUCT" | "ADDITION";
   itemName: string;
   quantity: number;
