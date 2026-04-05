@@ -17,3 +17,20 @@
     flex-wrap: wrap;
     height: 35rem;
 }
+
+@media (max-width: 768px) {
+
+    .burgers__container {
+        gap: 1.2rem;
+    }
+
+    .burgers__container-search {
+        justify-content: center;
+    }
+
+    .burgers {
+        gap: 1rem;
+        height: auto;
+        justify-content: center;
+    }
+}

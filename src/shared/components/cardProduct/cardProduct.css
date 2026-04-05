@@ -125,3 +125,57 @@
     color: #8a8a8a;
     cursor: not-allowed;
 }
+
+@media (max-width: 768px) {
+
+    .cardProduct__container {
+        width: 9rem;
+        height: 13rem;
+    }
+
+    .cardProduct__container-image {
+        height: 7rem;
+    }
+
+    .cardProduct__h2 {
+        font-size: 0.7rem;
+        margin: 0.6rem 0 0.2rem 0;
+    }
+
+    .cardProduct__price {
+        font-size: 0.68rem;
+        margin-bottom: 0.4rem;
+    }
+
+    .cardProduct__button {
+        font-size: 0.58rem;
+        padding: 0.35rem 0.6rem;
+        margin-bottom: 0.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .cardProduct__container {
+        width: 7.5rem;
+        height: 11.5rem;
+    }
+
+    .cardProduct__container-image {
+        height: 6rem;
+    }
+
+    .cardProduct__h2 {
+        font-size: 0.62rem;
+    }
+
+    .cardProduct__price {
+        font-size: 0.6rem;
+    }
+
+    .cardProduct__button {
+        font-size: 0.52rem;
+        padding: 0.3rem 0.5rem;
+        gap: 0.2rem;
+    }
+}

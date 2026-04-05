@@ -23,5 +23,7 @@
 @media (max-width: 768px){
     .listAddition__container-global{
         overflow: scroll;
+        justify-content: flex-start;
+        gap: 0.5rem;
     }
 }

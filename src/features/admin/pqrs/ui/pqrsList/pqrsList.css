@@ -77,6 +77,8 @@
 @media (max-width: 768px) {
     .pqrsList__container-global {
         overflow: scroll;
+        justify-content: flex-start;
+        gap: 0.5rem;
     }
 
     .pqrsList__container-filters {        

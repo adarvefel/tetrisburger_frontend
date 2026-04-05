@@ -19,7 +19,7 @@ const statusOptions = [
   { value: "ACCEPTED", label: "Aceptada" },
   { value: "IN_PROGRESS", label: "En progreso" },
   { value: "COMPLETED", label: "Completada" },
-  { value: "CANCELLED_BY_EMPLOYEE", label: "Cancelada por empleado" },
+  { value: "CANCELLED_BY_EMPLOYEE", label: "Cancelada" },
 ];
 
 const paymentOptions = [
