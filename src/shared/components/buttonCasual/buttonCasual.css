@@ -19,3 +19,16 @@
     color: #bdbdbd;
     background-color: #982523;
 }
+
+
+@media (max-width: 768px) {
+
+    
+
+    .buttonCasual__link {
+        
+        font-size: 0.6rem;
+
+
+    }
+}
