@@ -7,10 +7,6 @@ export interface PublicCategory {
     name: string
 }
 
-interface PublicCategoryResponse {
-    items: PublicCategory[]
-    totalElements: number
-}
 
 export const usePublicCategories = () => {
     const [categories, setCategories] = useState<PublicCategory[]>([])
