@@ -305,3 +305,54 @@
 .cart__button-checkout:disabled:hover {
     background-color: #e6394777;
 }
+
+
+@media (max-width: 768px) {
+
+    .cart__form {
+        flex-direction: column;
+        height: auto;
+        gap: 1.5rem;
+    }
+
+    .cart__container-left {
+        flex: none;
+        width: 100%;
+    }
+
+    .cart__container-products {
+        height: 22rem;
+    }
+
+    .cart__container-right {
+        flex: none;
+        width: 100%;
+    }
+
+    .cart__container-checkout {
+        width: 100%;
+    }
+
+    .cart__h1 {
+        font-size: 1.3rem;
+    }
+
+    .cart__p {
+        font-size: 0.75rem;
+    }
+
+    .cart__items-card {
+        height: auto;
+        min-height: 5rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .cart__container-image {
+        width: 4rem;
+    }
+
+    .cart__card-container-right {
+        gap: 0.6rem;
+    }
+}
