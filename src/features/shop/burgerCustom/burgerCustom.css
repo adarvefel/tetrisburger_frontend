@@ -11,3 +11,16 @@
 .burgerCustom__container-list{
     flex: 1;
 }
+
+@media (max-width: 768px) {
+
+    .burgerCustom__container {
+        flex-direction: column;
+    }
+
+    .burgerCustom__container-form,
+    .burgerCustom__container-list {
+        flex: none;
+        width: 100%;
+    }
+}

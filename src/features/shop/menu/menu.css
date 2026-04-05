@@ -86,7 +86,14 @@
 }
 
 /* ─── RESPONSIVE ─────────────────────────────────── */
-/* Mobile grande: 2 columnas */
+/* Tablet: 3 columnas */
+@media (max-width: 1024px) {
+    .menu__container-card {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Móvil grande: 2 columnas — ya lo tienes, solo agrega esto */
 @media (max-width: 768px) {
     .menu__container {
         padding: 1rem;
@@ -114,8 +121,18 @@
         padding: 5px 8px;
     }
 
-    /* Reducir hover en touch */
     .menu-card:hover {
         transform: translateY(-3px) scale(1.01);
+    }
+}
+
+/* Móvil pequeño: 1 columna */
+@media (max-width: 400px) {
+    .menu__container-card {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-card {
+        height: 160px;
     }
 }

@@ -1,39 +1,38 @@
-
-
-.aboutSection__section{
+.aboutSection__section {
     width: 100%;
     height: 100vh;
+    height: 100svh;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 20px;
     padding: 20px;
     background-color: #FAFAFA;
-
+    box-sizing: border-box;
 }
 
-
-.aboutSection__h3{
+.aboutSection__h3 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 3.5rem;
     color: #000000;
     text-align: center;
     font-weight: 500;
+    flex-shrink: 0;
 }
 
-
-.aboutSection__container-about{
+.aboutSection__container-about {
     width: 100%;
+    flex: 1;
     min-height: 0;
     display: flex;
     border: 2px solid rgba(0, 0, 0, 0.244);
-    padding-top: 40px;
-    padding-bottom: 20px;
-    border-radius: 22px; 
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5); 
+    padding: 40px 0 20px 0;
+    border-radius: 22px;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
 }
 
-.aboutSection__container-img{
+.aboutSection__container-img {
     flex: 1;
     height: 100%;
     display: flex;
@@ -41,41 +40,38 @@
     justify-content: center;
 }
 
-.aboutSection__img{
+.aboutSection__img {
     width: 80%;
     height: 100%;
     object-fit: cover;
     border-radius: 80px;
-    
-    
 }
 
-.aboutSection__container-texto{
+.aboutSection__container-texto {
     flex: 1;
     display: flex;
     align-items: center;
     flex-direction: column;
     padding-right: 30px;
-
+    justify-content: center;
 }
 
-.aboutSection__p-somos{
+.aboutSection__p-somos {
     margin-bottom: 40px;
     font-family: 'Bebas Neue', sans-serif;
     font-weight: 500;
     font-size: 3.5rem;
     color: #000000;
-    
 }
 
-.aboutSection__p{
+.aboutSection__p {
     text-align: center;
     font-family: 'Montserrat';
     font-size: 1.2rem;
     color: #000000;
 }
 
-.aboutSection__p-meta{
+.aboutSection__p-meta {
     margin-top: 50px;
     margin-bottom: 10px;
     font-family: 'Montserrat';
@@ -84,18 +80,136 @@
     color: #000000;
 }
 
-@media (max-width: 768px){
-    .aboutSection__h3{
-        font-size: 2.5rem;
+/* Tablet grande */
+@media (max-width: 1024px) {
+    .aboutSection__h3 {
+        font-size: 2.8rem;
     }
 
-    .aboutSection__p-somos{
-        font-size: 2.5rem;
+    .aboutSection__p-somos {
+        font-size: 2.8rem;
     }
-    
-    .aboutSection__p{
+
+    .aboutSection__p,
+    .aboutSection__p-meta {
         font-size: 1rem;
     }
+}
 
+/* Tablet / móvil grande */
+@media (max-width: 768px) {
+    .aboutSection__section {
+        gap: 14px;
+        padding: 16px;
+    }
 
+    .aboutSection__h3 {
+        font-size: 2rem;
+    }
+
+    /* El contenedor pasa a columna */
+    .aboutSection__container-about {
+        flex-direction: column;
+        padding: 20px 16px;
+        gap: 16px;
+        border-radius: 18px;
+        overflow-y: auto;
+    }
+
+    .aboutSection__container-img {
+        flex: none;
+        height: 40%;       /* ocupa 40% del card */
+        width: 100%;
+    }
+
+    .aboutSection__img {
+        width: 60%;
+        height: 100%;
+        border-radius: 40px;
+    }
+
+    .aboutSection__container-texto {
+        flex: none;
+        height: 60%;       /* ocupa 60% del card */
+        padding-right: 0;
+        padding: 0 10px;
+        justify-content: flex-start;
+    }
+
+    .aboutSection__p-somos {
+        font-size: 2.2rem;
+        margin-bottom: 16px;
+    }
+
+    .aboutSection__p {
+        font-size: 0.9rem;
+    }
+
+    .aboutSection__p-meta {
+        margin-top: 20px;
+        margin-bottom: 6px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+    .aboutSection__section {
+        gap: 10px;
+        padding: 12px;
+    }
+
+    .aboutSection__h3 {
+        font-size: 1.6rem;
+    }
+
+    .aboutSection__container-about {
+        padding: 16px 12px;
+        border-radius: 16px;
+        gap: 12px;
+    }
+
+    .aboutSection__container-img {
+        height: 35%;
+    }
+
+    .aboutSection__img {
+        width: 55%;
+        border-radius: 28px;
+    }
+
+    .aboutSection__container-texto {
+        height: 65%;
+    }
+
+    .aboutSection__p-somos {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .aboutSection__p {
+        font-size: 0.82rem;
+    }
+
+    .aboutSection__p-meta {
+        margin-top: 14px;
+        margin-bottom: 4px;
+        font-size: 0.82rem;
+    }
+}
+
+/* Móvil muy pequeño */
+@media (max-width: 360px) {
+    .aboutSection__h3 {
+        font-size: 1.4rem;
+    }
+
+    .aboutSection__p-somos {
+        font-size: 1.6rem;
+    }
+
+    .aboutSection__p,
+    .aboutSection__p-meta {
+        font-size: 0.78rem;
+    }
 }
