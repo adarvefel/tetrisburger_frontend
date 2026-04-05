@@ -73,6 +73,8 @@ export default function DebugTablas() {
       case "user": return "Usuarios";
       case "product": return "Productos";
       case "burger": return "Hamburguesas";
+      case "user_eliminados": return "Usuarios elimiandos";
+      case "product_eliminados": return "Productos eliminados";
       default: return name;
     }
   };
