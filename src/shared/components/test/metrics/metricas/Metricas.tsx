@@ -50,6 +50,8 @@ export default function Metricas() {
   type EstadoPedido =
     | "ACCEPTED"
     | "CANCELLED_BY_EMPLOYEE"
+    | "IN_PROGRESS"
+    | "COMPLETED"
     | "PENDING";
 
   // 🧠 State
@@ -116,6 +118,8 @@ export default function Metricas() {
       case "ACCEPTED": return "Aceptado";
       case "PENDING": return "Pendiente";
       case "CANCELLED_BY_EMPLOYEE": return "Cancelado";
+      case "IN_PROGRESS": return "En progeso";
+      case "COMPLETED": return "Completado";
       default: return estado;
     }
   };

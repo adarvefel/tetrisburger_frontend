@@ -193,3 +193,11 @@
     font-size: 0.8rem;
     font-weight: 600;
 }
+
+@media (max-width: 768px) {
+    .burgerCustomForm__form {
+        flex-direction: column;
+    }
+
+
+}
