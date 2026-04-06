@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import "./navbarAuthenticated.css"
 import colombiaBandera from "./../../../../assets/bandera-colombia.png"
 import { IoMdArrowDropdown } from "react-icons/io";
-import { Link } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { FiShoppingCart } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import { useAuthStore } from '../../../store/useAuthStore';
@@ -24,10 +24,50 @@ export default function NavbarAuthenticated() {
                 {/* Links del menú */}
                 <div className={`navbarAuthenticated__container-links ${menuOpen ? 'active' : ''}`}>
                     <ul className='navbarAuthenticated__ul'>
-                        <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/"}>INICIO</Link></li>
-                        <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/products"}>PRODUCTOS</Link></li>
-                        <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/menu"}>MENU</Link></li>
-                        <li className='navbarAuthenticated__li'><Link className='navbarAuthenticated__link' to={"/contact-us"}>CONTACTANOS</Link></li>
+                        <li className='navbarAuthenticated__li'>
+                            <NavLink
+                                to={"/"}
+                                end
+                                className={({ isActive }) =>
+                                    `navbarAuthenticated__link ${isActive ? "active" : ""}`
+                                }
+                            >
+                                INICIO
+                            </NavLink>
+                        </li>
+
+                        <li className='navbarAuthenticated__li'>
+                            <NavLink
+                                to={"/products"}
+                                className={({ isActive }) =>
+                                    `navbarAuthenticated__link ${isActive ? "active" : ""}`
+                                }
+                            >
+                                PRODUCTOS
+                            </NavLink>
+                        </li>
+
+                        <li className='navbarAuthenticated__li'>
+                            <NavLink
+                                to={"/menu"}
+                                className={({ isActive }) =>
+                                    `navbarAuthenticated__link ${isActive ? "active" : ""}`
+                                }
+                            >
+                                MENU
+                            </NavLink>
+                        </li>
+
+                        <li className='navbarAuthenticated__li'>
+                            <NavLink
+                                to={"/contact-us"}
+                                className={({ isActive }) =>
+                                    `navbarAuthenticated__link ${isActive ? "active" : ""}`
+                                }
+                            >
+                                CONTACTANOS
+                            </NavLink>
+                        </li>
                     </ul>
                 </div>
             </div>
