@@ -136,3 +136,34 @@
     font-size: 0.7rem;
     
 }
+
+
+@media (max-width: 768px) {
+    .burgerCard {
+        gap: 12px;
+        padding: 12px 14px;
+    }
+
+    .burgerCard__image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .burgerCard__name {
+        font-size: 0.65rem;
+    }
+
+    .burgerCard__price {
+        font-size: 0.72rem;
+    }
+
+    .burgerCard__btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+    }
+
+    .burgerCard__actions {
+        gap: 6px;
+    }
+}
