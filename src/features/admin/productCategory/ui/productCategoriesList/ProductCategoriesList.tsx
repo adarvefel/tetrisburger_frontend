@@ -9,6 +9,7 @@ import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteMo
 import { toast } from "sonner";
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
 import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
+import { dateFormat } from "../../../../../shared/utils/dateUtils";
 
 
 export default function CategoryList() {
@@ -99,8 +100,8 @@ export default function CategoryList() {
               <Td>{category.description}</Td>
               <Td><span className={`tableComponents__span-${category.available ? "green" : "red"}`}> {category.available ? "Disponible" : "No disponible"} </span> </Td>
 
-              <Td>{category.createdAt ?? "---"}</Td>
-              <Td>{category.updatedAt ?? "---"}</Td>
+              <Td>{dateFormat(category.createdAt)}</Td>
+              <Td>{dateFormat(category.updatedAt)}</Td>
               <Td>{category.createdBy ?? "---"}</Td>
               <Td>{category.updatedBy ?? "---"}</Td>
 

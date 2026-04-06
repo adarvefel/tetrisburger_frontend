@@ -9,12 +9,13 @@ import { deletePqrs } from "../../../../../entities/pqrs/api/pqrsApi";
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
 import { toast } from "sonner";
 import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
+import { dateFormat } from "../../../../../shared/utils/dateUtils";
 
-interface Props{
+interface Props {
   mode?: "admin" | "employee"
 }
 
-export default function PqrsList({mode}: Props) {
+export default function PqrsList({ mode }: Props) {
 
   const {
     loading,
@@ -137,8 +138,8 @@ export default function PqrsList({mode}: Props) {
                 <Td>{pqr.priority === "HIGH" ? "Alta" : pqr.priority === "LOW" ? "Baja" : pqr.priority === "MEDIUM" ? "Media" : "Critica"}</Td>
                 <Td><span className={`tableComponents__span-${pqr.status === "ANSWERED" ? "green" : "red"}`}> {pqr.status === "ANSWERED" ? "Respondido" : "Recibido"} </span> </Td>
 
-                <Td>{pqr.createdAt ?? "---"}</Td>
-                <Td>{pqr.updatedAt ?? "---"}</Td>
+                <Td>{dateFormat(pqr.createdAt)}</Td>
+                <Td>{dateFormat(pqr.updatedAt)}</Td>
                 <Td>{pqr.createdBy ?? "---"}</Td>
                 <Td>{pqr.updatedBy ?? "---"}</Td>
 

@@ -11,6 +11,7 @@ import LoadingSpinner from "../../../../shared/components/loadings/loadingSpinne
 import "./listOrdersMe.css"
 import TittleCrud from '../../../../shared/components/componetsCrud/tittle/TittleCrud';
 import Line from '../../../../shared/components/componetsCrud/fields/line/Line';
+import { dateFormat } from '../../../../shared/utils/dateUtils';
 
 export default function ListOrderMe() {
 
@@ -77,7 +78,7 @@ export default function ListOrderMe() {
                                         {getStatusLabel(order.status)}
                                     </span>
                                 </Td>
-                                <Td>{order.orderDate}</Td>
+                                <Td>{dateFormat(order.orderDate)}</Td>
                             </tr>
                         ))}
                     </TableBody>
