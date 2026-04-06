@@ -133,6 +133,11 @@
     height: 100%;
 }
 
+.navbarAuthenticated__link.active {
+    background-color: #e5383529;
+    color: #E53935;
+}
+
 @media (max-width: 768px) {
 
     .navbarAuthenticated__container-hamburger {

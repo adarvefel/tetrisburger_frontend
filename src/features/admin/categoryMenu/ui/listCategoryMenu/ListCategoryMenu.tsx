@@ -8,6 +8,7 @@ import { deleteCategoryMenu } from '../../../../../entities/categoryMenu/api/cat
 import ButtonCasual from '../../../../../shared/components/buttonCasual/ButtonCasual';
 import { useListCategoryMenu } from '../../hooks/useListCategoryMenu';
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
+import { dateFormat } from '../../../../../shared/utils/dateUtils';
 
 export default function ListCategoryMenu() {
 
@@ -88,8 +89,8 @@ export default function ListCategoryMenu() {
                             <Td>{categoryMenu.menuCategoryName}</Td>
                             <Td>{categoryMenu.description}</Td>
 
-                            <Td>{categoryMenu.createdAt ?? "---"}</Td>
-                            <Td>{categoryMenu.updatedAt ?? "---"}</Td>
+                            <Td>{dateFormat(categoryMenu.createdAt)}</Td>
+                            <Td>{dateFormat(categoryMenu.updatedAt)}</Td>
                             <Td>{categoryMenu.createdBy ?? "---"}</Td>
                             <Td>{categoryMenu.updatedBy ?? "---"}</Td>
 

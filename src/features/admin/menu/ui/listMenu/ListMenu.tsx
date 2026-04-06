@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import ButtonCasual from '../../../../../shared/components/buttonCasual/ButtonCasual';
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 import photoNotFound from "../../../../../assets/productNotFound.png"
+import { dateFormat } from '../../../../../shared/utils/dateUtils';
 
 export default function ListMenu() {
 
@@ -96,8 +97,8 @@ export default function ListMenu() {
                                 <Td>{menu.description}</Td>
 
                                 <Td><span className={`tableComponents__span-${menu.isAvailable ? "green" : "red"}`}> {menu.isAvailable ? "DIsponible" : "No disponible"} </span> </Td>
-                                <Td>{menu.createdAt ?? "---"}</Td>
-                                <Td>{menu.updatedAt ?? "---"}</Td>
+                                <Td>{dateFormat(menu.createdAt)}</Td>
+                                <Td>{dateFormat(menu.updatedAt)}</Td>
                                 <Td>{menu.createdBy ?? "---"}</Td>
                                 <Td>{menu.updatedBy ?? "---"}</Td>
                                 <Td>

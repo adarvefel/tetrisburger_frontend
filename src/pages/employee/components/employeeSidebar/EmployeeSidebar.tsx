@@ -46,19 +46,22 @@ export default function EmployeeSidebar() {
                     <span className='employeeSidebar__span'>PQRS</span>
                 </NavLink>
 
+
+                <div className="employeeSidebar__container-settings">
+                    <NavLink to={"/employee/configurations-list"}
+                        className={({ isActive }) =>
+                            `employeeSidebar__container-option ${isActive ? "active" : ""}`
+                        } >
+                        <CiSettings size={19} />
+                        <span className='employeeSidebar__span'>Configuraciones</span>
+                    </NavLink>
+                </div>
+
+
             </div>
 
 
 
-            <div className="employeeSidebar__container-settings">
-                <NavLink to={"/employee/configurations-list"}
-                    className={({ isActive }) =>
-                        `employeeSidebar__container-option ${isActive ? "active" : ""}`
-                    } >
-                    <CiSettings size={19} />
-                    <span className='employeeSidebar__span'>Configuraciones</span>
-                </NavLink>
-            </div>
 
             <div className="employeeSidebar__container-bottom">
 
