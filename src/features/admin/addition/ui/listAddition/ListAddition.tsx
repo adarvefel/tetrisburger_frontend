@@ -10,6 +10,7 @@ import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { deleteAddition } from '../../../../../entities/addition/api/additionApi';
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
+import { dateFormat } from '../../../../../shared/utils/dateUtils';
 
 export default function ListAddition() {
 
@@ -107,8 +108,8 @@ export default function ListAddition() {
 
                 <Td><span className={`tableComponents__span-${addition.available ? "green" : "red"}`}> {addition.available ? "DIsponible" : "No disponible"} </span> </Td>
 
-                <Td>{addition.createdAt ?? "---"}</Td>
-                <Td>{addition.updatedAt ?? "---"}</Td>
+                <Td>{dateFormat(addition.createdAt)}</Td>
+                <Td>{dateFormat(addition.updatedAt)}</Td>
                 <Td>{addition.createdBy ?? "---"}</Td>
                 <Td>{addition.updatedBy ?? "---"}</Td>
                 <Td>

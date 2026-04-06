@@ -15,3 +15,29 @@
     flex-wrap: wrap;
     height: 35rem;
 }
+
+@media (max-width: 768px) {
+
+    .additions__container {
+        gap: 1.2rem;
+    }
+
+    .additions__container-search {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0.8rem;
+    }
+
+    .additions__container-search > *:first-child,
+    .additions__container-search > *:last-child {
+        width: 100%;
+        flex-shrink: 1;
+    }
+
+    .additions {
+        gap: 1rem;
+        height: auto;
+        justify-content: center;
+    }
+}

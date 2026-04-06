@@ -11,6 +11,7 @@ import { deleteUser } from '../../../../../entities/user/api/userApi';
 import { toast } from 'sonner';
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
+import { dateFormat } from '../../../../../shared/utils/dateUtils';
 
 export default function UserList() {
 
@@ -118,10 +119,10 @@ export default function UserList() {
 
                                 <Td><span className={`tableComponents__span-${user.role === "ADMIN" ? "red" : user.role === "EMPLOYEE" ? "orange" : "blue"}`}> {user.role === "ADMIN" ? "Administrador" : user.role === "EMPLOYEE" ? "Empleado" : "Cliente"} </span> </Td>
 
-                                <Td>{user.createdAt  ?? "---"}</Td>
-                                <Td>{user.updatedAt  ?? "---"}</Td>
-                                <Td>{user.createdBy  ?? "---"}</Td>
-                                <Td>{user.updatedBy  ?? "---"}</Td>
+                                <Td>{dateFormat(user.createdAt)}</Td>
+                                <Td>{dateFormat(user.updatedAt)}</Td>
+                                <Td>{user.createdBy ?? "---"}</Td>
+                                <Td>{user.updatedBy ?? "---"}</Td>
 
                                 <Td>
                                     <TableActions

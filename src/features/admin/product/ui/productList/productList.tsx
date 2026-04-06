@@ -11,6 +11,7 @@ import { toast } from "sonner";
 import imageProductoNotFound from "./../../../../../assets/productNotFound.png"
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
 import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
+import { dateFormat } from "../../../../../shared/utils/dateUtils";
 
 export default function ProductList() {
 
@@ -120,14 +121,14 @@ export default function ProductList() {
                                 <Td>{`$${product.price}`}</Td>
                                 <Td>{product.quantity}</Td>
 
-                
+
                                 <Td><span className={`tableComponents__span-${product.availability ? "green" : "red"}`}> {product.availability ? "Disponible" : "No disponible"} </span> </Td>
 
 
-                                <Td>{product.createdAt}</Td>
-                                <Td>{product.updatedAt}</Td>
-                                <Td>{product.createdBy  ?? "---"}</Td>
-                                <Td>{product.updatedBy  ?? "---"}</Td>
+                                <Td>{dateFormat(product.createdAt)}</Td>
+                                <Td>{dateFormat(product.updatedAt)}</Td>
+                                <Td>{product.createdBy ?? "---"}</Td>
+                                <Td>{product.updatedBy ?? "---"}</Td>
 
                                 <Td>
                                     <TableActions
