@@ -9,6 +9,7 @@ import ConfirmDeleteModal from "../../../../../shared/components/confirmDeleteMo
 import { toast } from "sonner";
 import { TableLayout, TableHead, TableBody, Th, Td, TableActions, TablePagination } from "./../../../../../shared/components/componetsCrud/table/TableComponents";
 import LoadingSpinner from "../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner";
+import { dateFormat } from "../../../../../shared/utils/dateUtils";
 
 export default function SupplierList() {
   const {
@@ -103,8 +104,8 @@ export default function SupplierList() {
               <Td>{supplier.phone}</Td>
               <Td>{supplier.address}</Td>
 
-              <Td>{supplier.createdAt ?? "---"}</Td>
-              <Td>{supplier.updatedAt ?? "---"}</Td>
+              <Td>{dateFormat(supplier.createdAt)}</Td>
+              <Td>{dateFormat(supplier.updatedAt)}</Td>
               <Td>{supplier.createdBy ?? "---"}</Td>
               <Td>{supplier.updatedBy ?? "---"}</Td>
 

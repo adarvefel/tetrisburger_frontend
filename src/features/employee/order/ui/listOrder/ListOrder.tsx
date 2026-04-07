@@ -17,6 +17,7 @@ import { OrderResponseDTO } from "../../../../../entities/order/dto/orderDto";
 import { useState } from "react";
 import { FaEye } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
+import { dateFormat } from "../../../../../shared/utils/dateUtils";
 
 export default function ListOrder() {
 
@@ -118,8 +119,8 @@ export default function ListOrder() {
                     {getStatusLabel(order.status)}
                   </span>
                 </Td>
-                <Td>{order.orderDate}</Td>
-                <Td>{order.updatedAt ?? "---"}</Td>
+                <Td>{dateFormat(order.orderDate)}</Td>
+                <Td>{dateFormat(order.updatedAt)}</Td>
                 <Td>{order.createdBy ?? "---"}</Td>
                 <Td>{order.updatedBy ?? "---"}</Td>
                 <Td>

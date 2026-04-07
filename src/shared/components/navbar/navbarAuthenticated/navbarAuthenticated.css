@@ -133,9 +133,14 @@
     height: 100%;
 }
 
-/* MEDIA QUERIES */
+.navbarAuthenticated__link.active {
+    background-color: #e5383529;
+    color: #E53935;
+}
+
 @media (max-width: 768px) {
-    .navbarAuthenticated__container-hamburger{
+
+    .navbarAuthenticated__container-hamburger {
         display: flex;
         margin-left: auto;
         height: 100%;
@@ -144,7 +149,7 @@
         margin-right: 5px;
     }
 
-    .navbarAuthenticated__container-links{
+    .navbarAuthenticated__container-links {
         display: none;
         position: absolute;
         z-index: 999;
@@ -157,37 +162,53 @@
         padding-bottom: 20px;
     }
 
-    .navbarAuthenticated__ul{
+    .navbarAuthenticated__ul {
         flex-direction: column;
         font-size: 0.9rem;
         gap: 20px;
     }
 
-    .navbarAuthenticated__container-links.active{
+    .navbarAuthenticated__container-links.active {
         display: flex;
     }
 
-    .navbarAuthenticated__container-right{
-        font-size: 0.7rem;
-        width: 100%;
-        gap: 5px;
-    }
-
-    .navbarAuthenticated__nav{
+    .navbarAuthenticated__nav {
         padding-left: 10px;
-        justify-content: left;
+        padding-right: 10px;
+        justify-content: space-between;
     }
 
-    .navbarAuthenticated__link-car{
-        font-size: 24px;
+    .navbarAuthenticated__container-left {
+        gap: 0;
     }
 
-    .navbarAuthenticated__img-colombia{
-        width: 30px;
-        height: 30px;
+    .navbarAuthenticated__container-right {
+        gap: 4px;
+        width: auto; /* evita que empuje el logo */
     }
 
-    .navbarAuthenticated__p-user{
-        font-size: 12px;
+    /* Oculta el nombre del usuario, solo muestra el avatar */
+    .navbarAuthenticated__p-user {
+        display: none;
+    }
+
+    /* Oculta el selector de idioma */
+    .navbarAuthenticated__container-lenguaje {
+        display: none;
+    }
+
+    .navbarAuthenticated__link-car {
+        padding: 6px;
+    }
+
+    .navbarAuthenticated__link-profile {
+        padding: 6px;
+    }
+}
+
+@media (max-width: 380px) {
+    .navbarAuthenticated__container-img {
+        width: 28px;
+        height: 28px;
     }
 }

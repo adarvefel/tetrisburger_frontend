@@ -23,5 +23,7 @@
 @media (max-width: 768px){
     .listMenu__container-global{
         overflow: scroll;
+        justify-content: flex-start;
+        gap: 0.5rem;
     }
 }

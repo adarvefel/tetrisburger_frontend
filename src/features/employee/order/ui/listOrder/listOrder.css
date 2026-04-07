@@ -54,5 +54,7 @@
 @media (max-width: 768px){
     .listOrder__container-global{
         overflow: scroll;
+        justify-content: flex-start;
+        gap: 0.5rem;
     }
 }
