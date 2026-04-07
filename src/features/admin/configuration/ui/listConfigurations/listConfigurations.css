@@ -1,0 +1,43 @@
+.listConfigurations__container {
+    
+    display: flex;
+    gap: 2rem;
+
+}
+
+.listConfigurations__card{
+    
+
+    flex: 1;
+    display: flex;
+    color: black;
+    flex-direction: column;
+    font-family: "Montserrat";
+    padding: 1rem;
+    gap: 0.7rem;
+    background-color: #fff;
+}
+
+.listConfigurations__h2{
+    font-size: 0.9rem;
+}
+
+.listConfigurations__p{
+    font-size: 0.7rem;
+}
+
+.listConfigurations__card--disabled {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+
+    .listConfigurations__container{
+        flex-direction: column;
+    }
+
+    
+}

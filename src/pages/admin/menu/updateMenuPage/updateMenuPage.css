@@ -1,0 +1,30 @@
+.updateMenuPage__container-global {
+
+
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    background-color: #F6F7F8;
+}
+
+.updateMenuPage__container-content {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    align-items: center;
+    padding-left: 15rem;
+    padding-right: 15rem;
+}
+
+@media (max-width: 768px) {
+    .updateMenuPage__container-content {
+        padding-top: 3rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+
+}

@@ -1,0 +1,403 @@
+import React, { useEffect, useRef, useState } from "react";
+import "./productForm.css";
+import { CreateProductDto, CreateProductWihtImageDto, UpdateProductDto, UpdateProductWithImageDto, } from "../../../../entities/product/dto/productDto";
+import { useNavigate } from "react-router-dom";
+import { useProductCategories } from "../../../../features/admin/product/hooks/useProductCategory";
+import { useSuppliers } from "../../../../features/admin/product/hooks/useSupplier";
+
+import imgProfile from "../../../../assets/productNotFound.png"
+import { toast } from "sonner";
+import { ProductFindByIdResponse } from "../../../../features/admin/product/dto/productsAdminDto";
+import ButtonSubmitCrud from "../../componetsCrud/buttonSubmit/ButtonSubmitCrud";
+
+type ProductFormMode = "admin-create" | "admin-update";
+
+interface ProductFormProps {
+  mode: ProductFormMode;
+  initialData?: ProductFindByIdResponse,
+  onSubmit: (data: any) => Promise<any>;
+  loading?: boolean
+}
+
+export default function ProductForm({
+  mode,
+  initialData,
+  onSubmit,
+  loading = false
+}: ProductFormProps) {
+  const [formData, setFormData] = useState({
+    idProduct: initialData?.idProduct ?? 0,
+    name: initialData?.name ?? "",
+    description: initialData?.description ?? "",
+    price: initialData?.price ?? "",
+    quantity: initialData?.quantity ?? "",
+    available: initialData?.availability ?? false,
+    productType: initialData?.productType ?? "",
+    productCategoryId: initialData?.productCategory?.id ?? 0,
+    supplierId: initialData?.supplier?.id ?? 0,
+    imageUrl: initialData?.imageUrl || ""
+  });
+
+  const { items: categories, loading: loadingCategories } = useProductCategories();
+  const { items: suppliers, loading: loadingSuppliers } = useSuppliers();
+
+  useEffect(() => {
+    if (initialData) {
+      setFormData({
+        idProduct: initialData.idProduct ?? 0,
+        name: initialData.name ?? "",
+        description: initialData.description ?? "",
+        price: initialData?.price ?? "",
+        quantity: initialData?.quantity ?? "",
+        available: initialData.availability ?? false,
+        productType: initialData.productType ?? "",
+        productCategoryId: initialData?.productCategory?.id ?? 0,
+        supplierId: initialData?.supplier?.id ?? 0,
+        imageUrl: initialData?.imageUrl || ""
+      });
+    }
+  }, [initialData]);
+
+
+
+
+  const onInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value, type } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        type === "number" && value !== ""
+          ? Number(value)
+          : value,
+    }));
+  };
+
+  let nagivation = useNavigate();
+
+
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (formData.name.trim() === "" || formData.description.trim() === "") {
+      toast.error("Por favor complete todos los campos obligatorios.");
+      return;
+    }
+
+    if ((formData.price as number) < 0 || (formData.quantity as number) < 0) {
+      toast.error("Precio y cantidad no pueden ser negativos.");
+      return;
+    }
+
+    try {
+      if (mode === "admin-create") {
+        const createData: CreateProductDto = {
+          name: formData.name,
+          description: formData.description,
+          price: Number(formData.price),
+          quantity: Number(formData.quantity),
+          availability: formData.available,
+          productType: formData.productType,
+          productCategoryId: formData.productCategoryId,
+          supplierId: formData.supplierId,
+        };
+
+        const productCreated: CreateProductWihtImageDto = {
+          product: createData,
+          file: imageFile
+        }
+
+        await onSubmit(productCreated);
+        toast.success("Producto creado con éxito.");
+        nagivation("/admin/product-list");
+
+      } else {
+        const updateData: UpdateProductDto = {
+
+          name: formData.name,
+          description: formData.description,
+          price: Number(formData.price),
+          quantity: Number(formData.quantity),
+          availability: formData.available,
+          productType: formData.productType,
+          productCategoryId: formData.productCategoryId,
+          supplierId: formData.supplierId,
+        };
+
+        const productUpdated: UpdateProductWithImageDto = {
+          product: updateData,
+          file: imageFile,
+        }
+
+
+
+        const response = await onSubmit(productUpdated);
+        toast.success("Producto actualizado con éxito.");
+        nagivation("/admin/product-list");
+
+      }
+    } catch (error: any) {
+      toast.error(error?.response?.data?.message || "Error al procesar el formulario.");
+    }
+
+  };
+
+  //GESTION PA LA PICTURE DEL PRODUCT
+
+  const MAX_SIZE = 5 * 1024 * 1024 // 5MB
+
+  const ALLOWED_TYPES = [
+    "image/jpeg",
+    "image/png",
+    "image/webp"
+  ]
+
+  const [pictureProduct, setPictureProduct] = useState<string>(
+    initialData?.imageUrl || imgProfile
+  );
+  const [imageFile, setImageFile] = useState<File | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const onClickInputFile = () => {
+    fileInputRef.current?.click();
+  }
+
+  const onChangeInputFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (file) {
+
+      // Validar tipo
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        toast.error("Solo se permiten imágenes JPG, PNG o WEBP")
+        e.target.value = ""
+        return
+      }
+
+      if (file.size > MAX_SIZE) {
+        toast.error("La imagen no puede pesar más de 5MB")
+        e.target.value = ""
+        return
+      }
+      setImageFile(file)
+      const pictureUrl = URL.createObjectURL(file);
+      setPictureProduct(pictureUrl);
+    }
+  }
+
+  useEffect(() => {
+    return () => {
+      if (pictureProduct.startsWith("blob:")) {
+        URL.revokeObjectURL(pictureProduct);
+      }
+    }
+  }, [pictureProduct]);
+
+
+  useEffect(() => {
+    if (initialData?.imageUrl) {
+      setPictureProduct(initialData.imageUrl);
+    }
+    else {
+      setPictureProduct(imgProfile);
+    }
+  }, [initialData])
+
+
+  const formIsEqual =
+    (initialData?.name ?? "") === formData.name &&
+    (initialData?.description ?? "") === formData.description &&
+    (initialData?.price ?? 0) === Number(formData.price) &&
+    (initialData?.quantity ?? 0) === Number(formData.quantity) &&
+    (initialData?.availability ?? false) === formData.available &&
+    (initialData?.productType ?? "") === formData.productType &&
+    (initialData?.productCategory?.id ?? 0) === formData.productCategoryId &&
+    (initialData?.supplier?.id ?? 0) === formData.supplierId &&
+    (initialData?.imageUrl ?? "") === (formData.imageUrl ?? "") &&
+    imageFile === null;
+
+  return (
+    <form className="productForm__form" onSubmit={handleSubmit}>
+
+
+      <div className="productForm__container-top">
+        <div className="productForm__container-text">
+          <h3 className="productForm__h3">
+            {mode === "admin-create" ? "Crear producto" : "Actualizar producto"}
+          </h3>
+          <p className="productForm__p">
+            Gestiona los datos básicos del producto en el panel de
+            administración.
+          </p>
+        </div>
+        <div className="productForm__container-imagen">
+          <div className="productForm__container-img">
+            <img className='productForm__img' src={pictureProduct} alt="" />
+          </div>
+          <div className="productForm__container-spam">
+            <h3 className='productForm__h3-img'>Imagen del producto</h3>
+            <p className='productForm__p-img' >Sube una imagen nueva</p>
+          </div>
+          <div className="productForm__container-button-top">
+            <button className='productForm__button' onClick={onClickInputFile} type='button'>
+              Subir imagen
+            </button>
+
+            <input ref={fileInputRef} className='productForm__input-file' type="file" accept="image/png, image/jpeg, image/webp" onChange={onChangeInputFile} />
+
+          </div>
+        </div>
+      </div>
+
+      <div className="productForm__container-medium">
+        <div className="productForm__container-row">
+          <div className="productForm__container-input">
+            <label className="productForm__label">ID producto</label>
+            <input
+              className="productForm__input"
+              type="text"
+              name="id"
+              value={formData.idProduct}
+              disabled
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div className="productForm__container-input">
+            <label className="productForm__label">Nombre</label>
+            <input
+              className="productForm__input"
+              type="text"
+              name="name"
+              required
+              value={formData.name}
+              onChange={onInputChange}
+            />
+          </div>
+        </div>
+
+        <div className="productForm__container-row">
+          <div className="productForm__container-input">
+            <label className="productForm__label">Precio</label>
+            <input
+              className="productForm__input"
+              type="number"
+              name="price"
+              placeholder="Ingrese el precio..."
+              min={0}
+              required
+              value={formData.price}
+              onChange={onInputChange}
+            />
+          </div>
+
+          <div className="productForm__container-input">
+            <label className="productForm__label">Cantidad en stock</label>
+            <input
+              className="productForm__input"
+              type="number"
+              name="quantity"
+              min={0}
+              placeholder="Ingrese la cantidad en stock..."
+              required
+              value={formData.quantity}
+              onChange={onInputChange}
+            />
+          </div>
+        </div>
+
+        <div className="productForm__container-row">
+          <div className="productForm__container-input">
+            <label className="productForm__label">Categoría</label>
+            <select
+              className="productForm__input"
+              name="productCategoryId"
+              value={formData.productCategoryId}
+              onChange={onInputChange}
+              required
+              disabled={loadingCategories}
+            >
+              <option value="">Selecciona una categoría...</option>
+              {categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.name}</option>
+              ))}
+            </select>
+          </div>
+
+          <div className="productForm__container-input">
+            <label className="productForm__label">Proveedor</label>
+            <select
+              className="productForm__input"
+              name="supplierId"
+              value={formData.supplierId}
+              onChange={onInputChange}
+              required
+              disabled={loadingSuppliers}
+            >
+              <option value="">Selecciona un proveedor...</option>
+              {suppliers.map(sup => (
+                <option key={sup.id} value={sup.id}>{sup.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="productForm__container-input">
+          <label className="productForm__label">Tipo de producto</label>
+          <select className="productForm__input" name="productType" required value={formData.productType} onChange={onInputChange}>
+            <option className="productForm__option" value="">Seleccione el tipo de producto...</option>
+            <option className="productForm__option" value="INGREDIENT">Ingrediente</option>
+            <option className="productForm__option" value="BEVERAGE">Bebida</option>
+            <option className="productForm__option" value="SIDE">Acompañamiento</option>
+          </select>
+        </div>
+
+        <div className="productForm__container-row">
+          <div className="productForm__container-input">
+            <label className="productForm__label">Disponible</label>
+            <div className="productForm__container-checkbox">
+              <input
+                className="productForm__checkbox"
+                type="checkbox"
+                name="available"
+                checked={formData.available}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    available: e.target.checked,
+                  }))
+                }
+              />
+              <span className="productForm__checkbox-text">
+                Marcar como disponible
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="productForm__container-row">
+          <div className="productForm__container-input productForm__container-input--full">
+            <label className="productForm__label">Descripción</label>
+            <textarea
+              className="productForm__textarea"
+              name="description"
+              required
+              value={formData.description}
+              onChange={onInputChange}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="productForm__container-buttom">
+        <div className="productForm__container-button-buttom">
+          <ButtonSubmitCrud id="product-form-submit" disabled={formIsEqual} label={mode === "admin-create" ? "Crear producto" : "Guardar cambios"} loading={loading} />
+        </div>
+      </div>
+    </form>
+  );
+}

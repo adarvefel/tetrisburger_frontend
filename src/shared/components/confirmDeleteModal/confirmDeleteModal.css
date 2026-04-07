@@ -1,0 +1,133 @@
+.deleteModel__container {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    background-color: rgba(0, 0, 0, 0.624);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.deleteModel__form {
+
+    padding: 10px;
+
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background-color: #192734;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.deleteModel__container-icono {
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    padding: 5 px;
+    background-color: #37242D;
+}
+
+.deleteModel__container-encabezado {}
+
+.deleteModel__p-encabezado {
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 100%;
+    font-weight: 700;
+}
+
+.deleteModel__container-texto {}
+
+.deleteModel__p-texto {
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 70%;
+    color: #d3d3d3;
+}
+
+.deleteModel__strong {
+    color: #dbdbdb;
+}
+
+.deleteModel__container-button {
+
+
+    padding: 4px;
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.deleteModel__button-acept {
+    background-color: #DC3545;
+    font-family: 'Montserrat';
+    font-size: 10px;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    flex: 1.5;
+    transition: background-color 0.3s;
+}
+
+.deleteModel__button-acept:hover {
+    cursor: pointer;
+    background-color: #a0222f;
+}
+
+.deleteModel__button-cancel {
+    background-color: #303D48;
+    font-family: 'Montserrat';
+    font-size: 10px;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    flex: 1;
+    transition: background-color 0.3s;
+
+}
+
+.deleteModel__button-cancel:hover {
+    background-color: #282e33;
+    cursor: pointer;
+}
+
+.deleteModel__button-acept:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: #a0222f;
+}
+
+.deleteModel__button-acept:disabled:hover{
+    background-color: #a0222f;
+}
+
+.deleteModel__button-cancel:disabled{
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+
+@media (max-width: 768px) {
+
+
+    .deleteModel__form {
+
+        padding: 10px;
+
+        width: 90%;
+       
+    }
+}

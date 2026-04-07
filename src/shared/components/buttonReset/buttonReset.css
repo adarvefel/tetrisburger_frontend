@@ -1,0 +1,13 @@
+.buttonReset {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+}
+
+.buttonReset:hover {
+    background: #e5e7eb;
+    color: #333;
+}

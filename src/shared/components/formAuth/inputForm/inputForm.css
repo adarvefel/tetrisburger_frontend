@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+
+
+
+.inputForm__input {
+  background-color: #fff;
+  color: black;
+  font-family: 'Montserrat', sans-serif;
+  
+  font-weight: 900;
+  border: none;
+  width: 300px;
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7); /* más fuerte que la original */
+}
+
+.inputForm__input:focus {
+  outline: none; 
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8); /* un toque más intenso en focus */
+}

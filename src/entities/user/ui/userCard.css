@@ -1,0 +1,130 @@
+
+.userCard__container{
+    
+    border-radius: 20px;
+    width: 100%;
+    padding-left: 8px;
+    padding-bottom: 8px;
+    display: flex;
+    
+    flex-direction: column;
+    background-color: #ffff;
+    overflow: hidden;
+}
+
+.userCard__container-top{
+    
+    
+    display: flex;
+    margin-right: 30px;
+
+}
+
+.userCard__container-top-left{
+    
+   
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.userCard__container-img{
+    
+    
+    border-radius: 40px;
+    width: 14%;
+    height: 70%;
+    overflow: hidden;
+
+    
+}
+
+.userCard__img{
+    width: 100%;
+    height: 100%;
+    
+
+}
+
+.userCard__container-info-user{
+   
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.userCard__container-top-right{
+
+  
+    flex: 1;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.userCard__container-icons{
+  
+    display: flex;
+    gap: 15px;
+    color: #000;
+}
+
+.userCard__separator{
+    border: 2px solid rgba(0, 0, 0, 0.355);
+    margin-right: 10px;
+}
+
+.userCard__container-buttom{
+    
+   
+    display: flex;
+    justify-content: space-between;
+
+    margin-right: 30px;
+    margin-top: 10px;
+}
+
+.userCard__container-rol{
+   background-color: rgb(255, 187, 0);
+   border-radius: 30px;
+   padding: 2px;
+   padding-left: 5px;
+   padding-right: 5px;
+   font-size: 82%;
+}
+
+.userCard__container-active{
+   
+}
+
+
+.userCard__p-correo{
+    color: #000;
+    font-family: 'Montserrat';
+}
+
+.userCard__p-name{
+    color: #000;
+    font-family: 'Montserrat';
+}
+
+.userCard__p-rol{
+    color: #000;
+    font-family: 'Montserrat';
+}
+
+.userCard__p-active{
+    color: #000;
+    font-family: 'Montserrat';
+}
+
+.userCard__button{
+    border: none;
+    background-color: transparent;
+}
+
+.userCard__button:hover{
+    cursor: pointer;
+    
+}

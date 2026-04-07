@@ -1,0 +1,37 @@
+.UpdateBurgerConfigurations__container-global{
+    width: 100%;
+    min-height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    background-color: rgba(0, 0, 0, 0.624);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.UpdateBurgerConfigurations__container{
+    width: 25rem;
+    background-color: #fff;
+    padding: 1rem;
+    border-radius: 0.3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.UpdateBurgerConfigurations__container-tittle{
+    display: flex;
+    justify-content: space-between;
+}
+
+.UpdateBurgerConfigurations__button-close{
+    border: none;
+    background-color: transparent;
+}
+
+.UpdateBurgerConfigurations__button-close:hover{
+    cursor: pointer;
+}

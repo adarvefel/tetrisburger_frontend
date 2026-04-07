@@ -1,0 +1,129 @@
+/* optionsSection.css */
+
+.optionsSection__section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    background-color: #FFFFFF;
+    box-sizing: border-box;
+}
+
+.optionsSection__container-options {
+    width: 85%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+}
+
+.optionsSection__container-img {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    transition: transform 0.4s;
+    position: relative;
+}
+
+.optionsSection__container-img:hover {
+    transform: scale(1.04);
+}
+
+.optionsSection__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(50%);
+    transition: transform 0.3s, filter 0.3s;
+}
+
+.optionsSection__img:hover {
+    filter: brightness(80%);
+    transform: scale(1.1);
+}
+
+.optionsSection__p {
+    text-align: center;
+    position: absolute;
+    bottom: 40px;
+    z-index: 9;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    pointer-events: none;
+}
+
+/* Tablet grande */
+@media (max-width: 1024px) {
+    .optionsSection__container-options {
+        width: 92%;
+        gap: 20px;
+    }
+}
+
+/* Tablet / móvil grande */
+@media (max-width: 768px) {
+    .optionsSection__section {
+        height: 100vh;
+        height: 100svh; /* respeta barras del navegador en móvil */
+        padding: 20px;
+    }
+
+    .optionsSection__container-options {
+        width: 100%;
+        height: 100%;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .optionsSection__container-img {
+        border-radius: 20px;
+    }
+
+    .optionsSection__p {
+        font-size: 1.1rem;
+        bottom: 16px;
+    }
+}
+
+/* Móvil */
+@media (max-width: 480px) {
+    .optionsSection__section {
+        padding: 14px;
+    }
+
+    .optionsSection__container-options {
+        gap: 12px;
+    }
+
+    .optionsSection__container-img {
+        border-radius: 16px;
+    }
+
+    .optionsSection__p {
+        font-size: 0.95rem;
+        bottom: 12px;
+    }
+}
+
+/* Móvil muy pequeño */
+@media (max-width: 360px) {
+    .optionsSection__section {
+        padding: 10px;
+    }
+
+    .optionsSection__container-options {
+        gap: 10px;
+    }
+
+    .optionsSection__p {
+        font-size: 0.85rem;
+        bottom: 10px;
+    }
+}

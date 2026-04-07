@@ -1,0 +1,25 @@
+.profileUser__container-global  {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #F8F6F6;
+    padding-top: 80px;
+    padding-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.profileUser__container__form{
+    width: 78%;
+}
+
+
+
+@media (max-width: 768px) {
+    .profileUser__container__form{
+        width: 90%;
+    }
+}

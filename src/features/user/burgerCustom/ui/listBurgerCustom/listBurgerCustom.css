@@ -1,0 +1,169 @@
+.listBurgerCustom__container{
+    
+    font-family: "Montserrat";
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.listBurgerCustom__grid{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* MENSAJES */
+
+.listBurgerCustom__error{
+    color: red;
+}
+
+.listBurgerCustom__empty{
+    opacity: 0.7;
+}
+
+/* CARD */
+
+.burgerCard{
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    padding: 18px 22px;
+
+    background: white;
+    border-radius: 12px;
+
+    border: 1px solid #ececec;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+
+    transition: all 0.2s ease;
+}
+
+.burgerCard:hover{
+    transform: translateY(-2px);
+}
+
+/* IMAGEN */
+
+.burgerCard__image{
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+}
+
+.burgerCard__image img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* INFO */
+
+.burgerCard__info{
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.burgerCard__name{
+    color: black;
+    font-size: 17px;
+    font-weight: 600;
+    font-size: 0.7rem;
+}
+
+.burgerCard__price{
+    color: #e63946;
+    font-weight: 600;
+    font-size: 0.8rem;
+}
+
+/* ACTIONS */
+
+.burgerCard__actions{
+    display: flex;
+    gap: 8px;
+}
+
+/* BOTONES */
+
+.burgerCard__btn{
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.burgerCard__btn.cart{
+    background: #f1f3f5;
+}
+
+.burgerCard__btn.cart:hover{
+    background: #dee2e6;
+}
+
+.burgerCard__btn.view{
+    background: #edf2ff;
+}
+
+.burgerCard__btn.view:hover{
+    background: #dbe4ff;
+}
+
+.burgerCard__btn.favorite{
+    background: #ffe3e3;
+    color: #e63946;
+}
+
+.burgerCard__btn.favorite:hover{
+    background: #ffc9c9;
+}
+
+.listBurgerCustom__empty{
+    color: black;
+    font-size: 0.7rem;
+    
+}
+
+
+@media (max-width: 768px) {
+    .burgerCard {
+        gap: 12px;
+        padding: 12px 14px;
+    }
+
+    .burgerCard__image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .burgerCard__name {
+        font-size: 0.65rem;
+    }
+
+    .burgerCard__price {
+        font-size: 0.72rem;
+    }
+
+    .burgerCard__btn {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75rem;
+    }
+
+    .burgerCard__actions {
+        gap: 6px;
+    }
+}

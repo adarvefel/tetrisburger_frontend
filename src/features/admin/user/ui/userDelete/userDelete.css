@@ -1,0 +1,108 @@
+.userDelete__container{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9;
+    background-color: rgba(0, 0, 0, 0.624);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userDelete__form{
+    
+    padding: 10px;
+
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background-color: #192734;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.userDelete__container-icono{
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 40px;
+    padding: 5  px;
+    background-color: #37242D;
+}
+
+.userDelete__container-encabezado{
+    
+}
+
+.userDelete__p-encabezado{
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 100%;
+    font-weight: 700;
+}
+
+.userDelete__container-texto{
+   
+}
+
+.userDelete__p-texto{
+    font-family: 'Montserrat';
+    text-align: center;
+    font-size: 70%;
+    color: #d3d3d3;
+}
+
+.userDelete__strong{
+    color: #dbdbdb;
+}
+
+.userDelete__container-button{
+    
+    
+    padding: 4px;
+    width: 100%;
+    display: flex;
+    gap: 15px;
+}
+
+.userDelete__button-acept{
+    background-color: #DC3545;
+    font-family: 'Montserrat';
+    font-size: 10px;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    flex: 1.5;
+    transition: background-color 0.3s;
+}
+
+.userDelete__button-acept:hover{
+    cursor: pointer;
+    background-color: #a0222f;
+}
+
+.userDelete__button-cancel{
+    background-color: #303D48;
+    font-family: 'Montserrat';
+    font-size: 10px;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 10px;
+    flex: 1;
+    transition: background-color 0.3s;
+    
+}
+
+.userDelete__button-cancel:hover{
+    background-color: #282e33;
+    cursor: pointer;
+}

@@ -1,0 +1,29 @@
+.listMenu__container-global {    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.listMenu__container-top {
+    border-radius: 50px ;
+    background-color: #FFFFFF;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+
+@media (max-width: 768px){
+    .listMenu__container-global{
+        overflow: scroll;
+        justify-content: flex-start;
+        gap: 0.5rem;
+    }
+}

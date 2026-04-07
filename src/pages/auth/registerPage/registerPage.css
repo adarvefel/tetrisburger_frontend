@@ -1,0 +1,63 @@
+.registerPage{
+    width: 100%;
+    min-height: 100vh;
+    background-color: #0A0F1E;;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    overflow: hidden;
+}
+
+.registerPage__container{
+    width: 1000px;
+    height: 500px;
+    display: flex;
+    position: relative;
+    
+}
+
+.registerPage__contenido{
+    flex: 1;
+    background-color: rgb(255, 187, 0);
+    border-bottom-right-radius: 40px;
+    padding-bottom: 30px;
+    padding-top: 40px;
+}
+
+.registerPage__imagen{
+    flex: 1;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    overflow: hidden;
+}
+
+.registerPage__img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.registerPage__icono{
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: -7%;
+    right: -3%;
+    transform: rotate(30deg);
+}
+
+
+
+@media (max-width: 768px) {
+    .registerPage__imagen{
+        display: none;
+    }
+
+    .registerPage__contenido{
+        margin-left: 20px;
+        margin-right: 20px;
+        border-radius: 20px;
+    }
+
+}

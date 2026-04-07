@@ -1,0 +1,48 @@
+.inputCrud__container-inputs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 0.1rem;
+
+
+
+
+}
+
+.inputCrud__label {
+
+    font-family: 'Montserrat';
+    font-size: 0.7rem;
+    color: black;
+    font-weight: 700;
+
+}
+
+.inputCrud__input {
+
+    border: 2px solid #E7DCDC;
+    border-radius: 0.3rem;
+    color: black;
+    padding-left: 10px;
+    height: 2.4rem;
+
+    transition: all 0.25s ease;
+    outline: none;
+    
+
+}
+
+/* HOVER */
+.inputCrud__input:hover {
+    border-color: #c9baba;
+}
+
+/* FOCUS */
+.inputCrud__input:focus {
+    border-color: #000000;
+}
+
+/* PLACEHOLDER */
+.inputCrud__input::placeholder {
+    color: #aaa;
+}

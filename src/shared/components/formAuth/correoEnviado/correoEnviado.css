@@ -1,0 +1,16 @@
+.correoEnviado__container{
+    
+    border-radius: 40px;
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-color: #0b4028e0;
+}
+
+
+.correoEnviado__texto{
+    text-align: center;
+}

@@ -1,0 +1,138 @@
+.menu__container {
+    padding: 2rem;
+}
+
+/* GRID en vez de flex para mejor orden */
+.menu__container-card {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 por fila en desktop */
+    gap: 20px;
+}
+
+/* CARD */
+.menu-card {
+    position: relative;
+    height: 220px;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* HOVER */
+.menu-card:hover {
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* IMAGE */
+.menu-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.menu-card:hover .menu-card__image {
+    transform: scale(1.1);
+}
+
+/* OVERLAY */
+.menu-card__overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.85),
+        rgba(0, 0, 0, 0.4),
+        transparent
+    );
+    color: white;
+}
+
+/* TITLE */
+.menu-card__title {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    font-family: "Montserrat", sans-serif;
+}
+
+/* BOTÓN */
+.menu-card__overlay button {
+    font-size: 0.75rem;
+    padding: 6px 10px;
+}
+
+/* PAGINACIÓN */
+.menu__container-pagination {
+    margin-top: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.menu__loading {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+/* Tablet: 3 columnas */
+@media (max-width: 1024px) {
+    .menu__container-card {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Móvil grande: 2 columnas — ya lo tienes, solo agrega esto */
+@media (max-width: 768px) {
+    .menu__container {
+        padding: 1rem;
+    }
+
+    .menu__container-card {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .menu-card {
+        height: 180px;
+    }
+
+    .menu-card__title {
+        font-size: 0.85rem;
+    }
+
+    .menu-card__overlay {
+        padding: 10px;
+    }
+
+    .menu-card__overlay button {
+        font-size: 0.7rem;
+        padding: 5px 8px;
+    }
+
+    .menu-card:hover {
+        transform: translateY(-3px) scale(1.01);
+    }
+}
+
+/* Móvil pequeño: 1 columna */
+@media (max-width: 400px) {
+    .menu__container-card {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-card {
+        height: 160px;
+    }
+}
