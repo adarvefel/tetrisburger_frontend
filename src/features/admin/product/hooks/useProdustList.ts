@@ -11,6 +11,8 @@ export function useProductList() {
 
   const [name, setName] = useState("");
 
+  const [productCategoryId, setProductCategoryId] = useState<number | undefined>(undefined);
+
   const nextPage = () => {
     if (numberPage < totalPage - 1) {
       setNumberPage((prev) => prev + 1);
@@ -41,7 +43,7 @@ export function useProductList() {
         setTotalPage(response.data.totalPages);
       } else {
 
-        response = await listProducts(numberPage);
+        response = await listProducts(numberPage, productCategoryId ?? undefined);
         setProducts(response.data.items);
         setTotalPage(response.data.totalPages);
       }
@@ -54,7 +56,7 @@ export function useProductList() {
 
   useEffect(() => {
     fetchProductList();
-  }, [numberPage, name]);
+  }, [numberPage, name, productCategoryId]);
 
-  return { loading, error, products, numberPage, totalPage, setName, name, nextPage, prevPage, fetchProductList };
+  return { loading, error, products, numberPage, totalPage, setName, name, nextPage, prevPage, fetchProductList, setProductCategoryId, productCategoryId };
 }

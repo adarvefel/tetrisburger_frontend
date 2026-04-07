@@ -1,0 +1,31 @@
+.buttonDownload {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+
+    background-color: #2e7d32;
+    color: white;
+}
+
+/* Hover */
+.buttonDownload:hover {
+    background-color: #1b5e20;
+    opacity: 0.95;
+}
+
+/* Opcional: efecto al hacer click */
+.buttonDownload:active {
+    transform: scale(0.97);
+}
+
+/* Icono + texto */
+.buttonDownload svg {
+    font-size: 1rem;
+}

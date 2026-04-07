@@ -10,6 +10,7 @@ import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import { toast } from 'sonner';
 import { deleteBurger } from '../../../../../entities/burger/api/burgerApi';
 import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
+import { dateFormat } from '../../../../../shared/utils/dateUtils';
 
 
 export default function ListBurger() {
@@ -85,6 +86,10 @@ export default function ListBurger() {
                             <Th>NOMBRE</Th>
                             <Th>PRECIO FINAL</Th>
                             <Th>DISPONIBILIDAD</Th>
+                            <Th>FECHA DE CREACIÓN</Th>
+                            <Th>FECHA DE ACTUALIZACIÓN</Th>
+                            <Th>CREADO POR</Th>
+                            <Th>ACTUALIZADO POR</Th>
                             <Th>ACCIONES</Th>
                         </tr>
                     </TableHead>
@@ -106,6 +111,10 @@ export default function ListBurger() {
 
                                 <Td><span className={`tableComponents__span-${burger.availability ? "green" : "red"}`}> {burger.availability ? "DIsponible" : "No disponible"} </span> </Td>
 
+                                <Td>{dateFormat(burger.createdAt)}</Td>
+                                <Td>{dateFormat(burger.updatedAt)}</Td>
+                                <Td>{burger.createdBy ?? "---"}</Td>
+                                <Td>{burger.updatedBy ?? "---"}</Td>
                                 <Td>
                                     <TableActions
                                         linkEdit={`/admin/burger/update/${burger.idBurger}`}

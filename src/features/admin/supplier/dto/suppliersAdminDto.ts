@@ -4,6 +4,10 @@ export interface SupplierFetchList {
   phone: string;
   email: string;
   address: string;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: number,
+  updatedBy: number
 }
 
 

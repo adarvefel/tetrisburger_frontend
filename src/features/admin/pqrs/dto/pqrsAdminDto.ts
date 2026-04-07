@@ -8,6 +8,10 @@ export interface PqrsFetchList {
     response?: string,
     idUser: number,
     assignedTo?: number,
+    createdAt: string;
+    updatedAt: string;
+    createdBy: number,
+    updatedBy: number
 }
 
 export interface PqrsFindByIdResponse {

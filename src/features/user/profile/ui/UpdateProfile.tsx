@@ -8,13 +8,14 @@ import { useAuthStore } from '../../../../shared/store/useAuthStore';
 import { Link } from 'react-router-dom';
 import ButtonLogout from '../../../../shared/components/buttonLogout/ButtonLogout';
 import { GrUserAdmin } from "react-icons/gr";
+import { GrNotes } from "react-icons/gr";
 
 export default function UpdateProfile() {
 
     const { error: getError, loading: getLoading, profile, handleGetProfile } = useGetProfile();
     const { error: updateError, loading: updateLoading, handleUpdateProfile } = useUpdateProfile();
 
-    const { isAdmin } = useAuthStore();
+    const { isAdmin, isEmployee } = useAuthStore();
 
     if (getLoading) {
         return <LoadingSpinner />
@@ -26,7 +27,13 @@ export default function UpdateProfile() {
             <div className="updateProfile__container-buttons">
                 <ButtonLogout />
                 {
-                    isAdmin ? <Link className='updateProfile__link' to={"/admin/users-list"}><GrUserAdmin size={27} /> Dashboard Administrador</Link> : null
+                    isAdmin ? <Link className='updateProfile__link' to={"/admin/analityc"}><GrUserAdmin size={27} /> Dashboard Administrador</Link> : null
+                }
+                {
+                    isEmployee ? <Link className='updateProfile__link2' to={"/employee/orders-list"}><GrUserAdmin size={27} /> Dashboard  Empleado</Link> : null
+                }
+                {
+                    !isAdmin && !isEmployee ? <Link className='updateProfile__link3' to={"/orders-me"}><GrNotes size={27} />Historial de ordenes</Link> : null
                 }
             </div>
         </div>

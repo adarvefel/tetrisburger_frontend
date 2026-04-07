@@ -52,3 +52,16 @@
 .inputSearch__input::placeholder {
     color: #aaa;
 }
+
+@media (max-width: 768px) {
+
+    
+
+    .inputSearch__input {
+
+       
+        font-size: 0.7rem;
+
+
+    }
+}

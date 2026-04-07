@@ -120,6 +120,11 @@
     cursor: pointer;
 }
 
+.navbarNotAuthenticated__link.active {
+    background-color: #e5383529;
+    color: #E53935;
+}
+
 
 @media (max-width: 768px) {
     .navbarNotAuthenticated__container-hamburger {

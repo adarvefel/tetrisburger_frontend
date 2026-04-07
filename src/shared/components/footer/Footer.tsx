@@ -1,5 +1,3 @@
-import React from 'react'
-import iconoOficial from "./../../../assets/iconoOficial.png"
 import { RiInstagramFill } from "react-icons/ri";
 import { AiFillTikTok } from "react-icons/ai";
 import { FaFacebook } from "react-icons/fa";
@@ -12,9 +10,9 @@ export default function Footer() {
         <footer className='footer__footer'>
             <div className="footer__container-columnas">
                 <div className="footer__columna-uno">
-                    
+
                     <div className="footer__container-icon">
-                        <IconTetris/>
+                        <IconTetris />
                     </div>
 
                     <div className="footer__container-social">
@@ -26,15 +24,15 @@ export default function Footer() {
                 </div>
                 <div className="footer__columna-dos">
                     <p className='footer__p'>Menu</p>
-                    <Link className='footer__link' to={"/hamburguesas"}>hamburguesas</Link>
-                    <Link className='footer__link' to={"/crear-hamburguesas"}>Crea tu hamburguesas</Link>
-                    <Link className='footer__link' to={"/adiciones"}>Adiciones</Link>
-                    <Link className='footer__link' to={"/acompañantes"}>Acompañantes</Link>
+                    <Link className='footer__link' to={"/products"}>hamburguesas</Link>
+                    <Link className='footer__link' to="/products" state={{ initialFilter: "BURGERCUSTOM" }}>Crea tu hamburguesas</Link>
+                    <Link className='footer__link' to="/products" state={{ initialFilter: "ADDITION" }}>Adiciones</Link>
+                    <Link className='footer__link' to="/products" state={{ initialFilter: "SIDE" }}>Acompañantes</Link>
                 </div>
                 <div className="footer__columna-tres">
                     <p className='footer__p'>Sobre tetrisburger</p>
-                    <Link className='footer__link' to={"/quienes-somos"}>¿Quienes somos?</Link>
-                    <Link className='footer__link' to={"/preguntas-frecuentes"}>Preguntas frecuentes</Link>
+                    <Link className='footer__link' to={"/about"}>¿Quienes somos?</Link>
+                    <Link className='footer__link' to={"/faq"}>Preguntas frecuentes</Link>
                     <Link className='footer__link' to={"/contact-us"}>Contactanos</Link>
                     <Link className='footer__link' to={"/pqrs-create"}>PQRS</Link>
                 </div>

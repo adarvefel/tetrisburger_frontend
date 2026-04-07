@@ -19,7 +19,7 @@
     background-color: #fff;
     padding: 2rem;
     border-radius: 0.6rem;
-    border: 2px solid #E7DCDC;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
     background-color: #fff;
     padding: 2rem;
     border-radius: 0.6rem;
-    border: 2px solid #E7DCDC;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 
     display: flex;
     flex-direction: column;
@@ -41,7 +41,7 @@
     background-color: #fff;
     padding: 2rem;
     border-radius: 0.6rem;
-    border: 2px solid #E7DCDC;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 
     display: flex;
     flex-direction: column;
@@ -58,7 +58,7 @@
     background-color: #fff;
     padding: 2rem;
     border-radius: 0.6rem;
-    border: 2px solid #E7DCDC;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
 
     display: flex;
     flex-direction: column;
@@ -179,4 +179,52 @@
 
 .burgerCustomForm__strong-red{
     color: red;
+}
+
+.burgerCustomForm__p-text-priceFinal{
+    color: black;
+    font-family: "Montserrat";
+    font-size: 0.7rem;
+}
+
+.burgerCustomForm__span-priceTotal{
+    color: rgb(221, 12, 12);
+    font-family: "Montserrat";
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+
+    .burgerCustomForm__form {
+        flex-direction: column;
+    }
+
+    .burgerCustomForm__container-analitic {
+        position: static;
+    }
+
+    .burgerCustomForm__container-tittle {
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+    .burgerCustomForm__container-list {
+        height: auto;
+        max-height: 20rem;
+    }
+
+    .burgerCustomForm__card-ingredient {
+        grid-template-columns: 1fr 2fr 2fr 1rem;
+        font-size: 0.65rem;
+        padding: 0.6rem;
+        gap: 0.3rem;
+    }
+
+    .burgerCustomForm__container-image,
+    .burgerCustomForm__container-data,
+    .burgerCustomForm__container-actions,
+    .burgerCustomForm__container-ingredients {
+        padding: 1.2rem;
+    }
 }

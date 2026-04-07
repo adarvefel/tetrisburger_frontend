@@ -37,8 +37,23 @@ export default function ConfirmDeleteModal({
                     <p className='deleteModel__p-texto'>{description} <strong className='deleteModel__strong'>{confirmText}</strong>. Esta accion es irreversible. Se perderan todos los datos asociados a este usuario.</p>
                 </div>
                 <div className="deleteModel__container-button">
-                    <button className='deleteModel__button-acept' disabled={loading ? true : false} type='submit'>{loading ? "Eliminando..." : confirmText}</button>
-                    <button className='deleteModel__button-cancel' type='button' onClick={onClose}>Cancelar</button>
+                    <button
+                        className='deleteModel__button-acept'
+                        disabled={loading}
+                        type='submit'
+                    >
+                        {loading ? "Eliminando..." : confirmText}
+                    </button>
+
+                    <button
+                        className='deleteModel__button-cancel'
+                        type='button'
+                        onClick={onClose}
+                        disabled={loading}
+                    >
+                        Cancelar
+                    </button>
+
                 </div>
             </form>
         </div>

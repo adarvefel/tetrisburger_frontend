@@ -72,6 +72,34 @@ import CategoryMenuForm from '../shared/components/formsCruds/categoryMenuForm/C
 import MenuForm from '../shared/components/formsCruds/menuForm/MenuForm'
 import ListConfigurationsPage from '../pages/admin/configurations/listConfigurationsPage/ListConfigurationsPage'
 import LoadingSpinner from '../shared/components/loadings/loadingSpinner/LoadingSpinner'
+import CardProduct from '../shared/components/cardProduct/CardProduct'
+import ModelDetailsProduct from '../shared/components/modelDetailsProduct/ModelDetailsProduct'
+import ViewTest from '../shared/components/test/ViewTest'
+import ProductsPage from '../pages/shop/productsPage/ProductsPage'
+import BurgersPage from '../pages/shop/menu/menuPage/MenuPage'
+import ProductFilters from '../shared/components/productFilters/ProductFilters'
+import CartPage from '../pages/user/cart/CartPage'
+import Cart from '../features/user/cart/Cart'
+import MenuPage from '../pages/shop/menu/menuPage/MenuPage'
+import MenuDetailsPage from '../pages/shop/menu/menuDetailsPage/MenuDetailsPage'
+import EmployeeSidebar from '../pages/employee/components/employeeSidebar/EmployeeSidebar'
+import ListOrdersPage from '../pages/employee/orders/listOrdersPage/ListOrdersPage'
+import ListPqrsEmployeePage from '../pages/employee/pqrs/listPqrsPage/ListPqrsEmployeePage'
+import UpdatePqrsEmployeePage from '../pages/employee/pqrs/updatePqrsPage/UpdatePqrsEmployeePage'
+import TestPage from '../shared/components/test/metrics/ventas/TestPage'
+import PedidosTest from '../shared/components/test/metrics/pedidos/PedidosTest'
+import Metricas from '../shared/components/test/metrics/metricas/Metricas'
+import TopProducts from '../shared/components/test/metrics/topProducts/TopProducts'
+import DebugTablas from '../shared/components/test/metrics/debugTablas/DebugTablas'
+import DashboardMain from '../shared/components/test/metrics/dashboardMain/DashboardMain'
+import AnalitycPage from '../pages/admin/analitycPage/AnalitycPage'
+import ButtonFIlter from '../shared/components/buttonFIlter/ButtonFIlter'
+import ListConfigurationsEmployeePage from '../pages/employee/configurations/ListConfigurationsEmployeePage'
+import AboutSectionPage from '../pages/aboutSectionPage/AboutSectionPage'
+import FaqPage from '../pages/FAQ/FaqPage'
+import ListOrderAdminPage from '../pages/admin/order/ListOrderAdminPage'
+import ListOrdersMePage from '../pages/user/order/ListOrdersMePage'
+
 
 
 
@@ -92,6 +120,12 @@ export default function Router() {
         <Route path='/reset-password' element={<ResetPasswordPage />} />
         <Route path='/terms' element={<TermsAndConditionsPage />} />
         <Route path='/contact-us' element={<ContactUsPage />} />
+        <Route path='/products' element={<ProductsPage />} />
+        <Route path='/menu' element={<MenuPage />} />
+        <Route path="/menu/:menuId" element={<MenuDetailsPage />} />
+        <Route path="/about" element={<AboutSectionPage />} />
+        <Route path='/faq' element={<FaqPage/>}/>
+
 
 
         {/*RUTAS PA LOS CLIENTES , etc...*/}
@@ -99,6 +133,8 @@ export default function Router() {
         <Route path="/pqrs-create" element={<ProtectedRoute><PqrsCreatePage /></ProtectedRoute>} />
         <Route path="/pqrs-me" element={<ProtectedRoute><PqrsMePage /></ProtectedRoute>} />
         <Route path="/pqrs/update/:id" element={<ProtectedRoute><PqrsUpdateMePage /></ProtectedRoute>} />
+        <Route path='/cart-me' element={<CartPage />} />
+        <Route path='/orders-me' element={<ListOrdersMePage />} />
 
 
 
@@ -140,6 +176,20 @@ export default function Router() {
 
         <Route path="/admin/configurations-list" element={<ProtectedRoute requireAdmin><ListConfigurationsPage /></ProtectedRoute>} />
 
+        <Route path="/admin/analityc" element={<ProtectedRoute requireAdmin><AnalitycPage /></ProtectedRoute>} />
+
+        <Route path="/admin/orders-list" element={<ProtectedRoute requireAdmin><ListOrderAdminPage /></ProtectedRoute>} />
+
+
+
+        {/*RUTAS PA EMPLEADOS*/}
+        <Route path="/employee/orders-list" element={<ProtectedRoute requireEmployee><ListOrdersPage /></ProtectedRoute>} />
+
+        <Route path="/employee/pqrs-list" element={<ProtectedRoute requireEmployee><ListPqrsEmployeePage /></ProtectedRoute>} />
+        <Route path="/employee/pqrs/update/:id" element={<ProtectedRoute requireEmployee><UpdatePqrsEmployeePage /></ProtectedRoute>} />
+
+        <Route path="/employee/configurations-list" element={<ProtectedRoute requireEmployee><ListConfigurationsEmployeePage /></ProtectedRoute>} />
+
         {/*Pruebas de componentres */}
         <Route path='/prueba2' element={<CorreoEnviado correo='mipene@gmail.com' />} />
         <Route path='/prueba3' element={<Navbar />} />
@@ -172,42 +222,35 @@ export default function Router() {
 
 
 
-
+        {/*Pruebas de componentres */}
         <Route path='/prueba17' element={<IconTetris />} />
-
         <Route path='/prueba18' element={<PqrsCreate />} />
-
         <Route path='/prueba19' element={<PqrsListMe />} />
-
         <Route path='/prueba20' element={<ConfirmDeleteModal description='description prueba' onClose={() => { }} onConfirm={() => { }} />} />
-
         <Route path='/prueba21' element={<AdminSidebar />} />
-
-
         <Route path='/prueba23' element={<TestTable />} />
-
         <Route path='/prueba23' element={<TestTable />} />
-
-
         <Route path='/prueba24' element={<TestFields />} />
-
         <Route path='/prueba25' element={<ButtonSubmitCrud label='Actualizar' />} />
-
         <Route path='/prueba26' element={<SubTittleCrud title='Actualizar datos de don pene' icon={<FaCircleExclamation size={23} color='red' />} />} />
-
-
         <Route path='/prueba27' element={<CreateBurger />} />
-
-
-        <Route path='/prueba28' element={<MenuForm />} />
-
         <Route path='/prueba29' element={<InputNumberCrud />} />
-
-
-
         <Route path='/prueba30' element={<InputSearch />} />
+        <Route path='/prueba31' element={<LoadingSpinner />} />
+        <Route path='/prueba32' element={<Cart />} />
+        <Route path='/prueba34' element={<ViewTest />} />
+        <Route path='/prueba35' element={<EmployeeSidebar />} />
 
-        <Route path='/prueba31' element={<LoadingSpinner />}/>
+
+        <Route path='/36' element={<TestPage/>}/>
+        <Route path='/37' element={<PedidosTest/>}/>
+        <Route path='/38' element={<TopProducts/>}/>
+        <Route path='/39' element={<Metricas/>}/>
+        <Route path='/40' element={<DebugTablas/>}/>
+        <Route path='/41' element={<DashboardMain/>}/>
+
+
+        <Route path='/42' element={<ButtonFIlter/>}/>
 
       </Routes>
     </BrowserRouter>

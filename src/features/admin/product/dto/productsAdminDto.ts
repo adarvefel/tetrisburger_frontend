@@ -6,7 +6,11 @@ export interface ProductFetchList {
     price: number;
     availability: boolean;
     productType: string;
-    imageUrl?: string
+    imageUrl: string
+    createdAt: string;
+    updatedAt: string;
+    createdBy: number,
+    updatedBy: number
 }
 
 export interface ProductFindByIdResponse{

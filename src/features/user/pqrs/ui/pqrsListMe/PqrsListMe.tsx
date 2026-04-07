@@ -10,12 +10,13 @@ import { useDeleteEntity } from '../../../../../shared/hooks/useDeleteEntity';
 import ConfirmDeleteModal from '../../../../../shared/components/confirmDeleteModal/ConfirmDeleteModal';
 import { deletePqrsMe } from '../../api/pqrsUserApi';
 import { toast } from 'sonner';
+import LoadingSpinner from '../../../../../shared/components/loadings/loadingSpinner/LoadingSpinner';
 
 export default function pqrsListMe() {
 
-    const { numberPage, totalPage, totalElements, pqrs, prevPage, nextPage, handlePqrsListMe } = usePqrsListMe();
+    const { numberPage, totalPage, totalElements, pqrs, prevPage, nextPage, handlePqrsListMe, loading } = usePqrsListMe();
 
-    
+
 
     // ---------- DELETE STATE ----------
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -68,39 +69,45 @@ export default function pqrsListMe() {
                 <Link className='pqrsListMe__button-create' to={"/pqrs-create"}>Crear nuevo PQRS</Link>
             </div>
 
-            <table className='pqrsListMe__table'>
-                <thead className='pqrsListMe__thead'>
-                    <tr className='pqrsListMe__tr'>
-                        <th className='pqrsListMe__th'>ID</th>
-                        <th className='pqrsListMe__th'>Tipo</th>
-                        <th className='pqrsListMe__th'>Asunto</th>
-                        <th className='pqrsListMe__th'>Estado</th>
-                        <th className='pqrsListMe__th'>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody className='pqrsListMe__tbody'>
-                    {
-                        pqrs.map((pqrsItem) => (
-                            <tr key={pqrsItem.idPqrs} className='pqrsListMe__tr'>
-                                <td className='pqrsListMe__td'>{pqrsItem.idPqrs}</td>
-                                <td className='pqrsListMe__td'>{pqrsItem.type === "PETITION" ? "Peticion" : pqrsItem.type === "COMPLAINT" ? "Queja" : pqrsItem.type === "CLAIM" ? "Reclamo" : pqrsItem.type === "SUGGESTION" ? "Sugerencia" : pqrsItem.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</td>
-                                <td className='pqrsListMe__td'>{pqrsItem.subject}</td>
-                                <td className="pqrsListMe__td"><p className={pqrsItem.status === "RECEIVED" ? "pqrsListMe__p-received" : "pqrsListMe__p-answered"}>{pqrsItem.status === "RECEIVED" ? "Recibido" : "Respondido"}</p></td>
-                                <td className="pqrsListMe__td">
-                                    <div className="pqrsListMe__container-actions">
-                                        <Link className="pqrsListMe__button-edit" to={`/pqrs/update/${pqrsItem.idPqrs}`}>
-                                            <FaEye size={18} />
-                                        </Link>
-                                        <button className="pqrsListMe__button-delete" onClick={() => openDeleteModal(pqrsItem)}>
-                                            <MdDeleteOutline size={18} />
-                                        </button>
-                                    </div>
-                                </td>
+            {
+                loading ? <LoadingSpinner /> : (
+                    <table className='pqrsListMe__table'>
+                        <thead className='pqrsListMe__thead'>
+                            <tr className='pqrsListMe__tr'>
+                                <th className='pqrsListMe__th'>ID</th>
+                                <th className='pqrsListMe__th'>Tipo</th>
+                                <th className='pqrsListMe__th'>Asunto</th>
+                                <th className='pqrsListMe__th'>Estado</th>
+                                <th className='pqrsListMe__th'>Acciones</th>
                             </tr>
-                        ))
-                    }
-                </tbody>
-            </table>
+                        </thead>
+                        <tbody className='pqrsListMe__tbody'>
+                            {
+                                pqrs.map((pqrsItem) => (
+                                    <tr key={pqrsItem.idPqrs} className='pqrsListMe__tr'>
+                                        <td className='pqrsListMe__td'>{pqrsItem.idPqrs}</td>
+                                        <td className='pqrsListMe__td'>{pqrsItem.type === "PETITION" ? "Peticion" : pqrsItem.type === "COMPLAINT" ? "Queja" : pqrsItem.type === "CLAIM" ? "Reclamo" : pqrsItem.type === "SUGGESTION" ? "Sugerencia" : pqrsItem.type === "REPORT" ? "Denuncia" : "Felecitaciones"}</td>
+                                        <td className='pqrsListMe__td'>{pqrsItem.subject}</td>
+                                        <td className="pqrsListMe__td"><p className={pqrsItem.status === "RECEIVED" ? "pqrsListMe__p-received" : "pqrsListMe__p-answered"}>{pqrsItem.status === "RECEIVED" ? "Recibido" : "Respondido"}</p></td>
+                                        <td className="pqrsListMe__td">
+                                            <div className="pqrsListMe__container-actions">
+                                                <Link className="pqrsListMe__button-edit" to={`/pqrs/update/${pqrsItem.idPqrs}`}>
+                                                    <FaEye size={18} />
+                                                </Link>
+                                                <button className="pqrsListMe__button-delete" onClick={() => openDeleteModal(pqrsItem)}>
+                                                    <MdDeleteOutline size={18} />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                )
+            }
+
+
 
             <div className="pqrsListMe__container-pages">
                 <button className='pqrsListMe__button' onClick={prevPage} disabled={numberPage === 0} ><FaArrowLeft size={18} /></button>

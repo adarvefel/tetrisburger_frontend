@@ -6,6 +6,9 @@ export interface UserFectchList {
     role: string;
     createdAt: string;
     updatedAt: string;
+    createdBy: number,
+    updatedBy: number
+
 }
 
 export interface UserFindByIdResponse{

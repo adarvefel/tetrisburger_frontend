@@ -1,0 +1,26 @@
+.burgerCustom__container{
+    display: flex;
+    gap: 2rem;
+    
+}
+
+.burgerCustom__container-form{
+    flex: 2;
+}
+
+.burgerCustom__container-list{
+    flex: 1;
+}
+
+@media (max-width: 768px) {
+
+    .burgerCustom__container {
+        flex-direction: column;
+    }
+
+    .burgerCustom__container-form,
+    .burgerCustom__container-list {
+        flex: none;
+        width: 100%;
+    }
+}
