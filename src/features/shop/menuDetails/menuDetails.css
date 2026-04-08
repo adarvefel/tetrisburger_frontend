@@ -74,7 +74,10 @@
 
 @media (max-width: 768px) {
 
-    .menuDetails__header {
+    .menuDetails__items-list {
+        gap: 1rem;
+        justify-content: center;  /* ← esto es lo que faltaba */
+    }.menuDetails__header {
         flex-direction: column;
         gap: 20px;
         margin-bottom: 30px;
