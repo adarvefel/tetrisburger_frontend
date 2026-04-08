@@ -38,7 +38,7 @@ export default function ContactUsPage() {
           <div className="contactUsPage__container-text">
             <h2 className='contactUsPage__h2'>WhatsApp</h2>
             <p className='contactUsPage__p'>
-              +57 3011153663
+              +57 3216893662
             </p>
             <p className='contactUsPage__p'>
               Atención en español de lunes a viernes de 9 am a 6 pm
