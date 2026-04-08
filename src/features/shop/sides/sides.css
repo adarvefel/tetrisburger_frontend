@@ -28,7 +28,6 @@
     display: flex;
     gap: 5rem;
     flex-wrap: wrap;
-    height: 35rem;
 }
 
 @media (max-width: 768px) {
