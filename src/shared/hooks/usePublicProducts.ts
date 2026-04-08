@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { axiosClient } from "../api/axiosClient"
 import { endPoints } from "../api/endPoints"
+import { toast } from "sonner"
 
 export interface PublicProductCategory {
     id: number
@@ -27,28 +28,71 @@ interface PublicProductResponse {
     totalPages: number
 }
 
-export const usePublicProducts = (
-    productType?: "SIDE" | "BEVERAGE",
-    categoryId?: number | null
-) => {
+export const usePublicProducts = () => {
     const [products, setProducts] = useState<PublicProduct[]>([])
-    const [isLoading, setIsLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
 
-    useEffect(() => {
-        setIsLoading(true)
-        axiosClient
-            .get<PublicProductResponse>(
-                endPoints.public.products.list({   
+    const [numberPage, setNumberPage] = useState(0)
+    const [totalPage, setTotalPage] = useState(0)
+
+    const [productType, setProductType] = useState<"SIDE" | "BEVERAGE" | undefined>()
+    const [categoryId, setCategoryId] = useState<number | null>(null)
+
+    const nextPage = () => {
+        if (numberPage < totalPage - 1) {
+            setNumberPage(prev => prev + 1)
+        }
+    }
+
+    const prevPage = () => {
+        if (numberPage > 0) {
+            setNumberPage(prev => prev - 1)
+        }
+    }
+
+    const handleGetProducts = async () => {
+        try {
+            setLoading(true)
+            setError(null)
+
+            const response = await axiosClient.get<PublicProductResponse>(
+                endPoints.public.products.list({
                     productType,
                     categoryId: categoryId ?? undefined,
-                    page: 0,
-                    size: 20,
+                    page: numberPage,
+                    size: 10,
                 })
             )
-            .then(res => setProducts(res.data.items ?? []))
-            .catch(console.error)
-            .finally(() => setIsLoading(false))
-    }, [productType, categoryId])
 
-    return { products, isLoading }
+            setProducts(response.data.items ?? [])
+            setTotalPage(response.data.totalPages)
+
+        } catch (err: any) {
+            const msg = err.response?.data?.message || "Error al traer los productos"
+            setError(msg)
+            toast.error(msg)
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    useEffect(() => {
+        handleGetProducts()
+    }, [numberPage, productType, categoryId])
+
+    return {
+        products,
+        loading,
+        error,
+        numberPage,
+        totalPage,
+        productType,
+        setProductType,
+        categoryId,
+        setCategoryId,
+        nextPage,
+        prevPage,
+        handleGetProducts,
+    }
 }

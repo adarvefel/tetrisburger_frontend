@@ -1,73 +1,98 @@
-# React + TypeScript + Vite
+# 🍔 TetriBurger Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web del sistema TetriBurger, desarrollada con React, que permite a los usuarios explorar productos, personalizar hamburguesas y realizar pedidos de forma interactiva.
 
-Currently, two official plugins are available:
+--------------------------------------------------
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Despliegue Local del Frontend
 
-## React Compiler
+Sigue estos pasos para ejecutar el proyecto en tu entorno local.
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+--------------------------------------------------
 
-## Expanding the ESLint configuration
+## 📋 1. Requisitos Previos
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Antes de comenzar, asegúrate de tener instalado:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (versión 18 o superior recomendada)
+- npm (incluido con Node.js)
+- Git (opcional)
+- Visual Studio Code u otro editor de código
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+--------------------------------------------------
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📥 2. Clonar el Repositorio
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+git clone https://github.com/adarvefel/tetrisburger_frontend.git
+cd tetrisburger_frontend
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+--------------------------------------------------
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📦 3. Instalación de Dependencias
+
+npm install
+
+Este comando descargará todas las dependencias definidas en el archivo package.json.
+
+--------------------------------------------------
+
+## ⚙️ 4. Configuración del Entorno
+
+El proyecto utiliza variables de entorno para gestionar configuraciones importantes.
+
+### 📄 Crear archivo .env
+
+En la raíz del proyecto, crea un archivo llamado:
+
+.env
+
+Y agrega lo siguiente:
+
+VITE_API_BACKEND_URL=http://localhost:8080
+VITE_API_PYTHON_URL=https://analiticsreportapi-dev.up.railway.app
+VITE_NUMBER_WHATSAPP=573216893662
+VITE_GOOGLE_AUTH_KEY=157248408373-i7kgglkl62u4ijhqct2545r7gb0ri4i9.apps.googleusercontent.com
+VITE_REPCACHAT_KEY=6LfCBG0sAAAAAES2EY4vm1ZYs6EfEr3gDmkTvHE9
+
+### 📌 Descripción de Variables
+
+- VITE_API_BACKEND_URL: URL del backend principal (Spring Boot).
+- VITE_API_PYTHON_URL: Servicio externo de analítica desarrollado en Python.
+- VITE_NUMBER_WHATSAPP: Número para integración con WhatsApp.
+- VITE_GOOGLE_AUTH_KEY: Clave para autenticación con Google.
+- VITE_REPCACHAT_KEY: Clave para integración con reCAPTCHA.
+
+IMPORTANTE: Asegúrate de que estas variables estén correctamente configuradas.
+
+--------------------------------------------------
+
+## ▶️ 5. Ejecución del Proyecto
+
+npm run dev
+
+--------------------------------------------------
+
+## 🌐 6. Acceso a la Aplicación
+
+Una vez ejecutado el proyecto, abre en tu navegador:
+
+http://localhost:5173
+
+--------------------------------------------------
+
+## 🛠️ Tecnologías Utilizadas
+
+- React
+- Vite
+- JavaScript / TypeScript
+- HTML5
+- CSS3
+
+--------------------------------------------------
+
+## 📌 Notas
+
+- Asegúrate de que el backend esté en ejecución.
+- Verifica correctamente las variables de entorno antes de iniciar el proyecto.
+
+--------------------------------------------------
