@@ -23,16 +23,20 @@ Antes de comenzar, asegúrate de tener instalado:
 
 ## 📥 2. Clonar el Repositorio
 
+```bash
 git clone https://github.com/adarvefel/tetrisburger_frontend.git
 cd tetrisburger_frontend
+```
 
 --------------------------------------------------
 
 ## 📦 3. Instalación de Dependencias
 
+```bash
 npm install
+```
 
-Este comando descargará todas las dependencias definidas en el archivo package.json.
+Este comando descargará todas las dependencias definidas en el archivo `package.json`.
 
 --------------------------------------------------
 
@@ -40,19 +44,17 @@ Este comando descargará todas las dependencias definidas en el archivo package.
 
 El proyecto utiliza variables de entorno para gestionar configuraciones importantes.
 
-### 📄 Crear archivo .env
+### 📄 Archivo .env
 
-En la raíz del proyecto, crea un archivo llamado:
+Crea un archivo `.env` en la raíz del proyecto y copia lo siguiente:
 
-.env
-
-Y agrega lo siguiente:
-
+```env
 VITE_API_BACKEND_URL=http://localhost:8080
 VITE_API_PYTHON_URL=https://analiticsreportapi-dev.up.railway.app
 VITE_NUMBER_WHATSAPP=573216893662
 VITE_GOOGLE_AUTH_KEY=157248408373-i7kgglkl62u4ijhqct2545r7gb0ri4i9.apps.googleusercontent.com
 VITE_REPCACHAT_KEY=6LfCBG0sAAAAAES2EY4vm1ZYs6EfEr3gDmkTvHE9
+```
 
 ### 📌 Descripción de Variables
 
@@ -60,15 +62,17 @@ VITE_REPCACHAT_KEY=6LfCBG0sAAAAAES2EY4vm1ZYs6EfEr3gDmkTvHE9
 - VITE_API_PYTHON_URL: Servicio externo de analítica desarrollado en Python.
 - VITE_NUMBER_WHATSAPP: Número para integración con WhatsApp.
 - VITE_GOOGLE_AUTH_KEY: Clave para autenticación con Google.
-- VITE_REPCACHAT_KEY: Clave para integración con reCAPTCHA.
+- VITE_RECAPTCHA_KEY: Clave para integración con reCAPTCHA.
 
-IMPORTANTE: Asegúrate de que estas variables estén correctamente configuradas.
+> ⚠️ IMPORTANTE: Para desarrollo local se recomienda usar la clave de prueba de reCAPTCHA.
 
 --------------------------------------------------
 
 ## ▶️ 5. Ejecución del Proyecto
 
+```bash
 npm run dev
+```
 
 --------------------------------------------------
 
@@ -76,7 +80,9 @@ npm run dev
 
 Una vez ejecutado el proyecto, abre en tu navegador:
 
+```
 http://localhost:5173
+```
 
 --------------------------------------------------
 
