@@ -1,4 +1,4 @@
-# 🍔 TetriBurger Frontend
+# 🍔 TetrisBurger Frontend
 
 Aplicación web del sistema TetriBurger, desarrollada con React, que permite a los usuarios explorar productos, personalizar hamburguesas y realizar pedidos de forma interactiva.
 
